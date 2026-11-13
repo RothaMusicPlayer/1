@@ -63,9 +63,11 @@
         .follower-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #f8fafc; border-radius: 14px; cursor: pointer; transition: background 0.15s; border: 1px solid #e2e8f0; }
         .follower-row:hover { background: #f1f5f9; }
 
-        /* Post Delete Confirmation Modal */
-        #postDeleteConfirmModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 3000; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
+        /* Delete Confirmation Modals */
+        #deleteConfirmModal, #postDeleteConfirmModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 3000; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
         .delete-card { background: #fff; width: 100%; max-width: 340px; border-radius: 28px; padding: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); animation: scaleUp 0.2s ease; }
+        .delete-card input { width: 100%; padding: 12px 16px; border-radius: 14px; border: 1.5px solid #e2e8f0; margin-top: 10px; margin-bottom: 16px; outline: none; font-size: 14px; background: #fafafa; }
+        .delete-card input:focus { border-color: #ef4444; background: #fff; }
 
         /* Profile Modal */
         #profileModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 20px; }
@@ -180,7 +182,7 @@
             bottom: 56px; 
             background: #fff; 
             color: var(--text-primary); 
-            min-width: 180px; 
+            min-width: 190px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.18); 
             border-radius: 18px; 
             overflow: hidden; 
@@ -377,12 +379,26 @@
         </div>
     </div>
 
-    <!-- Followers / Following List Modal -->
+    <!-- Followers List Modal -->
     <div id="followersModal" onclick="closeFollowersModal(event)">
         <div class="followers-card" onclick="event.stopPropagation()">
             <h3 id="followersModalTitle" style="font-size: 18px; font-weight: 700; margin-bottom: 14px;">Followers</h3>
             <div class="account-list" id="followersListContainer"></div>
             <button onclick="closeFollowersModal()" style="margin-top: 10px; background: none; border: none; color: #707579; cursor: pointer; font-size: 14px; font-weight: 600;">Close</button>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal (Account) -->
+    <div id="deleteConfirmModal" onclick="closeDeleteModal(event)">
+        <div class="delete-card" onclick="event.stopPropagation()">
+            <div style="font-size: 36px; margin-bottom: 10px;">🗑️</div>
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #ef4444;">Delete Account</h3>
+            <p style="font-size: 13px; color: #707579; margin-bottom: 14px; line-height: 1.4;">Enter your password to confirm permanent account deletion.</p>
+            
+            <input type="password" id="confirmDeletePassword" placeholder="Enter your password">
+            
+            <button onclick="executeAccountDeletion()" style="width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 14px; font-size: 14.5px; font-weight: 600; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(239,68,68,0.3);">Confirm Delete</button>
+            <button onclick="closeDeleteModal()" style="background: none; border: none; color: #707579; cursor: pointer; font-size: 14px; font-weight: 600;">Cancel</button>
         </div>
     </div>
 
@@ -476,9 +492,9 @@
                         </button>
                         <div class="dropdown-menu" id="userDropdownMenu" onclick="event.stopPropagation()">
                             <div class="dropdown-item" onclick="openMyProfile()"><span>👤</span> Profile</div>
-                            <div class="dropdown-item" onclick="openFollowingListModal()"><span>👣</span> Following</div>
                             <div class="dropdown-item" onclick="openBlockedUsersModal()"><span>🚫</span> Blocked Users</div>
                             <div class="dropdown-item" onclick="openSwitchModal()"><span>🔄</span> Switch Account</div>
+                            <div class="dropdown-item danger" onclick="resetAllDataAndApp()"><span>♻️</span> Reset All Data</div>
                         </div>
                     </div>
                 </div>
@@ -542,42 +558,18 @@
         }
 
         window.onload = function() {
-            let activeUserCheck = localStorage.getItem("quo_logged_in_user") || localStorage.getItem("telegram_logged_in_user");
-            
-            if (!activeUserCheck || activeUserCheck.trim() === "" || activeUserCheck === "null" || activeUserCheck === "undefined" || activeUserCheck === "@") {
-                localStorage.removeItem("quo_logged_in_user");
-                localStorage.removeItem("telegram_logged_in_user");
-                activeUserCheck = "";
-            }
-
-            let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
-            if ("" in users) {
-                delete users[""];
-                localStorage.setItem("quo_registered_users", JSON.stringify(users));
-            }
-            
-            Object.keys(users).forEach(u => {
-                if (!u || u.trim() === "" || u === "@") {
-                    delete users[u];
-                    localStorage.setItem("quo_registered_users", JSON.stringify(users));
-                }
-            });
-
-            if (activeUserCheck && activeUserCheck.trim() !== "" && activeUserCheck !== "@") {
-                currentLoggedInUser = activeUserCheck;
+            const loggedInUser = localStorage.getItem("quo_logged_in_user") || localStorage.getItem("telegram_logged_in_user");
+            if (loggedInUser) {
+                currentLoggedInUser = loggedInUser;
                 document.getElementById("authOverlay").style.display = "none";
                 loadUserData();
                 renderFeedPosts();
             } else {
-                currentLoggedInUser = "";
-                localStorage.removeItem("quo_logged_in_user");
-                localStorage.removeItem("telegram_logged_in_user");
-                document.getElementById("authOverlay").style.display = "flex";
-                if (!isLoginMode) toggleAuthMode();
+                toggleAuthMode();
             }
 
             setInterval(() => {
-                if (currentLoggedInUser && currentLoggedInUser.trim() !== "") {
+                if (currentLoggedInUser) {
                     renderChats();
                     updateNavChatsBadge();
                     if (activeChatUser) {
@@ -587,6 +579,14 @@
                 }
             }, 1000);
         };
+
+        function resetAllDataAndApp() {
+            if (confirm("តើអ្នកពិតជាចង់លុបគណនីអ្នកប្រើប្រាស់ និង Post ទាំងអស់មែនទេ?")) {
+                localStorage.clear();
+                alert("បានសម្អាតទិន្នន័យទាំងអស់រួចរាល់!");
+                location.reload();
+            }
+        }
 
         function switchTab(tab) {
             const chatsContainer = document.getElementById("chatsContainer");
@@ -820,8 +820,8 @@
             const username = document.getElementById("authUsername").value.trim().toLowerCase();
             const password = document.getElementById("authPassword").value.trim();
 
-            if (!username || username === "" || username === "@" || !password) {
-                showAlert("Please enter a valid Username and Password!", "Warning", "⚠️");
+            if (!username || !password) {
+                showAlert("Please fill in Username and Password!", "Warning", "⚠️");
                 return;
             }
 
@@ -845,7 +845,6 @@
                     return;
                 }
                 localStorage.setItem("quo_logged_in_user", username);
-                currentLoggedInUser = username;
                 document.getElementById("authOverlay").style.display = "none";
                 loadUserData();
                 renderFeedPosts();
@@ -853,9 +852,41 @@
         }
 
         function closeAuthOverlay(event) {
-            if (event.target.id === "authOverlay" && currentLoggedInUser && currentLoggedInUser.trim() !== "") {
+            if (event.target.id === "authOverlay" && currentLoggedInUser) {
                 document.getElementById("authOverlay").style.display = "none";
             }
+        }
+
+        function openDeleteModalPrompt() {
+            document.getElementById("profileModal").style.display = "none";
+            document.getElementById("confirmDeletePassword").value = "";
+            document.getElementById("deleteConfirmModal").style.display = "flex";
+        }
+
+        function closeDeleteModal(event) {
+            if (!event || event.target.id === "deleteConfirmModal") {
+                document.getElementById("deleteConfirmModal").style.display = "none";
+            }
+        }
+
+        function executeAccountDeletion() {
+            const inputPassword = document.getElementById("confirmDeletePassword").value.trim();
+            let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
+
+            if (!inputPassword || users[currentLoggedInUser] !== inputPassword) {
+                showAlert("Incorrect password! Cannot delete account.", "Error", "❌");
+                return;
+            }
+
+            const deletedUser = currentLoggedInUser;
+            delete users[deletedUser];
+            localStorage.setItem("quo_registered_users", JSON.stringify(users));
+            localStorage.removeItem("quo_avatar_" + deletedUser);
+            localStorage.removeItem("quo_logged_in_user");
+            
+            showAlert("Your account has been successfully deleted!", "Deleted", "🗑️", () => {
+                location.reload();
+            });
         }
 
         function openSwitchModal() {
@@ -863,7 +894,7 @@
             let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
             container.innerHTML = "";
 
-            const usernames = Object.keys(users).filter(u => u && u.trim() !== "" && u !== "@");
+            const usernames = Object.keys(users);
             if (usernames.length === 0) {
                 container.innerHTML = `<div style="font-size:13.5px; color:#707579; padding:12px;">No saved accounts</div>`;
             } else {
@@ -892,27 +923,12 @@
         function openAddAccountFromModal() {
             document.getElementById("switchAccountModal").style.display = "none";
             localStorage.removeItem("quo_logged_in_user");
-            localStorage.removeItem("telegram_logged_in_user");
             location.reload();
         }
 
         function getFollowData(username) {
             let followers = JSON.parse(localStorage.getItem("quo_followers_" + username.toLowerCase())) || [];
             return { followers };
-        }
-
-        function getFollowingList(username) {
-            let registeredUsers = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
-            let following = [];
-            Object.keys(registeredUsers).forEach(u => {
-                if (u && u !== username.toLowerCase()) {
-                    let uFollowers = JSON.parse(localStorage.getItem("quo_followers_" + u)) || [];
-                    if (uFollowers.includes(username.toLowerCase())) {
-                        following.push(u);
-                    }
-                }
-            });
-            return following;
         }
 
         function showFollowersListModal(targetUser) {
@@ -947,38 +963,6 @@
             document.getElementById("followersModal").style.display = "flex";
         }
 
-        function openFollowingListModal() {
-            const following = getFollowingList(currentLoggedInUser);
-            const container = document.getElementById("followersListContainer");
-            document.getElementById("followersModalTitle").textContent = `Following (${following.length})`;
-            container.innerHTML = "";
-
-            if (following.length === 0) {
-                container.innerHTML = `<div style="font-size:13.5px; color:#707579; padding:12px;">Not following anyone yet.</div>`;
-            } else {
-                following.forEach(fUser => {
-                    const fAvatar = localStorage.getItem("quo_avatar_" + fUser);
-                    let avatarStyle = fAvatar ? `background-image: url('${fAvatar}'); background-size: cover;` : "background: #3390ec;";
-                    let avatarText = fAvatar ? "" : fUser.charAt(0).toUpperCase();
-
-                    const row = document.createElement("div");
-                    row.className = "follower-row";
-                    row.onclick = () => {
-                        closeFollowersModal();
-                        openUserProfile(fUser);
-                    };
-
-                    row.innerHTML = `
-                        <div class="avatar" style="width: 36px; height: 36px; font-size: 13.5px; ${avatarStyle}">${avatarText}</div>
-                        <span style="font-weight: 600; font-size: 14.5px; color: var(--text-primary);">@${fUser}</span>
-                    `;
-                    container.appendChild(row);
-                });
-            }
-
-            document.getElementById("followersModal").style.display = "flex";
-        }
-
         function closeFollowersModal(event) {
             if (!event || event.target.id === "followersModal") {
                 document.getElementById("followersModal").style.display = "none";
@@ -986,19 +970,10 @@
         }
 
         function openMyProfile() {
-            if (!currentLoggedInUser || currentLoggedInUser.trim() === "" || currentLoggedInUser === "@") {
-                showAlert("សូមធ្វើការ Login ចូលគណនីរបស់អ្នកជាមុនសិន!", "Warning", "⚠️");
-                localStorage.removeItem("quo_logged_in_user");
-                localStorage.removeItem("telegram_logged_in_user");
-                document.getElementById("profileModal").style.display = "none";
-                document.getElementById("authOverlay").style.display = "flex";
-                return;
-            }
-
             const { followers } = getFollowData(currentLoggedInUser);
             const savedAvatar = localStorage.getItem("quo_avatar_" + currentLoggedInUser);
             let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
-            let myPosts = allPosts.filter(p => p.author && p.author.toLowerCase() === currentLoggedInUser.toLowerCase());
+            let myPosts = allPosts.filter(p => p.author.toLowerCase() === currentLoggedInUser.toLowerCase());
 
             let avatarStyle = savedAvatar ? `background-image: url('${savedAvatar}'); background-size: cover;` : "";
             let avatarText = savedAvatar ? "" : currentLoggedInUser.charAt(0).toUpperCase();
@@ -1053,8 +1028,9 @@
                     ${postsHtml}
                 </div>
 
-                <div style="margin-top: 14px;">
-                    <button onclick="closeProfile()" style="width: 100%; padding: 12px; background: #f1f5f9; color: #475569; border: none; border-radius: 14px; font-size: 14.5px; font-weight: 600; cursor: pointer;">Close</button>
+                <div style="display: flex; gap: 10px; margin-top: 14px;">
+                    <button onclick="openDeleteModalPrompt()" style="flex:1; padding: 11px; background: #fee2e2; color: #ef4444; border: none; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer;">Delete Account</button>
+                    <button onclick="closeProfile()" style="flex:1; padding: 11px; background: #f1f5f9; color: #475569; border: none; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer;">Close</button>
                 </div>
             `;
             document.getElementById("profileModal").style.display = "flex";
@@ -1149,7 +1125,7 @@
             const isFollowing = followers.includes(currentLoggedInUser.toLowerCase());
             const targetAvatar = localStorage.getItem("quo_avatar_" + username);
             let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
-            let userPublicPosts = allPosts.filter(p => p.author && p.author.toLowerCase() === username.toLowerCase() && !p.isPrivate);
+            let userPublicPosts = allPosts.filter(p => p.author.toLowerCase() === username.toLowerCase() && !p.isPrivate);
 
             let avatarStyle = targetAvatar ? `background-image: url('${targetAvatar}'); background-size: cover;` : "";
             let avatarText = targetAvatar ? "" : username.charAt(0).toUpperCase();
@@ -1371,7 +1347,6 @@
             let myBlockedList = JSON.parse(localStorage.getItem("quo_blocked_" + me)) || [];
 
             let visiblePosts = allPosts.filter(post => {
-                if (!post.author) return false;
                 const author = post.author.toLowerCase();
                 if (post.isPrivate && author !== me) return false;
                 if (myBlockedList.includes(author)) return false;
@@ -1464,7 +1439,7 @@
             let partners = [];
             
             Object.keys(registeredUsers).forEach(u => {
-                if (u && u.trim() !== "" && u !== "@" && u !== currentLoggedInUser) {
+                if (u !== currentLoggedInUser) {
                     let roomKey = getChatKey(currentLoggedInUser, u);
                     let messages = JSON.parse(localStorage.getItem(roomKey)) || [];
                     let lastMsg = messages.length > 0 ? messages[messages.length - 1] : null;
