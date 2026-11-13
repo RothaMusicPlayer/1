@@ -459,7 +459,8 @@
                 else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
                 
                 if (videoId) {
-                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
+                    // ត្រឡប់មកប្រើទម្រង់ដើម មិនបិទ mute (ទុកតាមចិត្ត browser យោងតាមគោលការណ៍ autoplay)
+                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&modestbranding=1&rel=0`;
                 }
             } else if (url.includes('facebook.com') || url.includes('fb.watch')) {
                 let encodedUrl = encodeURIComponent(url);
