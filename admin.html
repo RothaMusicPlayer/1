@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUO - Admin Dashboard</title>
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --primary: #3390ec;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg-main); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+
+        header { background: #ffffff; border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .admin-badge { background: #fee2e2; color: var(--danger); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+
+        .container { max-width: 1100px; width: 100%; margin: 24px auto; padding: 0 16px; flex: 1; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .stat-title { font-size: 13.5px; color: var(--text-secondary); font-weight: 500; margin-bottom: 6px; }
+        .stat-value { font-size: 24px; font-weight: 700; color: var(--text-primary); }
+
+        .section-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .section-title { font-size: 17px; font-weight: 700; }
+
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+        th { font-weight: 600; color: var(--text-secondary); background: #f8fafc; }
+        tr:hover td { background: #f8fafc; }
+
+        .btn-danger { background: #fee2e2; color: var(--danger); border: none; padding: 6px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+        .btn-danger:hover { background: #fecaca; }
+
+        .post-preview-img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; }
+        
+        /* Custom Alert Modal */
+        #alertModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 16px; }
+        .alert-card { background: #fff; width: 100%; max-width: 320px; border-radius: 24px; padding: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .alert-btn { width: 100%; padding: 12px; border-radius: 14px; background: var(--primary); color: white; border: none; font-weight: 600; cursor: pointer; margin-top: 16px; font-size: 14.5px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🛡️ QUO Admin Dashboard</div>
+        <div class="admin-badge">Super Admin Mode</div>
+    </header>
+
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">Total Users</div>
+                <div class="stat-value" id="statUsers">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Total Posts & Reels</div>
+                <div class="stat-value" id="statPosts">0</div>
+            </div>
+        </div>
+
+        <!-- Users Management -->
+        <div class="section-card">
+            <div class="section-header">
+                <h3 class="section-title">👥 Registered Users Management</h3>
+            </div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Password (Stored)</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Posts Management -->
+        <div class="section-card">
+            <div class="section-header">
+                <h3 class="section-title">📱 Posts & Reels Management</h3>
+            </div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Media</th>
+                            <th>Author</th>
+                            <th>Content / Caption</th>
+                            <th>Time</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="postsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" onclick="closeAlert()">
+        <div class="alert-card" onclick="event.stopPropagation()">
+            <div id="alertIcon" style="font-size:36px; margin-bottom:10px;">⚠️</div>
+            <h3 id="alertTitle" style="font-size:18px; font-weight:700; margin-bottom:6px;">Notice</h3>
+            <p id="alertMsg" style="font-size:13.5px; color:var(--text-secondary); line-height:1.4;"></p>
+            <button class="alert-btn" onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        function showAlert(msg, title = "Notice", icon = "⚠️") {
+            document.getElementById("alertTitle").textContent = title;
+            document.getElementById("alertMsg").textContent = msg;
+            document.getElementById("alertIcon").textContent = icon;
+            document.getElementById("alertModal").style.display = "flex";
+        }
+
+        function closeAlert() {
+            document.getElementById("alertModal").style.display = "none";
+            loadAdminData();
+        }
+
+        window.onload = function() {
+            // 🛠️ សម្អាតចោលទិន្នន័យកខ្វក់ ឬ Account ទទេរ (`""`, `null`, `undefined`, `@`) ក្នុង Local Storage ទាំងស្រុង
+            let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
+            let hasCorruptedData = false;
+            
+            if ("" in users) {
+                delete users[""];
+                hasCorruptedData = true;
+            }
+
+            Object.keys(users).forEach(u => {
+                if (!u || u.trim() === "" || u === "@") {
+                    delete users[u];
+                    hasCorruptedData = true;
+                }
+            });
+
+            if (hasCorruptedData) {
+                localStorage.setItem("quo_registered_users", JSON.stringify(users));
+            }
+
+            let activeUserCheck = localStorage.getItem("quo_logged_in_user");
+            if (!activeUserCheck || activeUserCheck.trim() === "" || activeUserCheck === "null" || activeUserCheck === "undefined" || activeUserCheck === "@") {
+                localStorage.removeItem("quo_logged_in_user");
+                localStorage.removeItem("telegram_logged_in_user");
+            }
+
+            loadAdminData();
+        };
+
+        function loadAdminData() {
+            // 1. Load Users
+            let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
+            const usersTableBody = document.getElementById("usersTableBody");
+            usersTableBody.innerHTML = "";
+            
+            const usernames = Object.keys(users).filter(u => u && u.trim() !== "" && u !== "@");
+            document.getElementById("statUsers").textContent = usernames.length;
+
+            if (usernames.length === 0) {
+                usersTableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-secondary); padding:20px;">No registered users found</td></tr>`;
+            } else {
+                usernames.forEach(username => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td style="font-weight:600;">@${username}</td>
+                        <td style="color:var(--text-secondary); font-family:monospace;">${users[username]}</td>
+                        <td style="text-align:right;"><button class="btn-danger" onclick="adminDeleteUser('${username}')">Delete User</button></td>
+                    `;
+                    usersTableBody.appendChild(tr);
+                });
+            }
+
+            // 2. Load Posts
+            let posts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
+            const postsTableBody = document.getElementById("postsTableBody");
+            postsTableBody.innerHTML = "";
+            document.getElementById("statPosts").textContent = posts.length;
+
+            if (posts.length === 0) {
+                postsTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-secondary); padding:20px;">No posts or reels available</td></tr>`;
+            } else {
+                posts.forEach(post => {
+                    let mediaCell = `<span style="color:var(--text-secondary);">No media</span>`;
+                    if (post.media) {
+                        if (post.mediaType === 'video') {
+                            mediaCell = `<video class="post-preview-img" src="${post.media}" muted></video>`;
+                        } else {
+                            mediaCell = `<img class="post-preview-img" src="${post.media}">`;
+                        }
+                    }
+
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${mediaCell}</td>
+                        <td style="font-weight:600;">@${post.author}</td>
+                        <td style="max-width:280px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${post.text || ''}">${post.text || '(No caption)'}</td>
+                        <td style="color:var(--text-secondary); font-size:12.5px;">${post.time}</td>
+                        <td style="text-align:right;"><button class="btn-danger" onclick="adminDeletePost(${post.id})">Delete Post</button></td>
+                    `;
+                    postsTableBody.appendChild(tr);
+                });
+            }
+        }
+
+        function adminDeleteUser(username) {
+            if (confirm(`Are you sure you want to delete user @${username}? This will remove their registration, active sessions, avatar, and cached data.`)) {
+                let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
+                
+                // 1. លុបចេញពីបញ្ជី Registered Users
+                delete users[username];
+                delete users[""];
+                localStorage.setItem("quo_registered_users", JSON.stringify(users));
+                
+                // 2. លុប Avatar និងទិន្នន័យពាក់ព័ន្ធទាំងអស់របស់ User នេះ
+                localStorage.removeItem("quo_avatar_" + username);
+                localStorage.removeItem("quo_followers_" + username.toLowerCase());
+                localStorage.removeItem("quo_blocked_" + username.toLowerCase());
+                localStorage.removeItem("quo_muted_" + username.toLowerCase());
+
+                // 3. Force Logout ប្រសិនបើ User នោះកំពុង Active Login อยู่
+                const activeUser = localStorage.getItem("quo_logged_in_user") || localStorage.getItem("telegram_logged_in_user");
+                if (activeUser && activeUser.toLowerCase() === username.toLowerCase()) {
+                    localStorage.removeItem("quo_logged_in_user");
+                    localStorage.removeItem("telegram_logged_in_user");
+                }
+
+                // 4. លុប Posts និង Reels ទាំងអស់របស់ User នេះចេញពី Feed សកល
+                let posts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
+                posts = posts.filter(p => p.author && p.author.toLowerCase() !== username.toLowerCase());
+                localStorage.setItem("quo_global_posts", JSON.stringify(posts));
+
+                showAlert(`User @${username} has been completely deleted and logged out.`, "Success", "🗑️");
+            }
+        }
+
+        function adminDeletePost(postId) {
+            if (confirm("Are you sure you want to delete this post/reel?")) {
+                let posts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
+                posts = posts.filter(p => p.id !== postId);
+                localStorage.setItem("quo_global_posts", JSON.stringify(posts));
+
+                showAlert("Post has been successfully deleted.", "Success", "🗑️");
+            }
+        }
+    </script>
+</body>
+</html>
