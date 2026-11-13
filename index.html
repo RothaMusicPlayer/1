@@ -66,9 +66,6 @@
         .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; }
         .tiktok-media-wrapper { width: 100%; height: 100%; position: absolute; inset: 0; z-index: 1; background: #000; display: flex; align-items: center; justify-content: center; }
         .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; border: none; background: #000; }
-        .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 30%); z-index: 3; pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
-        .tiktok-content-box { pointer-events: auto; max-width: 90%; }
-        .tiktok-desc { color: white; font-size: 14.5px; line-height: 1.45; margin-bottom: 4px; word-break: break-word; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
         /* Admin Panel Modal */
         #adminModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3300; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 15px; }
@@ -145,7 +142,6 @@
     <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
         <div class="tiktok-upload-card" onclick="event.stopPropagation()">
             <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
-            <!-- ដាក់តែប្រអប់ Paste Link YouTube ជាមួយ Placeholder ថ្មី -->
             <input type="text" id="postMediaUrlInput" placeholder="Paste link YouTube..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #333; background: #222; color: #fff; outline: none; font-size: 14px; margin-bottom: 14px;">
             <button onclick="createPost()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px;">Post</button>
             <button onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#879099; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
@@ -423,7 +419,6 @@
                         thumbHtml = `<img src="${mediaSrc}" class="admin-post-thumb" onerror="this.style.display='none'">`;
                     }
 
-                    const snippet = post.text ? (post.text.length > 22 ? post.text.substring(0, 22) + '...' : post.text) : '[Media Post]';
                     const postTime = post.time || 'Recent';
 
                     item.innerHTML = `
@@ -431,7 +426,7 @@
                             ${thumbHtml}
                             <div style="overflow:hidden;">
                                 <div style="font-size:13px; font-weight:600; color:var(--text-primary);">@${post.author}</div>
-                                <div style="font-size:12px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${snippet}</div>
+                                <div style="font-size:12px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">YouTube Video Link</div>
                                 <div style="font-size:10.5px; color:#666;">📅 ${postTime}</div>
                             </div>
                         </div>
@@ -504,7 +499,7 @@
                 else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
                 
                 if (videoId) {
-                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&modestbranding=1&rel=0`;
+                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&controls=1&enablejsapi=1&rel=0`;
                 }
             }
             return result;
