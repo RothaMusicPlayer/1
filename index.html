@@ -248,9 +248,10 @@
         .tiktok-feed-container::-webkit-scrollbar { display: none; }
 
         .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; }
-        .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; position: absolute; inset: 0; z-index: 1; cursor: pointer; background: #000; }
+        .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; position: absolute; inset: 0; z-index: 1; background: #000; }
         
-        .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.35) 100%); z-index: 2; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 18px 18px 22px 18px; }
+        /* កែសម្រួល pointer-events ត្រង់នេះដើម្បីឱ្យ iframe/video អាចចុចបញ្ជាវីដេអូបានធម្មតាដោយមិនបាំង Overlay */
+        .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.35) 100%); z-index: 3; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 18px 18px 22px 18px; }
         
         .tiktok-top-bar { display: flex; justify-content: space-between; align-items: center; pointer-events: auto; }
         
@@ -406,13 +407,12 @@
         <div class="profile-card" id="profileCardContent" onclick="event.stopPropagation()"></div>
     </div>
 
-    <!-- Upload Modal (Supports Facebook & TikTok Links) -->
+    <!-- Upload Modal -->
     <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
         <div class="tiktok-upload-card" onclick="event.stopPropagation()">
             <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
             <textarea id="postTextInput" rows="3" placeholder="What's on your mind?..." style="width:100%; padding:12px 14px; border-radius:14px; border:1.5px solid #e2e8f0; outline:none; resize:none; font-size:14.5px; margin-bottom:12px;"></textarea>
             
-            <!-- Input for URL (Supports YouTube, Facebook, TikTok, Image/Video Links) -->
             <input type="text" id="postMediaUrlInput" placeholder="Paste Link (YouTube, Facebook, TikTok, Image)..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #e2e8f0; outline: none; font-size: 14px; margin-bottom: 14px;">
             
             <button id="postUploadBtn" onclick="createPostWithUrl()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px; box-shadow: 0 4px 12px rgba(51,144,236,0.3);">Post</button>
@@ -438,7 +438,6 @@
 
             <!-- Bottom Navigation Bar -->
             <div class="bottom-nav">
-                <!-- Home Tab -->
                 <div class="nav-item active" id="tabFeedBtn" onclick="switchTab('feed')">
                     <svg viewBox="0 0 24 24">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -447,7 +446,6 @@
                     <span>Home</span>
                 </div>
 
-                <!-- Chats Tab -->
                 <div class="nav-item" id="tabChatsBtn" onclick="switchTab('chats')">
                     <svg viewBox="0 0 24 24">
                         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
@@ -456,7 +454,6 @@
                     <span id="navChatsBadge" class="nav-badge" style="display: none;">0</span>
                 </div>
 
-                <!-- Menu Tab -->
                 <div class="nav-item" id="menuNavItem" onclick="toggleDropdownMenu(event)">
                     <div class="dropdown-container">
                         <button class="menu-icon-btn" title="Open Menu">
@@ -489,7 +486,6 @@
                     </div>
                 </div>
 
-                <!-- Chat Header Menu (···) -->
                 <div class="chat-menu-container">
                     <button class="chat-menu-btn" onclick="toggleChatHeaderMenu(event)">···</button>
                     <div class="chat-dropdown-menu" id="chatHeaderDropdownMenu" onclick="event.stopPropagation()">
@@ -1047,19 +1043,6 @@
             }
         }
 
-        document.getElementById("confirmDeletePostBtn").onclick = function() {
-            if (postToDeleteId !== null) {
-                let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
-                allPosts = allPosts.filter(p => p.id !== postToDeleteId);
-                localStorage.setItem("quo_global_posts", JSON.stringify(allPosts));
-                
-                closePostDeleteModal();
-                openMyProfile();
-                renderFeedPosts();
-                showAlert("Post deleted successfully!", "Success", "🗑️");
-            }
-        };
-
         function togglePostPrivacy(postId) {
             let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
             allPosts = allPosts.map(p => {
@@ -1194,7 +1177,6 @@
             }
         }
 
-        // --- មុខងាររៀបចំ Link ឱ្យស្គាល់ YouTube, Facebook និង TikTok ---
         function parseMediaUrl(url) {
             url = url.trim();
             let result = { type: 'image', src: url };
@@ -1203,16 +1185,22 @@
                 let embedUrl = url;
                 if (embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
                 if (embedUrl.includes('youtu.be/')) embedUrl = embedUrl.replace('youtu.be/', 'www.youtube.com/embed/');
+                
+                // បន្ថែម parameters ឱ្យ YouTube មិនសូវបង្ហាញប៊ូតុង ឬ UI ច្រើនពេកបាំង
+                if (!embedUrl.includes('?')) {
+                    embedUrl += '?playsinline=1&modestbranding=1&rel=0';
+                } else {
+                    embedUrl += '&playsinline=1&modestbranding=1&rel=0';
+                }
+
                 result = { type: 'iframe', src: embedUrl };
             } 
             else if (url.includes('facebook.com') || url.includes('fb.watch')) {
-                // Facebook Embedded Video Plugin URL format
                 let encodedUrl = encodeURIComponent(url);
                 let embedUrl = `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=500`;
                 result = { type: 'iframe', src: embedUrl };
             } 
             else if (url.includes('tiktok.com')) {
-                // TikTok Video Embed format
                 let match = url.match(/\/video\/(\d+)/);
                 if (match && match[1]) {
                     let videoId = match[1];
@@ -1309,26 +1297,27 @@
                 const vidId = `feedVideo_${post.id}_${index}`;
                 if (post.media) {
                     if (post.mediaType === 'iframe') {
-                        mediaHtml = `<iframe class="tiktok-media" src="${post.media}" frameborder="0" allowfullscreen style="border:none; pointer-events: auto;"></iframe>`;
+                        // កែសម្រួល iframe ឱ្យស្ថិតនៅខាងក្រោម overlay និងអាចចុចបញ្ជារបស់ YouTube បានស្រួល
+                        mediaHtml = `<iframe class="tiktok-media" src="${post.media}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border:none; pointer-events: auto; z-index: 1;"></iframe>`;
                     } else if (post.mediaType === 'video') {
-                        mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" loop playsinline muted controls style="-webkit-user-select: none; user-select: none;"></video>`;
+                        mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" loop playsinline muted controls style="-webkit-user-select: none; user-select: none; z-index: 1;"></video>`;
                     } else {
-                        mediaHtml = `<img class="tiktok-media" src="${post.media}" style="-webkit-user-select: none; user-select: none;" oncontextmenu="return false;">`;
+                        mediaHtml = `<img class="tiktok-media" src="${post.media}" style="-webkit-user-select: none; user-select: none; z-index: 1;" oncontextmenu="return false;">`;
                     }
                 } else {
-                    mediaHtml = `<div class="tiktok-media" style="background: linear-gradient(135deg, #2b5278, #1c242b);"></div>`;
+                    mediaHtml = `<div class="tiktok-media" style="background: linear-gradient(135deg, #2b5278, #1c242b); z-index: 1;"></div>`;
                 }
 
                 const reel = document.createElement("div");
                 reel.className = "tiktok-reel";
                 reel.innerHTML = `
                     ${mediaHtml}
-                    <div class="tiktok-overlay" style="pointer-events: none;">
-                        <div class="tiktok-top-bar" style="pointer-events: auto;">
+                    <div class="tiktok-overlay">
+                        <div class="tiktok-top-bar">
                             <span style="color:white; font-weight:700; font-size:16.5px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">QUO Feed ${post.isPrivate ? '(🔒 Private)' : ''}</span>
                             <button onclick="openTiktokUpload()" class="tiktok-create-trigger">+ Upload</button>
                         </div>
-                        <div class="tiktok-content-box" style="pointer-events: auto;">
+                        <div class="tiktok-content-box">
                             <div class="tiktok-user-row" onclick="openUserProfile('${post.author}')">
                                 <div class="avatar" style="width:38px; height:38px; font-size:14.5px; ${avatarStyle}">${avatarText}</div>
                                 <div>
