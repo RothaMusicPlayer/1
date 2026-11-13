@@ -48,7 +48,7 @@
         .app { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
         .sidebar { width: 380px; border-right: 1px solid #222; display: flex; flex-direction: column; height: 100%; background: #000; z-index: 10; position: relative; }
 
-        /* Bottom Navigation Bar - Updated to Black Background */
+        /* Bottom Navigation Bar - Pure Black */
         .bottom-nav { display: flex; background: #000000; border-top: 1px solid #222; padding: 6px 8px calc(8px + env(safe-area-inset-bottom)) 8px; justify-content: space-around; align-items: center; z-index: 20; box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5); flex-shrink: 0; }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; color: var(--text-secondary); font-size: 10.5px; font-weight: 600; flex: 1; padding: 4px 2px; border-radius: 12px; }
         .nav-item.active { color: var(--telegram-blue); }
@@ -205,7 +205,18 @@
             document.getElementById("customAlertModal").style.display = "none";
         }
 
-        window.onload = function() {
+        window.onload = async function() {
+            if (currentLoggedInUser) {
+                try {
+                    const resUsers = await fetch(SERVER_URL + "/api/admin/users?adminUser=admin");
+                    const dataUsers = await resUsers.json();
+                    if (dataUsers.success && !dataUsers.users.includes(currentLoggedInUser)) {
+                        localStorage.removeItem("quo_logged_in_user");
+                        currentLoggedInUser = "";
+                    }
+                } catch(e) {}
+            }
+
             if (currentLoggedInUser) {
                 document.getElementById("authOverlay").style.display = "none";
                 socket.emit("join", currentLoggedInUser);
@@ -272,20 +283,19 @@
                 const res = await fetch(SERVER_URL + "/api/posts");
                 const allPosts = await res.json();
                 
-                // Randomize videos uniquely based on current logged-in username
+                // Randomize videos uniquely per logged-in user account
                 globalPosts = shufflePostsForUser(allPosts, currentLoggedInUser);
                 renderFeedPosts();
             } catch (e) { console.error(e); }
         }
 
-        // Function to pseudo-randomize posts uniquely per user account
+        // Shuffle posts uniquely based on user string seed
         function shufflePostsForUser(posts, username) {
             let seed = 0;
             for (let i = 0; i < username.length; i++) {
                 seed += username.charCodeAt(i);
             }
             let arr = [...posts];
-            // Fisher-Yates shuffle using user-based seed multiplier
             for (let i = arr.length - 1; i > 0; i--) {
                 seed = (seed * 9301 + 49297) % 233280;
                 let rnd = seed / 233280;
@@ -438,6 +448,14 @@
                 const data = await res.json();
                 if (data.success) {
                     showAlert(`User @${usernameToDelete} deleted!`, "Success", "✅");
+                    
+                    // If the deleted account is the currently logged-in user, force redirect to login
+                    if (usernameToDelete === currentLoggedInUser) {
+                        localStorage.removeItem("quo_logged_in_user");
+                        location.reload();
+                        return;
+                    }
+
                     await loadAdminData();
                     fetchPosts();
                 } else {
