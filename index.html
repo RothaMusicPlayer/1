@@ -246,7 +246,6 @@
         }
 
         function switchTab(tab) {
-            // បើប្ដូរទៅ Profile Tab ត្រូវបញ្ឈប់ Video ទាំងអស់ក្នុង Feed
             if (tab === 'profile') {
                 stopAllVideos();
             }
@@ -288,7 +287,8 @@
                 }
 
                 if (videoId) {
-                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
+                    // បន្ថែម enablejsapi=1 ដើម្បីឱ្យយើងអាចបញ្ជា Pause/Play បានតាមរយៈ postMessage
+                    result.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
                 }
             } 
             else if (url.includes('facebook.com') || url.includes('fb.watch')) {
@@ -334,8 +334,7 @@
             const iframes = document.querySelectorAll('.tiktok-media');
             iframes.forEach(el => {
                 if(el.tagName === 'IFRAME') {
-                    el.dataset.src = el.src; // រក្សាទុកតំណ URL ដើម
-                    el.src = '';             // កាត់ផ្ដាច់ដើម្បី Stop Video/Audio ភ្លាមៗ
+                    el.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
                 } else if(el.tagName === 'VIDEO') {
                     el.pause();
                 }
@@ -351,13 +350,13 @@
                 return;
             }
 
-            globalPosts.forEach((post, index) => {
+            globalPosts.forEach((post) => {
                 const reel = document.createElement("div");
                 reel.className = "tiktok-reel";
                 
-                // យើងប្រើ data-src ទុកមុន ដើម្បីបញ្ជាឱ្យវា Load ពេលរំកិលមកដល់
+                // រក្សា src ទុកដដែល មិនលុបចោល ដើម្បីកុំឱ្យបាត់វីដេអូពេលអូសចុះឡើង
                 reel.innerHTML = `
-                    ${post.media ? `<iframe class="tiktok-media" data-src="${post.media}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` : `<div class="tiktok-media" style="background:#111;"></div>`}
+                    ${post.media ? `<iframe class="tiktok-media" src="${post.media}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` : `<div class="tiktok-media" style="background:#111;"></div>`}
                     ${post.text ? `
                     <div class="tiktok-overlay">
                         <div class="tiktok-content-box">
@@ -368,7 +367,6 @@
                 container.appendChild(reel);
             });
 
-            // ប្រើ IntersectionObserver ដើម្បីដឹងថា Reel ណាមួយកំពុងលេចចេញច្បាស់នៅលើអេក្រង់
             setupVideoObserver();
         }
 
@@ -378,7 +376,7 @@
 
             const observerOptions = {
                 root: container,
-                threshold: 0.6 // គិតថាច្បាស់ពេល Reel ចូលមកលើសពី 60% នៃទំហំអេក្រង់
+                threshold: 0.6 // ត្រូវដល់ 60% ទើប считается ว่า Active
             };
 
             const observer = new IntersectionObserver((entries) => {
@@ -387,19 +385,16 @@
                     if (!iframe) return;
 
                     if (entry.isIntersecting) {
-                        // Reel នេះចូលមកដល់: ឱ្យលេង Video (Play)
-                        if (!iframe.src && iframe.dataset.src) {
-                            iframe.src = iframe.dataset.src;
+                        // Reel ចូលមកដល់: បញ្ជាឱ្យ Play វីដេអូតាមរយៈ YouTube API (postMessage)
+                        if (iframe.tagName === 'IFRAME') {
+                            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                         } else if(iframe.tagName === 'VIDEO') {
                             iframe.play().catch(e => {});
                         }
                     } else {
-                        // Reel នេះត្រូវបានអូសហួសចេញ: បញ្ឈប់ Video (Stop)
+                        // Reel ត្រូវបានអូសហួសចេញ: បញ្ជាឱ្យ Pause វីដេអូភ្លាមៗ (មិនលុប src ទេ ដើម្បីកុំឱ្យបាត់)
                         if (iframe.tagName === 'IFRAME') {
-                            if(iframe.src) {
-                                iframe.dataset.src = iframe.src; // រក្សាទុកទុកមើលម្ដងទៀតបើអូសត្រឡប់មកវិញ
-                            }
-                            iframe.src = ''; // Clear src ដើម្បីឈប់លេង និងកាត់សម្លេងចោល
+                            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
                         } else if(iframe.tagName === 'VIDEO') {
                             iframe.pause();
                         }
