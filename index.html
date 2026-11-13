@@ -569,6 +569,12 @@
         let tempSelectedMediaData = null;
         let postToDeleteId = null;
 
+        // Auto-clear cache / Logout ស្វ័យប្រវត្តិ នៅពេលបិទ Website ឬ Tab ចោល
+        window.addEventListener('beforeunload', function () {
+            localStorage.removeItem("quo_logged_in_user");
+            localStorage.removeItem("telegram_logged_in_user");
+        });
+
         function showAlert(message, title = "Notice", icon = "⚠️", callback = null) {
             document.getElementById("customAlertTitle").textContent = title;
             document.getElementById("customAlertMessage").textContent = message;
@@ -588,19 +594,16 @@
         window.onload = function() {
             const loggedInUser = localStorage.getItem("quo_logged_in_user") || localStorage.getItem("telegram_logged_in_user");
             
-            // កែសម្រួល៖ បើរកមិនឃើញ User ត្រឹមត្រូវ ឬគ្មានឈ្មោះ ត្រូវบังខំឱ្យ Logout ចោល និងបង្ហាញ Auth Overlay វិញ
             if (loggedInUser && loggedInUser.trim() !== "") {
                 currentLoggedInUser = loggedInUser.trim().toLowerCase();
                 
-                // ផ្ទៀងផ្ទាត់បន្ថែមថា User នេះមានក្នុង Registered Users មែនឬអត់
                 let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
                 if (!users[currentLoggedInUser]) {
-                    // ប្រសិនបើ User ត្រូវបានលុប ឬគ្មានទិន្នន័យ ត្រូវឱ្យ Logged Out វិញ
                     localStorage.removeItem("quo_logged_in_user");
                     localStorage.removeItem("telegram_logged_in_user");
                     currentLoggedInUser = "";
                     document.getElementById("authOverlay").style.display = "flex";
-                    toggleAuthMode(true); // บังខំចូល Login Mode
+                    toggleAuthMode(true);
                 } else {
                     document.getElementById("authOverlay").style.display = "none";
                     loadUserData();
@@ -864,7 +867,6 @@
             const username = usernameInput.value.trim().toLowerCase();
             const password = passwordInput.value.trim();
 
-            // កែសម្រួល៖ បន្ថែម Validation ការពារមិនឱ្យចុះឈ្មោះ ឬចូលដោយដាក់ឈ្មោះទទេរ ឬមាន space
             if (!username || username === "" || !password || password === "") {
                 showAlert("Please enter a valid username and password!", "Warning", "⚠️");
                 return;
@@ -898,7 +900,6 @@
         }
 
         function closeAuthOverlay(event) {
-            // មិនឱ្យបិទ Overlay បើមិនទាន់ Login ចូលគណនីដែលមានឈ្មោះត្រឹមត្រូវ
             if (event.target.id === "authOverlay" && currentLoggedInUser && currentLoggedInUser.trim() !== "") {
                 document.getElementById("authOverlay").style.display = "none";
             }
@@ -914,7 +915,7 @@
                 container.innerHTML = `<div style="font-size:13.5px; color:#707579; padding:12px;">No saved accounts</div>`;
             } else {
                 usernames.forEach(u => {
-                    if (!u || u.trim() === "") return; // រំលងកុំឱ្យបង្ហាញ Account ទទេរ
+                    if (!u || u.trim() === "") return;
                     const div = document.createElement("div");
                     div.className = `account-item ${u === currentLoggedInUser ? 'active-acc' : ''}`;
                     div.innerHTML = `<span>@${u}</span>${u === currentLoggedInUser ? '<span style="font-size:11.5px; color:var(--telegram-blue); font-weight:600;">Active</span>' : ''}`;
@@ -989,7 +990,6 @@
         }
 
         function openMyProfile() {
-            // កែសម្រួល៖ ពិនិត្យមើលថាតើ currentLoggedInUser ມີតម្លៃពិតប្រាកដដែរឬទើបបើក Profile
             if (!currentLoggedInUser || currentLoggedInUser.trim() === "") {
                 showAlert("Please log in first!", "Error", "❌");
                 document.getElementById("authOverlay").style.display = "flex";
@@ -1383,7 +1383,7 @@
             let myBlockedList = JSON.parse(localStorage.getItem("quo_blocked_" + me)) || [];
 
             let visiblePosts = allPosts.filter(post => {
-                if (!post.author) return false; // លុបចោល Post ណាដែលគ្មាន Author
+                if (!post.author) return false;
                 const author = post.author.toLowerCase();
                 if (post.isPrivate && author !== me) return false;
                 if (myBlockedList.includes(author)) return false;
