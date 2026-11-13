@@ -65,7 +65,11 @@
         .tiktok-feed-container { flex: 1; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; height: 100%; position: relative; }
         .tiktok-feed-container::-webkit-scrollbar { display: none; }
         .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; }
-        .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; position: absolute; inset: 0; z-index: 1; background: #000; }
+        .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; position: absolute; inset: 0; z-index: 1; background: #000; pointer-events: none; }
+        
+        /* Unmute Button Overlay */
+        .unmute-btn { position: absolute; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; z-index: 5; display: flex; align-items: center; gap: 6px; }
+
         .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 30%); z-index: 3; pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
         .tiktok-content-box { pointer-events: auto; max-width: 90%; }
         .tiktok-desc { color: white; font-size: 14.5px; line-height: 1.45; margin-bottom: 4px; word-break: break-word; }
@@ -271,7 +275,7 @@
 
         function parseMediaUrl(url) {
             url = url.trim();
-            let result = { type: 'iframe', src: url };
+            let result = { type: 'iframe', src: url, rawUrl: url };
 
             if (url.includes('youtube.com') || url.includes('youtu.be')) {
                 let videoId = "";
@@ -284,8 +288,9 @@
                 }
 
                 if (videoId) {
-                    // បន្ថែម autoplay=1 និង mute=1 ដើម្បីឱ្យលេងស្វ័យប្រវត្តិដោយរលូន
-                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
+                    // ដំបូងដាក់ mute=1 ដើម្បីឱ្យ browser អនុញ្ញាតឱ្យ Auto-play បានភ្លាមៗ
+                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&enablejsapi=1&controls=0&playsinline=1&modestbranding=1&rel=0`;
+                    result.videoId = videoId;
                 }
             } 
             else if (url.includes('facebook.com') || url.includes('fb.watch')) {
@@ -311,6 +316,7 @@
                 text,
                 media: parsed.src,
                 mediaType: parsed.type,
+                videoId: parsed.videoId || null,
                 time: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }),
                 timestamp: Date.now()
             };
@@ -336,11 +342,22 @@
                 return;
             }
 
-            globalPosts.forEach(post => {
+            globalPosts.forEach((post, index) => {
                 const reel = document.createElement("div");
                 reel.className = "tiktok-reel";
+                
+                let mediaHtml = '';
+                if (post.media) {
+                    mediaHtml = `
+                        <iframe id="yt-video-${index}" class="tiktok-media" src="${post.media}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <button class="unmute-btn" onclick="unmuteVideo(${index}, '${post.videoId}')" id="unmute-btn-${index}">🔇 Tap to Unmute</button>
+                    `;
+                } else {
+                    mediaHtml = `<div class="tiktok-media" style="background:#111;"></div>`;
+                }
+
                 reel.innerHTML = `
-                    ${post.media ? `<iframe class="tiktok-media" src="${post.media}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` : `<div class="tiktok-media" style="background:#111;"></div>`}
+                    ${mediaHtml}
                     ${post.text ? `
                     <div class="tiktok-overlay">
                         <div class="tiktok-content-box">
@@ -350,6 +367,17 @@
                 `;
                 container.appendChild(reel);
             });
+        }
+
+        // បើកសំឡេងពេលអ្នកប្រើប្រាស់ចុចលើប៊ូតុង Tap to Unmute
+        function unmuteVideo(index, videoId) {
+            const iframe = document.getElementById(`yt-video-${index}`);
+            const btn = document.getElementById(`unmute-btn-${index}`);
+            if (iframe && videoId) {
+                // ប្តូរទៅ link ដែលមាន mute=0 ដើម្បីឱ្យមានសំឡេងធម្មតា
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&enablejsapi=1&controls=1&playsinline=1&modestbranding=1&rel=0`;
+                if (btn) btn.style.display = 'none'; // លាក់ប៊ូតុងចេញក្រោយពេលបើកសំឡេង
+            }
         }
     </script>
 </body>
