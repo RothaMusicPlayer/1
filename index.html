@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>QUO - Social & Chat</title>
-    <!-- Socket.io Client Script -->
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <style>
         :root {
@@ -278,24 +277,33 @@
             }
         }
 
-        async function fetchPosts() {
+        async function fetchPosts(forceRandom = false) {
             try {
                 const res = await fetch(SERVER_URL + "/api/posts");
                 const allPosts = await res.json();
                 
-                // Randomize videos uniquely per logged-in user account
-                globalPosts = shufflePostsForUser(allPosts, currentLoggedInUser);
+                globalPosts = shufflePostsForUser(allPosts, currentLoggedInUser, forceRandom);
                 renderFeedPosts();
+
+                const container = document.getElementById("tiktokFeedContainer");
+                if (container) container.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (e) { console.error(e); }
         }
 
-        // Shuffle posts uniquely based on user string seed
-        function shufflePostsForUser(posts, username) {
+        function shufflePostsForUser(posts, username, forceRandom = false) {
+            let arr = [...posts];
+            if (forceRandom) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            }
+
             let seed = 0;
             for (let i = 0; i < username.length; i++) {
                 seed += username.charCodeAt(i);
             }
-            let arr = [...posts];
             for (let i = arr.length - 1; i > 0; i--) {
                 seed = (seed * 9301 + 49297) % 233280;
                 let rnd = seed / 233280;
@@ -326,7 +334,9 @@
                 document.getElementById("profileSection").style.display = "none";
                 document.getElementById("tabFeedBtn").classList.add("active");
                 document.getElementById("tabProfileBtn").classList.remove("active");
-                fetchPosts();
+                
+                stopAllVideos();
+                fetchPosts(true);
             } else {
                 document.getElementById("feedSection").style.display = "none";
                 document.getElementById("profileSection").style.display = "flex";
@@ -449,7 +459,6 @@
                 if (data.success) {
                     showAlert(`User @${usernameToDelete} deleted!`, "Success", "✅");
                     
-                    // If the deleted account is the currently logged-in user, force redirect to login
                     if (usernameToDelete === currentLoggedInUser) {
                         localStorage.removeItem("quo_logged_in_user");
                         location.reload();
