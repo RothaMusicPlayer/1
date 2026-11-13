@@ -1238,12 +1238,11 @@
             }
         }
 
+        // --- កែសម្រួលចំណុចនេះ ដើម្បីបង្រួមទំហំរូបភាព និងកំណត់ដែនកំណត់វីដេអូការពារ Storage Error ---
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (!file) return;
 
-            const reader = new FileReader();
-            
             const progressContainer = document.getElementById("uploadProgressContainer");
             const progressBarFill = document.getElementById("progressBarFill");
             const uploadPercentageText = document.getElementById("uploadPercentageText");
@@ -1251,48 +1250,96 @@
             
             progressContainer.style.display = "block";
             uploadStatusText.textContent = "Processing file (" + (file.size / (1024*1024)).toFixed(1) + " MB)...";
-            progressBarFill.style.width = "0%";
-            uploadPercentageText.textContent = "0%";
+            progressBarFill.style.width = "30%";
+            uploadPercentageText.textContent = "30%";
 
-            reader.onprogress = function(e) {
-                if (e.lengthComputable) {
-                    let percent = Math.round((e.loaded / e.total) * 100);
-                    progressBarFill.style.width = percent + "%";
-                    uploadPercentageText.textContent = percent + "%";
-                }
-            };
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        
+                        const MAX_WIDTH = 900;
+                        const MAX_HEIGHT = 900;
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
 
-            reader.onload = function(e) {
-                progressBarFill.style.width = "100%";
-                uploadPercentageText.textContent = "100%";
-                uploadStatusText.textContent = "Complete!";
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // បង្រួម Quality រូបភាពមកត្រឹម 70% ដើម្បីកុំឱ្យធំពេក
+                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
 
-                tempSelectedMediaData = {
-                    data: e.target.result,
-                    type: file.type.startsWith('video') ? 'video' : 'image'
+                        progressBarFill.style.width = "100%";
+                        uploadPercentageText.textContent = "100%";
+                        uploadStatusText.textContent = "Complete!";
+
+                        tempSelectedMediaData = {
+                            data: compressedDataUrl,
+                            type: 'image'
+                        };
+
+                        const container = document.getElementById("mediaPreviewContainer");
+                        const imgPre = document.getElementById("imgPreview");
+                        const vidPre = document.getElementById("vidPreview");
+
+                        container.style.display = "block";
+                        imgPre.src = compressedDataUrl;
+                        imgPre.style.display = "block";
+                        vidPre.style.display = "none";
+
+                        setTimeout(() => { progressContainer.style.display = "none"; }, 1000);
+                    };
+                    img.src = e.target.result;
                 };
+                reader.readAsDataURL(file);
+            } 
+            else {
+                // ប្រសិនបើជាវីដេអូ ដាក់កម្រិតអតិបរមា 3MB ព្រោះ LocalStorage មិនអាចផ្ទុកវីដេអូធំជាងនេះបានទេ
+                if (file.size > 3 * 1024 * 1024) {
+                    progressContainer.style.display = "none";
+                    showAlert("Video size is too large for LocalStorage! Please choose a video under 3MB.", "Warning", "⚠️");
+                    return;
+                }
 
-                const container = document.getElementById("mediaPreviewContainer");
-                const imgPre = document.getElementById("imgPreview");
-                const vidPre = document.getElementById("vidPreview");
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    progressBarFill.style.width = "100%";
+                    uploadPercentageText.textContent = "100%";
+                    uploadStatusText.textContent = "Complete!";
 
-                container.style.display = "block";
-                if (tempSelectedMediaData.type === 'video') {
+                    tempSelectedMediaData = {
+                        data: e.target.result,
+                        type: 'video'
+                    };
+
+                    const container = document.getElementById("mediaPreviewContainer");
+                    const imgPre = document.getElementById("imgPreview");
+                    const vidPre = document.getElementById("vidPreview");
+
+                    container.style.display = "block";
                     vidPre.src = tempSelectedMediaData.data;
                     vidPre.style.display = "block";
                     imgPre.style.display = "none";
-                } else {
-                    imgPre.src = tempSelectedMediaData.data;
-                    imgPre.style.display = "block";
-                    vidPre.style.display = "none";
-                }
 
-                setTimeout(() => {
-                    progressContainer.style.display = "none";
-                }, 1000);
-            };
-
-            reader.readAsDataURL(file);
+                    setTimeout(() => { progressContainer.style.display = "none"; }, 1000);
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function clearSelectedMedia() {
