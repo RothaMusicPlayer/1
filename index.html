@@ -569,12 +569,6 @@
         let tempSelectedMediaData = null;
         let postToDeleteId = null;
 
-        // Auto-clear cache / Logout ស្វ័យប្រវត្តិ នៅពេលបិទ Website ឬ Tab ចោល
-        window.addEventListener('beforeunload', function () {
-            localStorage.removeItem("quo_logged_in_user");
-            localStorage.removeItem("telegram_logged_in_user");
-        });
-
         function showAlert(message, title = "Notice", icon = "⚠️", callback = null) {
             document.getElementById("customAlertTitle").textContent = title;
             document.getElementById("customAlertMessage").textContent = message;
