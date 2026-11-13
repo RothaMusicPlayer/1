@@ -87,7 +87,7 @@
         
         /* Post Item Style inside Admin Panel */
         .admin-post-info { display: flex; align-items: center; gap: 10px; overflow: hidden; flex: 1; }
-        .admin-post-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #e2e8f0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .admin-post-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #f1f5f9; flex-shrink: 0; }
 
         /* Upload Modal */
         #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
@@ -374,13 +374,16 @@
                     const item = document.createElement("div");
                     item.className = "admin-item";
                     
-                    let thumbHtml = `<div class="admin-post-thumb">💬</div>`;
+                    let thumbHtml = `<div class="admin-post-thumb" style="display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:11px;">No Media</div>`;
                     if (post.media) {
-                        if (post.media.includes('youtube.com/embed') || post.media.includes('facebook.com')) {
-                            thumbHtml = `<div class="admin-post-thumb">▶️</div>`;
-                        } else {
-                            thumbHtml = `<img src="${post.media}" class="admin-post-thumb" onerror="this.src='https://via.placeholder.com/44?text=Post'">`;
+                        let mediaSrc = post.media;
+                        if (mediaSrc.includes('youtube.com/embed/')) {
+                            let videoId = mediaSrc.split('embed/')[1]?.split('?')[0];
+                            if (videoId) {
+                                mediaSrc = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                            }
                         }
+                        thumbHtml = `<img src="${mediaSrc}" class="admin-post-thumb" onerror="this.style.display='none'">`;
                     }
 
                     const snippet = post.text ? (post.text.length > 22 ? post.text.substring(0, 22) + '...' : post.text) : '[Media Post]';
