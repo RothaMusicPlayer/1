@@ -39,6 +39,9 @@
         .card button { width: 100%; padding: 14px; border-radius: 14px; background: var(--telegram-blue); color: white; border: none; font-weight: 600; cursor: pointer; font-size: 16px; margin-top: 6px; }
         .switch-auth { margin-top: 16px; font-size: 13.5px; color: var(--telegram-blue); cursor: pointer; font-weight: 500; }
 
+        /* Sound Prompt Overlay (เพื่อให้ User กดเปิดเสียงครั้งแรก) */
+        #soundPrompt { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.85); color: white; padding: 8px 16px; border-radius: 20px; font-size: 13px; z-index: 2500; display: none; align-items: center; gap: 6px; backdrop-filter: blur(4px); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
         /* Custom Alert Modal */
         #customAlertModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 20px; }
         .custom-alert-card { background: #fff; width: 100%; max-width: 320px; border-radius: 24px; padding: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
@@ -98,6 +101,11 @@
     </style>
 </head>
 <body>
+
+    <!-- Sound Prompt Notice (แตะเพื่อเปิดเสียง) -->
+    <div id="soundPrompt" onclick="enableAudioAndHide()">
+        🔊 <b>Tap to enable sound</b>
+    </div>
 
     <!-- Auth Overlay -->
     <div id="authOverlay">
@@ -196,6 +204,7 @@
         let globalPosts = [];
         let globalUsers = [];
         let currentAdminTab = 'users';
+        let userHasInteracted = false;
 
         function showAlert(message, title = "Notice", icon = "⚠️") {
             document.getElementById("customAlertTitle").textContent = title;
@@ -217,7 +226,35 @@
                 document.getElementById("authOverlay").style.display = "flex";
                 toggleAuthMode(true);
             }
+            // បង្ហាញផ្ទាំងដំណឹងឱ្យប៉ះដើម្បីបើកសម្លេង
+            setTimeout(() => {
+                if(!userHasInteracted) {
+                    document.getElementById("soundPrompt").style.display = "flex";
+                }
+            }, 1000);
         };
+
+        function enableAudioAndHide() {
+            userHasInteracted = true;
+            document.getElementById("soundPrompt").style.display = "none";
+            // reload វីដេអូដែលកំពុងលេងនៅលើ screen ម្ដងទៀតដើម្បីឱ្យវាដាំសម្លេងចូល
+            const activeWrapper = document.querySelector('.tiktok-reel');
+            if(activeWrapper) {
+                const wrapper = activeWrapper.querySelector('.tiktok-media-wrapper');
+                if(wrapper && wrapper.getAttribute('data-media')) {
+                    const mediaUrl = wrapper.getAttribute('data-media');
+                    wrapper.innerHTML = `<iframe class="tiktok-media" src="${mediaUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                }
+            }
+        }
+
+        // ចាប់យកគ្រប់ Click លើ screen ដើម្បីปลดล็อกសម្លេងស្វ័យប្រវត្តិ
+        document.addEventListener('click', () => {
+            if(!userHasInteracted) {
+                userHasInteracted = true;
+                document.getElementById("soundPrompt").style.display = "none";
+            }
+        }, { once: true });
 
         function logout() {
             localStorage.removeItem("quo_logged_in_user");
@@ -457,7 +494,7 @@
                 else if (url.includes('watch?v=')) videoId = url.split('watch?v=')[1]?.split('&')[0];
                 else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
                 
-                // ដក mute=1 ចេញ ដើម្បីឱ្យមានសម្លេង (កត់សម្គាល់៖ Browser មួយចំនួនទាមទារអោយ user interact ទើបលឺសម្លេង)
+                // បើកសម្លេងដោយមិនដាក់ mute=1 (តម្រូវឱ្យ User Tap លើអេក្រង់ម្ដងដើម្បីឱ្យ Browser អនុញ្ញាតឱ្យលឺសម្លេង)
                 if (videoId) result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&modestbranding=1&rel=0`;
             } else if (url.includes('facebook.com') || url.includes('fb.watch')) {
                 result.src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&width=500`;
