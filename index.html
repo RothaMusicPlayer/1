@@ -64,14 +64,9 @@
         #feedSection { display: flex; flex-direction: column; flex: 1; overflow: hidden; background: #000; position: relative; min-height: 0; }
         .tiktok-feed-container { flex: 1; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; height: 100%; position: relative; }
         .tiktok-feed-container::-webkit-scrollbar { display: none; }
-        .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; overflow: hidden; }
+        .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; }
         .tiktok-media-wrapper { width: 100%; height: 100%; position: absolute; inset: 0; z-index: 1; background: #000; display: flex; align-items: center; justify-content: center; }
         .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; border: none; background: #000; }
-        
-        /* CSS Overlay ដើម្បីបាំងប៊ូតុង YouTube ផ្នែកខាងលើ និងខាងក្រោម */
-        .iframe-cover-top { position: absolute; top: 0; left: 0; width: 100%; height: 60px; z-index: 2; pointer-events: none; }
-        .iframe-cover-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; z-index: 2; pointer-events: none; }
-
         .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 30%); z-index: 3; pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
         .tiktok-content-box { pointer-events: auto; max-width: 90%; }
         .tiktok-desc { color: white; font-size: 14.5px; line-height: 1.45; margin-bottom: 4px; word-break: break-word; }
@@ -462,10 +457,7 @@
                 else if (url.includes('watch?v=')) videoId = url.split('watch?v=')[1]?.split('&')[0];
                 else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
                 
-                // បន្ថែម controls=0, modestbranding=1 និង disablekb=1 ដើម្បីលាក់ប៊ូតុង YouTube មិនឱ្យចេញមក
-                if (videoId) {
-                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&controls=0&modestbranding=1&disablekb=1&rel=0`;
-                }
+                if (videoId) result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&modestbranding=1&rel=0`;
             } else if (url.includes('facebook.com') || url.includes('fb.watch')) {
                 result.src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&width=500`;
             } else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
@@ -517,11 +509,7 @@
             globalPosts.forEach((post) => {
                 const reel = document.createElement("div");
                 reel.className = "tiktok-reel";
-                
-                // បន្ថែម Layer Cover ខាងលើ និងខាងក្រោមដើម្បីបាំងប៊ូតុង YouTube មិនឱ្យមើលឃើញ
                 reel.innerHTML = `
-                    <div class="iframe-cover-top"></div>
-                    <div class="iframe-cover-bottom"></div>
                     <div class="tiktok-media-wrapper" data-media="${post.media || ''}" data-type="${post.mediaType || 'iframe'}"></div>
                     ${post.text ? `
                     <div class="tiktok-overlay">
