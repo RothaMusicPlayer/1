@@ -124,7 +124,7 @@
                 <div class="tiktok-feed-container" id="tiktokFeedContainer"></div>
             </div>
 
-            <!-- Profile Section (Replaced Chats) -->
+            <!-- Profile Section -->
             <div id="profileSection" style="display: none; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 24px; text-align: center; background: #fff;">
                 <div id="profileAvatar" class="avatar" style="width: 80px; height: 80px; font-size: 32px; background: var(--telegram-blue); margin-bottom: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">?</div>
                 <h2 id="profileUsername" style="font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);"></h2>
@@ -141,7 +141,7 @@
                 <!-- Center Upload Button -->
                 <button class="nav-upload-btn" onclick="openTiktokUpload()">+ Upload</button>
 
-                <!-- Profile Tab (Replaced Chats Tab) -->
+                <!-- Profile Tab -->
                 <div class="nav-item" id="tabProfileBtn" onclick="switchTab('profile')">
                     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     <span>Profile</span>
@@ -284,7 +284,8 @@
                 }
 
                 if (videoId) {
-                    result.src = `https://www.youtube.com/embed/${videoId}?playsinline=1&modestbranding=1&rel=0`;
+                    // បន្ថែម autoplay=1 និង mute=1 ដើម្បីឱ្យលេងស្វ័យប្រវត្តិដោយរលូន
+                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
                 }
             } 
             else if (url.includes('facebook.com') || url.includes('fb.watch')) {
@@ -339,7 +340,7 @@
                 const reel = document.createElement("div");
                 reel.className = "tiktok-reel";
                 reel.innerHTML = `
-                    ${post.media ? `<iframe class="tiktok-media" src="${post.media}" frameborder="0" allowfullscreen></iframe>` : `<div class="tiktok-media" style="background:#111;"></div>`}
+                    ${post.media ? `<iframe class="tiktok-media" src="${post.media}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` : `<div class="tiktok-media" style="background:#111;"></div>`}
                     ${post.text ? `
                     <div class="tiktok-overlay">
                         <div class="tiktok-content-box">
