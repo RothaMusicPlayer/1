@@ -85,7 +85,6 @@
         .admin-item:last-child { border-bottom: none; }
         .admin-action-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
         
-        /* Post Item Style inside Admin Panel */
         .admin-post-info { display: flex; align-items: center; gap: 10px; overflow: hidden; flex: 1; }
         .admin-post-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #f1f5f9; flex-shrink: 0; }
 
@@ -457,7 +456,9 @@
                 if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1]?.split('?')[0];
                 else if (url.includes('watch?v=')) videoId = url.split('watch?v=')[1]?.split('&')[0];
                 else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
-                if (videoId) result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
+                
+                // ដក mute=1 ចេញ ដើម្បីឱ្យមានសម្លេង (កត់សម្គាល់៖ Browser មួយចំនួនទាមទារអោយ user interact ទើបលឺសម្លេង)
+                if (videoId) result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&modestbranding=1&rel=0`;
             } else if (url.includes('facebook.com') || url.includes('fb.watch')) {
                 result.src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&width=500`;
             } else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
