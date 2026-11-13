@@ -318,16 +318,47 @@
             document.getElementById("tiktokUploadModal").style.display = "none";
         }
 
+        function parseMediaUrl(url) {
+            url = url.trim();
+            let result = { type: 'iframe', src: url };
+
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                let videoId = "";
+                if (url.includes('youtu.be/')) {
+                    videoId = url.split('youtu.be/')[1]?.split('?')[0];
+                } else if (url.includes('watch?v=')) {
+                    videoId = url.split('watch?v=')[1]?.split('&')[0];
+                } else if (url.includes('embed/')) {
+                    videoId = url.split('embed/')[1]?.split('?')[0];
+                }
+
+                if (videoId) {
+                    result.src = `https://www.youtube.com/embed/${videoId}?playsinline=1&modestbranding=1&rel=0`;
+                }
+            } 
+            else if (url.includes('facebook.com') || url.includes('fb.watch')) {
+                let encodedUrl = encodeURIComponent(url);
+                result.src = `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=500`;
+            } 
+            else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
+                result.type = 'video';
+            }
+
+            return result;
+        }
+
         async function createPost() {
             const text = document.getElementById("postTextInput").value.trim();
-            const media = document.getElementById("postMediaUrlInput").value.trim();
-            if (!text && !media) return showAlert("Please write something or add media!");
+            const mediaUrl = document.getElementById("postMediaUrlInput").value.trim();
+            if (!text && !mediaUrl) return showAlert("Please write something or add media!");
+
+            let parsed = mediaUrl ? parseMediaUrl(mediaUrl) : { type: null, src: null };
 
             const newPost = {
                 author: currentLoggedInUser,
                 text,
-                media,
-                mediaType: media ? 'iframe' : null,
+                media: parsed.src,
+                mediaType: parsed.type,
                 time: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }),
                 timestamp: Date.now()
             };
