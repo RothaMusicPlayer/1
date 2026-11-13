@@ -17,7 +17,6 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        /* កែប្រែពី 100vh មក 100dvh ដើម្បីកុំឱ្យ Chrome បាំងបាតអេក្រង់ */
         html, body { 
             background: var(--bg-main); 
             color: var(--text-primary); 
@@ -107,7 +106,7 @@
         .app { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; }
         .sidebar { width: 380px; border-right: 1px solid #e6e6e6; display: flex; flex-direction: column; height: 100%; background: #fff; z-index: 10; position: relative; }
 
-        /* Modern Bottom Navigation Bar */
+        /* --- Bottom Navigation Bar --- */
         .bottom-nav { 
             display: flex; 
             background: rgba(255, 255, 255, 0.98); 
@@ -164,7 +163,7 @@
             transform: translateY(-1px) scale(1.06);
         }
 
-        /* Dropdown Menu Styles */
+        /* --- Dropdown Menu Styles --- */
         .dropdown-container { 
             position: relative; 
             width: 100%; 
@@ -197,7 +196,7 @@
             bottom: 56px; 
             background: #fff; 
             color: var(--text-primary); 
-            min-width: 180px; 
+            min-width: 190px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.18); 
             border-radius: 18px; 
             overflow: hidden; 
@@ -588,13 +587,30 @@
 
         window.onload = function() {
             const loggedInUser = localStorage.getItem("quo_logged_in_user") || localStorage.getItem("telegram_logged_in_user");
-            if (loggedInUser) {
-                currentLoggedInUser = loggedInUser;
-                document.getElementById("authOverlay").style.display = "none";
-                loadUserData();
-                renderFeedPosts();
+            
+            // កែសម្រួល៖ បើរកមិនឃើញ User ត្រឹមត្រូវ ឬគ្មានឈ្មោះ ត្រូវบังខំឱ្យ Logout ចោល និងបង្ហាញ Auth Overlay វិញ
+            if (loggedInUser && loggedInUser.trim() !== "") {
+                currentLoggedInUser = loggedInUser.trim().toLowerCase();
+                
+                // ផ្ទៀងផ្ទាត់បន្ថែមថា User នេះមានក្នុង Registered Users មែនឬអត់
+                let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
+                if (!users[currentLoggedInUser]) {
+                    // ប្រសិនបើ User ត្រូវបានលុប ឬគ្មានទិន្នន័យ ត្រូវឱ្យ Logged Out វិញ
+                    localStorage.removeItem("quo_logged_in_user");
+                    localStorage.removeItem("telegram_logged_in_user");
+                    currentLoggedInUser = "";
+                    document.getElementById("authOverlay").style.display = "flex";
+                    toggleAuthMode(true); // บังខំចូល Login Mode
+                } else {
+                    document.getElementById("authOverlay").style.display = "none";
+                    loadUserData();
+                    renderFeedPosts();
+                }
             } else {
-                toggleAuthMode();
+                localStorage.removeItem("quo_logged_in_user");
+                localStorage.removeItem("telegram_logged_in_user");
+                document.getElementById("authOverlay").style.display = "flex";
+                toggleAuthMode(true);
             }
 
             setInterval(() => {
@@ -829,8 +845,12 @@
             }
         }
 
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
+        function toggleAuthMode(forceLogin = false) {
+            if (forceLogin === true) {
+                isLoginMode = true;
+            } else {
+                isLoginMode = !isLoginMode;
+            }
             document.getElementById("authTitle").textContent = isLoginMode ? "QUO - Login" : "QUO - Register";
             document.getElementById("authSubtitle").textContent = isLoginMode ? "Enter your username and password." : "Create a username and password.";
             document.getElementById("authBtn").textContent = isLoginMode ? "Log In" : "Sign Up";
@@ -838,11 +858,15 @@
         }
 
         function handleAuth() {
-            const username = document.getElementById("authUsername").value.trim().toLowerCase();
-            const password = document.getElementById("authPassword").value.trim();
+            const usernameInput = document.getElementById("authUsername");
+            const passwordInput = document.getElementById("authPassword");
+            
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value.trim();
 
-            if (!username || !password) {
-                showAlert("Please fill in Username and Password!", "Warning", "⚠️");
+            // កែសម្រួល៖ បន្ថែម Validation ការពារមិនឱ្យចុះឈ្មោះ ឬចូលដោយដាក់ឈ្មោះទទេរ ឬមាន space
+            if (!username || username === "" || !password || password === "") {
+                showAlert("Please enter a valid username and password!", "Warning", "⚠️");
                 return;
             }
 
@@ -857,14 +881,15 @@
                 localStorage.setItem("quo_registered_users", JSON.stringify(users));
 
                 showAlert("Registration successful! Please log in.", "Success", "✅", () => {
-                    toggleAuthMode();
-                    document.getElementById("authPassword").value = "";
+                    toggleAuthMode(true);
+                    passwordInput.value = "";
                 });
             } else {
                 if (!users[username] || users[username] !== password) {
                     showAlert("Incorrect username or password!", "Error", "❌");
                     return;
                 }
+                currentLoggedInUser = username;
                 localStorage.setItem("quo_logged_in_user", username);
                 document.getElementById("authOverlay").style.display = "none";
                 loadUserData();
@@ -873,7 +898,8 @@
         }
 
         function closeAuthOverlay(event) {
-            if (event.target.id === "authOverlay" && currentLoggedInUser) {
+            // មិនឱ្យបិទ Overlay បើមិនទាន់ Login ចូលគណនីដែលមានឈ្មោះត្រឹមត្រូវ
+            if (event.target.id === "authOverlay" && currentLoggedInUser && currentLoggedInUser.trim() !== "") {
                 document.getElementById("authOverlay").style.display = "none";
             }
         }
@@ -888,6 +914,7 @@
                 container.innerHTML = `<div style="font-size:13.5px; color:#707579; padding:12px;">No saved accounts</div>`;
             } else {
                 usernames.forEach(u => {
+                    if (!u || u.trim() === "") return; // រំលងកុំឱ្យបង្ហាញ Account ទទេរ
                     const div = document.createElement("div");
                     div.className = `account-item ${u === currentLoggedInUser ? 'active-acc' : ''}`;
                     div.innerHTML = `<span>@${u}</span>${u === currentLoggedInUser ? '<span style="font-size:11.5px; color:var(--telegram-blue); font-weight:600;">Active</span>' : ''}`;
@@ -916,11 +943,13 @@
         }
 
         function getFollowData(username) {
+            if (!username) return { followers: [] };
             let followers = JSON.parse(localStorage.getItem("quo_followers_" + username.toLowerCase())) || [];
             return { followers };
         }
 
         function showFollowersListModal(targetUser) {
+            if (!targetUser) return;
             const { followers } = getFollowData(targetUser);
             const container = document.getElementById("followersListContainer");
             document.getElementById("followersModalTitle").textContent = `@${targetUser}'s Followers (${followers.length})`;
@@ -930,6 +959,7 @@
                 container.innerHTML = `<div style="font-size:13.5px; color:#707579; padding:12px;">No followers yet.</div>`;
             } else {
                 followers.forEach(followerUsername => {
+                    if (!followerUsername) return;
                     const fAvatar = localStorage.getItem("quo_avatar_" + followerUsername);
                     let avatarStyle = fAvatar ? `background-image: url('${fAvatar}'); background-size: cover;` : "background: #3390ec;";
                     let avatarText = fAvatar ? "" : followerUsername.charAt(0).toUpperCase();
@@ -959,10 +989,17 @@
         }
 
         function openMyProfile() {
+            // កែសម្រួល៖ ពិនិត្យមើលថាតើ currentLoggedInUser ມີតម្លៃពិតប្រាកដដែរឬទើបបើក Profile
+            if (!currentLoggedInUser || currentLoggedInUser.trim() === "") {
+                showAlert("Please log in first!", "Error", "❌");
+                document.getElementById("authOverlay").style.display = "flex";
+                return;
+            }
+
             const { followers } = getFollowData(currentLoggedInUser);
             const savedAvatar = localStorage.getItem("quo_avatar_" + currentLoggedInUser);
             let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
-            let myPosts = allPosts.filter(p => p.author.toLowerCase() === currentLoggedInUser.toLowerCase());
+            let myPosts = allPosts.filter(p => p.author && p.author.toLowerCase() === currentLoggedInUser.toLowerCase());
 
             let avatarStyle = savedAvatar ? `background-image: url('${savedAvatar}'); background-size: cover;` : "";
             let avatarText = savedAvatar ? "" : currentLoggedInUser.charAt(0).toUpperCase();
@@ -1027,7 +1064,7 @@
             let post = allPosts.find(p => p.id === postId);
             if (!post) return;
 
-            document.getElementById("viewPostAuthor").textContent = `@${post.author}`;
+            document.getElementById("viewPostAuthor").textContent = `@${post.author || 'unknown'}`;
             document.getElementById("viewPostText").textContent = post.text || "";
 
             const mediaContainer = document.getElementById("viewPostMediaContainer");
@@ -1091,6 +1128,7 @@
         }
 
         function openUserProfile(username) {
+            if (!username || username.trim() === "") return;
             if (username.toLowerCase() === currentLoggedInUser.toLowerCase()) {
                 openMyProfile();
                 return;
@@ -1100,7 +1138,7 @@
             const isFollowing = followers.includes(currentLoggedInUser.toLowerCase());
             const targetAvatar = localStorage.getItem("quo_avatar_" + username);
             let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
-            let userPublicPosts = allPosts.filter(p => p.author.toLowerCase() === username.toLowerCase() && !p.isPrivate);
+            let userPublicPosts = allPosts.filter(p => p.author && p.author.toLowerCase() === username.toLowerCase() && !p.isPrivate);
 
             let avatarStyle = targetAvatar ? `background-image: url('${targetAvatar}'); background-size: cover;` : "";
             let avatarText = targetAvatar ? "" : username.charAt(0).toUpperCase();
@@ -1154,6 +1192,7 @@
         }
 
         function toggleFollowUser(targetUser) {
+            if (!targetUser) return;
             targetUser = targetUser.toLowerCase();
             let targetFollowers = JSON.parse(localStorage.getItem("quo_followers_" + targetUser)) || [];
             const me = currentLoggedInUser.toLowerCase();
@@ -1176,7 +1215,7 @@
 
         function uploadMyAvatar(event) {
             const file = event.target.files[0];
-            if (!file) return;
+            if (!file || !currentLoggedInUser) return;
             const reader = new FileReader();
             reader.onload = function(e) {
                 localStorage.setItem("quo_avatar_" + currentLoggedInUser, e.target.result);
@@ -1192,6 +1231,10 @@
         }
 
         function openTiktokUpload() {
+            if (!currentLoggedInUser || currentLoggedInUser.trim() === "") {
+                showAlert("Please log in first!", "Error", "❌");
+                return;
+            }
             document.getElementById("tiktokUploadModal").style.display = "flex";
         }
 
@@ -1268,6 +1311,11 @@
         }
 
         function createPost() {
+            if (!currentLoggedInUser || currentLoggedInUser.trim() === "") {
+                showAlert("Please log in first!", "Error", "❌");
+                return;
+            }
+
             const text = document.getElementById("postTextInput").value.trim();
 
             if (!text && !tempSelectedMediaData) {
@@ -1330,11 +1378,12 @@
             const container = document.getElementById("tiktokFeedContainer");
             if (!container) return;
             let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
-            const me = currentLoggedInUser.toLowerCase();
+            const me = currentLoggedInUser ? currentLoggedInUser.toLowerCase() : "";
 
             let myBlockedList = JSON.parse(localStorage.getItem("quo_blocked_" + me)) || [];
 
             let visiblePosts = allPosts.filter(post => {
+                if (!post.author) return false; // លុបចោល Post ណាដែលគ្មាន Author
                 const author = post.author.toLowerCase();
                 if (post.isPrivate && author !== me) return false;
                 if (myBlockedList.includes(author)) return false;
@@ -1427,12 +1476,13 @@
             let partners = [];
             
             Object.keys(registeredUsers).forEach(u => {
+                if (!u || u.trim() === "") return;
                 if (u !== currentLoggedInUser) {
                     let roomKey = getChatKey(currentLoggedInUser, u);
                     let messages = JSON.parse(localStorage.getItem(roomKey)) || [];
                     let lastMsg = messages.length > 0 ? messages[messages.length - 1] : null;
                     
-                    let unreadCount = messages.filter(m => m.sender.toLowerCase() === u.toLowerCase() && !m.read).length;
+                    let unreadCount = messages.filter(m => m.sender && m.sender.toLowerCase() === u.toLowerCase() && !m.read).length;
 
                     partners.push({
                         username: u,
@@ -1493,6 +1543,7 @@
         }
 
         function openChat(username) {
+            if (!username) return;
             activeChatUser = username;
             updateChatHeader(username);
             document.getElementById("chatWin").classList.add("open");
@@ -1514,12 +1565,13 @@
         }
 
         function markMessagesAsRead(targetUser) {
+            if (!targetUser) return;
             let roomKey = getChatKey(currentLoggedInUser, targetUser);
             let messages = JSON.parse(localStorage.getItem(roomKey)) || [];
             let updated = false;
 
             messages.forEach(m => {
-                if (m.sender.toLowerCase() === targetUser.toLowerCase() && !m.read) {
+                if (m.sender && m.sender.toLowerCase() === targetUser.toLowerCase() && !m.read) {
                     m.read = true;
                     updated = true;
                 }
@@ -1548,7 +1600,7 @@
 
             let lastOutIndex = -1;
             for (let i = messages.length - 1; i >= 0; i--) {
-                if (messages[i].sender.toLowerCase() === currentLoggedInUser.toLowerCase()) {
+                if (messages[i].sender && messages[i].sender.toLowerCase() === currentLoggedInUser.toLowerCase()) {
                     lastOutIndex = i;
                     break;
                 }
@@ -1556,7 +1608,7 @@
 
             messages.forEach((m, index) => {
                 const container = document.createElement("div");
-                let isOut = m.sender.toLowerCase() === currentLoggedInUser.toLowerCase();
+                let isOut = m.sender && m.sender.toLowerCase() === currentLoggedInUser.toLowerCase();
                 container.className = `msg-container ${isOut ? 'out' : 'in'}`;
 
                 let statusHtml = "";
@@ -1565,9 +1617,9 @@
                 }
 
                 container.innerHTML = `
-                    <div class="msg">${m.text}</div>
+                    <div class="msg">${m.text || ""}</div>
                     <div class="msg-info">
-                        <span>${m.time}</span>
+                        <span>${m.time || ""}</span>
                         ${statusHtml}
                     </div>
                 `;
@@ -1580,7 +1632,7 @@
         }
 
         function sendMsg() {
-            if (!activeChatUser) return;
+            if (!activeChatUser || !currentLoggedInUser) return;
             
             const me = currentLoggedInUser.toLowerCase();
             const target = activeChatUser.toLowerCase();
