@@ -8,19 +8,19 @@
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <style>
         :root {
-            --bg-main: #ffffff;
-            --bg-chat: #f0f2f5;
-            --bg-header: #3390ec;
-            --text-primary: #1c242b;
+            --bg-main: #000;
+            --bg-chat: #121212;
+            --bg-header: #000;
+            --text-primary: #ffffff;
             --text-secondary: #879099;
-            --bg-hover: #f8fafc;
+            --bg-hover: #1a1a1a;
             --telegram-blue: #3390ec;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
         
         html, body { 
-            background: var(--bg-main); 
+            background: #000; 
             color: var(--text-primary); 
             height: 100vh; 
             height: 100dvh; 
@@ -32,24 +32,24 @@
         }
 
         /* Auth Overlay */
-        #authOverlay { position: fixed; inset: 0; background: rgba(15,23,42,0.7); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .card { background: #fff; border-radius: 28px; width: 100%; max-width: 380px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .card input { width: 100%; padding: 14px 18px; border-radius: 14px; border: 1.5px solid #e2e8f0; margin-top: 8px; margin-bottom: 14px; outline: none; font-size: 15px; }
+        #authOverlay { position: fixed; inset: 0; background: rgba(15,23,42,0.85); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .card { background: #181818; color: #fff; border-radius: 28px; width: 100%; max-width: 380px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .card input { width: 100%; padding: 14px 18px; border-radius: 14px; border: 1.5px solid #333; background: #222; color: #fff; margin-top: 8px; margin-bottom: 14px; outline: none; font-size: 15px; }
         .card input:focus { border-color: var(--telegram-blue); }
         .card button { width: 100%; padding: 14px; border-radius: 14px; background: var(--telegram-blue); color: white; border: none; font-weight: 600; cursor: pointer; font-size: 16px; margin-top: 6px; }
         .switch-auth { margin-top: 16px; font-size: 13.5px; color: var(--telegram-blue); cursor: pointer; font-weight: 500; }
 
         /* Custom Alert Modal */
-        #customAlertModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 20px; }
-        .custom-alert-card { background: #fff; width: 100%; max-width: 320px; border-radius: 24px; padding: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+        #customAlertModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3500; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 20px; }
+        .custom-alert-card { background: #181818; color: #fff; width: 100%; max-width: 320px; border-radius: 24px; padding: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
         .custom-alert-btn { width: 100%; padding: 12px; border-radius: 14px; background: var(--telegram-blue); color: white; border: none; font-weight: 600; cursor: pointer; font-size: 15px; margin-top: 15px; }
 
         /* App Layout */
-        .app { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; }
-        .sidebar { width: 380px; border-right: 1px solid #e6e6e6; display: flex; flex-direction: column; height: 100%; background: #fff; z-index: 10; position: relative; }
+        .app { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
+        .sidebar { width: 380px; border-right: 1px solid #222; display: flex; flex-direction: column; height: 100%; background: #000; z-index: 10; position: relative; }
 
-        /* Bottom Navigation Bar */
-        .bottom-nav { display: flex; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); border-top: 1px solid #edf2f7; padding: 6px 8px calc(8px + env(safe-area-inset-bottom)) 8px; justify-content: space-around; align-items: center; z-index: 20; box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.04); flex-shrink: 0; }
+        /* Bottom Navigation Bar - Updated to Black Background */
+        .bottom-nav { display: flex; background: #000000; border-top: 1px solid #222; padding: 6px 8px calc(8px + env(safe-area-inset-bottom)) 8px; justify-content: space-around; align-items: center; z-index: 20; box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5); flex-shrink: 0; }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; color: var(--text-secondary); font-size: 10.5px; font-weight: 600; flex: 1; padding: 4px 2px; border-radius: 12px; }
         .nav-item.active { color: var(--telegram-blue); }
         .nav-item svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -67,30 +67,30 @@
         .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; }
         .tiktok-media-wrapper { width: 100%; height: 100%; position: absolute; inset: 0; z-index: 1; background: #000; display: flex; align-items: center; justify-content: center; }
         .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; border: none; background: #000; }
-        .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 30%); z-index: 3; pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
+        .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 30%); z-index: 3; pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
         .tiktok-content-box { pointer-events: auto; max-width: 90%; }
-        .tiktok-desc { color: white; font-size: 14.5px; line-height: 1.45; margin-bottom: 4px; word-break: break-word; }
+        .tiktok-desc { color: white; font-size: 14.5px; line-height: 1.45; margin-bottom: 4px; word-break: break-word; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
         /* Admin Panel Modal */
-        #adminModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3300; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 15px; }
-        .admin-card { background: #fff; width: 100%; max-width: 450px; max-height: 85vh; border-radius: 28px; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; }
+        #adminModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3300; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 15px; }
+        .admin-card { background: #181818; color: #fff; width: 100%; max-width: 450px; max-height: 85vh; border-radius: 28px; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #333; }
         
-        .admin-search-input { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1.5px solid #e2e8f0; outline: none; font-size: 14px; margin-bottom: 12px; }
+        .admin-search-input { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1.5px solid #333; background: #222; color: #fff; outline: none; font-size: 14px; margin-bottom: 12px; }
         .admin-tabs { display: flex; gap: 8px; margin-bottom: 10px; }
-        .admin-tab-btn { flex: 1; padding: 8px; border-radius: 10px; border: none; background: #f1f5f9; color: var(--text-secondary); font-weight: 600; cursor: pointer; font-size: 13px; }
+        .admin-tab-btn { flex: 1; padding: 8px; border-radius: 10px; border: none; background: #222; color: var(--text-secondary); font-weight: 600; cursor: pointer; font-size: 13px; }
         .admin-tab-btn.active { background: var(--telegram-blue); color: white; }
 
-        .admin-list-container { flex: 1; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 14px; padding: 8px; margin-bottom: 12px; max-height: 320px; }
-        .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #edf2f7; gap: 10px; }
+        .admin-list-container { flex: 1; overflow-y: auto; border: 1px solid #333; border-radius: 14px; padding: 8px; margin-bottom: 12px; max-height: 320px; }
+        .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #222; gap: 10px; }
         .admin-item:last-child { border-bottom: none; }
         .admin-action-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
         
         .admin-post-info { display: flex; align-items: center; gap: 10px; overflow: hidden; flex: 1; }
-        .admin-post-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #f1f5f9; flex-shrink: 0; }
+        .admin-post-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #222; flex-shrink: 0; }
 
         /* Upload Modal */
-        #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
-        .tiktok-upload-card { background: #fff; width: 100%; max-width: 360px; border-radius: 28px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
+        .tiktok-upload-card { background: #181818; color: #fff; width: 100%; max-width: 360px; border-radius: 28px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
 
         @media(max-width: 768px) {
             .sidebar { width: 100%; }
@@ -103,8 +103,8 @@
     <div id="authOverlay">
         <div class="card" id="authCard">
             <div style="font-size: 44px; margin-bottom: 10px;">💬</div>
-            <h2 id="authTitle" style="font-size: 22px; font-weight: 700; color: #1c242b;">QUO - Register</h2>
-            <p id="authSubtitle" style="font-size: 13.5px; color: #64748b; margin: 8px 0 20px;">Create a username and password.</p>
+            <h2 id="authTitle" style="font-size: 22px; font-weight: 700; color: #fff;">QUO - Register</h2>
+            <p id="authSubtitle" style="font-size: 13.5px; color: #879099; margin: 8px 0 20px;">Create a username and password.</p>
             
             <input type="text" id="authUsername" placeholder="Username">
             <input type="password" id="authPassword" placeholder="Password">
@@ -119,7 +119,7 @@
         <div class="custom-alert-card">
             <div style="font-size: 40px; margin-bottom: 12px;" id="customAlertIcon">⚠️</div>
             <h3 id="customAlertTitle" style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Notice</h3>
-            <p id="customAlertMessage" style="font-size: 14px; color: #64748b; line-height: 1.4;">Message goes here...</p>
+            <p id="customAlertMessage" style="font-size: 14px; color: #879099; line-height: 1.4;">Message goes here...</p>
             <button class="custom-alert-btn" onclick="closeCustomAlert()">OK</button>
         </div>
     </div>
@@ -136,11 +136,9 @@
 
             <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="Search..." oninput="filterAdminList()">
 
-            <div class="admin-list-container" id="adminListContainer">
-                <!-- Items loaded dynamically -->
-            </div>
+            <div class="admin-list-container" id="adminListContainer"></div>
 
-            <button onclick="closeAdminModal()" style="width:100%; padding:10px; background:#e2e8f0; color:#1c242b; border:none; border-radius:12px; font-weight:600; cursor:pointer; font-size:14px;">Close</button>
+            <button onclick="closeAdminModal()" style="width:100%; padding:10px; background:#222; color:#fff; border:none; border-radius:12px; font-weight:600; cursor:pointer; font-size:14px;">Close</button>
         </div>
     </div>
 
@@ -148,10 +146,10 @@
     <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
         <div class="tiktok-upload-card" onclick="event.stopPropagation()">
             <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
-            <textarea id="postTextInput" rows="3" placeholder="What's on your mind?..." style="width:100%; padding:12px 14px; border-radius:14px; border:1.5px solid #e2e8f0; outline:none; resize:none; font-size:14.5px; margin-bottom:12px;"></textarea>
-            <input type="text" id="postMediaUrlInput" placeholder="Paste Link (YouTube, Facebook, Image)..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #e2e8f0; outline: none; font-size: 14px; margin-bottom: 14px;">
+            <textarea id="postTextInput" rows="3" placeholder="What's on your mind?..." style="width:100%; padding:12px 14px; border-radius:14px; border:1.5px solid #333; background:#222; color:#fff; outline:none; resize:none; font-size:14.5px; margin-bottom:12px;"></textarea>
+            <input type="text" id="postMediaUrlInput" placeholder="Paste Link (YouTube, Facebook, Image)..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #333; background: #222; color: #fff; outline: none; font-size: 14px; margin-bottom: 14px;">
             <button onclick="createPost()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px;">Post</button>
-            <button onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#707579; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
+            <button onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#879099; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
         </div>
     </div>
 
@@ -162,7 +160,7 @@
                 <div class="tiktok-feed-container" id="tiktokFeedContainer"></div>
             </div>
 
-            <div id="profileSection" style="display: none; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 24px; text-align: center; background: #fff;">
+            <div id="profileSection" style="display: none; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 24px; text-align: center; background: #000;">
                 <div id="profileAvatar" class="avatar" style="width: 80px; height: 80px; font-size: 32px; background: var(--telegram-blue); margin-bottom: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">?</div>
                 <h2 id="profileUsername" style="font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);"></h2>
                 <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 24px;">Logged in user</p>
@@ -272,9 +270,29 @@
         async function fetchPosts() {
             try {
                 const res = await fetch(SERVER_URL + "/api/posts");
-                globalPosts = await res.json();
+                const allPosts = await res.json();
+                
+                // Randomize videos uniquely based on current logged-in username
+                globalPosts = shufflePostsForUser(allPosts, currentLoggedInUser);
                 renderFeedPosts();
             } catch (e) { console.error(e); }
+        }
+
+        // Function to pseudo-randomize posts uniquely per user account
+        function shufflePostsForUser(posts, username) {
+            let seed = 0;
+            for (let i = 0; i < username.length; i++) {
+                seed += username.charCodeAt(i);
+            }
+            let arr = [...posts];
+            // Fisher-Yates shuffle using user-based seed multiplier
+            for (let i = arr.length - 1; i > 0; i--) {
+                seed = (seed * 9301 + 49297) % 233280;
+                let rnd = seed / 233280;
+                let j = Math.floor(rnd * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
         }
 
         function setupProfileInfo() {
@@ -351,7 +369,7 @@
             if (currentAdminTab === 'users') {
                 const filteredUsers = globalUsers.filter(u => u.toLowerCase().includes(keyword));
                 if (filteredUsers.length === 0) {
-                    container.innerHTML = `<div style="text-align:center; padding:15px; color:#707579; font-size:13.5px;">No users found</div>`;
+                    container.innerHTML = `<div style="text-align:center; padding:15px; color:#879099; font-size:13.5px;">No users found</div>`;
                     return;
                 }
                 filteredUsers.forEach(user => {
@@ -366,14 +384,14 @@
             } else {
                 const filteredPosts = globalPosts.filter(p => (p.text && p.text.toLowerCase().includes(keyword)) || (p.author && p.author.toLowerCase().includes(keyword)));
                 if (filteredPosts.length === 0) {
-                    container.innerHTML = `<div style="text-align:center; padding:15px; color:#707579; font-size:13.5px;">No posts found</div>`;
+                    container.innerHTML = `<div style="text-align:center; padding:15px; color:#879099; font-size:13.5px;">No posts found</div>`;
                     return;
                 }
                 filteredPosts.forEach(post => {
                     const item = document.createElement("div");
                     item.className = "admin-item";
                     
-                    let thumbHtml = `<div class="admin-post-thumb" style="display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:11px;">No Media</div>`;
+                    let thumbHtml = `<div class="admin-post-thumb" style="display:flex; align-items:center; justify-content:center; color:#879099; font-size:11px;">No Media</div>`;
                     if (post.media) {
                         let mediaSrc = post.media;
                         if (mediaSrc.includes('youtube.com/embed/')) {
@@ -394,7 +412,7 @@
                             <div style="overflow:hidden;">
                                 <div style="font-size:13px; font-weight:600; color:var(--text-primary);">@${post.author}</div>
                                 <div style="font-size:12px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${snippet}</div>
-                                <div style="font-size:10.5px; color:#94a3b8;">📅 ${postTime}</div>
+                                <div style="font-size:10.5px; color:#666;">📅 ${postTime}</div>
                             </div>
                         </div>
                         <button class="admin-action-btn" onclick="deletePost('${post.id || post.timestamp}')">Delete</button>
@@ -459,7 +477,6 @@
                 else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
                 
                 if (videoId) {
-                    // ត្រឡប់មកប្រើទម្រង់ដើម មិនបិទ mute (ទុកតាមចិត្ត browser យោងតាមគោលការណ៍ autoplay)
                     result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&modestbranding=1&rel=0`;
                 }
             } else if (url.includes('facebook.com') || url.includes('fb.watch')) {
