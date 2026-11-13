@@ -51,7 +51,7 @@
         .view-post-content { background: #0f172a; width: 100%; max-width: 380px; max-height: 90dvh; border-radius: 28px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.6); display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); }
         .view-post-header { padding: 14px 18px; background: rgba(15,23,42,0.95); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); color: white; }
         .view-post-media-box { background: #000; flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; min-height: 320px; cursor: pointer; }
-        .view-post-media-box img, .view-post-media-box video { width: 100%; height: 100%; max-height: 450px; object-fit: contain; }
+        .view-post-media-box img, .view-post-media-box video, .view-post-media-box iframe { width: 100%; height: 100%; max-height: 450px; object-fit: contain; }
 
         /* Switch Account Modal */
         #switchAccountModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2500; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 20px; }
@@ -406,14 +406,14 @@
         <div class="profile-card" id="profileCardContent" onclick="event.stopPropagation()"></div>
     </div>
 
-    <!-- Upload Modal (Modified to use Media URL input) -->
+    <!-- Upload Modal (Supports Facebook & TikTok Links) -->
     <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
         <div class="tiktok-upload-card" onclick="event.stopPropagation()">
             <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
             <textarea id="postTextInput" rows="3" placeholder="What's on your mind?..." style="width:100%; padding:12px 14px; border-radius:14px; border:1.5px solid #e2e8f0; outline:none; resize:none; font-size:14.5px; margin-bottom:12px;"></textarea>
             
-            <!-- Input for Image or Video URL (No MB limit) -->
-            <input type="text" id="postMediaUrlInput" placeholder="Paste Image or Video URL (e.g. MP4, YouTube Link)..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #e2e8f0; outline: none; font-size: 14px; margin-bottom: 14px;">
+            <!-- Input for URL (Supports YouTube, Facebook, TikTok, Image/Video Links) -->
+            <input type="text" id="postMediaUrlInput" placeholder="Paste Link (YouTube, Facebook, TikTok, Image)..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #e2e8f0; outline: none; font-size: 14px; margin-bottom: 14px;">
             
             <button id="postUploadBtn" onclick="createPostWithUrl()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px; box-shadow: 0 4px 12px rgba(51,144,236,0.3);">Post</button>
             <button id="postCancelBtn" onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#707579; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
@@ -952,8 +952,12 @@
                 myPosts.forEach(post => {
                     let mediaBlock = "";
                     if (post.media) {
-                        let mediaSrc = post.mediaType === 'video' ? (post.thumbnail || post.media) : post.media;
-                        mediaBlock = `<img class="my-post-media" src="${mediaSrc}" onclick="viewSinglePost(${post.id})" style="user-select: none;" oncontextmenu="return false;">`;
+                        if (post.mediaType === 'iframe') {
+                            mediaBlock = `<div style="width:100%; height:220px; background:#000; border-radius:12px; margin-bottom:10px; overflow:hidden; display:flex; align-items:center; justify-content:center;"><iframe src="${post.media}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe></div>`;
+                        } else {
+                            let mediaSrc = post.mediaType === 'video' ? (post.thumbnail || post.media) : post.media;
+                            mediaBlock = `<img class="my-post-media" src="${mediaSrc}" onclick="viewSinglePost(${post.id})" style="user-select: none;" oncontextmenu="return false;">`;
+                        }
                     }
                     let isPrivate = post.isPrivate || false;
 
@@ -1012,9 +1016,10 @@
             mediaContainer.innerHTML = "";
 
             if (post.media) {
-                if (post.mediaType === 'video') {
-                    mediaContainer.innerHTML = `
-                        <video id="modalVideoPlayer" src="${post.media}" autoplay loop playsinline controls style="width:100%; height:100%; max-height:450px; object-fit:contain; background:#000; cursor:pointer;" oncontextmenu="return false;"></video>`;
+                if (post.mediaType === 'iframe') {
+                    mediaContainer.innerHTML = `<iframe src="${post.media}" style="width:100%; height:100%; max-height:450px; border:none;" allowfullscreen></iframe>`;
+                } else if (post.mediaType === 'video') {
+                    mediaContainer.innerHTML = `<video id="modalVideoPlayer" src="${post.media}" autoplay loop playsinline controls style="width:100%; height:100%; max-height:450px; object-fit:contain; background:#000; cursor:pointer;" oncontextmenu="return false;"></video>`;
                 } else {
                     mediaContainer.innerHTML = `<img src="${post.media}" style="width:100%; height:100%; max-height:450px; object-fit:contain; background:#000;" oncontextmenu="return false;">`;
                 }
@@ -1091,8 +1096,12 @@
                 userPublicPosts.forEach(post => {
                     let mediaBlock = "";
                     if (post.media) {
-                        let mediaSrc = post.mediaType === 'video' ? (post.thumbnail || post.media) : post.media;
-                        mediaBlock = `<img class="my-post-media" src="${mediaSrc}" onclick="viewSinglePost(${post.id})" style="user-select: none;" oncontextmenu="return false;">`;
+                        if (post.mediaType === 'iframe') {
+                            mediaBlock = `<div style="width:100%; height:220px; background:#000; border-radius:12px; margin-bottom:10px; overflow:hidden; display:flex; align-items:center; justify-content:center;"><iframe src="${post.media}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe></div>`;
+                        } else {
+                            let mediaSrc = post.mediaType === 'video' ? (post.thumbnail || post.media) : post.media;
+                            mediaBlock = `<img class="my-post-media" src="${mediaSrc}" onclick="viewSinglePost(${post.id})" style="user-select: none;" oncontextmenu="return false;">`;
+                        }
                     }
                     postsHtml += `
                         <div class="my-post-item">
@@ -1185,7 +1194,41 @@
             }
         }
 
-        // --- មុខងារបង្កើត Post តាមរយៈ Link (URL) ---
+        // --- មុខងាររៀបចំ Link ឱ្យស្គាល់ YouTube, Facebook និង TikTok ---
+        function parseMediaUrl(url) {
+            url = url.trim();
+            let result = { type: 'image', src: url };
+
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                let embedUrl = url;
+                if (embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
+                if (embedUrl.includes('youtu.be/')) embedUrl = embedUrl.replace('youtu.be/', 'www.youtube.com/embed/');
+                result = { type: 'iframe', src: embedUrl };
+            } 
+            else if (url.includes('facebook.com') || url.includes('fb.watch')) {
+                // Facebook Embedded Video Plugin URL format
+                let encodedUrl = encodeURIComponent(url);
+                let embedUrl = `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=500`;
+                result = { type: 'iframe', src: embedUrl };
+            } 
+            else if (url.includes('tiktok.com')) {
+                // TikTok Video Embed format
+                let match = url.match(/\/video\/(\d+)/);
+                if (match && match[1]) {
+                    let videoId = match[1];
+                    let embedUrl = `https://www.tiktok.com/embed/v2/${videoId}`;
+                    result = { type: 'iframe', src: embedUrl };
+                } else {
+                    result = { type: 'iframe', src: url };
+                }
+            } 
+            else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
+                result = { type: 'video', src: url };
+            }
+
+            return result;
+        }
+
         function createPostWithUrl() {
             if (!currentLoggedInUser || currentLoggedInUser.trim() === "") {
                 showAlert("Please log in first!", "Error", "❌");
@@ -1200,10 +1243,7 @@
                 return;
             }
 
-            let mediaType = 'image';
-            if (mediaUrl.includes('youtube.com') || mediaUrl.includes('youtu.be') || mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.webm') || mediaUrl.endsWith('.mov')) {
-                mediaType = 'video';
-            }
+            let parsed = mediaUrl ? parseMediaUrl(mediaUrl) : { type: null, src: null };
 
             try {
                 let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
@@ -1211,8 +1251,8 @@
                     id: Date.now(),
                     author: currentLoggedInUser,
                     text: text,
-                    media: mediaUrl || null,
-                    mediaType: mediaUrl ? mediaType : null,
+                    media: parsed.src,
+                    mediaType: parsed.type,
                     isPrivate: false,
                     time: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
                 };
@@ -1268,16 +1308,10 @@
                 let mediaHtml = "";
                 const vidId = `feedVideo_${post.id}_${index}`;
                 if (post.media) {
-                    if (post.mediaType === 'video') {
-                        // ប្រសិនបើជា Link YouTube អាចទាញយកមកបង្ហាញជា iframe បាន ឬប្រើ video tag ធម្មតាសម្រាប់ direct mp4 link
-                        if (post.media.includes('youtube.com') || post.media.includes('youtu.be')) {
-                            let embedUrl = post.media;
-                            if (embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
-                            if (embedUrl.includes('youtu.be/')) embedUrl = embedUrl.replace('youtu.be/', 'www.youtube.com/embed/');
-                            mediaHtml = `<iframe class="tiktok-media" src="${embedUrl}" frameborder="0" allowfullscreen style="border:none;"></iframe>`;
-                        } else {
-                            mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" loop playsinline muted controls style="-webkit-user-select: none; user-select: none;"></video>`;
-                        }
+                    if (post.mediaType === 'iframe') {
+                        mediaHtml = `<iframe class="tiktok-media" src="${post.media}" frameborder="0" allowfullscreen style="border:none; pointer-events: auto;"></iframe>`;
+                    } else if (post.mediaType === 'video') {
+                        mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" loop playsinline muted controls style="-webkit-user-select: none; user-select: none;"></video>`;
                     } else {
                         mediaHtml = `<img class="tiktok-media" src="${post.media}" style="-webkit-user-select: none; user-select: none;" oncontextmenu="return false;">`;
                     }
@@ -1289,12 +1323,12 @@
                 reel.className = "tiktok-reel";
                 reel.innerHTML = `
                     ${mediaHtml}
-                    <div class="tiktok-overlay">
-                        <div class="tiktok-top-bar">
+                    <div class="tiktok-overlay" style="pointer-events: none;">
+                        <div class="tiktok-top-bar" style="pointer-events: auto;">
                             <span style="color:white; font-weight:700; font-size:16.5px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">QUO Feed ${post.isPrivate ? '(🔒 Private)' : ''}</span>
                             <button onclick="openTiktokUpload()" class="tiktok-create-trigger">+ Upload</button>
                         </div>
-                        <div class="tiktok-content-box">
+                        <div class="tiktok-content-box" style="pointer-events: auto;">
                             <div class="tiktok-user-row" onclick="openUserProfile('${post.author}')">
                                 <div class="avatar" style="width:38px; height:38px; font-size:14.5px; ${avatarStyle}">${avatarText}</div>
                                 <div>
