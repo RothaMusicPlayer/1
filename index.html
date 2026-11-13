@@ -145,8 +145,8 @@
     <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
         <div class="tiktok-upload-card" onclick="event.stopPropagation()">
             <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
-            <!-- Textarea was removed here -->
-            <input type="text" id="postMediaUrlInput" placeholder="Paste Link (YouTube, Facebook, Image)..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #333; background: #222; color: #fff; outline: none; font-size: 14px; margin-bottom: 14px;">
+            <!-- ដាក់តែប្រអប់ Paste Link YouTube ជាមួយ Placeholder ថ្មី -->
+            <input type="text" id="postMediaUrlInput" placeholder="Paste link YouTube..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #333; background: #222; color: #fff; outline: none; font-size: 14px; margin-bottom: 14px;">
             <button onclick="createPost()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px;">Post</button>
             <button onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#879099; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
         </div>
@@ -506,19 +506,13 @@
                 if (videoId) {
                     result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&modestbranding=1&rel=0`;
                 }
-            } else if (url.includes('facebook.com') || url.includes('fb.watch')) {
-                let encodedUrl = encodeURIComponent(url);
-                result.src = `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=500`;
-            } else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
-                result.type = 'video';
             }
-
             return result;
         }
 
         async function createPost() {
             const mediaUrl = document.getElementById("postMediaUrlInput").value.trim();
-            if (!mediaUrl) return showAlert("Please paste a link!");
+            if (!mediaUrl) return showAlert("Please paste a YouTube link!");
 
             let parsed = parseMediaUrl(mediaUrl);
 
@@ -562,12 +556,6 @@
                 
                 reel.innerHTML = `
                     <div class="tiktok-media-wrapper" data-media="${post.media || ''}" data-type="${post.mediaType || 'iframe'}"></div>
-                    ${post.text ? `
-                    <div class="tiktok-overlay">
-                        <div class="tiktok-content-box">
-                            <div class="tiktok-desc">${post.text}</div>
-                        </div>
-                    </div>` : ''}
                 `;
                 container.appendChild(reel);
             });
