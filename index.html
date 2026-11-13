@@ -54,7 +54,6 @@
         .nav-item.active { color: var(--telegram-blue); }
         .nav-item svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-        /* Center Upload Button in Bottom Nav */
         .nav-upload-btn { background: var(--telegram-blue); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 4px 12px rgba(51, 144, 236, 0.35); transition: transform 0.15s; }
         .nav-upload-btn:active { transform: scale(0.95); }
 
@@ -71,17 +70,20 @@
         .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 30%); z-index: 3; pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
         .tiktok-content-box { pointer-events: auto; max-width: 90%; }
         .tiktok-desc { color: white; font-size: 14.5px; line-height: 1.45; margin-bottom: 4px; word-break: break-word; }
-        
-        /* Admin Delete Buttons */
-        .admin-delete-post { position: absolute; top: 20px; right: 20px; z-index: 10; background: rgba(239, 68, 68, 0.85); color: white; border: none; padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; backdrop-filter: blur(4px); }
 
         /* Admin Panel Modal */
         #adminModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3300; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
-        .admin-card { background: #fff; width: 100%; max-width: 420px; max-height: 80vh; border-radius: 28px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; }
-        .user-list-container { flex: 1; overflow-y: auto; margin-top: 12px; margin-bottom: 12px; border: 1px solid #e2e8f0; border-radius: 14px; padding: 10px; }
-        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #edf2f7; }
-        .user-item:last-child { border-bottom: none; }
-        .delete-user-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+        .admin-card { background: #fff; width: 100%; max-width: 450px; max-height: 85vh; border-radius: 28px; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; }
+        
+        .admin-search-input { width: 100%; padding: 10px 14px; border-radius: 12px; border: 1.5px solid #e2e8f0; outline: none; font-size: 14px; margin-bottom: 12px; }
+        .admin-tabs { display: flex; gap: 8px; margin-bottom: 10px; }
+        .admin-tab-btn { flex: 1; padding: 8px; border-radius: 10px; border: none; background: #f1f5f9; color: var(--text-secondary); font-weight: 600; cursor: pointer; font-size: 13px; }
+        .admin-tab-btn.active { background: var(--telegram-blue); color: white; }
+
+        .admin-list-container { flex: 1; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 14px; padding: 8px; margin-bottom: 12px; max-height: 250px; }
+        .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid #edf2f7; gap: 8px; }
+        .admin-item:last-child { border-bottom: none; }
+        .admin-action-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
 
         /* Upload Modal */
         #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
@@ -94,7 +96,7 @@
 </head>
 <body>
 
-    <!-- Auth Overlay (Login / Register) -->
+    <!-- Auth Overlay -->
     <div id="authOverlay">
         <div class="card" id="authCard">
             <div style="font-size: 44px; margin-bottom: 10px;">💬</div>
@@ -109,7 +111,7 @@
         </div>
     </div>
 
-    <!-- Custom Modern Alert Modal -->
+    <!-- Custom Alert Modal -->
     <div id="customAlertModal">
         <div class="custom-alert-card">
             <div style="font-size: 40px; margin-bottom: 12px;" id="customAlertIcon">⚠️</div>
@@ -122,11 +124,22 @@
     <!-- Admin Panel Modal -->
     <div id="adminModal" onclick="closeAdminModal(event)">
         <div class="admin-card" onclick="event.stopPropagation()">
-            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 6px;">Admin Panel</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Manage registered users:</p>
-            <div class="user-list-container" id="adminUserList">
-                <!-- Users will be loaded here -->
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Admin Control Panel</h3>
+            
+            <!-- Tabs (Users / Posts) -->
+            <div class="admin-tabs">
+                <button class="admin-tab-btn active" id="adminTabUsersBtn" onclick="switchAdminTab('users')">Manage Users</button>
+                <button class="admin-tab-btn" id="adminTabPostsBtn" onclick="switchAdminTab('posts')">Manage Posts</button>
             </div>
+
+            <!-- Search Input -->
+            <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="Search..." oninput="filterAdminList()">
+
+            <!-- Lists Container -->
+            <div class="admin-list-container" id="adminListContainer">
+                <!-- Items loaded dynamically -->
+            </div>
+
             <button onclick="closeAdminModal()" style="width:100%; padding:10px; background:#e2e8f0; color:#1c242b; border:none; border-radius:12px; font-weight:600; cursor:pointer; font-size:14px;">Close</button>
         </div>
     </div>
@@ -149,13 +162,11 @@
                 <div class="tiktok-feed-container" id="tiktokFeedContainer"></div>
             </div>
 
-            <!-- Profile Section -->
             <div id="profileSection" style="display: none; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 24px; text-align: center; background: #fff;">
                 <div id="profileAvatar" class="avatar" style="width: 80px; height: 80px; font-size: 32px; background: var(--telegram-blue); margin-bottom: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">?</div>
                 <h2 id="profileUsername" style="font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);"></h2>
                 <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 24px;">Logged in user</p>
                 
-                <!-- Admin Button (Only visible for admin) -->
                 <button id="adminPanelBtn" class="admin-btn" style="display: none;" onclick="openAdminModal()">⚙️ Admin Panel</button>
                 <button class="logout-btn" onclick="logout()">Log Out</button>
             </div>
@@ -166,10 +177,8 @@
                     <span>Home</span>
                 </div>
                 
-                <!-- Center Upload Button -->
                 <button class="nav-upload-btn" onclick="openTiktokUpload()">+ Upload</button>
 
-                <!-- Profile Tab -->
                 <div class="nav-item" id="tabProfileBtn" onclick="switchTab('profile')">
                     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     <span>Profile</span>
@@ -185,6 +194,8 @@
         let isLoginMode = false;
         let currentLoggedInUser = localStorage.getItem("quo_logged_in_user") || "";
         let globalPosts = [];
+        let globalUsers = [];
+        let currentAdminTab = 'users'; // 'users' ឬ 'posts'
 
         function showAlert(message, title = "Notice", icon = "⚠️") {
             document.getElementById("customAlertTitle").textContent = title;
@@ -254,7 +265,7 @@
                     showAlert(data.message || "Authentication failed!");
                 }
             } catch (err) {
-                showAlert("Cannot connect to server! Make sure your Server URL is correct.");
+                showAlert("Cannot connect to server!");
             }
         }
 
@@ -271,7 +282,6 @@
                 document.getElementById("profileUsername").textContent = "@" + currentLoggedInUser;
                 document.getElementById("profileAvatar").textContent = currentLoggedInUser.charAt(0).toUpperCase();
 
-                // បង្ហាញ Admin Panel Button เฉพาะ account "admin"
                 if (currentLoggedInUser === "admin") {
                     document.getElementById("adminPanelBtn").style.display = "block";
                 } else {
@@ -281,9 +291,7 @@
         }
 
         function switchTab(tab) {
-            if (tab === 'profile') {
-                stopAllVideos();
-            }
+            if (tab === 'profile') stopAllVideos();
 
             if (tab === 'feed') {
                 document.getElementById("feedSection").style.display = "flex";
@@ -300,16 +308,14 @@
             }
         }
 
-        function openTiktokUpload() {
-            document.getElementById("tiktokUploadModal").style.display = "flex";
-        }
-        function closeTiktokUpload() {
-            document.getElementById("tiktokUploadModal").style.display = "none";
-        }
+        function openTiktokUpload() { document.getElementById("tiktokUploadModal").style.display = "flex"; }
+        function closeTiktokUpload() { document.getElementById("tiktokUploadModal").style.display = "none"; }
 
+        // --- ADMIN PANEL FUNCTIONS ---
         async function openAdminModal() {
             document.getElementById("adminModal").style.display = "flex";
-            await fetchUsersForAdmin();
+            document.getElementById("adminSearchInput").value = "";
+            await loadAdminData();
         }
         function closeAdminModal(e) {
             if (!e || e.target.id === 'adminModal') {
@@ -317,30 +323,73 @@
             }
         }
 
-        async function fetchUsersForAdmin() {
+        function switchAdminTab(tab) {
+            currentAdminTab = tab;
+            document.getElementById("adminTabUsersBtn").classList.toggle("active", tab === 'users');
+            document.getElementById("adminTabPostsBtn").classList.toggle("active", tab === 'posts');
+            document.getElementById("adminSearchInput").value = "";
+            renderAdminList();
+        }
+
+        async function loadAdminData() {
             try {
-                const res = await fetch(SERVER_URL + "/api/admin/users?adminUser=" + currentLoggedInUser);
-                const data = await res.json();
-                const container = document.getElementById("adminUserList");
-                container.innerHTML = "";
+                // Load Users
+                const resUsers = await fetch(SERVER_URL + "/api/admin/users?adminUser=" + currentLoggedInUser);
+                const dataUsers = await resUsers.json();
+                if (dataUsers.success) globalUsers = dataUsers.users;
 
-                if (!data.success || !data.users || data.users.length === 0) {
-                    container.innerHTML = `<div style="text-align:center; padding:20px; color:#707579;">No users found.</div>`;
-                    return;
-                }
+                // Load Posts
+                await fetchPosts(); // Update globalPosts
 
-                data.users.forEach(user => {
-                    const item = document.createElement("div");
-                    item.className = "user-item";
-                    item.innerHTML = `
-                        <span style="font-weight:600; font-size:14px;">@${user}</span>
-                        ${user !== 'admin' ? `<button class="delete-user-btn" onclick="deleteUser('${user}')">Delete</button>` : `<span style="font-size:12px; color:#10b981; font-weight:600;">Admin</span>`}
-                    `;
-                    container.appendChild(item);
-                });
+                renderAdminList();
             } catch (err) {
                 console.error(err);
             }
+        }
+
+        function renderAdminList() {
+            const container = document.getElementById("adminListContainer");
+            const keyword = document.getElementById("adminSearchInput").value.trim().toLowerCase();
+            container.innerHTML = "";
+
+            if (currentAdminTab === 'users') {
+                const filteredUsers = globalUsers.filter(u => u.toLowerCase().includes(keyword));
+                if (filteredUsers.length === 0) {
+                    container.innerHTML = `<div style="text-align:center; padding:15px; color:#707579; font-size:13.5px;">No users found</div>`;
+                    return;
+                }
+                filteredUsers.forEach(user => {
+                    const item = document.createElement("div");
+                    item.className = "admin-item";
+                    item.innerHTML = `
+                        <span style="font-weight:600; font-size:13.5px;">@${user}</span>
+                        ${user !== 'admin' ? `<button class="admin-action-btn" onclick="deleteUser('${user}')">Delete</button>` : `<span style="font-size:12px; color:#10b981; font-weight:600;">Admin</span>`}
+                    `;
+                    container.appendChild(item);
+                });
+            } else {
+                const filteredPosts = globalPosts.filter(p => (p.text && p.text.toLowerCase().includes(keyword)) || (p.author && p.author.toLowerCase().includes(keyword)));
+                if (filteredPosts.length === 0) {
+                    container.innerHTML = `<div style="text-align:center; padding:15px; color:#707579; font-size:13.5px;">No posts found</div>`;
+                    return;
+                }
+                filteredPosts.forEach(post => {
+                    const item = document.createElement("div");
+                    item.className = "admin-item";
+                    const snippet = post.text ? (post.text.length > 30 ? post.text.substring(0, 30) + '...' : post.text) : '[Media Post]';
+                    item.innerHTML = `
+                        <div style="font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;">
+                            <b>@${post.author}</b>: ${snippet}
+                        </div>
+                        <button class="admin-action-btn" onclick="deletePost('${post.id || post.timestamp}')">Delete</button>
+                    `;
+                    container.appendChild(item);
+                });
+            }
+        }
+
+        function filterAdminList() {
+            renderAdminList();
         }
 
         async function deleteUser(usernameToDelete) {
@@ -354,15 +403,13 @@
                 });
                 const data = await res.json();
                 if (data.success) {
-                    showAlert(`User @${usernameToDelete} deleted successfully!`, "Success", "✅");
-                    fetchUsersForAdmin();
+                    showAlert(`User @${usernameToDelete} deleted!`, "Success", "✅");
+                    await loadAdminData();
                     fetchPosts();
                 } else {
-                    showAlert(data.message || "Failed to delete user.");
+                    showAlert(data.message || "Failed.");
                 }
-            } catch (err) {
-                showAlert("Connection error.");
-            }
+            } catch (err) { showAlert("Error"); }
         }
 
         async function deletePost(postId) {
@@ -376,42 +423,29 @@
                 });
                 const data = await res.json();
                 if (data.success) {
-                    showAlert("Post deleted successfully!", "Success", "✅");
+                    showAlert("Post deleted!", "Success", "✅");
+                    await loadAdminData();
                     fetchPosts();
                 } else {
-                    showAlert(data.message || "Failed to delete post.");
+                    showAlert(data.message || "Failed.");
                 }
-            } catch (err) {
-                showAlert("Connection error.");
-            }
+            } catch (err) { showAlert("Error"); }
         }
 
         function parseMediaUrl(url) {
             url = url.trim();
             let result = { type: 'iframe', src: url };
-
             if (url.includes('youtube.com') || url.includes('youtu.be')) {
                 let videoId = "";
-                if (url.includes('youtu.be/')) {
-                    videoId = url.split('youtu.be/')[1]?.split('?')[0];
-                } else if (url.includes('watch?v=')) {
-                    videoId = url.split('watch?v=')[1]?.split('&')[0];
-                } else if (url.includes('embed/')) {
-                    videoId = url.split('embed/')[1]?.split('?')[0];
-                }
-
-                if (videoId) {
-                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
-                }
-            } 
-            else if (url.includes('facebook.com') || url.includes('fb.watch')) {
-                let encodedUrl = encodeURIComponent(url);
-                result.src = `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=500`;
-            } 
-            else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
+                if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1]?.split('?')[0];
+                else if (url.includes('watch?v=')) videoId = url.split('watch?v=')[1]?.split('&')[0];
+                else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
+                if (videoId) result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&modestbranding=1&rel=0`;
+            } else if (url.includes('facebook.com') || url.includes('fb.watch')) {
+                result.src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&width=500`;
+            } else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.mov')) {
                 result.type = 'video';
             }
-
             return result;
         }
 
@@ -421,7 +455,6 @@
             if (!text && !mediaUrl) return showAlert("Please write something or add media!");
 
             let parsed = mediaUrl ? parseMediaUrl(mediaUrl) : { type: null, src: null };
-
             const newPost = {
                 author: currentLoggedInUser,
                 text,
@@ -444,8 +477,7 @@
         }
 
         function stopAllVideos() {
-            const wrappers = document.querySelectorAll('.tiktok-media-wrapper');
-            wrappers.forEach(wrapper => wrapper.innerHTML = '');
+            document.querySelectorAll('.tiktok-media-wrapper').forEach(w => w.innerHTML = '');
         }
 
         function renderFeedPosts() {
@@ -453,19 +485,14 @@
             container.innerHTML = "";
 
             if (globalPosts.length === 0) {
-                container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#fff;"><p>No posts available.</p><button onclick="openTiktokUpload()" class="tiktok-create-trigger" style="margin-top:10px;">+ Upload</button></div>`;
+                container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#fff;"><p>No posts available.</p><button onclick="openTiktokUpload()" style="margin-top:10px; padding:8px 16px; border-radius:12px; background:var(--telegram-blue); color:white; border:none; font-weight:600; cursor:pointer;">+ Upload</button></div>`;
                 return;
             }
 
             globalPosts.forEach((post) => {
                 const reel = document.createElement("div");
                 reel.className = "tiktok-reel";
-                
-                // បន្ថែមប៊ូតុង Delete Post ប្រសិនបើ account គឺ admin
-                const deleteBtnHtml = (currentLoggedInUser === 'admin') ? `<button class="admin-delete-post" onclick="deletePost('${post._id || post.timestamp}')">🗑️ Delete Post</button>` : '';
-
                 reel.innerHTML = `
-                    ${deleteBtnHtml}
                     <div class="tiktok-media-wrapper" data-media="${post.media || ''}" data-type="${post.mediaType || 'iframe'}"></div>
                     ${post.text ? `
                     <div class="tiktok-overlay">
@@ -484,19 +511,11 @@
         function setupVideoObserver() {
             const container = document.getElementById("tiktokFeedContainer");
             const reels = container.querySelectorAll(".tiktok-reel");
-
-            const observerOptions = {
-                root: container,
-                threshold: 0.6
-            };
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const wrapper = entry.target.querySelector('.tiktok-media-wrapper');
                     if (!wrapper) return;
-
                     const mediaUrl = wrapper.getAttribute('data-media');
-
                     if (entry.isIntersecting) {
                         if (mediaUrl && wrapper.innerHTML === '') {
                             wrapper.innerHTML = `<iframe class="tiktok-media" src="${mediaUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -505,7 +524,7 @@
                         wrapper.innerHTML = '';
                     }
                 });
-            }, observerOptions);
+            }, { root: container, threshold: 0.6 });
 
             reels.forEach(reel => observer.observe(reel));
         }
