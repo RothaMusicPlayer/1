@@ -33,7 +33,7 @@
 
         /* Auth Overlay (Login / Register) */
         #authOverlay { position: fixed; inset: 0; background: rgba(15,23,42,0.7); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .card { background: #fff; border-radius: 28px; width: 100%; max-width: 380px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: scaleUp 0.25s ease; }
+        .card { background: #fff; border-radius: 28px; width: 100%; max-width: 380px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .card input { width: 100%; padding: 14px 18px; border-radius: 14px; border: 1.5px solid #e2e8f0; margin-top: 8px; margin-bottom: 14px; outline: none; font-size: 15px; }
         .card input:focus { border-color: var(--telegram-blue); }
         .card button { width: 100%; padding: 14px; border-radius: 14px; background: var(--telegram-blue); color: white; border: none; font-weight: 600; cursor: pointer; font-size: 16px; margin-top: 6px; }
@@ -190,7 +190,8 @@
     </div>
 
     <script>
-        const SERVER_URL = "http://localhost:3000"; 
+        // 🔗 ប្តូរ Link ខាងក្រោមនេះទៅជា Link របស់ Server ដែលអ្នកបាន Deploy លើ Render (ឧទាហរណ៍៖ https://quo-server.onrender.com)
+        const SERVER_URL = "https://your-server-url.onrender.com"; 
         const socket = io(SERVER_URL);
 
         let isLoginMode = false;
@@ -274,7 +275,7 @@
                     showAlert(data.message || "Authentication failed!");
                 }
             } catch (err) {
-                showAlert("Cannot connect to server! Make sure your Node.js server is running.");
+                showAlert("Cannot connect to server! Make sure your Server URL is correct.");
             }
         }
 
