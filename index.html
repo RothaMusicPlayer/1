@@ -107,7 +107,7 @@
         .app { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; }
         .sidebar { width: 380px; border-right: 1px solid #e6e6e6; display: flex; flex-direction: column; height: 100%; background: #fff; z-index: 10; position: relative; }
 
-        /* --- Bottom Navigation Bar --- */
+        /* Modern Bottom Navigation Bar */
         .bottom-nav { 
             display: flex; 
             background: rgba(255, 255, 255, 0.98); 
@@ -164,7 +164,7 @@
             transform: translateY(-1px) scale(1.06);
         }
 
-        /* --- Dropdown Menu Styles --- */
+        /* Dropdown Menu Styles */
         .dropdown-container { 
             position: relative; 
             width: 100%; 
@@ -197,7 +197,7 @@
             bottom: 56px; 
             background: #fff; 
             color: var(--text-primary); 
-            min-width: 190px; 
+            min-width: 180px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.18); 
             border-radius: 18px; 
             overflow: hidden; 
@@ -224,7 +224,6 @@
         .dropdown-item:hover { background: #f8fafc; }
         .dropdown-item.danger { color: #ef4444; }
 
-        /* Nav Badge for Unread Messages */
         .nav-badge { position: absolute; top: 1px; right: 28%; background: var(--telegram-blue); color: white; font-size: 9.5px; font-weight: 700; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(51,144,236,0.3); }
 
         .search { padding: 12px 16px; }
@@ -250,7 +249,7 @@
         .tiktok-feed-container::-webkit-scrollbar { display: none; }
 
         .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; }
-        .tiktok-media { width: 100%; height: 100%; object-fit: cover; max-width: 1080px; position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+        .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; position: absolute; inset: 0; z-index: 1; cursor: pointer; background: #000; }
         
         .tiktok-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.35) 100%); z-index: 2; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 18px 18px 22px 18px; }
         
@@ -281,6 +280,11 @@
         /* Floating Create Post Modal */
         #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
         .tiktok-upload-card { background: #fff; width: 100%; max-width: 360px; border-radius: 28px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); animation: scaleUp 0.2s ease; }
+
+        /* Upload Progress Bar Styles */
+        #uploadProgressContainer { display: none; margin-bottom: 12px; background: #f1f5f9; border-radius: 14px; padding: 12px; }
+        .progress-bar-track { width: 100%; background: #e2e8f0; border-radius: 8px; height: 8px; overflow: hidden; margin-top: 6px; }
+        .progress-bar-fill { width: 0%; height: 100%; background: var(--telegram-blue); transition: width 0.1s linear; border-radius: 8px; }
 
         /* Chat Window Header Styling */
         .chat-win { flex: 1; display: flex; flex-direction: column; background: var(--bg-chat); height: 100%; position: relative; }
@@ -434,7 +438,7 @@
         <div class="profile-card" id="profileCardContent" onclick="event.stopPropagation()"></div>
     </div>
 
-    <!-- TikTok Upload Modal -->
+    <!-- Upload Modal -->
     <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
         <div class="tiktok-upload-card" onclick="event.stopPropagation()">
             <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
@@ -446,15 +450,26 @@
                 <button onclick="clearSelectedMedia()" style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.65); color:white; border:none; border-radius:50%; width:26px; height:26px; cursor:pointer; font-size:12px; display:flex; align-items:center; justify-content:center;">✕</button>
             </div>
 
+            <!-- Upload Progress Bar Container -->
+            <div id="uploadProgressContainer">
+                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #334155;">
+                    <span id="uploadStatusText">Uploading video...</span>
+                    <span id="uploadPercentageText">0%</span>
+                </div>
+                <div class="progress-bar-track">
+                    <div id="progressBarFill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
                 <label class="media-picker-label" style="cursor:pointer; font-size:14px; color:var(--telegram-blue); font-weight:600;">
-                    📁 Choose Photo / 1080p Video (Max 95MB)
-                    <input type="file" id="postFilePicker" style="display:none;" onchange="handleFileSelect(event)">
+                    📁 Choose Any Photo / Video (No Limit)
+                    <input type="file" id="postFilePicker" accept="*/*" style="display:none;" onchange="handleFileSelect(event)">
                 </label>
             </div>
             
-            <button onclick="createPost()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px; box-shadow: 0 4px 12px rgba(51,144,236,0.3);">Post</button>
-            <button onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#707579; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
+            <button id="postUploadBtn" onclick="createPost()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px; box-shadow: 0 4px 12px rgba(51,144,236,0.3);">Post</button>
+            <button id="postCancelBtn" onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#707579; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
         </div>
     </div>
 
@@ -509,7 +524,6 @@
                             <div class="dropdown-item" onclick="openMyProfile()"><span>👤</span> Profile</div>
                             <div class="dropdown-item" onclick="openBlockedUsersModal()"><span>🚫</span> Blocked Users</div>
                             <div class="dropdown-item" onclick="openSwitchModal()"><span>🔄</span> Switch Account</div>
-                            <div class="dropdown-item danger" onclick="resetAllDataAndApp()"><span>♻️</span> Reset All Data</div>
                         </div>
                     </div>
                 </div>
@@ -594,14 +608,6 @@
                 }
             }, 1000);
         };
-
-        function resetAllDataAndApp() {
-            if (confirm("តើអ្នកពិតជាចង់លុបគណនីអ្នកប្រើប្រាស់ និង Post ទាំងអស់មែនទេ?")) {
-                localStorage.clear();
-                alert("បានសម្អាតទិន្នន័យទាំងអស់រួចរាល់!");
-                location.reload();
-            }
-        }
 
         function switchTab(tab) {
             const chatsContainer = document.getElementById("chatsContainer");
@@ -872,38 +878,6 @@
             }
         }
 
-        function openDeleteModalPrompt() {
-            document.getElementById("profileModal").style.display = "none";
-            document.getElementById("confirmDeletePassword").value = "";
-            document.getElementById("deleteConfirmModal").style.display = "flex";
-        }
-
-        function closeDeleteModal(event) {
-            if (!event || event.target.id === "deleteConfirmModal") {
-                document.getElementById("deleteConfirmModal").style.display = "none";
-            }
-        }
-
-        function executeAccountDeletion() {
-            const inputPassword = document.getElementById("confirmDeletePassword").value.trim();
-            let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
-
-            if (!inputPassword || users[currentLoggedInUser] !== inputPassword) {
-                showAlert("Incorrect password! Cannot delete account.", "Error", "❌");
-                return;
-            }
-
-            const deletedUser = currentLoggedInUser;
-            delete users[deletedUser];
-            localStorage.setItem("quo_registered_users", JSON.stringify(users));
-            localStorage.removeItem("quo_avatar_" + deletedUser);
-            localStorage.removeItem("quo_logged_in_user");
-            
-            showAlert("Your account has been successfully deleted!", "Deleted", "🗑️", () => {
-                location.reload();
-            });
-        }
-
         function openSwitchModal() {
             const container = document.getElementById("savedAccountListContainer");
             let users = JSON.parse(localStorage.getItem("quo_registered_users")) || {};
@@ -1043,10 +1017,7 @@
                     ${postsHtml}
                 </div>
 
-                <div style="display: flex; gap: 10px; margin-top: 14px;">
-                    <button onclick="openDeleteModalPrompt()" style="flex:1; padding: 11px; background: #fee2e2; color: #ef4444; border: none; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer;">Delete Account</button>
-                    <button onclick="closeProfile()" style="flex:1; padding: 11px; background: #f1f5f9; color: #475569; border: none; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer;">Close</button>
-                </div>
+                <button onclick="closeProfile()" style="width: 100%; margin-top: 12px; padding: 11px; background: #f1f5f9; color: #475569; border: none; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer;">Close</button>
             `;
             document.getElementById("profileModal").style.display = "flex";
         }
@@ -1065,24 +1036,13 @@
             if (post.media) {
                 if (post.mediaType === 'video') {
                     mediaContainer.innerHTML = `
-                        <video id="modalVideoPlayer" src="${post.media}" autoplay loop playsinline muted onclick="toggleModalVideoPlay('modalVideoPlayer')" style="width:100%; height:100%; max-height:450px; object-fit:contain; background:#000; cursor:pointer;" oncontextmenu="return false;"></video>`;
+                        <video id="modalVideoPlayer" src="${post.media}" autoplay loop playsinline controls style="width:100%; height:100%; max-height:450px; object-fit:contain; background:#000; cursor:pointer;" oncontextmenu="return false;"></video>`;
                 } else {
                     mediaContainer.innerHTML = `<img src="${post.media}" style="width:100%; height:100%; max-height:450px; object-fit:contain; background:#000;" oncontextmenu="return false;">`;
                 }
             }
 
             document.getElementById("viewPostModal").style.display = "flex";
-        }
-
-        function toggleModalVideoPlay(videoId) {
-            const vid = document.getElementById(videoId);
-            if (!vid) return;
-
-            if (vid.paused) {
-                vid.play();
-            } else {
-                vid.pause();
-            }
         }
 
         function closeViewPostModal(event) {
@@ -1245,14 +1205,31 @@
             const file = event.target.files[0];
             if (!file) return;
 
-            if (file.type.startsWith('video') && file.size > 95 * 1024 * 1024) {
-                showAlert("Video size exceeds 95MB limit! Please choose a smaller video.", "File Too Large", "⚠️");
-                event.target.value = "";
-                return;
-            }
-
             const reader = new FileReader();
+            
+            const progressContainer = document.getElementById("uploadProgressContainer");
+            const progressBarFill = document.getElementById("progressBarFill");
+            const uploadPercentageText = document.getElementById("uploadPercentageText");
+            const uploadStatusText = document.getElementById("uploadStatusText");
+            
+            progressContainer.style.display = "block";
+            uploadStatusText.textContent = "Processing file (" + (file.size / (1024*1024)).toFixed(1) + " MB)...";
+            progressBarFill.style.width = "0%";
+            uploadPercentageText.textContent = "0%";
+
+            reader.onprogress = function(e) {
+                if (e.lengthComputable) {
+                    let percent = Math.round((e.loaded / e.total) * 100);
+                    progressBarFill.style.width = percent + "%";
+                    uploadPercentageText.textContent = percent + "%";
+                }
+            };
+
             reader.onload = function(e) {
+                progressBarFill.style.width = "100%";
+                uploadPercentageText.textContent = "100%";
+                uploadStatusText.textContent = "Complete!";
+
                 tempSelectedMediaData = {
                     data: e.target.result,
                     type: file.type.startsWith('video') ? 'video' : 'image'
@@ -1272,45 +1249,22 @@
                     imgPre.style.display = "block";
                     vidPre.style.display = "none";
                 }
+
+                setTimeout(() => {
+                    progressContainer.style.display = "none";
+                }, 1000);
             };
+
             reader.readAsDataURL(file);
         }
 
         function clearSelectedMedia() {
             tempSelectedMediaData = null;
             document.getElementById("mediaPreviewContainer").style.display = "none";
+            document.getElementById("uploadProgressContainer").style.display = "none";
             document.getElementById("postFilePicker").value = "";
             document.getElementById("imgPreview").src = "";
             document.getElementById("vidPreview").src = "";
-        }
-
-        function generateVideoThumbnail(videoSrc, callback) {
-            const video = document.createElement('video');
-            video.src = videoSrc;
-            video.crossOrigin = 'anonymous';
-            video.muted = true;
-            video.playsInline = true;
-            video.currentTime = 0.5;
-
-            video.onloadeddata = function() {
-                setTimeout(() => {
-                    try {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = video.videoWidth || 480;
-                        canvas.height = video.videoHeight || 854;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                        const thumbnailUrl = canvas.toDataURL('image/jpeg', 0.7);
-                        callback(thumbnailUrl);
-                    } catch (err) {
-                        callback('');
-                    }
-                }, 300);
-            };
-
-            video.onerror = function() {
-                callback('');
-            };
         }
 
         function createPost() {
@@ -1321,36 +1275,55 @@
                 return;
             }
 
-            if (tempSelectedMediaData && tempSelectedMediaData.type === 'video') {
-                generateVideoThumbnail(tempSelectedMediaData.data, function(thumbnailUrl) {
-                    savePostData(text, thumbnailUrl);
-                });
-            } else {
-                savePostData(text, null);
-            }
+            const progressContainer = document.getElementById("uploadProgressContainer");
+            const progressBarFill = document.getElementById("progressBarFill");
+            const uploadPercentageText = document.getElementById("uploadPercentageText");
+            const uploadStatusText = document.getElementById("uploadStatusText");
+            
+            progressContainer.style.display = "block";
+            uploadStatusText.textContent = "Saving post...";
+            progressBarFill.style.width = "50%";
+            uploadPercentageText.textContent = "50%";
+
+            setTimeout(() => {
+                try {
+                    progressBarFill.style.width = "100%";
+                    uploadPercentageText.textContent = "100%";
+                    savePostData(text, null);
+                } catch (error) {
+                    console.error(error);
+                    showAlert("Storage is full or file is too large for local storage!", "Error", "❌");
+                    progressContainer.style.display = "none";
+                }
+            }, 300);
         }
 
         function savePostData(text, thumbnailUrl) {
-            let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
-            const newPost = {
-                id: Date.now(),
-                author: currentLoggedInUser,
-                text: text,
-                media: tempSelectedMediaData ? tempSelectedMediaData.data : null,
-                mediaType: tempSelectedMediaData ? tempSelectedMediaData.type : null,
-                thumbnail: thumbnailUrl,
-                isPrivate: false,
-                time: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
-            };
+            try {
+                let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
+                const newPost = {
+                    id: Date.now(),
+                    author: currentLoggedInUser,
+                    text: text,
+                    media: tempSelectedMediaData ? tempSelectedMediaData.data : null,
+                    mediaType: tempSelectedMediaData ? tempSelectedMediaData.type : null,
+                    thumbnail: thumbnailUrl,
+                    isPrivate: false,
+                    time: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
+                };
 
-            allPosts.unshift(newPost);
-            localStorage.setItem("quo_global_posts", JSON.stringify(allPosts));
+                allPosts.unshift(newPost);
+                localStorage.setItem("quo_global_posts", JSON.stringify(allPosts));
 
-            document.getElementById("postTextInput").value = "";
-            clearSelectedMedia();
-            closeTiktokUpload();
-            renderFeedPosts();
-            showAlert("Posted successfully!", "Success", "✅");
+                document.getElementById("postTextInput").value = "";
+                clearSelectedMedia();
+                closeTiktokUpload();
+                renderFeedPosts();
+                showAlert("Posted successfully!", "Success", "✅");
+            } catch (e) {
+                document.getElementById("uploadProgressContainer").style.display = "none";
+                showAlert("File size is too large! LocalStorage limit exceeded.", "Storage Error", "⚠️");
+            }
         }
 
         function renderFeedPosts() {
@@ -1391,7 +1364,7 @@
                 const vidId = `feedVideo_${post.id}_${index}`;
                 if (post.media) {
                     if (post.mediaType === 'video') {
-                        mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" poster="${post.thumbnail || ''}" loop playsinline muted onclick="toggleModalVideoPlay('${vidId}')" style="-webkit-user-select: none; user-select: none;" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture></video>`;
+                        mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" poster="${post.thumbnail || ''}" loop playsinline muted controls style="-webkit-user-select: none; user-select: none;"></video>`;
                     } else {
                         mediaHtml = `<img class="tiktok-media" src="${post.media}" style="-webkit-user-select: none; user-select: none;" oncontextmenu="return false;">`;
                     }
@@ -1405,7 +1378,7 @@
                     ${mediaHtml}
                     <div class="tiktok-overlay">
                         <div class="tiktok-top-bar">
-                            <span style="color:white; font-weight:700; font-size:16.5px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">QUO Reels 1080p ${post.isPrivate ? '(🔒 Private)' : ''}</span>
+                            <span style="color:white; font-weight:700; font-size:16.5px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">QUO Feed ${post.isPrivate ? '(🔒 Private)' : ''}</span>
                             <button onclick="openTiktokUpload()" class="tiktok-create-trigger">+ Upload</button>
                         </div>
                         <div class="tiktok-content-box">
