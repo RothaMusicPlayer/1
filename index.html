@@ -280,11 +280,6 @@
         #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
         .tiktok-upload-card { background: #fff; width: 100%; max-width: 360px; border-radius: 28px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); animation: scaleUp 0.2s ease; }
 
-        /* Upload Progress Bar Styles */
-        #uploadProgressContainer { display: none; margin-bottom: 12px; background: #f1f5f9; border-radius: 14px; padding: 12px; }
-        .progress-bar-track { width: 100%; background: #e2e8f0; border-radius: 8px; height: 8px; overflow: hidden; margin-top: 6px; }
-        .progress-bar-fill { width: 0%; height: 100%; background: var(--telegram-blue); transition: width 0.1s linear; border-radius: 8px; }
-
         /* Chat Window Header Styling */
         .chat-win { flex: 1; display: flex; flex-direction: column; background: var(--bg-chat); height: 100%; position: relative; }
         .chat-win-header { background: var(--bg-header); color: white; padding: 10px 14px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
@@ -406,68 +401,21 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal (Account) -->
-    <div id="deleteConfirmModal" onclick="closeDeleteModal(event)">
-        <div class="delete-card" onclick="event.stopPropagation()">
-            <div style="font-size: 36px; margin-bottom: 10px;">🗑️</div>
-            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #ef4444;">Delete Account</h3>
-            <p style="font-size: 13px; color: #707579; margin-bottom: 14px; line-height: 1.4;">Enter your password to confirm permanent account deletion.</p>
-            
-            <input type="password" id="confirmDeletePassword" placeholder="Enter your password">
-            
-            <button onclick="executeAccountDeletion()" style="width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 14px; font-size: 14.5px; font-weight: 600; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(239,68,68,0.3);">Confirm Delete</button>
-            <button onclick="closeDeleteModal()" style="background: none; border: none; color: #707579; cursor: pointer; font-size: 14px; font-weight: 600;">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Post Delete Confirmation Modal -->
-    <div id="postDeleteConfirmModal" onclick="closePostDeleteModal(event)">
-        <div class="delete-card" onclick="event.stopPropagation()">
-            <div style="font-size: 36px; margin-bottom: 10px;">🗑️</div>
-            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 6px; color: #ef4444;">Delete Post</h3>
-            <p style="font-size: 13px; color: #707579; margin-bottom: 18px; line-height: 1.4;">Are you sure you want to delete this post?</p>
-            
-            <button id="confirmDeletePostBtn" style="width: 100%; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 14px; font-size: 14.5px; font-weight: 600; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(239,68,68,0.3);">Delete</button>
-            <button onclick="closePostDeleteModal()" style="background: none; border: none; color: #707579; cursor: pointer; font-size: 14px; font-weight: 600;">Cancel</button>
-        </div>
-    </div>
-
     <!-- Profile Modal -->
     <div id="profileModal" onclick="closeProfile(event)">
         <div class="profile-card" id="profileCardContent" onclick="event.stopPropagation()"></div>
     </div>
 
-    <!-- Upload Modal -->
+    <!-- Upload Modal (Modified to use Media URL input) -->
     <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
         <div class="tiktok-upload-card" onclick="event.stopPropagation()">
             <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
             <textarea id="postTextInput" rows="3" placeholder="What's on your mind?..." style="width:100%; padding:12px 14px; border-radius:14px; border:1.5px solid #e2e8f0; outline:none; resize:none; font-size:14.5px; margin-bottom:12px;"></textarea>
             
-            <div id="mediaPreviewContainer" style="display:none; position:relative; margin-bottom:12px;">
-                <img id="imgPreview" style="width:100%; max-height:150px; object-fit:cover; border-radius:12px; display:none;">
-                <video id="vidPreview" style="width:100%; max-height:150px; object-fit:cover; border-radius:12px; display:none;" controls></video>
-                <button onclick="clearSelectedMedia()" style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.65); color:white; border:none; border-radius:50%; width:26px; height:26px; cursor:pointer; font-size:12px; display:flex; align-items:center; justify-content:center;">✕</button>
-            </div>
-
-            <!-- Upload Progress Bar Container -->
-            <div id="uploadProgressContainer">
-                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #334155;">
-                    <span id="uploadStatusText">Uploading video...</span>
-                    <span id="uploadPercentageText">0%</span>
-                </div>
-                <div class="progress-bar-track">
-                    <div id="progressBarFill" class="progress-bar-fill"></div>
-                </div>
-            </div>
-
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <label class="media-picker-label" style="cursor:pointer; font-size:14px; color:var(--telegram-blue); font-weight:600;">
-                    📁 Choose Any Photo / Video (No Limit)
-                    <input type="file" id="postFilePicker" accept="*/*" style="display:none;" onchange="handleFileSelect(event)">
-                </label>
-            </div>
+            <!-- Input for Image or Video URL (No MB limit) -->
+            <input type="text" id="postMediaUrlInput" placeholder="Paste Image or Video URL (e.g. MP4, YouTube Link)..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #e2e8f0; outline: none; font-size: 14px; margin-bottom: 14px;">
             
-            <button id="postUploadBtn" onclick="createPost()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px; box-shadow: 0 4px 12px rgba(51,144,236,0.3);">Post</button>
+            <button id="postUploadBtn" onclick="createPostWithUrl()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px; box-shadow: 0 4px 12px rgba(51,144,236,0.3);">Post</button>
             <button id="postCancelBtn" onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#707579; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
         </div>
     </div>
@@ -566,7 +514,6 @@
         let activeChatUser = null;
         let currentLoggedInUser = "";
         let alertCallback = null;
-        let tempSelectedMediaData = null;
         let postToDeleteId = null;
 
         function showAlert(message, title = "Notice", icon = "⚠️", callback = null) {
@@ -1238,165 +1185,34 @@
             }
         }
 
-        // --- កែសម្រួលចំណុចនេះ ដើម្បីបង្រួមទំហំរូបភាព និងកំណត់ដែនកំណត់វីដេអូការពារ Storage Error ---
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const progressContainer = document.getElementById("uploadProgressContainer");
-            const progressBarFill = document.getElementById("progressBarFill");
-            const uploadPercentageText = document.getElementById("uploadPercentageText");
-            const uploadStatusText = document.getElementById("uploadStatusText");
-            
-            progressContainer.style.display = "block";
-            uploadStatusText.textContent = "Processing file (" + (file.size / (1024*1024)).toFixed(1) + " MB)...";
-            progressBarFill.style.width = "30%";
-            uploadPercentageText.textContent = "30%";
-
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-                        
-                        const MAX_WIDTH = 900;
-                        const MAX_HEIGHT = 900;
-                        if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
-                            }
-                        } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
-                        }
-
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        
-                        // បង្រួម Quality រូបភាពមកត្រឹម 70% ដើម្បីកុំឱ្យធំពេក
-                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
-
-                        progressBarFill.style.width = "100%";
-                        uploadPercentageText.textContent = "100%";
-                        uploadStatusText.textContent = "Complete!";
-
-                        tempSelectedMediaData = {
-                            data: compressedDataUrl,
-                            type: 'image'
-                        };
-
-                        const container = document.getElementById("mediaPreviewContainer");
-                        const imgPre = document.getElementById("imgPreview");
-                        const vidPre = document.getElementById("vidPreview");
-
-                        container.style.display = "block";
-                        imgPre.src = compressedDataUrl;
-                        imgPre.style.display = "block";
-                        vidPre.style.display = "none";
-
-                        setTimeout(() => { progressContainer.style.display = "none"; }, 1000);
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } 
-            else {
-                // ប្រសិនបើជាវីដេអូ ដាក់កម្រិតអតិបរមា 3MB ព្រោះ LocalStorage មិនអាចផ្ទុកវីដេអូធំជាងនេះបានទេ
-                if (file.size > 3 * 1024 * 1024) {
-                    progressContainer.style.display = "none";
-                    showAlert("Video size is too large for LocalStorage! Please choose a video under 3MB.", "Warning", "⚠️");
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    progressBarFill.style.width = "100%";
-                    uploadPercentageText.textContent = "100%";
-                    uploadStatusText.textContent = "Complete!";
-
-                    tempSelectedMediaData = {
-                        data: e.target.result,
-                        type: 'video'
-                    };
-
-                    const container = document.getElementById("mediaPreviewContainer");
-                    const imgPre = document.getElementById("imgPreview");
-                    const vidPre = document.getElementById("vidPreview");
-
-                    container.style.display = "block";
-                    vidPre.src = tempSelectedMediaData.data;
-                    vidPre.style.display = "block";
-                    imgPre.style.display = "none";
-
-                    setTimeout(() => { progressContainer.style.display = "none"; }, 1000);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function clearSelectedMedia() {
-            tempSelectedMediaData = null;
-            document.getElementById("mediaPreviewContainer").style.display = "none";
-            document.getElementById("uploadProgressContainer").style.display = "none";
-            document.getElementById("postFilePicker").value = "";
-            document.getElementById("imgPreview").src = "";
-            document.getElementById("vidPreview").src = "";
-        }
-
-        function createPost() {
+        // --- មុខងារបង្កើត Post តាមរយៈ Link (URL) ---
+        function createPostWithUrl() {
             if (!currentLoggedInUser || currentLoggedInUser.trim() === "") {
                 showAlert("Please log in first!", "Error", "❌");
                 return;
             }
 
             const text = document.getElementById("postTextInput").value.trim();
+            const mediaUrl = document.getElementById("postMediaUrlInput").value.trim();
 
-            if (!text && !tempSelectedMediaData) {
-                showAlert("Please write something or select a photo/video!", "Warning", "⚠️");
+            if (!text && !mediaUrl) {
+                showAlert("Please write something or provide a media URL!", "Warning", "⚠️");
                 return;
             }
 
-            const progressContainer = document.getElementById("uploadProgressContainer");
-            const progressBarFill = document.getElementById("progressBarFill");
-            const uploadPercentageText = document.getElementById("uploadPercentageText");
-            const uploadStatusText = document.getElementById("uploadStatusText");
-            
-            progressContainer.style.display = "block";
-            uploadStatusText.textContent = "Saving post...";
-            progressBarFill.style.width = "50%";
-            uploadPercentageText.textContent = "50%";
+            let mediaType = 'image';
+            if (mediaUrl.includes('youtube.com') || mediaUrl.includes('youtu.be') || mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.webm') || mediaUrl.endsWith('.mov')) {
+                mediaType = 'video';
+            }
 
-            setTimeout(() => {
-                try {
-                    progressBarFill.style.width = "100%";
-                    uploadPercentageText.textContent = "100%";
-                    savePostData(text, null);
-                } catch (error) {
-                    console.error(error);
-                    showAlert("Storage is full or file is too large for local storage!", "Error", "❌");
-                    progressContainer.style.display = "none";
-                }
-            }, 300);
-        }
-
-        function savePostData(text, thumbnailUrl) {
             try {
                 let allPosts = JSON.parse(localStorage.getItem("quo_global_posts")) || [];
                 const newPost = {
                     id: Date.now(),
                     author: currentLoggedInUser,
                     text: text,
-                    media: tempSelectedMediaData ? tempSelectedMediaData.data : null,
-                    mediaType: tempSelectedMediaData ? tempSelectedMediaData.type : null,
-                    thumbnail: thumbnailUrl,
+                    media: mediaUrl || null,
+                    mediaType: mediaUrl ? mediaType : null,
                     isPrivate: false,
                     time: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
                 };
@@ -1405,13 +1221,12 @@
                 localStorage.setItem("quo_global_posts", JSON.stringify(allPosts));
 
                 document.getElementById("postTextInput").value = "";
-                clearSelectedMedia();
+                document.getElementById("postMediaUrlInput").value = "";
                 closeTiktokUpload();
                 renderFeedPosts();
                 showAlert("Posted successfully!", "Success", "✅");
             } catch (e) {
-                document.getElementById("uploadProgressContainer").style.display = "none";
-                showAlert("File size is too large! LocalStorage limit exceeded.", "Storage Error", "⚠️");
+                showAlert("Error saving post!", "Error", "❌");
             }
         }
 
@@ -1454,7 +1269,15 @@
                 const vidId = `feedVideo_${post.id}_${index}`;
                 if (post.media) {
                     if (post.mediaType === 'video') {
-                        mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" poster="${post.thumbnail || ''}" loop playsinline muted controls style="-webkit-user-select: none; user-select: none;"></video>`;
+                        // ប្រសិនបើជា Link YouTube អាចទាញយកមកបង្ហាញជា iframe បាន ឬប្រើ video tag ធម្មតាសម្រាប់ direct mp4 link
+                        if (post.media.includes('youtube.com') || post.media.includes('youtu.be')) {
+                            let embedUrl = post.media;
+                            if (embedUrl.includes('watch?v=')) embedUrl = embedUrl.replace('watch?v=', 'embed/');
+                            if (embedUrl.includes('youtu.be/')) embedUrl = embedUrl.replace('youtu.be/', 'www.youtube.com/embed/');
+                            mediaHtml = `<iframe class="tiktok-media" src="${embedUrl}" frameborder="0" allowfullscreen style="border:none;"></iframe>`;
+                        } else {
+                            mediaHtml = `<video id="${vidId}" class="tiktok-media" src="${post.media}" loop playsinline muted controls style="-webkit-user-select: none; user-select: none;"></video>`;
+                        }
                     } else {
                         mediaHtml = `<img class="tiktok-media" src="${post.media}" style="-webkit-user-select: none; user-select: none;" oncontextmenu="return false;">`;
                     }
