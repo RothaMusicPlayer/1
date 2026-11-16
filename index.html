@@ -30,14 +30,6 @@
             inset: 0;
         }
 
-        /* Auth Overlay */
-        #authOverlay { position: fixed; inset: 0; background: rgba(15,23,42,0.85); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .card { background: #181818; color: #fff; border-radius: 28px; width: 100%; max-width: 380px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
-        .card input { width: 100%; padding: 14px 18px; border-radius: 14px; border: 1.5px solid #333; background: #222; color: #fff; margin-top: 8px; margin-bottom: 14px; outline: none; font-size: 15px; }
-        .card input:focus { border-color: var(--telegram-blue); }
-        .card button { width: 100%; padding: 14px; border-radius: 14px; background: var(--telegram-blue); color: white; border: none; font-weight: 600; cursor: pointer; font-size: 16px; margin-top: 6px; }
-        .switch-auth { margin-top: 16px; font-size: 13.5px; color: var(--telegram-blue); cursor: pointer; font-weight: 500; }
-
         /* Custom Alert Modal */
         #customAlertModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3500; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 20px; }
         .custom-alert-card { background: #181818; color: #fff; width: 100%; max-width: 320px; border-radius: 24px; padding: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
@@ -52,9 +44,6 @@
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; color: var(--text-secondary); font-size: 10.5px; font-weight: 600; flex: 1; padding: 4px 2px; border-radius: 12px; }
         .nav-item.active { color: var(--telegram-blue); }
         .nav-item svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-        .nav-upload-btn { background: var(--telegram-blue); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 4px 12px rgba(51, 144, 236, 0.35); transition: transform 0.15s; }
-        .nav-upload-btn:active { transform: scale(0.95); }
 
         .logout-btn { background: #ef4444; color: white; border: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; max-width: 240px; margin-top: 12px; }
         .admin-btn { background: #10b981; color: white; border: none; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; max-width: 240px; margin-top: 12px; }
@@ -84,31 +73,12 @@
         .admin-post-info { display: flex; align-items: center; gap: 10px; overflow: hidden; flex: 1; }
         .admin-post-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #222; flex-shrink: 0; }
 
-        /* Upload Modal */
-        #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
-        .tiktok-upload-card { background: #181818; color: #fff; width: 100%; max-width: 360px; border-radius: 28px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
-
         @media(max-width: 768px) {
             .sidebar { width: 100%; }
         }
     </style>
 </head>
 <body>
-
-    <!-- Auth Overlay -->
-    <div id="authOverlay">
-        <div class="card" id="authCard">
-            <div style="font-size: 44px; margin-bottom: 10px;">💬</div>
-            <h2 id="authTitle" style="font-size: 22px; font-weight: 700; color: #fff;">QUO - Register</h2>
-            <p id="authSubtitle" style="font-size: 13.5px; color: #879099; margin: 8px 0 20px;">Create a username and password.</p>
-            
-            <input type="text" id="authUsername" placeholder="Username">
-            <input type="password" id="authPassword" placeholder="Password">
-            
-            <button id="authBtn" onclick="handleAuth()">Sign Up</button>
-            <div class="switch-auth" id="switchAuthText" onclick="toggleAuthMode()">Already have an account? Log In</div>
-        </div>
-    </div>
 
     <!-- Custom Alert Modal -->
     <div id="customAlertModal">
@@ -138,16 +108,6 @@
         </div>
     </div>
 
-    <!-- Upload Modal -->
-    <div id="tiktokUploadModal" onclick="closeTiktokUpload(event)">
-        <div class="tiktok-upload-card" onclick="event.stopPropagation()">
-            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Create Reel / Post</h3>
-            <input type="text" id="postMediaUrlInput" placeholder="Paste link YouTube..." style="width: 100%; padding: 12px 14px; border-radius: 14px; border: 1.5px solid #333; background: #222; color: #fff; outline: none; font-size: 14px; margin-bottom: 14px;">
-            <button onclick="createPost()" style="width:100%; padding:12px; background:var(--telegram-blue); color:white; border:none; border-radius:14px; font-weight:600; cursor:pointer; font-size:15px; margin-bottom:8px;">Post</button>
-            <button onclick="closeTiktokUpload()" style="width:100%; background:none; border:none; color:#879099; cursor:pointer; font-size:13.5px; font-weight:600;">Cancel</button>
-        </div>
-    </div>
-
     <!-- Main App -->
     <div class="app">
         <section class="sidebar">
@@ -156,12 +116,11 @@
             </div>
 
             <div id="profileSection" style="display: none; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 24px; text-align: center; background: #000;">
-                <div id="profileAvatar" class="avatar" style="width: 80px; height: 80px; font-size: 32px; background: var(--telegram-blue); margin-bottom: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">?</div>
-                <h2 id="profileUsername" style="font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);"></h2>
-                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 24px;">Logged in user</p>
+                <div id="profileAvatar" class="avatar" style="width: 80px; height: 80px; font-size: 32px; background: var(--telegram-blue); margin-bottom: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">Q</div>
+                <h2 id="profileUsername" style="font-size: 20px; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);">@visitor</h2>
+                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 24px;">QUO Viewer</p>
                 
-                <button id="adminPanelBtn" class="admin-btn" style="display: none;" onclick="openAdminModal()">⚙️ Admin Panel</button>
-                <button class="logout-btn" onclick="logout()">Log Out</button>
+                <button id="adminPanelBtn" class="admin-btn" onclick="openAdminModal()">⚙️ Admin Panel</button>
             </div>
 
             <div class="bottom-nav">
@@ -169,8 +128,6 @@
                     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
                     <span>Home</span>
                 </div>
-                
-                <button class="nav-upload-btn" onclick="openTiktokUpload()">+ Upload</button>
 
                 <div class="nav-item" id="tabProfileBtn" onclick="switchTab('profile')">
                     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -184,8 +141,6 @@
         const SERVER_URL = "https://a-pmwt.onrender.com"; 
         const socket = io(SERVER_URL);
 
-        let isLoginMode = false;
-        let currentLoggedInUser = localStorage.getItem("quo_logged_in_user") || "";
         let globalPosts = [];
         let globalUsers = [];
         let currentAdminTab = 'users';
@@ -201,84 +156,16 @@
         }
 
         window.onload = async function() {
-            if (currentLoggedInUser) {
-                try {
-                    const resUsers = await fetch(SERVER_URL + "/api/admin/users?adminUser=admin");
-                    const dataUsers = await resUsers.json();
-                    if (dataUsers.success && !dataUsers.users.includes(currentLoggedInUser)) {
-                        localStorage.removeItem("quo_logged_in_user");
-                        currentLoggedInUser = "";
-                    }
-                } catch(e) {}
-            }
-
-            if (currentLoggedInUser) {
-                document.getElementById("authOverlay").style.display = "none";
-                socket.emit("join", currentLoggedInUser);
-                fetchPosts();
-                setupProfileInfo();
-            } else {
-                document.getElementById("authOverlay").style.display = "flex";
-                toggleAuthMode(true);
-            }
+            socket.emit("join", "visitor");
+            fetchPosts();
         };
-
-        function logout() {
-            localStorage.removeItem("quo_logged_in_user");
-            location.reload();
-        }
-
-        function toggleAuthMode(forceLogin = false) {
-            isLoginMode = forceLogin ? true : !isLoginMode;
-            document.getElementById("authTitle").textContent = isLoginMode ? "QUO - Login" : "QUO - Register";
-            document.getElementById("authBtn").textContent = isLoginMode ? "Log In" : "Sign Up";
-            document.getElementById("switchAuthText").textContent = isLoginMode ? "Don't have an account? Register" : "Already have an account? Log In";
-        }
-
-        async function handleAuth() {
-            const username = document.getElementById("authUsername").value.trim().toLowerCase();
-            const password = document.getElementById("authPassword").value.trim();
-
-            if (!username || !password) {
-                showAlert("Please enter username and password!");
-                return;
-            }
-
-            const endpoint = isLoginMode ? "/api/login" : "/api/register";
-            try {
-                const response = await fetch(SERVER_URL + endpoint, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await response.json();
-
-                if (data.success) {
-                    if (isLoginMode) {
-                        currentLoggedInUser = data.username;
-                        localStorage.setItem("quo_logged_in_user", data.username);
-                        document.getElementById("authOverlay").style.display = "none";
-                        socket.emit("join", data.username);
-                        fetchPosts();
-                        setupProfileInfo();
-                    } else {
-                        showAlert("Registered successfully! Please log in.", "Success", "✅");
-                        toggleAuthMode(true);
-                    }
-                } else {
-                    showAlert(data.message || "Authentication failed!");
-                }
-            } catch (err) {
-                showAlert("Cannot connect to server!");
-            }
-        }
 
         async function fetchPosts(forceRandom = false) {
             try {
                 const res = await fetch(SERVER_URL + "/api/posts");
                 const allPosts = await res.json();
                 
-                globalPosts = shufflePostsForUser(allPosts, currentLoggedInUser, forceRandom);
+                globalPosts = forceRandom ? shufflePosts(allPosts) : allPosts;
                 renderFeedPosts();
 
                 const container = document.getElementById("tiktokFeedContainer");
@@ -286,40 +173,13 @@
             } catch (e) { console.error(e); }
         }
 
-        function shufflePostsForUser(posts, username, forceRandom = false) {
+        function shufflePosts(posts) {
             let arr = [...posts];
-            if (forceRandom) {
-                for (let i = arr.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [arr[i], arr[j]] = [arr[j], arr[i]];
-                }
-                return arr;
-            }
-
-            let seed = 0;
-            for (let i = 0; i < username.length; i++) {
-                seed += username.charCodeAt(i);
-            }
             for (let i = arr.length - 1; i > 0; i--) {
-                seed = (seed * 9301 + 49297) % 233280;
-                let rnd = seed / 233280;
-                let j = Math.floor(rnd * (i + 1));
+                const j = Math.floor(Math.random() * (i + 1));
                 [arr[i], arr[j]] = [arr[j], arr[i]];
             }
             return arr;
-        }
-
-        function setupProfileInfo() {
-            if (currentLoggedInUser) {
-                document.getElementById("profileUsername").textContent = "@" + currentLoggedInUser;
-                document.getElementById("profileAvatar").textContent = currentLoggedInUser.charAt(0).toUpperCase();
-
-                if (currentLoggedInUser === "admin") {
-                    document.getElementById("adminPanelBtn").style.display = "block";
-                } else {
-                    document.getElementById("adminPanelBtn").style.display = "none";
-                }
-            }
         }
 
         function switchTab(tab) {
@@ -338,12 +198,8 @@
                 document.getElementById("profileSection").style.display = "flex";
                 document.getElementById("tabProfileBtn").classList.add("active");
                 document.getElementById("tabFeedBtn").classList.remove("active");
-                setupProfileInfo();
             }
         }
-
-        function openTiktokUpload() { document.getElementById("tiktokUploadModal").style.display = "flex"; }
-        function closeTiktokUpload() { document.getElementById("tiktokUploadModal").style.display = "none"; }
 
         async function openAdminModal() {
             document.getElementById("adminModal").style.display = "flex";
@@ -366,7 +222,7 @@
 
         async function loadAdminData() {
             try {
-                const resUsers = await fetch(SERVER_URL + "/api/admin/users?adminUser=" + currentLoggedInUser);
+                const resUsers = await fetch(SERVER_URL + "/api/admin/users?adminUser=admin");
                 const dataUsers = await resUsers.json();
                 if (dataUsers.success) globalUsers = dataUsers.users;
 
@@ -419,15 +275,12 @@
                         thumbHtml = `<img src="${mediaSrc}" class="admin-post-thumb" onerror="this.style.display='none'">`;
                     }
 
-                    const postTime = post.time || 'Recent';
-
                     item.innerHTML = `
                         <div class="admin-post-info">
                             ${thumbHtml}
                             <div style="overflow:hidden;">
                                 <div style="font-size:13px; font-weight:600; color:var(--text-primary);">@${post.author}</div>
                                 <div style="font-size:12px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">YouTube Video Link</div>
-                                <div style="font-size:10.5px; color:#666;">📅 ${postTime}</div>
                             </div>
                         </div>
                         <button class="admin-action-btn" onclick="deletePost('${post.id || post.timestamp}')">Delete</button>
@@ -448,18 +301,11 @@
                 const res = await fetch(SERVER_URL + "/api/admin/user", {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ adminUser: currentLoggedInUser, usernameToDelete })
+                    body: JSON.stringify({ adminUser: "admin", usernameToDelete })
                 });
                 const data = await res.json();
                 if (data.success) {
                     showAlert(`User @${usernameToDelete} deleted!`, "Success", "✅");
-                    
-                    if (usernameToDelete === currentLoggedInUser) {
-                        localStorage.removeItem("quo_logged_in_user");
-                        location.reload();
-                        return;
-                    }
-
                     await loadAdminData();
                     fetchPosts();
                 } else {
@@ -475,7 +321,7 @@
                 const res = await fetch(SERVER_URL + `/api/posts/${postId}`, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ adminUser: currentLoggedInUser })
+                    body: JSON.stringify({ adminUser: "admin" })
                 });
                 const data = await res.json();
                 if (data.success) {
@@ -488,49 +334,6 @@
             } catch (err) { showAlert("Error"); }
         }
 
-        function parseMediaUrl(url) {
-            url = url.trim();
-            let result = { type: 'iframe', src: url };
-
-            if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                let videoId = "";
-                if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1]?.split('?')[0];
-                else if (url.includes('watch?v=')) videoId = url.split('watch?v=')[1]?.split('&')[0];
-                else if (url.includes('embed/')) videoId = url.split('embed/')[1]?.split('?')[0];
-                
-                if (videoId) {
-                    result.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&controls=1&enablejsapi=1&rel=0`;
-                }
-            }
-            return result;
-        }
-
-        async function createPost() {
-            const mediaUrl = document.getElementById("postMediaUrlInput").value.trim();
-            if (!mediaUrl) return showAlert("Please paste a YouTube link!");
-
-            let parsed = parseMediaUrl(mediaUrl);
-
-            const newPost = {
-                author: currentLoggedInUser,
-                text: "",
-                media: parsed.src,
-                mediaType: parsed.type,
-                time: new Date().toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }),
-                timestamp: Date.now()
-            };
-
-            await fetch(SERVER_URL + "/api/posts", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newPost)
-            });
-
-            document.getElementById("postMediaUrlInput").value = "";
-            closeTiktokUpload();
-            fetchPosts();
-        }
-
         function stopAllVideos() {
             const wrappers = document.querySelectorAll('.tiktok-media-wrapper');
             wrappers.forEach(wrapper => wrapper.innerHTML = '');
@@ -541,7 +344,7 @@
             container.innerHTML = "";
 
             if (globalPosts.length === 0) {
-                container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#fff;"><p>No posts available.</p><button onclick="openTiktokUpload()" class="tiktok-create-trigger" style="margin-top:10px;">+ Upload</button></div>`;
+                container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#fff;"><p>No posts available.</p></div>`;
                 return;
             }
 
