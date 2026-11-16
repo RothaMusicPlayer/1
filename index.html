@@ -41,6 +41,10 @@
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--telegram-blue); font-size: 10.5px; font-weight: 600; padding: 4px 2px; }
         .nav-item svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         
+        /* Quick Add Button (+) */
+        .quick-add-btn { position: fixed; top: 15px; right: 15px; z-index: 1000; background: var(--telegram-blue); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; font-size: 24px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(51, 144, 236, 0.4); display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+        .quick-add-btn:active { transform: scale(0.9); }
+
         /* TikTok Feed Section */
         #feedSection { display: flex; flex-direction: column; flex: 1; overflow: hidden; background: #000; position: relative; min-height: 0; }
         .tiktok-feed-container { flex: 1; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; height: 100%; position: relative; }
@@ -55,6 +59,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Quick Add Button (+) -->
+    <button class="quick-add-btn" onclick="quickAddVideo()">+</button>
 
     <!-- Custom Alert Modal -->
     <div id="customAlertModal">
@@ -118,6 +125,51 @@
                 [arr[i], arr[j]] = [arr[j], arr[i]];
             }
             return arr;
+        }
+
+        // Quick Add YouTube Video function
+        async function quickAddVideo() {
+            let youtubeUrl = prompt("សូមដាក់ Link YouTube ទីនេះ:");
+            if (!youtubeUrl) return;
+
+            youtubeUrl = youtubeUrl.trim();
+            let videoId = "";
+            if (youtubeUrl.includes('youtu.be/')) videoId = youtubeUrl.split('youtu.be/')[1]?.split('?')[0];
+            else if (youtubeUrl.includes('watch?v=')) videoId = youtubeUrl.split('watch?v=')[1]?.split('&')[0];
+            else if (youtubeUrl.includes('embed/')) videoId = youtubeUrl.split('embed/')[1]?.split('?')[0];
+
+            if (!videoId) {
+                showAlert("Link YouTube មិនត្រឹមត្រូវទេ!");
+                return;
+            }
+
+            let embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&controls=1&modestbranding=1&rel=0`;
+
+            const newPost = {
+                author: "admin",
+                text: "YouTube Video",
+                media: embedSrc,
+                mediaType: "iframe",
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                timestamp: Date.now()
+            };
+
+            try {
+                const res = await fetch(SERVER_URL + "/api/posts", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newPost)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showAlert("បានបញ្ចូលវីដេអូដោយជោគជ័យ!", "Success", "✅");
+                    fetchPosts();
+                } else {
+                    showAlert("បរាជ័យក្នុងការបញ្ចូលវីដេអូ។");
+                }
+            } catch (err) {
+                showAlert("មានបញ្ហាក្នុងការเชื่อมต่อ Server!");
+            }
         }
 
         function renderFeedPosts() {
