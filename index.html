@@ -168,7 +168,7 @@
                     showAlert("បរាជ័យក្នុងការបញ្ចូលវីដេអូ។");
                 }
             } catch (err) {
-                showAlert("មានបញ្ហាក្នុងការเชื่อมต่อ Server!");
+                showAlert("មានបញ្ហាក្នុងการเชื่อมต่อ Server!");
             }
         }
 
@@ -195,7 +195,7 @@
             const container = document.getElementById("tiktokFeedContainer");
             const reels = container.querySelectorAll(".tiktok-reel");
 
-            const observerOptions = { root: container, threshold: 0.6 };
+            const observerOptions = { root: container, threshold: 0.5 };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -205,7 +205,7 @@
 
                     if (entry.isIntersecting) {
                         if (mediaUrl && wrapper.innerHTML === '') {
-                            wrapper.innerHTML = `<iframe class="tiktok-media" src="${mediaUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                            wrapper.innerHTML = `<iframe class="tiktok-media" src="${mediaUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                         }
                     } else {
                         wrapper.innerHTML = '';
