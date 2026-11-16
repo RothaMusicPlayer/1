@@ -81,7 +81,7 @@
 
         /* Comments Modal */
         #commentsModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3100; align-items: flex-end; backdrop-filter: blur(4px); }
-        .comments-card { background: #181818; color: #fff; width: 100%; height: 60vh; border-top-left-radius: 28px; border-top-right-radius: 28px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 -10px 30px rgba(0,0,0,0.6); border-top: 1px solid #333; }
+        .comments-card { background: #181818; color: #fff; width: 100%; max-width: 480px; margin: 0 auto; height: 60vh; border-top-left-radius: 28px; border-top-right-radius: 28px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 -10px 30px rgba(0,0,0,0.6); border-top: 1px solid #333; }
         .comments-list { flex: 1; overflow-y: auto; margin-bottom: 12px; display: flex; flex-direction: column; gap: 12px; }
         .comment-item { display: flex; flex-direction: column; gap: 2px; background: #222; padding: 10px 14px; border-radius: 14px; }
         .comment-input-box { display: flex; gap: 8px; }
@@ -114,7 +114,6 @@
         .admin-action-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
         
         .admin-post-info { display: flex; align-items: center; gap: 10px; overflow: hidden; flex: 1; }
-        .admin-post-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #222; flex-shrink: 0; }
 
         /* Upload Modal */
         #tiktokUploadModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3200; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 20px; }
@@ -201,7 +200,7 @@
 
             <div id="chatSection">
                 <div class="chat-header">
-                    <span id="chatPartnerName">Select a chat</span>
+                    <span id="chatPartnerName">Chat with @admin</span>
                 </div>
                 <div class="chat-messages" id="chatMessagesContainer"></div>
                 <div class="chat-input-area">
@@ -243,7 +242,7 @@
     </div>
 
     <script>
-        const SERVER_URL = "http://localhost:3000"; 
+        const SERVER_URL = "https://a-pmwt.onrender.com"; 
         const socket = io(SERVER_URL);
 
         let isLoginMode = false;
@@ -328,15 +327,14 @@
                     showAlert(data.message || "Authentication failed!");
                 }
             } catch (err) {
-                showAlert("Cannot connect to server!");
+                showAlert("Cannot connect to server! (Server might be waking up, please wait 30s and try again)");
             }
         }
 
-        async function fetchPosts(forceRandom = false) {
+        async function fetchPosts() {
             try {
                 const res = await fetch(SERVER_URL + "/api/posts");
                 const allPosts = await res.json();
-                
                 globalPosts = allPosts;
                 renderFeedPosts();
             } catch (e) { console.error(e); }
@@ -372,7 +370,7 @@
             } else if (tab === 'profile') {
                 setupProfileInfo();
             } else if (tab === 'chat') {
-                document.getElementById("chatPartnerName").textContent = "Chat with @admin";
+                loadChatHistory(activeChatUser);
             }
         }
 
@@ -533,12 +531,15 @@
                 const reel = document.createElement("div");
                 reel.className = "tiktok-reel";
                 
-                // Fetch likes count
                 let likesCount = 0;
+                let isLiked = false;
                 try {
                     const lRes = await fetch(SERVER_URL + `/api/posts/${post.id}/likes`);
                     const lData = await lRes.json();
                     likesCount = lData.count || 0;
+                    if (lData.users && lData.users.includes(currentLoggedInUser)) {
+                        isLiked = true;
+                    }
                 } catch(e) {}
 
                 reel.innerHTML = `
@@ -548,7 +549,7 @@
                         <div class="tiktok-caption">${post.text || ''}</div>
                     </div>
                     <div class="tiktok-actions">
-                        <div class="action-btn-item" onclick="toggleLike(${post.id}, this)">
+                        <div class="action-btn-item ${isLiked ? 'liked' : ''}" onclick="toggleLike(${post.id}, this)">
                             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                             <span class="action-btn-text" id="likeCount-${post.id}">${likesCount}</span>
                         </div>
@@ -627,12 +628,21 @@
             loadComments(currentActivePostId);
         }
 
+        async function loadChatHistory(partner) {
+            document.getElementById("chatPartnerName").textContent = "Chat with @" + partner;
+            const container = document.getElementById("chatMessagesContainer");
+            container.innerHTML = "";
+            try {
+                const res = await fetch(SERVER_URL + `/api/messages/${currentLoggedInUser}/${partner}`);
+                const msgs = await res.json();
+                msgs.forEach(m => appendChatMessage(m));
+            } catch(e) {}
+        }
+
         function openChatWithUser(username) {
             if (username === currentLoggedInUser) return;
             activeChatUser = username;
             switchTab('chat');
-            document.getElementById("chatPartnerName").textContent = "Chat with @" + username;
-            document.getElementById("chatMessagesContainer").innerHTML = "";
         }
 
         function sendChatMessage() {
