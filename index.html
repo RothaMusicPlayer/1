@@ -1,220 +1,3065 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="km">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>QUO - Social</title>
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <style>
-        :root {
-            --bg-main: #000;
-            --text-primary: #ffffff;
-            --text-secondary: #879099;
-            --telegram-blue: #3390ec;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេពេញលេញ (Complete Cafe Menu & Recipe Guide)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-canvas: #F5F1EC;
+      --bg-card: rgba(255, 255, 255, 0.94);
+      --bg-pill: rgba(120, 120, 128, 0.12);
+      --text-primary: #1C1410;
+      --text-secondary: #6E5D53;
+      --text-muted: #9A8A80;
+      --accent-espresso: #4A2C18;
+      --accent-caramel: #C67D3B;
+      --accent-hot: #B84225;
+      --accent-ice: #1D6E96;
+      --accent-success: #1F8A4C;
+      --border-subtle: rgba(74, 44, 24, 0.11);
+      --shadow-soft: 0 10px 30px -10px rgba(45, 25, 12, 0.12);
+      --shadow-float: 0 18px 40px -12px rgba(28, 20, 16, 0.25);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --nav-height: 74px;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        html, body { 
-            background: #000; 
-            color: var(--text-primary); 
-            height: 100vh; 
-            height: 100dvh; 
-            width: 100%;
-            overflow: hidden; 
-            display: flex; 
-            position: fixed;
-            inset: 0;
-        }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        /* Custom Alert Modal */
-        #customAlertModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3500; align-items: center; justify-content: center; backdrop-filter: blur(4px); padding: 20px; }
-        .custom-alert-card { background: #181818; color: #fff; width: 100%; max-width: 320px; border-radius: 24px; padding: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #333; }
-        .custom-alert-btn { width: 100%; padding: 12px; border-radius: 14px; background: var(--telegram-blue); color: white; border: none; font-weight: 600; cursor: pointer; font-size: 15px; margin-top: 15px; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Kantumruy Pro', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-canvas);
+      background-image:
+        radial-gradient(circle at 12% 8%, rgba(198, 125, 59, 0.14), transparent 42%),
+        radial-gradient(circle at 88% 15%, rgba(29, 110, 150, 0.09), transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(74, 44, 24, 0.08), transparent 50%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
 
-        /* App Layout */
-        .app { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
-        .sidebar { width: 380px; border-right: 1px solid #222; display: flex; flex-direction: column; height: 100%; background: #000; z-index: 10; position: relative; }
+    .app-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 16px 16px calc(var(--nav-height) + 36px);
+    }
 
-        /* Bottom Navigation Bar - Pure Black (Home Only) */
-        .bottom-nav { display: flex; background: #000000; border-top: 1px solid #222; padding: 6px 8px calc(8px + env(safe-area-inset-bottom)) 8px; justify-content: center; align-items: center; z-index: 20; box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5); flex-shrink: 0; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--telegram-blue); font-size: 10.5px; font-weight: 600; padding: 4px 2px; }
-        .nav-item svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-        
-        /* Quick Add Button (+) */
-        .quick-add-btn { position: fixed; top: 15px; right: 15px; z-index: 1000; background: var(--telegram-blue); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; font-size: 24px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(51, 144, 236, 0.4); display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
-        .quick-add-btn:active { transform: scale(0.9); }
+    .ui-icon {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
 
-        /* TikTok Feed Section */
-        #feedSection { display: flex; flex-direction: column; flex: 1; overflow: hidden; background: #000; position: relative; min-height: 0; }
-        .tiktok-feed-container { flex: 1; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; height: 100%; position: relative; }
-        .tiktok-feed-container::-webkit-scrollbar { display: none; }
-        .tiktok-reel { width: 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; display: flex; align-items: center; justify-content: center; background: #000; }
-        .tiktok-media-wrapper { width: 100%; height: 100%; position: absolute; inset: 0; z-index: 1; background: #000; display: flex; align-items: center; justify-content: center; }
-        .tiktok-media { width: 100%; height: 100%; object-fit: contain; max-width: 100%; border: none; background: #000; }
+    .ui-icon-lg {
+      width: 22px;
+      height: 22px;
+    }
 
-        @media(max-width: 768px) {
-            .sidebar { width: 100%; }
-        }
-    </style>
+    /* Top Header */
+    .top-header {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(22px) saturate(165%);
+      -webkit-backdrop-filter: blur(22px) saturate(165%);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius-xl);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 14px;
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4A2C18 0%, #8C5327 60%, #C67D3B 100%);
+      color: #FFF;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 18px rgba(74, 44, 24, 0.25);
+      flex-shrink: 0;
+    }
+
+    .brand-title h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .brand-title p {
+      margin: 2px 0 0;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      color: var(--text-primary);
+      border-radius: 13px;
+      padding: 9px 12px;
+      min-height: 38px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.14s ease, background 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      touch-action: manipulation;
+    }
+
+    .icon-btn:hover {
+      background: #FAF6F2;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.95);
+    }
+
+    .icon-btn.primary {
+      background: var(--accent-espresso);
+      color: #FFFFFF;
+      border-color: transparent;
+    }
+
+    .icon-btn.primary:hover {
+      background: #361F10;
+    }
+
+    /* Search & Temperature Filter Row */
+    .filter-controls-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .filter-controls-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      color: var(--text-muted);
+      pointer-events: none;
+      display: flex;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 36px 10px 38px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.96);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-caramel);
+      box-shadow: 0 0 0 3px rgba(198, 125, 59, 0.16);
+    }
+
+    .clear-search-btn {
+      position: absolute;
+      right: 9px;
+      border: none;
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      place-items: center;
+    }
+
+    .clear-search-btn.visible {
+      display: grid;
+    }
+
+    .temp-filter-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--bg-pill);
+      padding: 3px;
+      border-radius: 13px;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .temp-pill {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 7px 14px;
+      min-height: 36px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+      touch-action: manipulation;
+    }
+
+    .temp-pill.active {
+      background: #FFFFFF;
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .temp-pill[data-temp="hot"].active {
+      background: var(--accent-hot);
+      color: #FFFFFF;
+    }
+
+    .temp-pill[data-temp="ice"].active {
+      background: var(--accent-ice);
+      color: #FFFFFF;
+    }
+
+    /* Category Bar */
+    .category-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 6px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+    }
+
+    .category-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-pill {
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--text-secondary);
+      padding: 8px 14px;
+      min-height: 36px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      scroll-snap-align: start;
+      touch-action: manipulation;
+    }
+
+    .cat-pill:active {
+      transform: scale(0.96);
+    }
+
+    .cat-pill.active {
+      background: var(--accent-espresso);
+      color: #FFFFFF;
+      border-color: var(--accent-espresso);
+      box-shadow: 0 6px 14px rgba(74, 44, 24, 0.22);
+    }
+
+    /* Summary Strip */
+    .summary-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 6px 4px 14px;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .summary-count strong {
+      color: var(--text-primary);
+    }
+
+    .timer-pill-btn {
+      border: 1px solid rgba(198, 125, 59, 0.35);
+      background: #FFF9F2;
+      color: #7D4616;
+      padding: 7px 13px;
+      min-height: 34px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .timer-pill-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Menu Grid */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-actions .btn-label {
+        display: none;
+      }
+    }
+
+    .drink-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      position: relative;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .drink-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -10px rgba(45, 25, 12, 0.18);
+      border-color: rgba(198, 125, 59, 0.35);
+    }
+
+    .drink-card:active {
+      transform: scale(0.985);
+    }
+
+    .drink-photo-box {
+      width: 94px;
+      height: 104px;
+      border-radius: 16px;
+      background: #EFE7DC;
+      flex-shrink: 0;
+      border: 1px solid rgba(74, 44, 24, 0.09);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .drink-photo-box svg.model-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .drink-card:hover .drink-photo-box svg.model-svg {
+      transform: scale(1.06);
+    }
+
+    .photo-temp-badge {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 1.5px 6px;
+      border-radius: 6px;
+      color: #FFF;
+      letter-spacing: 0.03em;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+    }
+
+    .photo-temp-badge.hot {
+      background: rgba(184, 66, 37, 0.94);
+    }
+
+    .photo-temp-badge.ice {
+      background: rgba(29, 110, 150, 0.94);
+    }
+
+    .drink-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .drink-top-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .drink-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(74, 44, 24, 0.08);
+      color: var(--accent-espresso);
+    }
+
+    .drink-tag.temp-hot {
+      background: rgba(184, 66, 37, 0.12);
+      color: var(--accent-hot);
+    }
+
+    .drink-tag.temp-ice {
+      background: rgba(29, 110, 150, 0.12);
+      color: var(--accent-ice);
+    }
+
+    .drink-tag.custom {
+      background: rgba(31, 138, 76, 0.12);
+      color: var(--accent-success);
+    }
+
+    .drink-name-km {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .drink-name-en {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .drink-desc {
+      margin: 4px 0 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.4;
+    }
+
+    .drink-footer-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .fav-toggle-btn {
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--text-muted);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      flex-shrink: 0;
+      transition: transform 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .fav-toggle-btn.saved {
+      color: #C93045;
+      border-color: rgba(201, 48, 69, 0.35);
+      background: #FFF6F7;
+    }
+
+    .fav-toggle-btn.saved svg {
+      fill: #C93045;
+      stroke: #C93045;
+    }
+
+    .fav-toggle-btn:active {
+      transform: scale(0.86);
+    }
+
+    /* Empty State */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px dashed var(--border-subtle);
+    }
+
+    /* Bean Calculator View */
+    .calc-panel {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .calc-panel h2 {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+    }
+
+    .calc-panel p.subtitle {
+      margin: 0 0 18px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .preset-chip {
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      color: var(--text-primary);
+      padding: 8px 14px;
+      min-height: 38px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    .preset-chip.active {
+      background: var(--accent-caramel);
+      color: #FFFFFF;
+      border-color: var(--accent-caramel);
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 560px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .field-input, .field-select, .field-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: #FFFFFF;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      outline: none;
+    }
+
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      border-color: var(--accent-caramel);
+    }
+
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .calc-results {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .result-box {
+      background: linear-gradient(160deg, #FFFFFF 0%, #FAF4EC 100%);
+      border: 1px solid rgba(198, 125, 59, 0.22);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      text-align: center;
+    }
+
+    .result-box .res-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .result-box .res-val {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--accent-espresso);
+    }
+
+    .result-box .res-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(470px, calc(100% - 24px));
+      height: 62px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 999px;
+      box-shadow: var(--shadow-float);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 5px;
+      z-index: 40;
+    }
+
+    .nav-item {
+      border: none;
+      background: transparent;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .nav-item.active {
+      background: var(--accent-espresso);
+      color: #FFFFFF;
+      box-shadow: 0 6px 16px rgba(74, 44, 24, 0.25);
+    }
+
+    /* Modal / Bottom Sheet */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 12, 7, 0.54);
+      backdrop-filter: blur(6px);
+      z-index: 60;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    @media (min-width: 700px) {
+      .modal-backdrop {
+        align-items: center;
+      }
+    }
+
+    .modal-sheet {
+      width: 100%;
+      max-width: 660px;
+      max-height: 90vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: #FCF9F5;
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+      animation: slideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .drag-handle {
+      width: 42px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(74, 44, 24, 0.18);
+      margin: -4px auto 12px;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .close-modal-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--bg-pill);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      touch-action: manipulation;
+    }
+
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #FFFFFF;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      margin: 14px 0;
+    }
+
+    .seg-group {
+      display: inline-flex;
+      background: var(--bg-pill);
+      padding: 3px;
+      border-radius: 10px;
+      gap: 2px;
+    }
+
+    .seg-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 11px;
+      min-height: 32px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .seg-btn.active {
+      background: #FFFFFF;
+      color: var(--text-primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .section-heading {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--accent-espresso);
+      margin: 16px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ingredients-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ing-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 11px 12px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .ing-item.checked {
+      opacity: 0.55;
+      text-decoration: line-through;
+    }
+
+    .ing-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ing-check {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-espresso);
+      cursor: pointer;
+    }
+
+    .ing-amount {
+      font-weight: 700;
+      color: var(--accent-caramel);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .steps-list {
+      margin: 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .tip-box {
+      margin-top: 14px;
+      background: #FFF6E9;
+      border-left: 4px solid var(--accent-caramel);
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.84rem;
+      color: #5A3716;
+    }
+
+    .modal-footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Barista Shot Timer Box */
+    .timer-widget {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .timer-digits {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--accent-espresso);
+      margin: 6px 0;
+    }
+
+    .timer-status {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .timer-controls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 86px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1C1410;
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 90;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
 </head>
 <body>
-
-    <!-- Quick Add Button (+) -->
-    <button class="quick-add-btn" onclick="quickAddVideo()">+</button>
-
-    <!-- Custom Alert Modal -->
-    <div id="customAlertModal">
-        <div class="custom-alert-card">
-            <div style="font-size: 40px; margin-bottom: 12px;" id="customAlertIcon">⚠️</div>
-            <h3 id="customAlertTitle" style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">Notice</h3>
-            <p id="customAlertMessage" style="font-size: 14px; color: #879099; line-height: 1.4;">Message goes here...</p>
-            <button class="custom-alert-btn" onclick="closeCustomAlert()">OK</button>
+  <div class="app-container" id="appContainer">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-top-row">
+        <div class="brand-title">
+          <div class="brand-badge" aria-hidden="true">
+            <svg class="ui-icon ui-icon-lg" viewBox="0 0 24 24">
+              <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+              <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
+              <line x1="6" y1="2" x2="6" y2="4"></line>
+              <line x1="10" y1="2" x2="10" y2="4"></line>
+              <line x1="14" y1="2" x2="14" y2="4"></line>
+            </svg>
+          </div>
+          <div>
+            <h1 id="mainHeaderTitle">ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេពេញលេញ</h1>
+            <p>បែងចែកក្តៅ (Hot) និង ត្រជាក់ (Ice) ដាច់ដោយឡែក • រង្វាស់ស្តង់ដារ 16oz</p>
+          </div>
         </div>
+        <div class="header-actions">
+          <button class="icon-btn" id="openTimerBtn" title="ម៉ោងចម្រាញ់កាហ្វេ">
+            <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span class="btn-label">ម៉ោងឆុង</span>
+          </button>
+          <button class="icon-btn primary" id="openAddRecipeBtn" title="បន្ថែមរូបមន្តថ្មី">
+            <svg class="ui-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span class="btn-label">បន្ថែមមុខ</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-controls-row">
+        <div class="search-box">
+          <span class="search-icon" aria-hidden="true">
+            <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="ស្វែងរកឈ្មោះភេសជ្ជៈ (ខ្មែរ / English) ឬគ្រឿងផ្សំ..."
+            autocomplete="off"
+          />
+          <button class="clear-search-btn" id="clearSearchBtn" aria-label="សម្អាត">X</button>
+        </div>
+
+        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ ត្រជាក់">
+          <button class="temp-pill active" data-temp="all">ទាំងអស់</button>
+          <button class="temp-pill" data-temp="hot">ក្តៅ (Hot)</button>
+          <button class="temp-pill" data-temp="ice">ត្រជាក់ (Ice)</button>
+        </div>
+      </div>
+
+      <div class="category-bar" id="categoryBar"></div>
+    </header>
+
+    <!-- Summary Strip -->
+    <div class="summary-strip" id="summaryStrip">
+      <div class="summary-count">កំពុងបង្ហាញ៖ <strong id="shownCount">0</strong> មុខ (សរុប <span id="totalCatalogCount">0</span> មុខ)</div>
+      <button class="timer-pill-btn" id="quickTimerPill">
+        <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span>Espresso Standard: 25–30s</span>
+      </button>
     </div>
 
-    <!-- Main App -->
-    <div class="app">
-        <section class="sidebar">
-            <div id="feedSection">
-                <div class="tiktok-feed-container" id="tiktokFeedContainer"></div>
-            </div>
+    <!-- Main View: Menu Grid -->
+    <main id="menuView">
+      <div class="menu-grid" id="menuGrid"></div>
+    </main>
 
-            <div class="bottom-nav">
-                <div class="nav-item">
-                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                    <span>Home</span>
-                </div>
+    <!-- Secondary View: Bean Bag Yield Calculator -->
+    <section id="calculatorView" style="display: none;">
+      <div class="calc-panel">
+        <h2>ឧបករណ៍គណនាចំនួនកែវពីកញ្ចប់គ្រាប់កាហ្វេ</h2>
+        <p class="subtitle">គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ បរិមាណម្សៅ ១ កែវ និងភាគរយខាតបង់ (Dial-in / Waste)</p>
+
+        <div class="preset-row" id="bagPresets">
+          <button class="preset-chip" data-grams="250">២៥០ ក្រាម (250g)</button>
+          <button class="preset-chip active" data-grams="500">៥០០ ក្រាម (500g)</button>
+          <button class="preset-chip" data-grams="1000">១,០០០ ក្រាម (1kg)</button>
+          <button class="preset-chip" data-grams="5000">៥ គីឡូ (5kg)</button>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field-group">
+            <label for="bagGramsInput">ទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ (ក្រាម)</label>
+            <input type="number" id="bagGramsInput" class="field-input" value="500" min="10" step="10" />
+          </div>
+          <div class="field-group">
+            <label for="dosePerCupInput">ម្សៅកាហ្វេសម្រាប់ ១ កែវ (ក្រាម)</label>
+            <select id="dosePerCupSelect" class="field-select" style="margin-bottom: 6px;">
+              <option value="9">Single Shot (~9g)</option>
+              <option value="18" selected>Double Shot Standard (~18g)</option>
+              <option value="20">Strong Double Shot (~20g)</option>
+              <option value="custom">កំណត់ផ្ទាល់ខ្លួន...</option>
+            </select>
+            <input type="number" id="dosePerCupInput" class="field-input" value="18" min="3" max="60" step="0.5" />
+          </div>
+          <div class="field-group">
+            <label for="wastePercentInput">ភាគរយខាតបង់ (Dial-in / កំពប់ %)</label>
+            <input type="number" id="wastePercentInput" class="field-input" value="5" min="0" max="50" step="1" />
+          </div>
+          <div class="field-group">
+            <label for="pricePerCupInput">តម្លៃលក់ ១ កែវ ($)</label>
+            <input type="number" id="pricePerCupInput" class="field-input" value="1.50" min="0" step="0.05" />
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="result-box">
+            <div class="res-label">ចំនួនកែវឆុងបាន (សុទ្ធ)</div>
+            <div class="res-val" id="resNetCups">26 កែវ</div>
+            <div class="res-sub" id="resGrossCups">មុនខាត៖ ~27.8 កែវ</div>
+          </div>
+          <div class="result-box">
+            <div class="res-label">គ្រាប់កាហ្វេខាតបង់</div>
+            <div class="res-val" id="resWasteGrams">25 g</div>
+            <div class="res-sub" id="resUsableGrams">ប្រើបាន៖ 475 g</div>
+          </div>
+          <div class="result-box">
+            <div class="res-label">ចំណូលប៉ាន់ស្មាន / កញ្ចប់</div>
+            <div class="res-val" id="resEstRevenue">$39.00</div>
+            <div class="res-sub" id="resCostPerCup">ម្សៅ/កែវ៖ 18g</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" aria-label="ម៉ឺនុយរុករក">
+    <button class="nav-item active" id="navAll" data-tab="all">
+      <svg class="ui-icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+      <span id="navAllLabel">ម៉ឺនុយ</span>
+    </button>
+    <button class="nav-item" id="navFav" data-tab="fav">
+      <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      <span>ចូលចិត្ត</span>
+    </button>
+    <button class="nav-item" id="navCalc" data-tab="calc">
+      <svg class="ui-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="10" y2="10"></line><line x1="14" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="10" y2="14"></line><line x1="14" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
+      <span>គណនាគ្រាប់</span>
+    </button>
+  </nav>
+
+  <!-- Recipe Detail Modal -->
+  <div class="modal-backdrop" id="recipeModal" role="dialog" aria-modal="true">
+    <div class="modal-sheet" id="recipeSheet">
+      <div class="drag-handle"></div>
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div id="modalArtBox" class="drink-photo-box" style="width: 84px; height: 94px;"></div>
+          <div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+              <span class="drink-tag" id="modalCatTag"></span>
+              <span class="drink-tag" id="modalTempTag"></span>
             </div>
-        </section>
+            <h2 id="modalTitleKm" style="margin: 4px 0 2px; font-size: 1.2rem;"></h2>
+            <div id="modalTitleEn" class="drink-name-en"></div>
+          </div>
+        </div>
+        <button class="close-modal-btn" id="closeRecipeModal" aria-label="បិទ">X</button>
+      </div>
+
+      <p id="modalDesc" style="margin: 12px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;"></p>
+
+      <!-- Cup Size & Batch Multiplier -->
+      <div class="controls-bar">
+        <div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ទំហំកែវ (Cup Size)</div>
+          <div class="seg-group" id="cupSizeGroup">
+            <button class="seg-btn" data-size="12oz">12oz</button>
+            <button class="seg-btn active" data-size="16oz">16oz</button>
+            <button class="seg-btn" data-size="22oz">22oz</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ចំនួនកែវឆុង (Batch)</div>
+          <div class="seg-group" id="batchGroup">
+            <button class="seg-btn active" data-batch="1">1x</button>
+            <button class="seg-btn" data-batch="2">2x</button>
+            <button class="seg-btn" data-batch="3">3x</button>
+            <button class="seg-btn" data-batch="5">5x</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading">គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)</div>
+      <ul class="ingredients-list" id="modalIngredients"></ul>
+
+      <div class="section-heading">របៀបធ្វើតាមជំហាន</div>
+      <ol class="steps-list" id="modalSteps"></ol>
+
+      <div class="tip-box" id="modalTip"></div>
+
+      <div class="modal-footer-actions">
+        <button class="icon-btn primary" id="copyRecipeBtn">ចម្លងរូបមន្ត</button>
+        <button class="icon-btn" id="modalFavBtn">រក្សាទុកចូលចិត្ត</button>
+        <button class="icon-btn" id="modalTimerBtn">ចាប់ម៉ោងឆុង</button>
+        <button class="icon-btn" id="deleteCustomBtn" style="display:none; color:#B81D37;">លុបមុខនេះ</button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        const SERVER_URL = "https://a-pmwt.onrender.com";[span_0](start_span)[span_0](end_span)
-        const socket = io(SERVER_URL);
+  <!-- Add Custom Recipe Modal -->
+  <div class="modal-backdrop" id="addRecipeModal" role="dialog" aria-modal="true">
+    <div class="modal-sheet">
+      <div class="drag-handle"></div>
+      <div class="modal-header">
+        <div>
+          <h2 style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខភេសជ្ជៈថ្មីផ្ទាល់ខ្លួន</h2>
+          <p style="margin: 3px 0 0; font-size: 0.8rem; color: var(--text-secondary);">រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ</p>
+        </div>
+        <button class="close-modal-btn" id="closeAddModal" aria-label="បិទ">X</button>
+      </div>
 
-        let globalPosts = [];
+      <form id="addRecipeForm" style="margin-top: 14px;">
+        <div class="form-grid-2">
+          <div class="field-group">
+            <label for="newNameKm">ឈ្មោះភេសជ្ជៈ (ខ្មែរ) *</label>
+            <input type="text" id="newNameKm" class="field-input" placeholder="ឧទាហរណ៍៖ សូដាកីវីពិសេស" required />
+          </div>
+          <div class="field-group">
+            <label for="newNameEn">ឈ្មោះភាសាអង់គ្លេស</label>
+            <input type="text" id="newNameEn" class="field-input" placeholder="e.g. Signature Kiwi Soda" />
+          </div>
+        </div>
 
-        function showAlert(message, title = "Notice", icon = "⚠️") {
-            document.getElementById("customAlertTitle").textContent = title;
-            document.getElementById("customAlertMessage").textContent = message;
-            document.getElementById("customAlertIcon").textContent = icon;
-            document.getElementById("customAlertModal").style.display = "flex";
+        <div class="form-grid-2">
+          <div class="field-group">
+            <label for="newTemp">ប្រភេទសីតុណ្ហភាព (Hot / Ice)</label>
+            <select id="newTemp" class="field-select">
+              <option value="ice">ត្រជាក់ (Ice)</option>
+              <option value="hot">ក្តៅ (Hot)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="newCategory">ក្រុមភេសជ្ជៈ</label>
+            <select id="newCategory" class="field-select">
+              <option value="espresso">កាហ្វេម៉ាស៊ីន (Espresso)</option>
+              <option value="local">កាហ្វេខ្មែរ និងអាស៊ី</option>
+              <option value="non-coffee">ភេសជ្ជៈគ្មានជាតិកាហ្វេ</option>
+              <option value="soda">សូដាផ្លែឈើ (Soda)</option>
+              <option value="frappe">ភេសជ្ជៈក្រឡុក (Frappe & Smoothie)</option>
+              <option value="other">ភេសជ្ជៈផ្សេងៗ</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field-group">
+            <label for="newTimeNote">ពេលវេលា / កម្រិតរសជាតិ</label>
+            <input type="text" id="newTimeNote" class="field-input" placeholder="ឧទាហរណ៍៖ 1.5 នាទី • ហ្វឺហ្វារស្រស់ស្រាយ" />
+          </div>
+          <div class="field-group">
+            <label for="newDesc">ការពិពណ៌នាសង្ខេប</label>
+            <input type="text" id="newDesc" class="field-input" placeholder="រសជាតិជូរអែមស្រស់ស្រាយ..." />
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-bottom: 12px;">
+          <label for="newIngredients">គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)</label>
+          <textarea id="newIngredients" class="field-textarea" rows="4" placeholder="Kiwi Syrup / Puree | 30 | ml&#10;ទឹកសូដាត្រជាក់ | 150 | ml&#10;ទឹកកក | 160 | g"></textarea>
+        </div>
+
+        <div class="field-group" style="margin-bottom: 14px;">
+          <label for="newSteps">របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)</label>
+          <textarea id="newSteps" class="field-textarea" rows="3" placeholder="ដាក់ទឹកកកចូលកែវ&#10;ចាក់ Syrup/Puree ចូលកែវ&#10;ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ រួចកូរស្រាលៗ"></textarea>
+        </div>
+
+        <button type="submit" class="icon-btn primary" style="width: 100%; justify-content: center; padding: 12px;">
+          រក្សាទុកមុខភេសជ្ជៈថ្មី
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Live Barista Shot Timer Modal -->
+  <div class="modal-backdrop" id="timerModal" role="dialog" aria-modal="true">
+    <div class="modal-sheet" style="max-width: 420px;">
+      <div class="drag-handle"></div>
+      <div class="modal-header">
+        <div>
+          <h2 style="margin: 0; font-size: 1.1rem;">ម៉ោងកំណត់ចម្រាញ់កាហ្វេ (Shot Timer)</h2>
+          <p style="margin: 2px 0 0; font-size: 0.78rem; color: var(--text-secondary);">ស្តង់ដារ Espresso: 25–30 វិនាទី</p>
+        </div>
+        <button class="close-modal-btn" id="closeTimerModal" aria-label="បិទ">X</button>
+      </div>
+
+      <div class="timer-widget">
+        <div class="timer-digits" id="timerDigits">00.0s</div>
+        <div class="timer-status" id="timerStatus">ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម</div>
+        <div class="timer-controls">
+          <button class="icon-btn primary" id="timerStartBtn">Start</button>
+          <button class="icon-btn" id="timerPauseBtn">Pause</button>
+          <button class="icon-btn" id="timerResetBtn">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const CATEGORIES = [
+      { id: "all", label: "ទាំងអស់" },
+      { id: "espresso", label: "កាហ្វេម៉ាស៊ីន" },
+      { id: "local", label: "កាហ្វេខ្មែរ & អាស៊ី" },
+      { id: "non-coffee", label: "គ្មានកាហ្វេ" },
+      { id: "soda", label: "សូដាផ្លែឈើ (Soda)" },
+      { id: "frappe", label: "ភេសជ្ជៈក្រឡុក" },
+      { id: "other", label: "ភេសជ្ជៈផ្សេងៗ" }
+    ];
+
+    /**
+     * ម៉ូដែលរូបភាពគំនូរ Vector ផ្ទាល់ក្នុងកម្មវិធី (ត្រូវនឹងមុខនីមួយៗ ១០០% ផ្ទុកភ្លាមៗ)
+     * style: "hot-cup" | "hot-art" | "iced-layered" | "iced-plain" | "soda" | "frappe"
+     */
+    const DRINK_VISUALS = {
+      // HOT
+      "hot-espresso":      { style: "hot-cup", bg: "#EFE4D8", cup: "#FFFFFF", liquid: "#2B150A", foam: "#C48843", garnish: "crema" },
+      "hot-americano":     { style: "hot-cup", bg: "#ECE2D8", cup: "#FFFFFF", liquid: "#1C0D06", foam: "#8E582B", garnish: "crema" },
+      "hot-latte":         { style: "hot-art", bg: "#F3E8DC", cup: "#FFFFFF", liquid: "#8D5834", foam: "#FFFDF9", garnish: "heart" },
+      "hot-cappuccino":    { style: "hot-art", bg: "#EFE3D5", cup: "#FFFFFF", liquid: "#7A4A29", foam: "#FFF8EE", garnish: "foam-ring" },
+      "hot-flat-white":    { style: "hot-art", bg: "#EDE2D6", cup: "#F8F3EC", liquid: "#744424", foam: "#FFFDF9", garnish: "heart" },
+      "hot-mocha":         { style: "hot-art", bg: "#EFE0D6", cup: "#FFFFFF", liquid: "#4B2414", foam: "#F7ECE3", garnish: "cocoa" },
+      "hot-caramel":       { style: "hot-art", bg: "#F7E9D7", cup: "#FFFFFF", liquid: "#9C6132", foam: "#FFF9F0", garnish: "caramel" },
+      "hot-piccolo":       { style: "hot-cup", bg: "#EFE3D5", cup: "#FFFFFF", liquid: "#693B1E", foam: "#F8EFE3", garnish: "crema" },
+      "hot-khmer-milk":    { style: "hot-cup", bg: "#F4E5D2", cup: "#FFFFFF", liquid: "#6B3B1D", foam: "#EED2AE", garnish: "milk" },
+      "hot-matcha":        { style: "hot-art", bg: "#E7F0DF", cup: "#FFFFFF", liquid: "#6A9144", foam: "#F5FAEF", garnish: "heart" },
+      "hot-chocolate":     { style: "hot-cup", bg: "#EFE0D8", cup: "#FFFFFF", liquid: "#3E1D0F", foam: "#EAD7C8", garnish: "cocoa" },
+      "hot-honey-lemon":   { style: "hot-cup", bg: "#FCF3D7", cup: "#FFFFFF", liquid: "#EAB932", foam: "#FFF7D6", garnish: "lemon" },
+
+      // ICE COFFEE & NON-COFFEE
+      "ice-americano":     { style: "iced-plain", bg: "#E3EFF5", liquid: "#221008", top: "#3B1E10", straw: "#4A2C18", garnish: "none" },
+      "ice-latte":         { style: "iced-layered", bg: "#E8EFF4", liquid: "#F2E4D1", top: "#6A3C1E", straw: "#8C5327", garnish: "none" },
+      "ice-cappuccino":    { style: "iced-layered", bg: "#EAEFF3", liquid: "#BA8658", top: "#FFFFFF", straw: "#6E4224", garnish: "foam" },
+      "ice-mocha":         { style: "iced-layered", bg: "#ECE6E2", liquid: "#542916", top: "#C99F7E", straw: "#3B1B0D", garnish: "none" },
+      "ice-caramel":       { style: "iced-layered", bg: "#F5ECE0", liquid: "#EBD5B7", top: "#734222", straw: "#D48324", garnish: "caramel" },
+      "ice-khmer-milk":    { style: "iced-plain", bg: "#F3E7D8", liquid: "#774423", top: "#E6C7A1", straw: "#4A2C18", garnish: "none" },
+      "ice-black-coffee":  { style: "iced-plain", bg: "#E4ECEF", liquid: "#190C05", top: "#422212", straw: "#2B150A", garnish: "none" },
+      "ice-coconut-coffee":  { style: "iced-layered", bg: "#EBF2F4", liquid: "#F8F5F0", top: "#5A3117", straw: "#8D5834", garnish: "coconut" },
+      "ice-palm-sugar":    { style: "iced-layered", bg: "#F4EAD9", liquid: "#DFC098", top: "#63371A", straw: "#B87328", garnish: "none" },
+      "ice-salt-coffee":   { style: "iced-layered", bg: "#E9EFF3", liquid: "#754423", top: "#FFFDF8", straw: "#4A2C18", garnish: "foam" },
+      "ice-matcha":        { style: "iced-layered", bg: "#E4F0E6", liquid: "#F3F0EA", top: "#5D8C36", straw: "#466E24", garnish: "none" },
+      "ice-thai-tea":      { style: "iced-plain", bg: "#FCE9DA", liquid: "#D96B27", top: "#F5D2B3", straw: "#B84E14", garnish: "none" },
+      "ice-chocolate":     { style: "iced-plain", bg: "#EFE4DF", liquid: "#4B2312", top: "#C49574", straw: "#33160A", garnish: "none" },
+      "ice-peach-tea":     { style: "iced-plain", bg: "#FDECE0", liquid: "#DE7E2B", top: "#FCE1BC", straw: "#C46216", garnish: "peach" },
+      "ice-brown-sugar-milk": { style: "iced-layered", bg: "#F3EAE0", liquid: "#FAF6F0", top: "#783E18", straw: "#5A2A0E", garnish: "none" },
+
+      // SODA
+      "kiwi-soda":         { style: "soda", bg: "#E8F5E0", liquid: "#6BB832", top: "#D9F5BE", straw: "#458718", garnish: "kiwi" },
+      "strawberry-soda":   { style: "soda", bg: "#FDE4E8", liquid: "#E63946", top: "#FFD6DA", straw: "#B51D29", garnish: "strawberry" },
+      "mango-soda":        { style: "soda", bg: "#FFF0D6", liquid: "#F7A418", top: "#FFF0C2", straw: "#D97E00", garnish: "mango" },
+      "passion-soda":      { style: "soda", bg: "#FFF1D4", liquid: "#F29F05", top: "#FFF2C6", straw: "#C97A00", garnish: "passion" },
+      "blue-soda":         { style: "soda", bg: "#DFF3FC", liquid: "#0096C7", top: "#CAF0F8", straw: "#006494", garnish: "lemon" },
+      "peach-soda":        { style: "soda", bg: "#FDE7DF", liquid: "#F4845F", top: "#FFE3D8", straw: "#D65A31", garnish: "peach" },
+      "passion-honey-soda":{ style: "soda", bg: "#FFF0D4", liquid: "#E59819", top: "#FFF1C9", straw: "#B87209", garnish: "passion" },
+
+      // FRAPPE & SMOOTHIE
+      "coffee-frappe":     { style: "frappe", bg: "#EFE5DC", liquid: "#8A5638", top: "#FFFDF9", straw: "#5C351E", garnish: "whip" },
+      "matcha-frappe":     { style: "frappe", bg: "#E6F1E2", liquid: "#6B9B42", top: "#FFFDF9", straw: "#497027", garnish: "whip" },
+      "chocolate-frappe":  { style: "frappe", bg: "#EDE1DC", liquid: "#4B2414", top: "#FFFDF9", straw: "#2E1409", garnish: "whip" },
+      "vanilla-frappe":    { style: "frappe", bg: "#F7F0E4", liquid: "#F2E3CA", top: "#FFFFFF", straw: "#C69C63", garnish: "whip" },
+      "strawberry-smoothie":{ style: "frappe", bg: "#FDE5EA", liquid: "#E85D75", top: "#FFE3E8", straw: "#C2364E", garnish: "strawberry" },
+      "mango-smoothie":    { style: "frappe", bg: "#FFF1D6", liquid: "#F7A81B", top: "#FFF3CC", straw: "#D98200", garnish: "mango" },
+
+      // OTHER
+      "ice-honey-lemon":   { style: "iced-plain", bg: "#FCF4D8", liquid: "#EBC344", top: "#FFF9DC", straw: "#C99A14", garnish: "lemon" },
+      "espresso-tonic":    { style: "iced-layered", bg: "#E3EFF5", liquid: "#E7F0F4", top: "#4A2613", straw: "#2B150A", garnish: "lemon" },
+      "avocado-smoothie":  { style: "frappe", bg: "#EAF3DF", liquid: "#84A948", top: "#EBF5D8", straw: "#5D7D2B", garnish: "whip" },
+      "lemongrass-cooler": { style: "iced-plain", bg: "#EAF2DF", liquid: "#9AB865", top: "#ECF5DC", straw: "#6E8C3B", garnish: "lemon" }
+    };
+
+    function renderModelSvg(photoKey) {
+      const v = DRINK_VISUALS[photoKey] || DRINK_VISUALS["ice-latte"];
+      let inner = "";
+
+      if (v.style === "hot-cup" || v.style === "hot-art") {
+        const artShape = v.garnish === "heart"
+          ? `<path d="M80 51 C74 47 68 53 80 61 C92 53 86 47 80 51 Z" fill="${v.liquid}"/>`
+          : v.garnish === "lemon"
+          ? `<circle cx="80" cy="56" r="9" fill="#FFE066" stroke="#E0A800" stroke-width="1.5"/>`
+          : `<ellipse cx="80" cy="56" rx="20" ry="4.5" fill="${v.foam}" opacity="0.6"/>`;
+
+        inner = `
+          <path d="M62 33 Q58 25 62 17 M80 29 Q76 21 80 13 M98 33 Q94 25 98 17" stroke="#9C8778" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          <ellipse cx="80" cy="144" rx="50" ry="7.5" fill="#DFD4C8"/>
+          <path d="M118 66 H128 A14 14 0 0 1 128 104 H118" stroke="${v.cup}" stroke-width="8" fill="none"/>
+          <path d="M42 54 H118 L112 114 A24 24 0 0 1 88 135 H72 A24 24 0 0 1 48 114 Z" fill="${v.cup}" stroke="#D8CEC2" stroke-width="1.5"/>
+          <ellipse cx="80" cy="56" rx="35" ry="9" fill="${v.style === "hot-art" ? v.foam : v.liquid}"/>
+          ${v.style === "hot-art" ? artShape : `<ellipse cx="80" cy="55" rx="26" ry="4" fill="${v.foam}" opacity="0.45"/>`}
+        `;
+      } else if (v.style === "frappe") {
+        const garnishEl = v.garnish === "strawberry"
+          ? `<circle cx="96" cy="40" r="8" fill="#E63946"/><circle cx="96" cy="33" r="3" fill="#4CAF50"/>`
+          : v.garnish === "mango"
+          ? `<rect x="88" y="34" width="16" height="12" rx="4" fill="#FFA726"/>`
+          : `<path d="M52 58 Q62 34 80 38 Q98 34 108 58 Z" fill="${v.top}"/>`;
+
+        inner = `
+          <line x1="94" y1="14" x2="84" y2="56" stroke="${v.straw}" stroke-width="5" stroke-linecap="round"/>
+          <path d="M46 58 H114 L104 152 A10 10 0 0 1 94 160 H66 A10 10 0 0 1 56 152 Z" fill="${v.liquid}"/>
+          <path d="M48 76 H112 L110 92 H50 Z" fill="#FFFFFF" opacity="0.18"/>
+          ${garnishEl}
+          <path d="M44 58 A36 28 0 0 1 116 58 Z" fill="rgba(255,255,255,0.55)" stroke="#CFC4B8" stroke-width="1.8"/>
+        `;
+      } else if (v.style === "soda") {
+        const fruitEl = v.garnish === "kiwi"
+          ? `<circle cx="98" cy="44" r="10" fill="#8BC34A" stroke="#F4FF81" stroke-width="2.5"/><circle cx="98" cy="44" r="3.5" fill="#FFFDE7"/>`
+          : v.garnish === "strawberry"
+          ? `<ellipse cx="98" cy="44" rx="9" ry="11" fill="#E53935"/>`
+          : v.garnish === "mango" || v.garnish === "peach" || v.garnish === "passion"
+          ? `<circle cx="98" cy="44" r="10" fill="#FFA726"/>`
+          : `<circle cx="98" cy="44" r="10" fill="#FFEE58" stroke="#FBC02D" stroke-width="2"/>`;
+
+        inner = `
+          <line x1="88" y1="16" x2="78" y2="62" stroke="${v.straw}" stroke-width="5" stroke-linecap="round"/>
+          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="${v.liquid}"/>
+          <path d="M45 48 H115 L113 66 H47 Z" fill="${v.top}" opacity="0.65"/>
+          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.52" transform="rotate(-12 55 56)"/>
+          <rect x="80" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.52" transform="rotate(14 80 60)"/>
+          <circle cx="63" cy="106" r="3" fill="#FFF" opacity="0.75"/>
+          <circle cx="92" cy="118" r="3.5" fill="#FFF" opacity="0.75"/>
+          <circle cx="76" cy="134" r="2.8" fill="#FFF" opacity="0.75"/>
+          <circle cx="88" cy="92" r="2.5" fill="#FFF" opacity="0.75"/>
+          ${fruitEl}
+          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.85"/>
+        `;
+      } else {
+        // iced-layered or iced-plain
+        const topLayer = v.style === "iced-layered"
+          ? `<path d="M45 48 H115 L112 84 H48 Z" fill="${v.top}"/>`
+          : `<path d="M45 48 H115 L114 62 H46 Z" fill="${v.top}" opacity="0.45"/>`;
+
+        inner = `
+          <line x1="96" y1="16" x2="84" y2="62" stroke="${v.straw}" stroke-width="5" stroke-linecap="round"/>
+          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="${v.liquid}"/>
+          ${topLayer}
+          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
+          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
+          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
+        `;
+      }
+
+      return `<svg class="model-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg"><rect width="160" height="180" fill="${v.bg}"/>${inner}</svg>`;
+    }
+
+    const DEFAULT_RECIPES = [
+      // ==================== HOT DRINKS (ក្តៅ) ====================
+      {
+        id: "hot-espresso",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "អេស្ព្រេសសូ ក្តៅ",
+        nameEn: "Hot Espresso",
+        photo: "hot-espresso",
+        timeNote: "25–30s • ដិតខ្លាំង",
+        desc: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ក្តៅៗពីម៉ាស៊ីនសម្ពាធខ្ពស់ រសជាតិខ្លាំង ខាប់ និងមានពពុះ Crema ពណ៌មាស។",
+        ingredients: [
+          { name: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", amount: 18, unit: "g" },
+          { name: "ទឹកក្តៅចម្រាញ់ (Yield ~93°C)", amount: 36, unit: "ml" }
+        ],
+        steps: [
+          "កិនគ្រាប់កាហ្វេឱ្យម៉ត់សមល្មម ហើយសង្កត់ (Tamp) ឱ្យស្មើគ្នាក្នុង Portafilter។",
+          "ចម្រាញ់យកទឹកកាហ្វេ 36 ml ក្នុងរយៈពេល 25–30 វិនាទី។",
+          "ចាក់ដាក់ពែងក្តៅ ហើយបម្រើភ្លាមៗដើម្បីរក្សាក្លិន និង Crema។"
+        ],
+        tip: "ប្រើពែងក្តៅឧណ្ហៗជាមុន ដើម្បីកុំឱ្យកាហ្វេឆាប់ត្រជាក់ និងបាត់បង់ក្លិនក្រអូប។"
+      },
+      {
+        id: "hot-americano",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "អាមេរិកាណូ ក្តៅ",
+        nameEn: "Hot Americano",
+        photo: "hot-americano",
+        timeNote: "1.5 នាទី • ក្តៅ ស្រាលស្រស់ស្រាយ",
+        desc: "Double Espresso លាយជាមួយទឹកក្តៅសុទ្ធ គ្មានទឹកដោះគោ ឬស្ករ ផ្តល់ក្លិនកាហ្វេច្បាស់។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកក្តៅ (~85–90°C)", amount: 180, unit: "ml" }
+        ],
+        steps: [
+          "ចាក់ទឹកក្តៅ (~85–90°C) 180 ml ចូលក្នុងពែង។",
+          "ចម្រាញ់ Double Espresso 36 ml ស្រោចពីលើទឹកក្តៅ ដើម្បីរក្សាពពុះ Crema។",
+          "បម្រើក្តៅៗ ដោយដាក់កញ្ចប់ស្ករនៅចំហៀងតាមតម្រូវការភ្ញៀវ។"
+        ],
+        tip: "ចាក់ Espresso ពីលើទឹកក្តៅ នឹងរក្សា Crema ពណ៌មាសនៅលើផ្ទៃបានស្អាតជាងចាក់ទឹកពីលើកាហ្វេ។"
+      },
+      {
+        id: "hot-latte",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "ឡាតេ ក្តៅ",
+        nameEn: "Hot Latte",
+        photo: "hot-latte",
+        timeNote: "2 នាទី • ឈ្ងុយទឹកដោះគោចំហុយ",
+        desc: "Double Espresso ផ្សំជាមួយទឹកដោះគោស្រស់ចំហុយក្តៅ និងពពុះស្តើងរលោងនៅពីលើ។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ (ចំហុយដល់ ~62°C)", amount: 200, unit: "ml" }
+        ],
+        steps: [
+          "ចម្រាញ់ Double Espresso ដាក់ក្នុងពែងធំ។",
+          "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅដល់ ~60–65°C និងមានពពុះ Microfoam ស្តើងរលោង។",
+          "ចាក់ទឹកដោះគោចូលក្នុង Espresso យឺតៗ ដើម្បីបង្កើតក្បាច់ Latte Art។"
+        ],
+        tip: "កុំចំហុយទឹកដោះគោលើស 70°C ព្រោះអាចធ្វើឱ្យទឹកដោះគោឆ្អិនជ្រុល និងបាត់រសជាតិផ្អែមធម្មជាតិ។"
+      },
+      {
+        id: "hot-cappuccino",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "កាពូឈីណូ ក្តៅ",
+        nameEn: "Hot Cappuccino",
+        photo: "hot-cappuccino",
+        timeNote: "2 នាទី • ពពុះក្រាស់ក្តៅ",
+        desc: "Double Espresso លាយទឹកដោះគោចំហុយ និងស្រទាប់ពពុះទឹកដោះគោក្រាស់ទន់នៅផ្នែកខាងលើ។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ + ពពុះក្រាស់ (~62°C)", amount: 170, unit: "ml" }
+        ],
+        steps: [
+          "ចម្រាញ់ Double Espresso ដាក់ពែង។",
+          "ចំហុយទឹកដោះគោបញ្ចូលខ្យល់ច្រើនជាង Latte បន្តិច ដើម្បីបានពពុះក្រាស់រលោង។",
+          "ចាក់ចូលពែង រួចអាចរោយម្សៅកាកាវបន្តិចពីលើ។"
+        ],
+        tip: "ពពុះ Cappuccino ល្អត្រូវមានសាច់ម៉ត់រលោង គ្មានពពុះខ្យល់ធំៗ។"
+      },
+      {
+        id: "hot-flat-white",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "ហ្វ្លាត វ៉ាយ ក្តៅ",
+        nameEn: "Hot Flat White",
+        photo: "hot-flat-white",
+        timeNote: "2 នាទី • ក្តៅ រសជាតិកាហ្វេដិត",
+        desc: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត ធ្វើឱ្យរសជាតិកាហ្វេដិតច្បាស់ជាង Latte។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ (ចំហុយពពុះស្តើង ~62°C)", amount: 150, unit: "ml" }
+        ],
+        steps: [
+          "ចម្រាញ់ Double Espresso ដាក់ពែងទំហំមធ្យម។",
+          "ចំហុយទឹកដោះគោ 150 ml ឱ្យមានពពុះស្តើងរលោងបំផុត។",
+          "ចាក់ចូលពែងឱ្យស៊ីសង្វាក់គ្នា រួចបម្រើភ្លាម។"
+        ],
+        tip: "ប្រើទឹកដោះគោតិចជាង Latte ដើម្បីរក្សារសជាតិកាហ្វេឱ្យនៅលេចធ្លោ។"
+      },
+      {
+        id: "hot-mocha",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "ម៉ូកា ក្តៅ",
+        nameEn: "Hot Mocha",
+        photo: "hot-mocha",
+        timeNote: "2.5 នាទី • ក្តៅ កាហ្វេ + សូកូឡា",
+        desc: "Double Espresso ផ្សំជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", amount: 25, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 180, unit: "ml" }
+        ],
+        steps: [
+          "ដាក់សូកូឡាចូលពែង រួចចម្រាញ់ Double Espresso ក្តៅពីលើ ហើយកូរឱ្យរលាយសព្វ។",
+          "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅ និងមានពពុះរលោង។",
+          "ចាក់ទឹកដោះគោចូលក្នុងល្បាយសូកូឡាកាហ្វេ រួចបម្រើក្តៅៗ។"
+        ],
+        tip: "កូរសូកូឡាជាមួយ Espresso ក្តៅជាមុន នឹងធ្វើឱ្យរសជាតិសូកូឡារលាយស្មើល្អ។"
+      },
+      {
+        id: "hot-caramel-macchiato",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "ការ៉ាមែល ម៉ាគីអាតូ ក្តៅ",
+        nameEn: "Hot Caramel Macchiato",
+        photo: "hot-caramel",
+        timeNote: "2.5 នាទី • ក្តៅ ផ្អែមឈ្ងុយ Caramel",
+        desc: "ទឹកដោះគោចំហុយលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "Vanilla Syrup", amount: 15, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 185, unit: "ml" },
+          { name: "Caramel Sauce (ស្រោចពីលើ)", amount: 15, unit: "ml" }
+        ],
+        steps: [
+          "ចាក់ Vanilla Syrup ចូលពែង រួចចាក់ទឹកដោះគោចំហុយក្តៅចូល។",
+          "ចាក់ Double Espresso ស្រោចពីលើពពុះទឹកដោះគោ។",
+          "គូស Caramel Sauce ពីលើផ្នែកខាងលើបំផុត។"
+        ],
+        tip: "ចាក់ Espresso យឺតៗតាមចំណុចកណ្តាល ដើម្បីរក្សាស្រទាប់ពណ៌ស្អាត។"
+      },
+      {
+        id: "hot-piccolo",
+        temp: "hot",
+        category: "espresso",
+        nameKm: "ភីកូឡូ / ខូតាដូ ក្តៅ",
+        nameEn: "Hot Piccolo / Cortado",
+        photo: "hot-piccolo",
+        timeNote: "1.5 នាទី • កែវតូច ក្តៅដិតមុត",
+        desc: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោបន្តិច។",
+        ingredients: [
+          { name: "Single/Double Espresso", amount: 30, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~60°C)", amount: 50, unit: "ml" }
+        ],
+        steps: [
+          "ចម្រាញ់ Espresso ដាក់កែវក្តៅតូច។",
+          "ចំហុយទឹកដោះគោបរិមាណតិចឱ្យមានពពុះស្តើងរលោង។",
+          "ចាក់ចូលកែវហើយបម្រើភ្លាមៗ។"
+        ],
+        tip: "ស័ក្តិសមបំផុតសម្រាប់ភ្ញៀវដែលចង់ភ្លក្សរសជាតិគ្រាប់កាហ្វេសុទ្ធលាយទឹកដោះគោតិច។"
+      },
+      {
+        id: "hot-khmer-milk-coffee",
+        temp: "hot",
+        category: "local",
+        nameKm: "កាហ្វេទឹកដោះគោ ក្តៅ",
+        nameEn: "Hot Condensed Milk Coffee",
+        photo: "hot-khmer-milk",
+        timeNote: "2 នាទី • ក្តៅ ផ្អែមមុត",
+        desc: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
+        ingredients: [
+          { name: "កាហ្វេចម្រាញ់ / Espresso", amount: 40, unit: "ml" },
+          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 35, unit: "ml" },
+          { name: "ទឹកក្តៅ (~85°C)", amount: 110, unit: "ml" }
+        ],
+        steps: [
+          "ដាក់ទឹកដោះគោខាប់ផ្អែមចូលពែងក្តៅ។",
+          "ចាក់កាហ្វេ និងទឹកក្តៅចូល រួចកូរឱ្យរលាយចូលគ្នាស្មើល្អ។",
+          "បម្រើក្តៅៗជាមួយតែក្តៅ ១ ពែងនៅចំហៀង។"
+        ],
+        tip: "កែសម្រួលទឹកដោះគោខាប់តាមកម្រិតផ្អែមដែលភ្ញៀវចូលចិត្ត។"
+      },
+      {
+        id: "hot-matcha-latte",
+        temp: "hot",
+        category: "non-coffee",
+        nameKm: "ម៉ាត់ឆា ឡាតេ ក្តៅ",
+        nameEn: "Hot Matcha Latte",
+        photo: "hot-matcha",
+        timeNote: "2.5 នាទី • តែបៃតងក្តៅឈ្ងុយ",
+        desc: "ម្សៅ Matcha ជប៉ុនវាយរលាយជាមួយទឹកក្តៅឧណ្ហៗ និងទឹកដោះគោចំហុយក្តៅរលោង។",
+        ingredients: [
+          { name: "ម្សៅ Matcha", amount: 4, unit: "g" },
+          { name: "ទឹកក្តៅ (~80°C)", amount: 40, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 180, unit: "ml" },
+          { name: "ទឹកស្ករ ឬទឹកឃ្មុំ (ជម្រើស)", amount: 15, unit: "ml" }
+        ],
+        steps: [
+          "វាយម្សៅ Matcha ជាមួយទឹកក្តៅ ~80°C ឱ្យរលាយគ្មានគ្រាប់កក។",
+          "ចាក់ល្បាយ Matcha និងទឹកស្ករចូលពែង។",
+          "ចាក់ទឹកដោះគោចំហុយក្តៅចូលពីលើ រួចបម្រើភ្លាម។"
+        ],
+        tip: "កុំប្រើទឹកពុះ 100°C រំលាយ Matcha ព្រោះអាចធ្វើឱ្យតែប្រែជាល្វីង។"
+      },
+      {
+        id: "hot-chocolate",
+        temp: "hot",
+        category: "non-coffee",
+        nameKm: "សូកូឡា / កាកាវ ក្តៅ",
+        nameEn: "Hot Chocolate / Cocoa",
+        photo: "hot-chocolate",
+        timeNote: "2 នាទី • ក្តៅ ផ្អែមឈ្ងុយកាកាវ",
+        desc: "សូកូឡាទឹកដោះគោចំហុយក្តៅៗ មានពពុះទន់រលោង ស័ក្តិសមសម្រាប់ពេលព្រឹក ឬថ្ងៃភ្លៀង។",
+        ingredients: [
+          { name: "ម្សៅកាកាវ ឬសូកូឡា", amount: 20, unit: "g" },
+          { name: "ទឹកក្តៅរំលាយ", amount: 35, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 185, unit: "ml" },
+          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 20, unit: "ml" }
+        ],
+        steps: [
+          "រំលាយម្សៅកាកាវជាមួយទឹកក្តៅ និងទឹកស្ករក្នុងពែងឱ្យរលាយសព្វ។",
+          "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅ និងមានពពុះរលោង។",
+          "ចាក់ទឹកដោះគោចូលក្នុងពែងសូកូឡា រួចរោយម្សៅកាកាវបន្តិចពីលើ។"
+        ],
+        tip: "បន្ថែមអំបិលចុងស្លាបព្រាតិចតួច នឹងជួយឱ្យរសជាតិសូកូឡាកាន់តែឈ្ងុយជ្រៅ។"
+      },
+      {
+        id: "hot-honey-lemon",
+        temp: "hot",
+        category: "other",
+        nameKm: "ទឹកក្រូចឆ្មារ ទឹកឃ្មុំ ក្តៅ",
+        nameEn: "Hot Honey Lemon Tea",
+        photo: "hot-honey-lemon",
+        timeNote: "1.5 នាទី • ក្តៅឧណ្ហៗ ស្រួលបំពង់ក",
+        desc: "ទឹកក្រូចឆ្មារស្រស់លាយទឹកឃ្មុំ និងទឹកក្តៅឧណ្ហៗ ជួយសម្រួលបំពង់ក និងផ្តល់ភាពកក់ក្តៅ។",
+        ingredients: [
+          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 25, unit: "ml" },
+          { name: "ទឹកឃ្មុំ", amount: 30, unit: "ml" },
+          { name: "ទឹកក្តៅឧណ្ហៗ (~70–75°C)", amount: 180, unit: "ml" }
+        ],
+        steps: [
+          "ដាក់ទឹកឃ្មុំ និងទឹកក្រូចឆ្មារចូលពែង។",
+          "ចាក់ទឹកក្តៅឧណ្ហៗ (~70–75°C) ចូល រួចកូរឱ្យរលាយសព្វ។",
+          "ដាក់ចំណិតក្រូចឆ្មារ ១ បន្ទះរួចបម្រើភ្លាម។"
+        ],
+        tip: "កុំប្រើទឹកពុះ 100°C ព្រោះអាចធ្វើឱ្យក្រូចឆ្មារល្វីង និងបាត់គុណភាពទឹកឃ្មុំ។"
+      },
+
+      // ==================== ICE DRINKS (ត្រជាក់) ====================
+      {
+        id: "ice-americano",
+        temp: "ice",
+        category: "espresso",
+        nameKm: "អាមេរិកាណូ ទឹកកក",
+        nameEn: "Iced Americano",
+        photo: "ice-americano",
+        timeNote: "1.5 នាទី • ត្រជាក់ ស្រស់ស្រាយ",
+        desc: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក គ្មានទឹកដោះគោ ឬស្ករ។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកត្រជាក់", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកកក 160g និងទឹកត្រជាក់ 150ml ចូលកែវ។",
+          "ចម្រាញ់ Double Espresso រួចចាក់ស្រោចពីលើទឹកកក។",
+          "កូរស្រាលៗមុនពេលផឹក ដើម្បីឱ្យរសជាតិស្មើគ្នា។"
+        ],
+        tip: "ចាក់ Espresso ពីលើទឹកកក ជួយរក្សាជាន់ពណ៌ស្អាត និងកាត់បន្ថយការរលាយទឹកកកលឿន។"
+      },
+      {
+        id: "ice-latte",
+        temp: "ice",
+        category: "espresso",
+        nameKm: "ឡាតេ ទឹកកក",
+        nameEn: "Iced Latte",
+        photo: "ice-latte",
+        timeNote: "2 នាទី • ត្រជាក់ ឈ្ងុយទឹកដោះគោ",
+        desc: "Double Espresso លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក រសជាតិស្រទន់។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 160, unit: "ml" },
+          { name: "ទឹកស្ករ (ជម្រើស)", amount: 15, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "លាយទឹកដោះគោស្រស់ និងទឹកស្ករចូលគ្នា។",
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
+          "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។"
+        ],
+        tip: "ប្រើទឹកដោះគោស្រស់ត្រជាក់ល្អ នឹងជួយរក្សាកម្រិតត្រជាក់បានយូរ។"
+      },
+      {
+        id: "ice-cappuccino",
+        temp: "ice",
+        category: "espresso",
+        nameKm: "កាពូឈីណូ ទឹកកក",
+        nameEn: "Iced Cappuccino",
+        photo: "ice-cappuccino",
+        timeNote: "2 នាទី • ត្រជាក់ ពពុះក្រាស់",
+        desc: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់នៅពីលើ។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 130, unit: "ml" },
+          { name: "ពពុះទឹកដោះគោត្រជាក់ (Cold Foam)", amount: 40, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកកក ទឹកដោះគោស្រស់ និង Double Espresso ចូលកែវ។",
+          "វាយពពុះទឹកដោះគោត្រជាក់ឱ្យឡើងក្រាស់រលោង។",
+          "ចាក់ពពុះទឹកដោះគោស្រោចពីលើផ្នែកខាងលើបំផុត។"
+        ],
+        tip: "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូច នឹងបានពពុះរលោងស្អាត។"
+      },
+      {
+        id: "ice-mocha",
+        temp: "ice",
+        category: "espresso",
+        nameKm: "ម៉ូកា ទឹកកក",
+        nameEn: "Iced Mocha",
+        photo: "ice-mocha",
+        timeNote: "2.5 នាទី • ត្រជាក់ កាហ្វេ + សូកូឡា",
+        desc: "Double Espresso លាយសូកូឡា និងទឹកដោះគោស្រស់ត្រជាក់ ផ្អែមឈ្ងុយកាកាវ។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", amount: 25, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 145, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "រំលាយសូកូឡាជាមួយ Espresso ក្តៅឱ្យចូលគ្នាល្អ។",
+          "ដាក់ទឹកកកចូលកែវ បន្ទាប់មកចាក់ទឹកដោះគោស្រស់។",
+          "ចាក់ល្បាយសូកូឡាកាហ្វេចូល រួចកូរឱ្យសព្វមុនលើកជូន។"
+        ],
+        tip: "រំលាយសូកូឡាពេល Espresso កំពុងក្តៅ នឹងជួយកុំឱ្យកកជាដុំនៅបាតកែវ។"
+      },
+      {
+        id: "ice-caramel-macchiato",
+        temp: "ice",
+        category: "espresso",
+        nameKm: "ការ៉ាមែល ម៉ាគីអាតូ ទឹកកក",
+        nameEn: "Iced Caramel Macchiato",
+        photo: "ice-caramel",
+        timeNote: "2.5 នាទី • ត្រជាក់ ឈ្ងុយ Caramel",
+        desc: "ទឹកដោះគោស្រស់ត្រជាក់លាយ Vanilla ស្រោច Espresso ពីលើ និងបន្ថែមទឹកស្ករ Caramel។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "Vanilla Syrup", amount: 15, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
+          { name: "Caramel Sauce (ស្រោចពីលើ)", amount: 15, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "លាយ Vanilla Syrup ជាមួយទឹកដោះគោស្រស់ រួចចាក់ចូលកែវទឹកកក។",
+          "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។",
+          "គូសរង្វង់ Caramel Sauce ពីលើផ្នែកខាងលើបំផុត។"
+        ],
+        tip: "ប្រាប់ភ្ញៀវឱ្យកូរមុនផឹក ប្រសិនបើចង់បានរសជាតិស្មើគ្នាពីលើដល់ក្រោម។"
+      },
+      {
+        id: "ice-khmer-condensed-coffee",
+        temp: "ice",
+        category: "local",
+        nameKm: "កាហ្វេទឹកដោះគោ ទឹកកក",
+        nameEn: "Iced Condensed Milk Coffee",
+        photo: "ice-khmer-milk",
+        timeNote: "2 នាទី • ត្រជាក់ ផ្អែមមុត",
+        desc: "កាហ្វេលាយទឹកដោះគោខាប់ផ្អែម និងទឹកកក រសជាតិដិតមុត ពេញនិយមខ្លាំងប្រចាំថ្ងៃ។",
+        ingredients: [
+          { name: "ម្សៅកាហ្វេ / Espresso", amount: 36, unit: "ml" },
+          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 40, unit: "ml" },
+          { name: "ទឹកដោះគោខាប់មិនផ្អែម (Evaporated)", amount: 20, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកដោះគោខាប់ផ្អែម និងទឹកដោះគោខាប់មិនផ្អែមចូលកែវ។",
+          "ចាក់កាហ្វេចូល រួចកូរឱ្យរលាយចូលគ្នាស្មើល្អ។",
+          "ចាក់ទឹកកកពេញកែវ រួចកូរម្តងទៀតមុនពេលបម្រើ។"
+        ],
+        tip: "កូរទឹកដោះគោខាប់ជាមួយកាហ្វេមុនដាក់ទឹកកក នឹងជួយកុំឱ្យកកបាតកែវ។"
+      },
+      {
+        id: "ice-black-coffee",
+        temp: "ice",
+        category: "local",
+        nameKm: "កាហ្វេខ្មៅ ទឹកកក",
+        nameEn: "Iced Black Coffee",
+        photo: "ice-black-coffee",
+        timeNote: "1.5 នាទី • ត្រជាក់ ដិតខ្លាំង",
+        desc: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
+        ingredients: [
+          { name: "ម្សៅកាហ្វេ / Espresso", amount: 40, unit: "ml" },
+          { name: "ទឹកស្ករស (Simple Syrup)", amount: 25, unit: "ml" },
+          { name: "ទឹកធម្មតា", amount: 60, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "លាយទឹកកាហ្វេ ទឹកស្ករ និងទឹកធម្មតាចូលគ្នា។",
+          "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្ញៀវ។",
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយកាហ្វេចូល។"
+        ],
+        tip: "ប្រើទឹកស្កររាវ (Simple Syrup) ជំនួសស្ករគ្រាប់ នឹងរលាយបានលឿនជាងក្នុងទឹកត្រជាក់។"
+      },
+      {
+        id: "ice-coconut-coffee",
+        temp: "ice",
+        category: "local",
+        nameKm: "កាហ្វេដូង ទឹកកក",
+        nameEn: "Iced Coconut Coffee",
+        photo: "ice-coconut-coffee",
+        timeNote: "3 នាទី • ត្រជាក់ ឈ្ងុយដូង",
+        desc: "កាហ្វេលាយជាមួយទឹកដោះគោដូង និងទឹកកក រសជាតិផ្អែមឈ្ងុយប្លែកមាត់។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកដោះគោដូង (Coconut Milk)", amount: 70, unit: "ml" },
+          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 25, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "ក្រឡុក ឬកូរទឹកដោះគោដូង ទឹកដោះគោខាប់ និងទឹកកកបន្តិចឱ្យចូលគ្នា។",
+          "ចាក់ល្បាយដូងចូលកែវ រួចបំពេញទឹកកក។",
+          "ចាក់ Espresso ស្រោចពីលើបង្កើតជា ២ ពណ៌គួរឱ្យទាក់ទាញ។"
+        ],
+        tip: "បន្ថែមសាច់ដូងខ្ចី ឬដូងកំបោរ នឹងបង្កើនភាពទាក់ទាញកាន់តែខ្លាំង។"
+      },
+      {
+        id: "ice-palm-sugar-latte",
+        temp: "ice",
+        category: "local",
+        nameKm: "កាហ្វេទឹកត្នោត ទឹកកក",
+        nameEn: "Iced Palm Sugar Latte",
+        photo: "ice-palm-sugar",
+        timeNote: "2.5 នាទី • ត្រជាក់ ស្ករត្នោតខ្មែរ",
+        desc: "កាហ្វេទឹកដោះគោស្រស់ត្រជាក់ ប្រើស្ករត្នោតជំនួសស្ករស មានក្លិនក្រអូបប្រពៃណីខ្មែរ។",
+        ingredients: [
+          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { name: "ទឹកស្ករត្នោតខាប់", amount: 30, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "រំលាយស្ករត្នោតជាមួយទឹកក្តៅបន្តិចឱ្យខាប់ល្មម។",
+          "ដាក់ទឹកស្ករត្នោត និងទឹកដោះគោស្រស់ចូលកែវទឹកកក។",
+          "ចាក់ Espresso ពីលើ រួចកូរឱ្យចូលគ្នាល្អមុនលើកជូន។"
+        ],
+        tip: "ស្ករត្នោតមានក្លិនឆ្ងាញ់ស្រាប់ គួរកាត់បន្ថយ Syrup ផ្សេងៗដើម្បីកុំឱ្យបាំងក្លិន។"
+      },
+      {
+        id: "ice-salt-coffee",
+        temp: "ice",
+        category: "local",
+        nameKm: "កាហ្វេអំបិល ទឹកកក",
+        nameEn: "Iced Salt Coffee",
+        photo: "ice-salt-coffee",
+        timeNote: "3 នាទី • ត្រជាក់ ប្រៃផ្អែមឈ្ងុយ",
+        desc: "កាហ្វេទឹកកកលាយក្រែមទឹកដោះគោប្រៃផ្អែមស្រាលនៅពីលើ ជួយលើករសជាតិកាហ្វេឱ្យកាន់តែមុត។",
+        ingredients: [
+          { name: "Double Espresso / កាហ្វេដិត", amount: 40, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 130, unit: "ml" },
+          { name: "Whipping Cream + អំបិលចុងស្លាបព្រា", amount: 45, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "វាយ Whipping Cream ជាមួយអំបិលបន្តិច និងទឹកដោះគោខាប់បន្តិចឱ្យឡើងខាប់ស្រាល។",
+          "ដាក់ទឹកកក និងទឹកដោះគោស្រស់/កាហ្វេចូលកែវ។",
+          "ចាក់ក្រែមប្រៃផ្អែមស្រោចពីលើផ្នែកខាងលើ។"
+        ],
+        tip: "ប្រើអំបិលតែបន្តិចប៉ុណ្ណោះ កុំឱ្យប្រៃខ្លាំងពេក ដើម្បីរក្សាតុល្យភាពផ្អែម-ប្រៃ។"
+      },
+      {
+        id: "ice-matcha-latte",
+        temp: "ice",
+        category: "non-coffee",
+        nameKm: "ម៉ាត់ឆា ឡាតេ ទឹកកក",
+        nameEn: "Iced Matcha Latte",
+        photo: "ice-matcha",
+        timeNote: "2.5 នាទី • ត្រជាក់ តែបៃតងជប៉ុន",
+        desc: "ម្សៅតែបៃតង Matcha លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ពណ៌បៃតងស្រស់។",
+        ingredients: [
+          { name: "ម្សៅ Matcha", amount: 4, unit: "g" },
+          { name: "ទឹកក្តៅរំលាយ Matcha (~80°C)", amount: 40, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
+          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 20, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "វាយម្សៅ Matcha ជាមួយទឹកក្តៅឱ្យរលាយគ្មានគ្រាប់កក។",
+          "លាយទឹកដោះគោស្រស់ និងទឹកស្ករដាក់កែវទឹកកក។",
+          "ចាក់ល្បាយ Matcha ពីលើ រួចកូរចូលគ្នាមុនពេលផឹក។"
+        ],
+        tip: "កុំប្រើទឹកពុះ 100°C រំលាយ Matcha ព្រោះអាចធ្វើឱ្យតែល្វីងខ្លាំង។"
+      },
+      {
+        id: "ice-green-thai-tea",
+        temp: "ice",
+        category: "non-coffee",
+        nameKm: "តែបៃតង / តែក្រហមទឹកដោះគោ ទឹកកក",
+        nameEn: "Iced Green Tea / Thai Tea Milk",
+        photo: "ice-thai-tea",
+        timeNote: "2 នាទី • ត្រជាក់ ឈ្ងុយតែទឹកដោះគោ",
+        desc: "ទឹកតែឆុងលាយទឹកដោះគោខាប់ និងទឹកដោះគោស្រស់ជាមួយទឹកកក រសជាតិផ្អែមឈ្ងុយ។",
+        ingredients: [
+          { name: "ទឹកតែបៃតង ឬតែក្រហមឆុងរួច", amount: 110, unit: "ml" },
+          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 35, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 50, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "លាយទឹកតែក្តៅជាមួយទឹកដោះគោខាប់ឱ្យរលាយចូលគ្នា។",
+          "បន្ថែមទឹកដោះគោស្រស់ រួចកូរឱ្យចូលសព្វ។",
+          "ចាក់ចូលកែវដែលមានទឹកកកពេញល្មម។"
+        ],
+        tip: "ចម្រោះកាកតែឱ្យស្អាត និងរក្សាទុកទឹកតែក្នុងធុងបិទជិតដើម្បីរក្សាក្លិន។"
+      },
+      {
+        id: "ice-chocolate",
+        temp: "ice",
+        category: "non-coffee",
+        nameKm: "សូកូឡា / កាកាវ ទឹកកក",
+        nameEn: "Iced Chocolate / Cocoa",
+        photo: "ice-chocolate",
+        timeNote: "2 នាទី • ត្រជាក់ ផ្អែមឈ្ងុយកាកាវ",
+        desc: "ភេសជ្ជៈសូកូឡាទឹកដោះគោត្រជាក់ជាមួយទឹកកក រសជាតិឈ្ងុយឆ្ងាញ់សម្រាប់គ្រប់វ័យ។",
+        ingredients: [
+          { name: "ម្សៅកាកាវ ឬសូកូឡា", amount: 18, unit: "g" },
+          { name: "ទឹកក្តៅរំលាយ", amount: 35, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
+          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 25, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "រំលាយម្សៅកាកាវជាមួយទឹកក្តៅ និងទឹកស្ករឱ្យរលាយល្អ។",
+          "ចាក់ទឹកដោះគោស្រស់ចូល រួចកូរឱ្យចូលគ្នា។",
+          "ដាក់ទឹកកកចូលកែវ ហើយចាក់ល្បាយសូកូឡាចូល។"
+        ],
+        tip: "បន្ថែមអំបិលចុងស្លាបព្រា នឹងជួយលើករសជាតិសូកូឡាឱ្យកាន់តែជ្រៅ។"
+      },
+      {
+        id: "ice-lemon-peach-tea",
+        temp: "ice",
+        category: "non-coffee",
+        nameKm: "តែក្រូចឆ្មារ / តែផ្លែប៉េស ទឹកកក",
+        nameEn: "Iced Lemon Tea / Peach Tea",
+        photo: "ice-peach-tea",
+        timeNote: "1.5 នាទី • ត្រជាក់ ជូរអែមស្រស់ស្រាយ",
+        desc: "តែខ្មៅលាយទឹកក្រូចឆ្មារ ឬសេរ៉ូផ្លែប៉េស និងទឹកកក ជួយបំបាត់ស្រេក និងស្រស់ស្រាយ។",
+        ingredients: [
+          { name: "ទឹកតែខ្មៅឆុងរួច", amount: 120, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារ ឬ Peach Syrup", amount: 25, unit: "ml" },
+          { name: "ទឹកស្ករ", amount: 20, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "លាយទឹកតែ ទឹកក្រូចឆ្មារ/Syrup និងទឹកស្ករចូលគ្នា។",
+          "ក្រឡុក ឬកូរឱ្យចូលគ្នា រួចចាក់ដាក់កែវទឹកកក។",
+          "តុបតែងជាមួយចំណិតក្រូចឆ្មារ ឬផ្លែប៉េសតាមចំណូលចិត្ត។"
+        ],
+        tip: "កុំចាក់ទឹកក្រូចឆ្មារពេលទឹកតែក្តៅខ្លាំងពេក ដើម្បីកុំឱ្យប្រែជាល្វីង។"
+      },
+      {
+        id: "ice-fresh-milk-brown-sugar",
+        temp: "ice",
+        category: "non-coffee",
+        nameKm: "ទឹកដោះគោស្រស់ / ស្ករត្នោត ទឹកកក",
+        nameEn: "Iced Fresh Milk / Brown Sugar Milk",
+        photo: "ice-brown-sugar-milk",
+        timeNote: "1.5 នាទី • ត្រជាក់ ទន់ភ្លន់",
+        desc: "ទឹកដោះគោស្រស់ត្រជាក់ ឬលាយស្ករត្នោត/ស្ករក្រហម ងាយផឹក និងស័ក្តិសមគ្រប់ពេល។",
+        ingredients: [
+          { name: "ទឹកដោះគោស្រស់", amount: 170, unit: "ml" },
+          { name: "Brown Sugar Syrup (ជម្រើស)", amount: 25, unit: "ml" },
+          { name: "ទឹកកក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "បើប្រើស្ករត្នោត/ស្ករក្រហម សូមដាក់ជុំវិញគែមកែវ ឬបាតកែវ។",
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោស្រស់ចូល។",
+          "បម្រើភ្លាមៗដោយរក្សាភាពត្រជាក់។"
+        ],
+        tip: "អាចបន្ថែមគជ់ ឬ Pudding ដើម្បីបង្កើតជាមុខពិសេសប្រចាំហាង។"
+      },
+
+      // ==================== ALL SODA DRINKS (សូដាផ្លែឈើ - ICE) ====================
+      {
+        id: "kiwi-soda",
+        temp: "ice",
+        category: "soda",
+        nameKm: "សូដា កីវី",
+        nameEn: "Kiwi Soda",
+        photo: "kiwi-soda",
+        timeNote: "1.5 នាទី • ត្រជាក់ ហ្វឺហ្វារក្លិនកីវី",
+        desc: "សេរ៉ូ ឬ Puree កីវីលាយជាមួយទឹកសូដាត្រជាក់ ពណ៌បៃតងស្អាត រសជាតិជូរអែមស្រស់ស្រាយ។",
+        ingredients: [
+          { name: "Kiwi Syrup / Puree", amount: 30, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារស្រស់ (បន្ថែមជូរស្រាល)", amount: 5, unit: "ml" },
+          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ Kiwi Syrup/Puree និងទឹកក្រូចឆ្មារចូល។",
+          "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗតាមគែមកែវ។",
+          "កូរស្រាលៗមួយត្រឡប់ រួចតុបតែងចំណិតកីវី។"
+        ],
+        tip: "ចាក់សូដាយឺតៗ នឹងជួយរក្សាពពុះហ្វឺហ្វារបានយូរ និងមើលទៅស្អាត។"
+      },
+      {
+        id: "strawberry-soda",
+        temp: "ice",
+        category: "soda",
+        nameKm: "សូដា ស្ត្របឺរី",
+        nameEn: "Strawberry Soda",
+        photo: "strawberry-soda",
+        timeNote: "1.5 នាទី • ត្រជាក់ ផ្អែមជូរ",
+        desc: "ស្ត្របឺរីលាយជាមួយទឹកសូដាត្រជាក់ រសជាតិជូរអែមឈ្ងុយផ្លែស្ត្របឺរី និងហ្វឺហ្វារត្រជាក់ចិត្ត។",
+        ingredients: [
+          { name: "Strawberry Syrup / Crush", amount: 30, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 5, unit: "ml" },
+          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ Strawberry Syrup និងទឹកក្រូចឆ្មារចូល។",
+          "ចាក់ទឹកសូដាត្រជាក់ចូលបំពេញកែវ។",
+          "កូរថ្នមៗឱ្យចូលគ្នា រួចអាចបន្ថែមផ្លែស្ត្របឺរីចំណិត។"
+        ],
+        tip: "ទឹកក្រូចឆ្មារបន្តិចជួយកាត់បន្ថយភាពផ្អែមរបស់ Syrup និងលើកក្លិនស្ត្របឺរី។"
+      },
+      {
+        id: "mango-soda",
+        temp: "ice",
+        category: "soda",
+        nameKm: "សូដា ស្វាយ",
+        nameEn: "Mango Soda",
+        photo: "mango-soda",
+        timeNote: "1.5 នាទី • ត្រជាក់ ឈ្ងុយស្វាយទុំ",
+        desc: "រសជាតិផ្លែស្វាយទុំផ្សំជាមួយសូដាត្រជាក់ និងក្រូចឆ្មារបន្តិច ផ្តល់ភាពស្រស់ស្រាយប្លែកមាត់។",
+        ingredients: [
+          { name: "Mango Syrup / Puree", amount: 32, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 8, unit: "ml" },
+          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "លាយ Mango Syrup/Puree ជាមួយទឹកក្រូចឆ្មារនៅបាតកែវទឹកកក។",
+          "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
+          "កូរស្រាលៗមុនលើកជូន ដើម្បីរក្សាពពុះហ្វឺហ្វារ។"
+        ],
+        tip: "ស្វាយមានជាតិផ្អែមក្រអូប គួរថែមទឹកក្រូចឆ្មារស្រស់ដើម្បីឱ្យរសជាតិមានតុល្យភាពល្អ។"
+      },
+      {
+        id: "passion-soda",
+        temp: "ice",
+        category: "soda",
+        nameKm: "សូដា ផាសិន",
+        nameEn: "Passion Fruit Soda",
+        photo: "passion-soda",
+        timeNote: "1.5 នាទី • ត្រជាក់ ជូរឈ្ងុយ",
+        desc: "ទឹកផាសិនលាយជាមួយទឹកសូដាត្រជាក់ និងទឹកស្ករសមល្មម ជូរស្រាលឈ្ងុយផាសិន។",
+        ingredients: [
+          { name: "ទឹក/សាច់ផាសិន ឬ Passion Syrup", amount: 35, unit: "ml" },
+          { name: "ទឹកស្ករស (Simple Syrup)", amount: 15, unit: "ml" },
+          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 145, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកផាសិន និងទឹកស្ករចូលកែវដែលមានទឹកកក។",
+          "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
+          "កូរថ្នមៗឱ្យរសជាតិជូរផ្អែមចូលគ្នាស្មើល្អ។"
+        ],
+        tip: "បើប្រើផាសិនស្រស់ ត្រូវច្រោះគ្រាប់ចេញខ្លះដើម្បីងាយស្រួលផឹក។"
+      },
+      {
+        id: "blue-hawaii-soda",
+        temp: "ice",
+        category: "soda",
+        nameKm: "សូដា ប៊្លូ ហាវ៉ៃ",
+        nameEn: "Blue Hawaii Soda",
+        photo: "blue-soda",
+        timeNote: "1.5 នាទី • ត្រជាក់ ពណ៌ខៀវស្រស់",
+        desc: "Blue Curacao / Blue Hawaii Syrup លាយសូដា និងក្រូចឆ្មារ ពណ៌ខៀវស្អាតទាក់ភ្នែក។",
+        ingredients: [
+          { name: "Blue Hawaii / Blue Curacao Syrup", amount: 30, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 8, unit: "ml" },
+          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ Blue Syrup និងទឹកក្រូចឆ្មារចូល។",
+          "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
+          "កូរស្រាលៗ ហើយតុបតែងចំណិតក្រូចឆ្មារ។"
+        ],
+        tip: "ក្រូចឆ្មារបន្តិចធ្វើឱ្យរសជាតិ Blue Soda មិនផ្អែមជ្រុល និងស្រស់ស្រាយជាងមុន។"
+      },
+      {
+        id: "peach-soda",
+        temp: "ice",
+        category: "soda",
+        nameKm: "សូដា ផ្លែប៉េស",
+        nameEn: "Peach Soda",
+        photo: "peach-soda",
+        timeNote: "1.5 នាទី • ត្រជាក់ ក្រអូបផ្លែប៉េស",
+        desc: "Peach Syrup លាយទឹកសូដាត្រជាក់ ផ្តល់ក្លិនឈ្ងុយផ្លែប៉េស និងរសជាតិផ្អែមស្រាលស្រស់ស្រាយ។",
+        ingredients: [
+          { name: "Peach Syrup", amount: 30, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារស្រស់ (ជម្រើស)", amount: 5, unit: "ml" },
+          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ចាក់ Peach Syrup ចូលកែវដែលមានទឹកកក។",
+          "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
+          "កូរថ្នមៗមុនពេលលើកជូន។"
+        ],
+        tip: "អាចបន្ថែមសាច់ផ្លែប៉េសកំប៉ុង ដើម្បីបង្កើនរសជាតិឈ្ងុយ។"
+      },
+      {
+        id: "passion-honey-soda",
+        temp: "ice",
+        category: "soda",
+        nameKm: "សូដា ផាសិន ទឹកឃ្មុំ",
+        nameEn: "Passion Honey Fizz",
+        photo: "passion-honey-soda",
+        timeNote: "1.5 នាទី • ត្រជាក់ ជូរអែមទឹកឃ្មុំ",
+        desc: "ទឹកផាសិនលាយទឹកឃ្មុំ និងសូដាត្រជាក់ ផ្តល់ភាពស្រស់ស្រាយខ្លាំង និងក្លិនផាសិនធម្មជាតិ។",
+        ingredients: [
+          { name: "សាច់/ទឹកផាសិនស្រស់ ឬ Concentrate", amount: 40, unit: "ml" },
+          { name: "ទឹកឃ្មុំ (Honey)", amount: 25, unit: "ml" },
+          { name: "ទឹកសូដាត្រជាក់", amount: 145, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "លាយទឹកផាសិន និងទឹកឃ្មុំចូលគ្នាឱ្យរលាយស្មើល្អ។",
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយផាសិនទឹកឃ្មុំចូល។",
+          "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចកូរស្រាលៗមុនពេលលើកជូន។"
+        ],
+        tip: "ប្រើទឹកក្តៅឧណ្ហៗបន្តិច (~10ml) ដើម្បីរំលាយទឹកឃ្មុំងាយស្រួល ប្រសិនបើទឹកឃ្មុំខាប់ខ្លាំង។"
+      },
+
+      // ==================== FRAPPE & SMOOTHIES (ក្រឡុក - ICE) ====================
+      {
+        id: "coffee-frappe",
+        temp: "ice",
+        category: "frappe",
+        nameKm: "កាហ្វេក្រឡុក",
+        nameEn: "Coffee Frappe (Mocha / Caramel)",
+        photo: "coffee-frappe",
+        timeNote: "2 នាទី • ម៉ត់ត្រជាក់ជ្រៅ",
+        desc: "កាហ្វេក្រឡុកជាមួយទឹកកក ទឹកដោះគោ និងរសជាតិ Mocha ឬ Caramel ផ្តល់ភាពត្រជាក់ឈ្ងុយ។",
+        ingredients: [
+          { name: "Double Espresso / កាហ្វេខាប់", amount: 40, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 90, unit: "ml" },
+          { name: "ទឹកស្ករ ឬ Syrup (Mocha/Caramel)", amount: 25, unit: "ml" },
+          { name: "ម្សៅ Frappe Base (ជម្រើស)", amount: 10, unit: "g" },
+          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+        ],
+        steps: [
+          "ដាក់គ្រឿងផ្សំរាវ និងម្សៅចូលម៉ាស៊ីនក្រឡុកមុន រួចដាក់ទឹកកកតាមក្រោយ។",
+          "ក្រឡុករហូតដល់ទឹកកកម៉ត់ចូលគ្នាស្មើល្អ។",
+          "ចាក់ចូលកែវ រួចតុបតែង Whipping Cream ឬ Syrup ពីលើ។"
+        ],
+        tip: "ដាក់វត្ថុរាវនៅបាតម៉ាស៊ីនក្រឡុក នឹងជួយឱ្យកាំបិតក្រឡុកធ្វើការបានស្រួលជាង។"
+      },
+      {
+        id: "matcha-frappe",
+        temp: "ice",
+        category: "frappe",
+        nameKm: "ម៉ាត់ឆា ក្រឡុក",
+        nameEn: "Matcha Frappe",
+        photo: "matcha-frappe",
+        timeNote: "2 នាទី • តែបៃតងក្រឡុក",
+        desc: "ម្សៅ Matcha ក្រឡុកជាមួយទឹកដោះគោ និងទឹកកកម៉ត់ រសជាតិឈ្ងុយតែ និងត្រជាក់ស្រស់ស្រាយ។",
+        ingredients: [
+          { name: "ម្សៅ Matcha", amount: 5, unit: "g" },
+          { name: "ទឹកដោះគោស្រស់", amount: 100, unit: "ml" },
+          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 25, unit: "ml" },
+          { name: "Frappe Base Powder", amount: 10, unit: "g" },
+          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ម្សៅ Matcha ទឹកដោះគោ ទឹកស្ករ និង Frappe Base ចូលម៉ាស៊ីនក្រឡុក។",
+          "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់រលោង។",
+          "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
+        ],
+        tip: "ប្រសិនបើក្រឡុកយូរពេក កម្ដៅពីម៉ាស៊ីនអាចធ្វើឱ្យរលាយទឹកកកលឿន។"
+      },
+      {
+        id: "chocolate-frappe",
+        temp: "ice",
+        category: "frappe",
+        nameKm: "សូកូឡា ក្រឡុក",
+        nameEn: "Chocolate Frappe",
+        photo: "chocolate-frappe",
+        timeNote: "2 នាទី • សូកូឡាម៉ត់ត្រជាក់",
+        desc: "សូកូឡាក្រឡុកជាមួយទឹកដោះគោ និងទឹកកក ផ្អែមឈ្ងុយ ស័ក្តិសមសម្រាប់ថ្ងៃក្តៅ។",
+        ingredients: [
+          { name: "ម្សៅកាកាវ ឬសូកូឡា", amount: 20, unit: "g" },
+          { name: "ទឹកដោះគោស្រស់", amount: 100, unit: "ml" },
+          { name: "ទឹកស្ករ", amount: 25, unit: "ml" },
+          { name: "Frappe Base Powder", amount: 10, unit: "g" },
+          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ម្សៅកាកាវ ទឹកដោះគោ ទឹកស្ករ និង Frappe Base ចូលម៉ាស៊ីនក្រឡុក។",
+          "បន្ថែមទឹកកក រួចក្រឡុករហូតដល់ម៉ត់ស្មើគ្នា។",
+          "ចាក់ចូលកែវ ហើយអាចបន្ថែម Chocolate Sauce ពីលើ។"
+        ],
+        tip: "អាចបន្ថែម Oreo កិន ដើម្បីក្លាយជា Oreo Chocolate Frappe ដ៏ពេញនិយម។"
+      },
+      {
+        id: "vanilla-frappe",
+        temp: "ice",
+        category: "frappe",
+        nameKm: "វ៉ានីឡា ក្រឡុក",
+        nameEn: "Vanilla Frappe",
+        photo: "vanilla-frappe",
+        timeNote: "2 នាទី • ឈ្ងុយ Vanilla ស្រទន់",
+        desc: "ភេសជ្ជៈ Vanilla ក្រឡុកជាមួយទឹកដោះគោ និងទឹកកក រសជាតិផ្អែមស្រទន់ ឈ្ងុយក្លិន Vanilla។",
+        ingredients: [
+          { name: "Vanilla Syrup / Powder", amount: 28, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 105, unit: "ml" },
+          { name: "Frappe Base Powder", amount: 12, unit: "g" },
+          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ Vanilla ទឹកដោះគោ និង Frappe Base ចូលម៉ាស៊ីនក្រឡុក។",
+          "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់ចូលគ្នាល្អ។",
+          "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
+        ],
+        tip: "ជាមូលដ្ឋានល្អសម្រាប់បន្ថែម Topping ផ្សេងៗដូចជា Caramel ឬ Cookie។"
+      },
+      {
+        id: "strawberry-smoothie",
+        temp: "ice",
+        category: "frappe",
+        nameKm: "ស្ត្របឺរី ក្រឡុក",
+        nameEn: "Strawberry Smoothie",
+        photo: "strawberry-smoothie",
+        timeNote: "2 នាទី • ជូរអែមផ្លែឈើ",
+        desc: "ស្ត្របឺរីក្រឡុកជាមួយទឹកដោះគោ/ទឹកកក ផ្តល់រសជាតិជូរអែមស្រស់ស្រាយ និងពណ៌ផ្កាឈូកស្រស់។",
+        ingredients: [
+          { name: "ស្ត្របឺរីកក ឬស្រស់", amount: 90, unit: "g" },
+          { name: "ទឹកដោះគោស្រស់ ឬទឹកកក", amount: 80, unit: "ml" },
+          { name: "ទឹកស្ករ / Strawberry Syrup", amount: 25, unit: "ml" },
+          { name: "ទឹកកកក្រឡុក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ស្ត្របឺរី ទឹកដោះគោ និងទឹកស្ករចូលម៉ាស៊ីនក្រឡុក។",
+          "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់ចូលគ្នាស្អាត។",
+          "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
+        ],
+        tip: "កែសម្រួលបរិមាណទឹកស្ករតាមកម្រិតជូររបស់ស្ត្របឺរីនៅថ្ងៃនោះ។"
+      },
+      {
+        id: "mango-smoothie",
+        temp: "ice",
+        category: "frappe",
+        nameKm: "ស្វាយ ក្រឡុក",
+        nameEn: "Mango Smoothie",
+        photo: "mango-smoothie",
+        timeNote: "2 នាទី • ផ្អែមឈ្ងុយផ្លែស្វាយ",
+        desc: "ផ្លែស្វាយក្រឡុកជាមួយទឹកកក និងទឹកដោះគោ/ទឹកស្ករ មានក្លិនឈ្ងុយផ្លែស្វាយ និងរសជាតិផ្អែមឆ្ងាញ់។",
+        ingredients: [
+          { name: "សាច់ស្វាយទុំ", amount: 100, unit: "g" },
+          { name: "ទឹកស្ករ / ទឹកដោះគោស្រស់", amount: 70, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារបន្តិច (បន្ថែមស្រស់)", amount: 5, unit: "ml" },
+          { name: "ទឹកកកក្រឡុក", amount: 150, unit: "g" }
+        ],
+        steps: [
+          "ដាក់សាច់ស្វាយ ទឹកស្ករ/ទឹកដោះគោ និងទឹកក្រូចឆ្មារចូលម៉ាស៊ីនក្រឡុក។",
+          "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់ស្មើល្អ។",
+          "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
+        ],
+        tip: "ទឹកក្រូចឆ្មារបន្តិចជួយលើកក្លិនស្វាយ និងកាត់បន្ថយភាពផ្អែមជ្រុល។"
+      },
+
+      // ==================== OTHER CAFE DRINKS (ផ្សេងៗ - ICE) ====================
+      {
+        id: "honey-lemon-cooler",
+        temp: "ice",
+        category: "other",
+        nameKm: "ទឹកក្រូចឆ្មារ ទឹកឃ្មុំ ត្រជាក់",
+        nameEn: "Iced Honey Lemon Cooler",
+        photo: "ice-honey-lemon",
+        timeNote: "1.5 នាទី • ត្រជាក់ ជូរអែមធម្មជាតិ",
+        desc: "ទឹកក្រូចឆ្មារស្រស់លាយទឹកឃ្មុំ និងទឹកកក ជួយបំបាត់ស្រេក និងបង្កើនភាពស្រស់ស្រាយ។",
+        ingredients: [
+          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 30, unit: "ml" },
+          { name: "ទឹកឃ្មុំ", amount: 30, unit: "ml" },
+          { name: "ទឹកត្រជាក់", amount: 150, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "លាយទឹកឃ្មុំជាមួយទឹកក្រូចឆ្មារ និងទឹកត្រជាក់ចូលគ្នា។",
+          "ក្រឡុក ឬកូរឱ្យរសជាតិជូរ និងផ្អែមចូលគ្នាល្អ។",
+          "ចាក់ចូលកែវដែលមានទឹកកក ហើយតុបតែងចំណិតក្រូចឆ្មារ។"
+        ],
+        tip: "ច្របាច់ក្រូចឆ្មារស្រស់ៗ នឹងផ្តល់ក្លិនក្រអូប និងរសជាតិល្អជាងទឹកក្រូចដប។"
+      },
+      {
+        id: "espresso-tonic",
+        temp: "ice",
+        category: "other",
+        nameKm: "អេស្ព្រេសសូ តូនីក",
+        nameEn: "Espresso Tonic",
+        photo: "espresso-tonic",
+        timeNote: "2 នាទី • ត្រជាក់ ជូរស្រាលហ្វឺហ្វារ",
+        desc: "ការផ្សំគ្នារវាង Tonic Water និង Espresso ផ្តល់រសជាតិប្លែក ស្រស់ស្រាយ និងមានពពុះហ្វឺហ្វារ។",
+        ingredients: [
+          { name: "Tonic Water ត្រជាក់", amount: 160, unit: "ml" },
+          { name: "Single/Double Espresso Shot", amount: 30, unit: "ml" },
+          { name: "ចំណិតក្រូចឆ្មារ ឬក្រូចពោធិ៍សាត់", amount: 1, unit: "ចំណិត" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ដាក់ទឹកកកពេញកែវ រួចចាក់ Tonic Water ត្រជាក់ចូល។",
+          "ចាក់ Espresso យឺតៗពីលើផ្ទៃទឹកកក ដើម្បីកុំឱ្យហ្វឺហ្វារហៀរចេញ។",
+          "បន្ថែមចំណិតក្រូចឆ្មារនៅគែមកែវមុនពេលបម្រើ។"
+        ],
+        tip: "កុំកូរខ្លាំងពេក ដើម្បីរក្សាពពុះហ្វឺហ្វាររបស់ Tonic Water ឱ្យបានយូរ។"
+      },
+      {
+        id: "avocado-milk-shake",
+        temp: "ice",
+        category: "other",
+        nameKm: "ប័រ ក្រឡុកទឹកដោះគោ",
+        nameEn: "Avocado Milk Shake",
+        photo: "avocado-smoothie",
+        timeNote: "2.5 នាទី • ត្រជាក់ ខាប់ឈ្ងុយប័រ",
+        desc: "ផ្លែប័រទុំក្រឡុកជាមួយទឹកដោះគោខាប់ ទឹកដោះគោស្រស់ និងទឹកកក រសជាតិខាប់ឈ្ងុយឆ្ងាញ់។",
+        ingredients: [
+          { name: "សាច់ផ្លែប័រទុំ", amount: 110, unit: "g" },
+          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 35, unit: "ml" },
+          { name: "ទឹកដោះគោស្រស់", amount: 80, unit: "ml" },
+          { name: "ទឹកកកក្រឡុក", amount: 140, unit: "g" }
+        ],
+        steps: [
+          "ដាក់សាច់ផ្លែប័រ ទឹកដោះគោខាប់ និងទឹកដោះគោស្រស់ចូលម៉ាស៊ីនក្រឡុក។",
+          "បន្ថែមទឹកកក រួចក្រឡុករហូតដល់ម៉ត់ខាប់រលោង។",
+          "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
+        ],
+        tip: "ជ្រើសរើសផ្លែប័រទុំល្មម (មិនចាស់ជ្រុល ឬខ្ចីពេក) ដើម្បីកុំឱ្យមានជាតិល្វីង។"
+      },
+      {
+        id: "lemongrass-pandan-cooler",
+        temp: "ice",
+        category: "other",
+        nameKm: "ទឹកស្លឹកគ្រៃ និងស្លឹកតយ",
+        nameEn: "Lemongrass Pandan Cooler",
+        photo: "lemongrass-cooler",
+        timeNote: "2 នាទី • ត្រជាក់ ក្រអូបប្រពៃណី",
+        desc: "ទឹកស្ងោរស្លឹកគ្រៃ និងស្លឹកតយត្រជាក់ លាយទឹកស្ករ ឬទឹកឃ្មុំបន្តិច ក្លិនក្រអូបស្រស់ស្រាយ។",
+        ingredients: [
+          { name: "ទឹកស្លឹកគ្រៃ + ស្លឹកតយស្ងោរត្រជាក់", amount: 170, unit: "ml" },
+          { name: "ទឹកស្ករ ឬទឹកឃ្មុំ", amount: 25, unit: "ml" },
+          { name: "ទឹកក្រូចឆ្មារស្រស់ (ជម្រើស)", amount: 5, unit: "ml" },
+          { name: "ទឹកកក", amount: 160, unit: "g" }
+        ],
+        steps: [
+          "ស្ងោរស្លឹកគ្រៃ និងស្លឹកតយជាមួយទឹក ប្រហែល 10–15 នាទី រួចចម្រោះទុកឱ្យត្រជាក់។",
+          "លាយទឹកស្លឹកគ្រៃ-ស្លឹកតយជាមួយទឹកស្ករ ឬទឹកឃ្មុំ។",
+          "ដាក់ទឹកកកចូលកែវ រួចចាក់ភេសជ្ជៈចូលបម្រើ។"
+        ],
+        tip: "ទុកទឹកឱ្យត្រជាក់ល្អមុនដាក់ទឹកកក ដើម្បីរក្សាក្លិនក្រអូប និងមិនរលាយទឹកកកលឿន។"
+      }
+    ];
+
+    const STORAGE_KEYS = {
+      CUSTOM_RECIPES: "cafe_app_custom_recipes_v7",
+      FAVORITES: "cafe_app_favorites_v7"
+    };
+
+    let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
+    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["hot-latte", "ice-latte", "kiwi-soda", "strawberry-soda", "mango-soda"]));
+
+    let state = {
+      tab: "all",
+      temp: "all",
+      category: "all",
+      search: "",
+      activeRecipeId: null,
+      cupSize: "16oz",
+      batch: 1
+    };
+
+    const CUP_SIZE_MULTIPLIER = {
+      "12oz": 0.8,
+      "16oz": 1.0,
+      "22oz": 1.3
+    };
+
+    function loadJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveJson(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {}
+    }
+
+    function getAllRecipes() {
+      return [...DEFAULT_RECIPES, ...customRecipes];
+    }
+
+    function getCategoryLabel(catId) {
+      const found = CATEGORIES.find((c) => c.id === catId);
+      return found ? found.label : catId;
+    }
+
+    function getTempLabel(temp) {
+      return temp === "hot" ? "ក្តៅ (Hot)" : "ត្រជាក់ (Ice)";
+    }
+
+    function updateCatalogCounts() {
+      const all = getAllRecipes();
+      const total = all.length;
+      const hotCount = all.filter((r) => r.temp === "hot").length;
+      const iceCount = all.filter((r) => r.temp === "ice").length;
+
+      document.getElementById("totalCatalogCount").textContent = total;
+      document.getElementById("navAllLabel").textContent = `ម៉ឺនុយ (${total})`;
+
+      const allCat = CATEGORIES.find((c) => c.id === "all");
+      if (allCat) allCat.label = `ទាំងអស់ (${total})`;
+
+      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
+        if (btn.dataset.temp === "all") btn.textContent = `ទាំងអស់ (${total})`;
+        if (btn.dataset.temp === "hot") btn.textContent = `ក្តៅ Hot (${hotCount})`;
+        if (btn.dataset.temp === "ice") btn.textContent = `ត្រជាក់ Ice (${iceCount})`;
+      });
+    }
+
+    function renderDrinkPhoto(photoKey, temp) {
+      const badgeHtml = temp
+        ? `<span class="photo-temp-badge ${temp === "hot" ? "hot" : "ice"}">${temp === "hot" ? "HOT" : "ICE"}</span>`
+        : "";
+      return `${renderModelSvg(photoKey)}${badgeHtml}`;
+    }
+
+    function renderCategoryBar() {
+      updateCatalogCounts();
+      const bar = document.getElementById("categoryBar");
+      bar.innerHTML = CATEGORIES.map((c) => {
+        const active = state.category === c.id ? "active" : "";
+        return `<button class="cat-pill ${active}" data-cat="${c.id}">${escapeHtml(c.label)}</button>`;
+      }).join("");
+
+      bar.querySelectorAll(".cat-pill").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.category = btn.dataset.cat;
+          btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+          if (state.tab === "calc") {
+            switchTab("all");
+          } else {
+            renderCategoryBar();
+            renderMenu();
+          }
+        });
+      });
+    }
+
+    function getFilteredRecipes() {
+      const all = getAllRecipes();
+      const q = state.search.trim().toLowerCase();
+
+      return all.filter((r) => {
+        if (state.tab === "fav" && !favorites.has(r.id)) return false;
+        if (state.temp !== "all" && r.temp !== state.temp) return false;
+        if (state.category !== "all" && r.category !== state.category) return false;
+        if (!q) return true;
+
+        const inNameKm = r.nameKm.toLowerCase().includes(q);
+        const inNameEn = (r.nameEn || "").toLowerCase().includes(q);
+        const inDesc = (r.desc || "").toLowerCase().includes(q);
+        const inIng = (r.ingredients || []).some((i) => i.name.toLowerCase().includes(q));
+        return inNameKm || inNameEn || inDesc || inIng;
+      });
+    }
+
+    function renderMenu() {
+      updateCatalogCounts();
+      const grid = document.getElementById("menuGrid");
+      const list = getFilteredRecipes();
+      document.getElementById("shownCount").textContent = list.length;
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin:0 0 6px;">រកមិនឃើញមុខភេសជ្ជៈ</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬអូសប្តូរក្រុមភេសជ្ជៈ។</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map((r) => {
+        const isFav = favorites.has(r.id);
+        const tempBadgeClass = r.temp === "hot" ? "temp-hot" : "temp-ice";
+        const tempText = r.temp === "hot" ? "ក្តៅ (HOT)" : "ត្រជាក់ (ICE)";
+        const customBadge = r.isCustom ? `<span class="drink-tag custom">ផ្ទាល់ខ្លួន</span>` : "";
+
+        return `
+          <article class="drink-card" data-id="${r.id}">
+            <div class="drink-photo-box">${renderDrinkPhoto(r.photo, r.temp)}</div>
+            <div class="drink-info">
+              <div class="drink-top-meta">
+                <span class="drink-tag ${tempBadgeClass}">${tempText}</span>
+                <span class="drink-tag">${escapeHtml(getCategoryLabel(r.category))}</span>
+                ${customBadge}
+              </div>
+              <h3 class="drink-name-km">${escapeHtml(r.nameKm)}</h3>
+              <div class="drink-name-en">${escapeHtml(r.nameEn || "")}</div>
+              <p class="drink-desc">${escapeHtml(r.desc || "")}</p>
+              <div class="drink-footer-meta">
+                <span>${escapeHtml(r.timeNote || "រូបមន្តស្តង់ដារ")}</span>
+                <span>មើលរូបមន្ត →</span>
+              </div>
+            </div>
+            <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="រក្សាទុកចូលចិត្ត" aria-label="ចូលចិត្ត">
+              <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+          </article>
+        `;
+      }).join("");
+
+      grid.querySelectorAll(".drink-card").forEach((card) => {
+        card.addEventListener("click", (e) => {
+          if (e.target.closest(".fav-toggle-btn")) return;
+          openRecipeModal(card.dataset.id);
+        });
+      });
+
+      grid.querySelectorAll(".fav-toggle-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleFavorite(btn.dataset.favId);
+        });
+      });
+    }
+
+    function toggleFavorite(id) {
+      if (favorites.has(id)) {
+        favorites.delete(id);
+        showToast("បានដកចេញពីបញ្ជីចូលចិត្ត");
+      } else {
+        favorites.add(id);
+        showToast("បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត");
+      }
+      saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
+      renderMenu();
+      if (state.activeRecipeId === id) {
+        updateModalFavButton(id);
+      }
+    }
+
+    function switchTab(tabName) {
+      state.tab = tabName;
+      document.querySelectorAll(".nav-item").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tabName);
+      });
+
+      const isCalc = tabName === "calc";
+      document.getElementById("menuView").style.display = isCalc ? "none" : "block";
+      document.getElementById("calculatorView").style.display = isCalc ? "block" : "none";
+      document.getElementById("summaryStrip").style.display = isCalc ? "none" : "flex";
+
+      if (!isCalc) {
+        renderMenu();
+      } else {
+        calculateBeanYield();
+      }
+    }
+
+    function initSwipeNavigation() {
+      const target = document.getElementById("menuView");
+      let startX = 0;
+      let startY = 0;
+
+      target.addEventListener("touchstart", (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+
+      target.addEventListener("touchend", (e) => {
+        if (!e.changedTouches || e.changedTouches.length !== 1) return;
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+
+        if (Math.abs(dx) > 75 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+          const idx = CATEGORIES.findIndex((c) => c.id === state.category);
+          if (dx < 0 && idx < CATEGORIES.length - 1) {
+            state.category = CATEGORIES[idx + 1].id;
+            renderCategoryBar();
+            renderMenu();
+            showToast(`ក្រុម៖ ${CATEGORIES[idx + 1].label}`);
+          } else if (dx > 0 && idx > 0) {
+            state.category = CATEGORIES[idx - 1].id;
+            renderCategoryBar();
+            renderMenu();
+            showToast(`ក្រុម៖ ${CATEGORIES[idx - 1].label}`);
+          }
         }
-        function closeCustomAlert() {
-            document.getElementById("customAlertModal").style.display = "none";
+      }, { passive: true });
+    }
+
+    function formatScaledAmount(baseAmt, unit) {
+      if (typeof baseAmt !== "number" || isNaN(baseAmt)) return "";
+      const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * state.batch;
+      const val = baseAmt * mult;
+      const rounded = val >= 50 ? Math.round(val) : Math.round(val * 10) / 10;
+      return `${rounded} ${unit || ""}`.trim();
+    }
+
+    function openRecipeModal(id) {
+      const recipe = getAllRecipes().find((r) => r.id === id);
+      if (!recipe) return;
+
+      state.activeRecipeId = id;
+      state.cupSize = "16oz";
+      state.batch = 1;
+
+      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => {
+        b.classList.toggle("active", b.dataset.size === "16oz");
+      });
+      document.querySelectorAll("#batchGroup .seg-btn").forEach((b) => {
+        b.classList.toggle("active", b.dataset.batch === "1");
+      });
+
+      document.getElementById("modalArtBox").innerHTML = renderDrinkPhoto(recipe.photo, recipe.temp);
+      document.getElementById("modalCatTag").textContent = getCategoryLabel(recipe.category);
+
+      const tempTag = document.getElementById("modalTempTag");
+      tempTag.textContent = getTempLabel(recipe.temp);
+      tempTag.className = "drink-tag " + (recipe.temp === "hot" ? "temp-hot" : "temp-ice");
+
+      document.getElementById("modalTitleKm").textContent = recipe.nameKm;
+      document.getElementById("modalTitleEn").textContent = recipe.nameEn || "";
+      document.getElementById("modalDesc").textContent = recipe.desc || "";
+      document.getElementById("modalTip").innerHTML = `<strong>គន្លឹះ Barista៖</strong> ${escapeHtml(recipe.tip || "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។")}`;
+
+      const stepsOl = document.getElementById("modalSteps");
+      stepsOl.innerHTML = (recipe.steps || []).map((s) => `<li>${escapeHtml(s)}</li>`).join("");
+
+      const delBtn = document.getElementById("deleteCustomBtn");
+      delBtn.style.display = recipe.isCustom ? "inline-flex" : "none";
+
+      renderModalIngredients(recipe);
+      updateModalFavButton(id);
+
+      document.getElementById("recipeModal").classList.add("open");
+    }
+
+    function renderModalIngredients(recipe) {
+      const ul = document.getElementById("modalIngredients");
+      ul.innerHTML = (recipe.ingredients || []).map((ing, idx) => {
+        const amtText = formatScaledAmount(ing.amount, ing.unit);
+        return `
+          <li class="ing-item" data-idx="${idx}">
+            <div class="ing-left">
+              <input type="checkbox" class="ing-check" aria-label="${escapeHtml(ing.name)}" />
+              <span>${escapeHtml(ing.name)}</span>
+            </div>
+            <span class="ing-amount">${escapeHtml(amtText)}</span>
+          </li>
+        `;
+      }).join("");
+
+      ul.querySelectorAll(".ing-item").forEach((item) => {
+        const cb = item.querySelector(".ing-check");
+        item.addEventListener("click", (e) => {
+          if (e.target !== cb) cb.checked = !cb.checked;
+          item.classList.toggle("checked", cb.checked);
+        });
+        cb.addEventListener("change", () => {
+          item.classList.toggle("checked", cb.checked);
+        });
+      });
+    }
+
+    function updateModalFavButton(id) {
+      const btn = document.getElementById("modalFavBtn");
+      const isFav = favorites.has(id);
+      btn.textContent = isFav ? "បានរក្សាទុកចូលចិត្ត" : "រក្សាទុកចូលចិត្ត";
+    }
+
+    function copyActiveRecipeText() {
+      const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+      if (!recipe) return;
+
+      const lines = [
+        `${recipe.nameKm} (${recipe.nameEn || ""}) [${getTempLabel(recipe.temp)}] — ${state.cupSize} x${state.batch}`,
+        `គ្រឿងផ្សំ៖`,
+        ...(recipe.ingredients || []).map((i) => `- ${i.name}: ${formatScaledAmount(i.amount, i.unit)}`),
+        `របៀបធ្វើ៖`,
+        ...(recipe.steps || []).map((s, idx) => `${idx + 1}. ${s}`)
+      ];
+
+      navigator.clipboard?.writeText(lines.join("\n")).then(() => {
+        showToast("បានចម្លងរូបមន្តរួចរាល់");
+      }).catch(() => {
+        showToast("មិនអាចចម្លងស្វ័យប្រវត្តិបាន");
+      });
+    }
+
+    function calculateBeanYield() {
+      const bagGrams = Math.max(1, parseFloat(document.getElementById("bagGramsInput").value) || 0);
+      const dose = Math.max(1, parseFloat(document.getElementById("dosePerCupInput").value) || 18);
+      const wastePct = Math.min(90, Math.max(0, parseFloat(document.getElementById("wastePercentInput").value) || 0));
+      const pricePerCup = Math.max(0, parseFloat(document.getElementById("pricePerCupInput").value) || 0);
+
+      const wasteGrams = bagGrams * (wastePct / 100);
+      const usableGrams = Math.max(0, bagGrams - wasteGrams);
+      const grossCups = bagGrams / dose;
+      const netCups = Math.floor(usableGrams / dose);
+      const estRevenue = netCups * pricePerCup;
+
+      document.getElementById("resNetCups").textContent = `${netCups.toLocaleString()} កែវ`;
+      document.getElementById("resGrossCups").textContent = `មុនខាត៖ ~${grossCups.toFixed(1)} កែវ`;
+      document.getElementById("resWasteGrams").textContent = `${Math.round(wasteGrams)} g`;
+      document.getElementById("resUsableGrams").textContent = `ប្រើបាន៖ ${Math.round(usableGrams)} g`;
+      document.getElementById("resEstRevenue").textContent = `$${estRevenue.toFixed(2)}`;
+      document.getElementById("resCostPerCup").textContent = `ម្សៅ/កែវ៖ ${dose}g`;
+    }
+
+    let timerInterval = null;
+    let elapsedMs = 0;
+
+    function formatTimer(ms) {
+      const sec = (ms / 1000).toFixed(1).padStart(4, "0");
+      return `${sec}s`;
+    }
+
+    function updateTimerUi() {
+      const sec = elapsedMs / 1000;
+      document.getElementById("timerDigits").textContent = formatTimer(elapsedMs);
+      const statusEl = document.getElementById("timerStatus");
+
+      if (sec < 25) {
+        statusEl.textContent = sec === 0 ? "ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម" : "កំពុងចម្រាញ់... (គោលដៅ 25–30s)";
+        statusEl.style.color = "#6E5D53";
+      } else if (sec <= 30) {
+        statusEl.textContent = "ស្ថិតក្នុងកម្រិតស្តង់ដារល្អបំផុត (25–30s)";
+        statusEl.style.color = "#1F8A4C";
+      } else {
+        statusEl.textContent = "លើស 30s — ពិនិត្យកម្រិតកិនគ្រាប់កាហ្វេ";
+        statusEl.style.color = "#C67D3B";
+      }
+    }
+
+    function playTimerBeep() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = 880;
+        gain.gain.value = 0.12;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => {
+          osc.stop();
+          ctx.close();
+        }, 220);
+      } catch {}
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      let alerted25 = elapsedMs >= 25000;
+      const startTime = performance.now() - elapsedMs;
+      timerInterval = setInterval(() => {
+        elapsedMs = performance.now() - startTime;
+        updateTimerUi();
+        if (!alerted25 && elapsedMs >= 25000) {
+          alerted25 = true;
+          playTimerBeep();
         }
+      }, 50);
+    }
 
-        window.onload = async function() {
-            fetchPosts();
-        };
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
 
-        async function fetchPosts() {
-            try {
-                const res = await fetch(SERVER_URL + "/api/posts");
-                const allPosts = await res.json();
-                globalPosts = shufflePosts(allPosts);
-                renderFeedPosts();
-            } catch (e) { console.error(e); }
-        }
+    function resetTimer() {
+      pauseTimer();
+      elapsedMs = 0;
+      updateTimerUi();
+    }
 
-        function shufflePosts(posts) {
-            let arr = [...posts];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
+    function handleAddRecipeSubmit(e) {
+      e.preventDefault();
+      const nameKm = document.getElementById("newNameKm").value.trim();
+      if (!nameKm) return;
 
-        // Quick Add YouTube Video function
-        async function quickAddVideo() {
-            let youtubeUrl = prompt("សូមដាក់ Link YouTube ទីនេះ:");
-            if (!youtubeUrl) return;
+      const nameEn = document.getElementById("newNameEn").value.trim() || "Custom Drink";
+      const temp = document.getElementById("newTemp").value;
+      const category = document.getElementById("newCategory").value;
+      const timeNote = document.getElementById("newTimeNote").value.trim() || "រូបមន្តផ្ទាល់ខ្លួន";
+      const desc = document.getElementById("newDesc").value.trim() || "រូបមន្តបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។";
 
-            youtubeUrl = youtubeUrl.trim();
-            let videoId = "";
-            if (youtubeUrl.includes('youtu.be/')) videoId = youtubeUrl.split('youtu.be/')[1]?.split('?')[0];
-            else if (youtubeUrl.includes('watch?v=')) videoId = youtubeUrl.split('watch?v=')[1]?.split('&')[0];
-            else if (youtubeUrl.includes('embed/')) videoId = youtubeUrl.split('embed/')[1]?.split('?')[0];
-
-            if (!videoId) {
-                showAlert("Link YouTube មិនត្រឹមត្រូវទេ!");
-                return;
-            }
-
-            let embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&controls=1&modestbranding=1&rel=0`;
-
-            const newPost = {
-                author: "admin",
-                text: "YouTube Video",
-                media: embedSrc,
-                mediaType: "iframe",
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                timestamp: Date.now()
+      const rawIngs = document.getElementById("newIngredients").value.split("\n").map((l) => l.trim()).filter(Boolean);
+      const ingredients = rawIngs.length
+        ? rawIngs.map((line) => {
+            const parts = line.split("|").map((p) => p.trim());
+            const amt = parseFloat(parts[1]);
+            return {
+              name: parts[0] || line,
+              amount: isNaN(amt) ? 0 : amt,
+              unit: parts[2] || ""
             };
+          })
+        : [{ name: "គ្រឿងផ្សំតាមចំណូលចិត្ត", amount: 100, unit: "ml" }];
 
-            try {
-                const res = await fetch(SERVER_URL + "/api/posts", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newPost)
-                });
-                const data = await res.json();
-                if (data.success) {
-                    showAlert("បានបញ្ចូលវីដេអូដោយជោគជ័យ!", "Success", "✅");
-                    fetchPosts();
-                } else {
-                    showAlert("បរាជ័យក្នុងការបញ្ចូលវីដេអូ។");
-                }
-            } catch (err) {
-                showAlert("មានបញ្ហាក្នុងการเชื่อมต่อ Server!");
-            }
+      const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
+      const steps = rawSteps.length ? rawSteps : ["លាយគ្រឿងផ្សំចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
+
+      const photoByCat = {
+        espresso: temp === "hot" ? "hot-latte" : "ice-latte",
+        local: temp === "hot" ? "hot-khmer-milk" : "ice-khmer-milk",
+        "non-coffee": temp === "hot" ? "hot-matcha" : "ice-matcha",
+        soda: "kiwi-soda",
+        frappe: "coffee-frappe",
+        other: temp === "hot" ? "hot-honey-lemon" : "ice-honey-lemon"
+      };
+
+      const newItem = {
+        id: "custom_" + Date.now(),
+        temp,
+        category,
+        nameKm,
+        nameEn,
+        photo: photoByCat[category] || (temp === "hot" ? "hot-latte" : "ice-latte"),
+        timeNote,
+        desc,
+        ingredients,
+        steps,
+        tip: "រូបមន្តផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិហាង។",
+        isCustom: true
+      };
+
+      customRecipes.push(newItem);
+      saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
+
+      document.getElementById("addRecipeForm").reset();
+      document.getElementById("addRecipeModal").classList.remove("open");
+      switchTab("all");
+      renderCategoryBar();
+      renderMenu();
+      showToast("បានបន្ថែមមុខភេសជ្ជៈថ្មីរួចរាល់");
+    }
+
+    function deleteActiveCustomRecipe() {
+      if (!state.activeRecipeId) return;
+      customRecipes = customRecipes.filter((r) => r.id !== state.activeRecipeId);
+      favorites.delete(state.activeRecipeId);
+      saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
+      saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
+      document.getElementById("recipeModal").classList.remove("open");
+      renderCategoryBar();
+      renderMenu();
+      showToast("បានលុបមុខភេសជ្ជៈផ្ទាល់ខ្លួន");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function initEvents() {
+      initSwipeNavigation();
+
+      const searchInput = document.getElementById("searchInput");
+      const clearBtn = document.getElementById("clearSearchBtn");
+
+      searchInput.addEventListener("input", () => {
+        state.search = searchInput.value;
+        clearBtn.classList.toggle("visible", state.search.length > 0);
+        if (state.tab === "calc") switchTab("all");
+        else renderMenu();
+      });
+
+      clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        state.search = "";
+        clearBtn.classList.remove("visible");
+        renderMenu();
+      });
+
+      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.temp = btn.dataset.temp;
+          document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((b) => {
+            b.classList.toggle("active", b === btn);
+          });
+          if (state.tab === "calc") switchTab("all");
+          else renderMenu();
+        });
+      });
+
+      document.getElementById("navAll").addEventListener("click", () => switchTab("all"));
+      document.getElementById("navFav").addEventListener("click", () => switchTab("fav"));
+      document.getElementById("navCalc").addEventListener("click", () => switchTab("calc"));
+
+      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.cupSize = btn.dataset.size;
+          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (recipe) renderModalIngredients(recipe);
+        });
+      });
+
+      document.querySelectorAll("#batchGroup .seg-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.batch = parseInt(btn.dataset.batch, 10) || 1;
+          document.querySelectorAll("#batchGroup .seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (recipe) renderModalIngredients(recipe);
+        });
+      });
+
+      document.getElementById("closeRecipeModal").addEventListener("click", () => {
+        document.getElementById("recipeModal").classList.remove("open");
+      });
+      document.getElementById("recipeModal").addEventListener("click", (e) => {
+        if (e.target.id === "recipeModal") e.target.classList.remove("open");
+      });
+
+      document.getElementById("copyRecipeBtn").addEventListener("click", copyActiveRecipeText);
+      document.getElementById("modalFavBtn").addEventListener("click", () => {
+        if (state.activeRecipeId) toggleFavorite(state.activeRecipeId);
+      });
+      document.getElementById("deleteCustomBtn").addEventListener("click", deleteActiveCustomRecipe);
+
+      document.getElementById("openAddRecipeBtn").addEventListener("click", () => {
+        document.getElementById("addRecipeModal").classList.add("open");
+      });
+      document.getElementById("closeAddModal").addEventListener("click", () => {
+        document.getElementById("addRecipeModal").classList.remove("open");
+      });
+      document.getElementById("addRecipeModal").addEventListener("click", (e) => {
+        if (e.target.id === "addRecipeModal") e.target.classList.remove("open");
+      });
+      document.getElementById("addRecipeForm").addEventListener("submit", handleAddRecipeSubmit);
+
+      const openTimer = () => document.getElementById("timerModal").classList.add("open");
+      document.getElementById("openTimerBtn").addEventListener("click", openTimer);
+      document.getElementById("quickTimerPill").addEventListener("click", openTimer);
+      document.getElementById("modalTimerBtn").addEventListener("click", openTimer);
+      document.getElementById("closeTimerModal").addEventListener("click", () => {
+        document.getElementById("timerModal").classList.remove("open");
+      });
+      document.getElementById("timerModal").addEventListener("click", (e) => {
+        if (e.target.id === "timerModal") e.target.classList.remove("open");
+      });
+      document.getElementById("timerStartBtn").addEventListener("click", startTimer);
+      document.getElementById("timerPauseBtn").addEventListener("click", pauseTimer);
+      document.getElementById("timerResetBtn").addEventListener("click", resetTimer);
+
+      document.querySelectorAll("#bagPresets .preset-chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          document.querySelectorAll("#bagPresets .preset-chip").forEach((c) => c.classList.remove("active"));
+          chip.classList.add("active");
+          document.getElementById("bagGramsInput").value = chip.dataset.grams;
+          calculateBeanYield();
+        });
+      });
+
+      document.getElementById("dosePerCupSelect").addEventListener("change", (e) => {
+        if (e.target.value !== "custom") {
+          document.getElementById("dosePerCupInput").value = e.target.value;
+          calculateBeanYield();
         }
+      });
 
-        function renderFeedPosts() {
-            const container = document.getElementById("tiktokFeedContainer");
-            container.innerHTML = "";
+      ["bagGramsInput", "dosePerCupInput", "wastePercentInput", "pricePerCupInput"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", calculateBeanYield);
+      });
+    }
 
-            if (globalPosts.length === 0) {
-                container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#fff;"><p>No posts available.</p></div>`;
-                return;
-            }
-
-            globalPosts.forEach((post) => {
-                const reel = document.createElement("div");
-                reel.className = "tiktok-reel";
-                reel.innerHTML = `<div class="tiktok-media-wrapper" data-media="${post.media || ''}" data-type="${post.mediaType || 'iframe'}"></div>`;
-                container.appendChild(reel);
-            });
-
-            setupVideoObserver();
-        }
-
-        function setupVideoObserver() {
-            const container = document.getElementById("tiktokFeedContainer");
-            const reels = container.querySelectorAll(".tiktok-reel");
-
-            const observerOptions = { root: container, threshold: 0.5 };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const wrapper = entry.target.querySelector('.tiktok-media-wrapper');
-                    if (!wrapper) return;
-                    const mediaUrl = wrapper.getAttribute('data-media');
-
-                    if (entry.isIntersecting) {
-                        if (mediaUrl && wrapper.innerHTML === '') {
-                            wrapper.innerHTML = `<iframe class="tiktok-media" src="${mediaUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-                        }
-                    } else {
-                        wrapper.innerHTML = '';
-                    }
-                });
-            }, observerOptions);
-
-            reels.forEach(reel => observer.observe(reel));
-        }
-    </script>
+    renderCategoryBar();
+    renderMenu();
+    calculateBeanYield();
+    initEvents();
+  </script>
 </body>
 </html>
