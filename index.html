@@ -121,12 +121,6 @@
       line-height: 1.3;
     }
 
-    .brand-title p {
-      margin: 2px 0 0;
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-
     .header-actions {
       display: flex;
       align-items: center;
@@ -305,28 +299,6 @@
       color: var(--text-primary);
     }
 
-    .timer-pill-btn {
-      border: 1px solid rgba(198, 125, 59, 0.35);
-      background: #FFF9F2;
-      color: #7D4616;
-      padding: 7px 13px;
-      min-height: 34px;
-      border-radius: 999px;
-      font-family: inherit;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: transform 0.15s ease;
-      touch-action: manipulation;
-    }
-
-    .timer-pill-btn:active {
-      transform: scale(0.96);
-    }
-
     /* Menu Grid */
     .menu-grid {
       display: grid;
@@ -469,7 +441,7 @@
     }
 
     .drink-desc {
-      margin: 4px 0 8px;
+      margin: 4px 0 0;
       font-size: 0.8rem;
       color: var(--text-secondary);
       display: -webkit-box;
@@ -477,16 +449,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       line-height: 1.4;
-    }
-
-    .drink-footer-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      font-weight: 600;
     }
 
     .fav-toggle-btn {
@@ -982,7 +944,6 @@
           </div>
           <div>
             <h1 id="mainHeaderTitle">ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ</h1>
-            <p id="mainHeaderSub">បែងចែកកាហ្វេក្តៅ (Hot) និង ត្រជាក់ (Ice) ដាច់ដោយឡែក • រង្វាស់ស្តង់ដារ 16oz</p>
           </div>
         </div>
         <div class="header-actions">
@@ -1027,10 +988,6 @@
     <!-- Summary Strip -->
     <div class="summary-strip" id="summaryStrip">
       <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong id="shownCount">0</strong> មុខ (សរុប <span id="totalCatalogCount">0</span> មុខ)</div>
-      <button class="timer-pill-btn" id="quickTimerPill">
-        <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-        <span>Espresso Standard: 25–30s</span>
-      </button>
     </div>
 
     <!-- Main View: Menu Grid -->
@@ -1286,7 +1243,6 @@
       km: {
         docTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ",
         headerTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ",
-        headerSub: "បែងចែកកាហ្វេក្តៅ (Hot) និង ត្រជាក់ (Ice) ដាច់ដោយឡែក • រង្វាស់ស្តង់ដារ 16oz",
         langBadge: "EN",
         timerBtn: "ម៉ោងឆុង",
         addBtn: "បន្ថែមមុខ",
@@ -1297,7 +1253,6 @@
         showingPrefix: "កំពុងបង្ហាញ៖",
         showingMid: "មុខ (សរុប",
         showingSuffix: "មុខ)",
-        viewRecipe: "មើលរូបមន្ត →",
         customBadge: "ផ្ទាល់ខ្លួន",
         hotBadge: "ក្តៅ (HOT)",
         iceBadge: "ត្រជាក់ (ICE)",
@@ -1361,7 +1316,6 @@
       en: {
         docTitle: "Coffee Menu & Recipe Guide",
         headerTitle: "Coffee Menu & Recipe Guide",
-        headerSub: "Separated Hot & Ice Coffees • Standard 16oz Measure",
         langBadge: "ខ្មែរ",
         timerBtn: "Timer",
         addBtn: "Add Coffee",
@@ -1372,7 +1326,6 @@
         showingPrefix: "Showing",
         showingMid: "of",
         showingSuffix: "coffees",
-        viewRecipe: "View Recipe →",
         customBadge: "Custom",
         hotBadge: "HOT",
         iceBadge: "ICE",
@@ -1511,8 +1464,6 @@
         nameKm: "អេស្ព្រេសសូ ក្តៅ",
         nameEn: "Hot Espresso",
         photo: "hot-espresso",
-        timeNoteKm: "25–30s • ដិតខ្លាំង",
-        timeNoteEn: "25–30s • Bold & Rich",
         descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ក្តៅៗពីម៉ាស៊ីនសម្ពាធខ្ពស់ រសជាតិខ្លាំង ខាប់ និងមានពពុះ Crema ពណ៌មាស។",
         descEn: "Pure pressurized espresso shot extracted hot with a bold body and golden crema.",
         ingredients: [
@@ -1539,8 +1490,6 @@
         nameKm: "អាមេរិកាណូ ក្តៅ",
         nameEn: "Hot Americano",
         photo: "hot-americano",
-        timeNoteKm: "1.5 នាទី • ក្តៅ ស្រាលស្រស់ស្រាយ",
-        timeNoteEn: "1.5 min • Hot & Crisp",
         descKm: "Double Espresso លាយជាមួយទឹកក្តៅសុទ្ធ គ្មានទឹកដោះគោ ឬស្ករ ផ្តល់ក្លិនកាហ្វេច្បាស់។",
         descEn: "Double espresso diluted with hot water—clean, zero milk or sugar, full coffee aroma.",
         ingredients: [
@@ -1567,8 +1516,6 @@
         nameKm: "ឡាតេ ក្តៅ",
         nameEn: "Hot Latte",
         photo: "hot-latte",
-        timeNoteKm: "2 នាទី • ឈ្ងុយទឹកដោះគោចំហុយ",
-        timeNoteEn: "2 min • Creamy Steamed Milk",
         descKm: "Double Espresso ផ្សំជាមួយទឹកដោះគោស្រស់ចំហុយក្តៅ និងពពុះស្តើងរលោងនៅពីលើ។",
         descEn: "Double espresso blended with steamed fresh milk and a thin glossy microfoam top.",
         ingredients: [
@@ -1595,8 +1542,6 @@
         nameKm: "កាពូឈីណូ ក្តៅ",
         nameEn: "Hot Cappuccino",
         photo: "hot-cappuccino",
-        timeNoteKm: "2 នាទី • ពពុះក្រាស់ក្តៅ",
-        timeNoteEn: "2 min • Plush Foam Top",
         descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងស្រទាប់ពពុះទឹកដោះគោក្រាស់ទន់នៅផ្នែកខាងលើ។",
         descEn: "Double espresso with steamed milk and a thicker, velvety foam layer on top.",
         ingredients: [
@@ -1623,8 +1568,6 @@
         nameKm: "ហ្វ្លាត វ៉ាយ ក្តៅ",
         nameEn: "Hot Flat White",
         photo: "hot-flat-white",
-        timeNoteKm: "2 នាទី • ក្តៅ រសជាតិកាហ្វេដិត",
-        timeNoteEn: "2 min • Stronger Coffee Note",
         descKm: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត ធ្វើឱ្យរសជាតិកាហ្វេដិតច្បាស់ជាង Latte។",
         descEn: "Double espresso with velvety micro-textured milk and minimal foam for a stronger espresso taste.",
         ingredients: [
@@ -1651,8 +1594,6 @@
         nameKm: "ម៉ូកា ក្តៅ",
         nameEn: "Hot Mocha",
         photo: "hot-mocha",
-        timeNoteKm: "2.5 នាទី • ក្តៅ កាហ្វេ + សូកូឡា",
-        timeNoteEn: "2.5 min • Hot Coffee & Cocoa",
         descKm: "Double Espresso ផ្សំជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
         descEn: "Double espresso combined with chocolate and steamed milk for a rich cocoa-coffee cup.",
         ingredients: [
@@ -1680,8 +1621,6 @@
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ ក្តៅ",
         nameEn: "Hot Caramel Macchiato",
         photo: "hot-caramel",
-        timeNoteKm: "2.5 នាទី • ក្តៅ ផ្អែមឈ្ងុយ Caramel",
-        timeNoteEn: "2.5 min • Hot Vanilla & Caramel",
         descKm: "ទឹកដោះគោចំហុយលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
         descEn: "Vanilla-steamed milk topped with espresso and a caramel sauce drizzle.",
         ingredients: [
@@ -1710,8 +1649,6 @@
         nameKm: "ភីកូឡូ / ខូតាដូ ក្តៅ",
         nameEn: "Hot Piccolo / Cortado",
         photo: "hot-piccolo",
-        timeNoteKm: "1.5 នាទី • កែវតូច ក្តៅដិតមុត",
-        timeNoteEn: "1.5 min • Small & Punchy",
         descKm: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោបន្តិច។",
         descEn: "Small hot milk coffee balancing strong espresso with a modest amount of steamed milk.",
         ingredients: [
@@ -1738,8 +1675,6 @@
         nameKm: "កាហ្វេទឹកដោះគោ ក្តៅ",
         nameEn: "Hot Condensed Milk Coffee",
         photo: "hot-khmer-milk",
-        timeNoteKm: "2 នាទី • ក្តៅ ផ្អែមមុត",
-        timeNoteEn: "2 min • Hot & Sweet Rich",
         descKm: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
         descEn: "Hot coffee mixed with sweet condensed milk for a classic bold and sweet finish.",
         ingredients: [
@@ -1769,8 +1704,6 @@
         nameKm: "អាមេរិកាណូ ទឹកកក",
         nameEn: "Iced Americano",
         photo: "ice-americano",
-        timeNoteKm: "1.5 នាទី • ត្រជាក់ ស្រស់ស្រាយ",
-        timeNoteEn: "1.5 min • Crisp & Refreshing",
         descKm: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក គ្មានទឹកដោះគោ ឬស្ករ។",
         descEn: "Double espresso poured over cold water and ice with no milk or sugar.",
         ingredients: [
@@ -1798,8 +1731,6 @@
         nameKm: "ឡាតេ ទឹកកក",
         nameEn: "Iced Latte",
         photo: "ice-latte",
-        timeNoteKm: "2 នាទី • ត្រជាក់ ឈ្ងុយទឹកដោះគោ",
-        timeNoteEn: "2 min • Smooth & Creamy",
         descKm: "Double Espresso លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក រសជាតិស្រទន់។",
         descEn: "Double espresso over chilled fresh milk and ice for a smooth everyday latte.",
         ingredients: [
@@ -1828,8 +1759,6 @@
         nameKm: "កាពូឈីណូ ទឹកកក",
         nameEn: "Iced Cappuccino",
         photo: "ice-cappuccino",
-        timeNoteKm: "2 នាទី • ត្រជាក់ ពពុះក្រាស់",
-        timeNoteEn: "2 min • Iced + Cold Foam",
         descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់នៅពីលើ។",
         descEn: "Iced espresso and milk topped with a thick, creamy cold milk foam cap.",
         ingredients: [
@@ -1858,8 +1787,6 @@
         nameKm: "ម៉ូកា ទឹកកក",
         nameEn: "Iced Mocha",
         photo: "ice-mocha",
-        timeNoteKm: "2.5 នាទី • ត្រជាក់ កាហ្វេ + សូកូឡា",
-        timeNoteEn: "2.5 min • Iced Chocolate Coffee",
         descKm: "Double Espresso លាយសូកូឡា និងទឹកដោះគោស្រស់ត្រជាក់ ផ្អែមឈ្ងុយកាកាវ។",
         descEn: "Double espresso blended with chocolate and cold milk over ice.",
         ingredients: [
@@ -1888,8 +1815,6 @@
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ ទឹកកក",
         nameEn: "Iced Caramel Macchiato",
         photo: "ice-caramel",
-        timeNoteKm: "2.5 នាទី • ត្រជាក់ ឈ្ងុយ Caramel",
-        timeNoteEn: "2.5 min • Iced Vanilla & Caramel",
         descKm: "ទឹកដោះគោស្រស់ត្រជាក់លាយ Vanilla ស្រោច Espresso ពីលើ និងបន្ថែមទឹកស្ករ Caramel។",
         descEn: "Vanilla-infused iced milk topped with espresso and a caramel sauce drizzle.",
         ingredients: [
@@ -1919,8 +1844,6 @@
         nameKm: "កាហ្វេទឹកដោះគោ ទឹកកក",
         nameEn: "Iced Condensed Milk Coffee",
         photo: "ice-khmer-milk",
-        timeNoteKm: "2 នាទី • ត្រជាក់ ផ្អែមមុត",
-        timeNoteEn: "2 min • Iced Sweet & Bold",
         descKm: "កាហ្វេលាយទឹកដោះគោខាប់ផ្អែម និងទឹកកក រសជាតិដិតមុត ពេញនិយមខ្លាំងប្រចាំថ្ងៃ។",
         descEn: "Bold coffee blended with sweetened condensed milk and ice—a daily favorite.",
         ingredients: [
@@ -1949,8 +1872,6 @@
         nameKm: "កាហ្វេខ្មៅ ទឹកកក",
         nameEn: "Iced Black Coffee",
         photo: "ice-black-coffee",
-        timeNoteKm: "1.5 នាទី • ត្រជាក់ ដិតខ្លាំង",
-        timeNoteEn: "1.5 min • Iced & Strong",
         descKm: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
         descEn: "Chilled black coffee lightly sweetened with simple syrup over ice.",
         ingredients: [
@@ -1979,8 +1900,6 @@
         nameKm: "កាហ្វេដូង ទឹកកក",
         nameEn: "Iced Coconut Coffee",
         photo: "ice-coconut-coffee",
-        timeNoteKm: "3 នាទី • ត្រជាក់ ឈ្ងុយដូង",
-        timeNoteEn: "3 min • Iced & Coconutty",
         descKm: "កាហ្វេលាយជាមួយទឹកដោះគោដូង និងទឹកកក រសជាតិផ្អែមឈ្ងុយប្លែកមាត់។",
         descEn: "Espresso paired with creamy coconut milk and condensed milk over ice.",
         ingredients: [
@@ -2009,8 +1928,6 @@
         nameKm: "កាហ្វេទឹកត្នោត ទឹកកក",
         nameEn: "Iced Palm Sugar Latte",
         photo: "ice-palm-sugar",
-        timeNoteKm: "2.5 នាទី • ត្រជាក់ ស្ករត្នោតខ្មែរ",
-        timeNoteEn: "2.5 min • Iced Khmer Palm Sugar",
         descKm: "កាហ្វេទឹកដោះគោស្រស់ត្រជាក់ ប្រើស្ករត្នោតជំនួសស្ករស មានក្លិនក្រអូបប្រពៃណីខ្មែរ។",
         descEn: "Iced latte sweetened with fragrant Khmer palm sugar syrup.",
         ingredients: [
@@ -2039,8 +1956,6 @@
         nameKm: "កាហ្វេអំបិល ទឹកកក",
         nameEn: "Iced Salt Coffee",
         photo: "ice-salt-coffee",
-        timeNoteKm: "3 នាទី • ត្រជាក់ ប្រៃផ្អែមឈ្ងុយ",
-        timeNoteEn: "3 min • Iced Salty Cream Top",
         descKm: "កាហ្វេទឹកកកលាយក្រែមទឹកដោះគោប្រៃផ្អែមស្រាលនៅពីលើ ជួយលើករសជាតិកាហ្វេឱ្យកាន់តែមុត។",
         descEn: "Iced coffee topped with a lightly salted sweet cream layer that enhances coffee depth.",
         ingredients: [
@@ -2069,8 +1984,6 @@
         nameKm: "កាហ្វេក្រឡុក",
         nameEn: "Coffee Frappe (Mocha / Caramel)",
         photo: "coffee-frappe",
-        timeNoteKm: "2 នាទី • ម៉ត់ត្រជាក់ជ្រៅ",
-        timeNoteEn: "2 min • Blended & Frosty",
         descKm: "កាហ្វេក្រឡុកជាមួយទឹកកក ទឹកដោះគោ និងរសជាតិ Mocha ឬ Caramel ផ្តល់ភាពត្រជាក់ឈ្ងុយ។",
         descEn: "Blended iced coffee with milk, ice, and mocha or caramel flavor.",
         ingredients: [
@@ -2100,8 +2013,6 @@
         nameKm: "អេស្ព្រេសសូ តូនីក",
         nameEn: "Espresso Tonic",
         photo: "espresso-tonic",
-        timeNoteKm: "2 នាទី • ត្រជាក់ ជូរស្រាលហ្វឺហ្វារ",
-        timeNoteEn: "2 min • Sparkling Coffee & Tonic",
         descKm: "ការផ្សំគ្នារវាង Tonic Water និង Espresso ផ្តល់រសជាតិប្លែក ស្រស់ស្រាយ និងមានពពុះហ្វឺហ្វារ។",
         descEn: "Crisp tonic water layered with espresso over ice and a citrus garnish.",
         ingredients: [
@@ -2187,10 +2098,6 @@
       return state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
     }
 
-    function getRecipeTimeNote(r) {
-      return state.lang === "en" ? (r.timeNoteEn || r.timeNoteKm || "") : (r.timeNoteKm || r.timeNoteEn || "");
-    }
-
     function getRecipeSteps(r) {
       if (state.lang === "en" && Array.isArray(r.stepsEn) && r.stepsEn.length) return r.stepsEn;
       if (Array.isArray(r.stepsKm) && r.stepsKm.length) return r.stepsKm;
@@ -2214,7 +2121,6 @@
       document.documentElement.lang = state.lang;
       document.title = s.docTitle;
       document.getElementById("mainHeaderTitle").textContent = s.headerTitle;
-      document.getElementById("mainHeaderSub").textContent = s.headerSub;
       document.getElementById("langBadgeText").textContent = s.langBadge;
       document.getElementById("timerBtnLabel").textContent = s.timerBtn;
       document.getElementById("addBtnLabel").textContent = s.addBtn;
@@ -2353,10 +2259,6 @@
               <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <div class="drink-name-sub">${escapeHtml(secondaryName)}</div>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r))}</p>
-              <div class="drink-footer-meta">
-                <span>${escapeHtml(getRecipeTimeNote(r))}</span>
-                <span>${escapeHtml(s.viewRecipe)}</span>
-              </div>
             </div>
             <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="${escapeHtml(s.favBtnSave)}" aria-label="${escapeHtml(s.favBtnSave)}">
               <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -2617,7 +2519,6 @@
 
       const temp = document.getElementById("newTemp").value;
       const category = document.getElementById("newCategory").value;
-      const timeNote = document.getElementById("newTimeNote").value.trim() || (state.lang === "en" ? "Custom coffee recipe" : "រូបមន្តកាហ្វេផ្ទាល់ខ្លួន");
       const desc = document.getElementById("newDesc").value.trim() || (state.lang === "en" ? "Custom coffee recipe." : "រូបមន្តកាហ្វេបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។");
 
       const rawIngs = document.getElementById("newIngredients").value.split("\n").map((l) => l.trim()).filter(Boolean);
@@ -2652,8 +2553,6 @@
         nameKm: nameKm || nameEn,
         nameEn: nameEn || nameKm,
         photo: photoByCat[category] || (temp === "hot" ? "hot-latte" : "ice-latte"),
-        timeNoteKm: timeNote,
-        timeNoteEn: timeNote,
         descKm: desc,
         descEn: desc,
         ingredients,
@@ -2781,7 +2680,6 @@
 
       const openTimer = () => document.getElementById("timerModal").classList.add("open");
       document.getElementById("openTimerBtn").addEventListener("click", openTimer);
-      document.getElementById("quickTimerPill").addEventListener("click", openTimer);
       document.getElementById("modalTimerBtn").addEventListener("click", openTimer);
       document.getElementById("closeTimerModal").addEventListener("click", () => {
         document.getElementById("timerModal").classList.remove("open");
