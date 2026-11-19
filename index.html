@@ -175,7 +175,7 @@
       display: flex;
       gap: 8px;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 2px;
     }
 
     @media (max-width: 640px) {
@@ -278,52 +278,6 @@
     .temp-pill[data-temp="ice"].active {
       background: var(--accent-ice);
       color: #FFFFFF;
-    }
-
-    /* Category Bar */
-    .category-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 2px 2px 6px;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x proximity;
-    }
-
-    .category-bar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .cat-pill {
-      border: 1px solid var(--border-subtle);
-      background: rgba(255, 255, 255, 0.88);
-      color: var(--text-secondary);
-      padding: 8px 14px;
-      min-height: 36px;
-      border-radius: 999px;
-      font-family: inherit;
-      font-size: 0.82rem;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      scroll-snap-align: start;
-      touch-action: manipulation;
-    }
-
-    .cat-pill:active {
-      transform: scale(0.96);
-    }
-
-    .cat-pill.active {
-      background: var(--accent-espresso);
-      color: #FFFFFF;
-      border-color: var(--accent-espresso);
-      box-shadow: 0 6px 14px rgba(74, 44, 24, 0.22);
     }
 
     /* Summary Strip */
@@ -1055,8 +1009,6 @@
           <button class="temp-pill" data-temp="ice">ត្រជាក់ (Ice)</button>
         </div>
       </div>
-
-      <div class="category-bar" id="categoryBar"></div>
     </header>
 
     <!-- Summary Strip -->
@@ -1157,7 +1109,6 @@
           <div id="modalArtBox" class="drink-photo-box" style="width: 84px; height: 94px;"></div>
           <div>
             <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-              <span class="drink-tag" id="modalCatTag"></span>
               <span class="drink-tag" id="modalTempTag"></span>
             </div>
             <h2 id="modalTitleKm" style="margin: 4px 0 2px; font-size: 1.2rem;"></h2>
@@ -1308,19 +1259,8 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const CATEGORIES = [
-      { id: "all", label: "ទាំងអស់" },
-      { id: "espresso", label: "កាហ្វេម៉ាស៊ីន" },
-      { id: "local", label: "កាហ្វេខ្មែរ & អាស៊ី" },
-      { id: "non-coffee", label: "គ្មានកាហ្វេ" },
-      { id: "soda", label: "សូដាផ្លែឈើ (Soda)" },
-      { id: "frappe", label: "ភេសជ្ជៈក្រឡុក" },
-      { id: "other", label: "ភេសជ្ជៈផ្សេងៗ" }
-    ];
-
     /**
      * ម៉ូដែលរូបភាពគំនូរ Vector ផ្ទាល់ក្នុងកម្មវិធី (ត្រូវនឹងមុខនីមួយៗ ១០០% ផ្ទុកភ្លាមៗ)
-     * style: "hot-cup" | "hot-art" | "iced-layered" | "iced-plain" | "soda" | "frappe"
      */
     const DRINK_VISUALS = {
       // HOT
@@ -1434,7 +1374,6 @@
           <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.85"/>
         `;
       } else {
-        // iced-layered or iced-plain
         const topLayer = v.style === "iced-layered"
           ? `<path d="M45 48 H115 L112 84 H48 Z" fill="${v.top}"/>`
           : `<path d="M45 48 H115 L114 62 H46 Z" fill="${v.top}" opacity="0.45"/>`;
@@ -2432,7 +2371,6 @@
     let state = {
       tab: "all",
       temp: "all",
-      category: "all",
       search: "",
       activeRecipeId: null,
       cupSize: "16oz",
@@ -2464,11 +2402,6 @@
       return [...DEFAULT_RECIPES, ...customRecipes];
     }
 
-    function getCategoryLabel(catId) {
-      const found = CATEGORIES.find((c) => c.id === catId);
-      return found ? found.label : catId;
-    }
-
     function getTempLabel(temp) {
       return temp === "hot" ? "ក្តៅ (Hot)" : "ត្រជាក់ (Ice)";
     }
@@ -2481,9 +2414,6 @@
 
       document.getElementById("totalCatalogCount").textContent = total;
       document.getElementById("navAllLabel").textContent = `ម៉ឺនុយ (${total})`;
-
-      const allCat = CATEGORIES.find((c) => c.id === "all");
-      if (allCat) allCat.label = `ទាំងអស់ (${total})`;
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         if (btn.dataset.temp === "all") btn.textContent = `ទាំងអស់ (${total})`;
@@ -2499,28 +2429,6 @@
       return `${renderModelSvg(photoKey)}${badgeHtml}`;
     }
 
-    function renderCategoryBar() {
-      updateCatalogCounts();
-      const bar = document.getElementById("categoryBar");
-      bar.innerHTML = CATEGORIES.map((c) => {
-        const active = state.category === c.id ? "active" : "";
-        return `<button class="cat-pill ${active}" data-cat="${c.id}">${escapeHtml(c.label)}</button>`;
-      }).join("");
-
-      bar.querySelectorAll(".cat-pill").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.category = btn.dataset.cat;
-          btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-          if (state.tab === "calc") {
-            switchTab("all");
-          } else {
-            renderCategoryBar();
-            renderMenu();
-          }
-        });
-      });
-    }
-
     function getFilteredRecipes() {
       const all = getAllRecipes();
       const q = state.search.trim().toLowerCase();
@@ -2528,7 +2436,6 @@
       return all.filter((r) => {
         if (state.tab === "fav" && !favorites.has(r.id)) return false;
         if (state.temp !== "all" && r.temp !== state.temp) return false;
-        if (state.category !== "all" && r.category !== state.category) return false;
         if (!q) return true;
 
         const inNameKm = r.nameKm.toLowerCase().includes(q);
@@ -2549,7 +2456,7 @@
         grid.innerHTML = `
           <div class="empty-state">
             <h3 style="margin:0 0 6px;">រកមិនឃើញមុខភេសជ្ជៈ</h3>
-            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬអូសប្តូរក្រុមភេសជ្ជៈ។</p>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬពាក្យស្វែងរកផ្សេងទៀត។</p>
           </div>
         `;
         return;
@@ -2567,7 +2474,6 @@
             <div class="drink-info">
               <div class="drink-top-meta">
                 <span class="drink-tag ${tempBadgeClass}">${tempText}</span>
-                <span class="drink-tag">${escapeHtml(getCategoryLabel(r.category))}</span>
                 ${customBadge}
               </div>
               <h3 class="drink-name-km">${escapeHtml(r.nameKm)}</h3>
@@ -2633,39 +2539,6 @@
       }
     }
 
-    function initSwipeNavigation() {
-      const target = document.getElementById("menuView");
-      let startX = 0;
-      let startY = 0;
-
-      target.addEventListener("touchstart", (e) => {
-        if (!e.touches || e.touches.length !== 1) return;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-      }, { passive: true });
-
-      target.addEventListener("touchend", (e) => {
-        if (!e.changedTouches || e.changedTouches.length !== 1) return;
-        const dx = e.changedTouches[0].clientX - startX;
-        const dy = e.changedTouches[0].clientY - startY;
-
-        if (Math.abs(dx) > 75 && Math.abs(dx) > Math.abs(dy) * 1.6) {
-          const idx = CATEGORIES.findIndex((c) => c.id === state.category);
-          if (dx < 0 && idx < CATEGORIES.length - 1) {
-            state.category = CATEGORIES[idx + 1].id;
-            renderCategoryBar();
-            renderMenu();
-            showToast(`ក្រុម៖ ${CATEGORIES[idx + 1].label}`);
-          } else if (dx > 0 && idx > 0) {
-            state.category = CATEGORIES[idx - 1].id;
-            renderCategoryBar();
-            renderMenu();
-            showToast(`ក្រុម៖ ${CATEGORIES[idx - 1].label}`);
-          }
-        }
-      }, { passive: true });
-    }
-
     function formatScaledAmount(baseAmt, unit) {
       if (typeof baseAmt !== "number" || isNaN(baseAmt)) return "";
       const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * state.batch;
@@ -2690,7 +2563,6 @@
       });
 
       document.getElementById("modalArtBox").innerHTML = renderDrinkPhoto(recipe.photo, recipe.temp);
-      document.getElementById("modalCatTag").textContent = getCategoryLabel(recipe.category);
 
       const tempTag = document.getElementById("modalTempTag");
       tempTag.textContent = getTempLabel(recipe.temp);
@@ -2871,195 +2743,3 @@
             const parts = line.split("|").map((p) => p.trim());
             const amt = parseFloat(parts[1]);
             return {
-              name: parts[0] || line,
-              amount: isNaN(amt) ? 0 : amt,
-              unit: parts[2] || ""
-            };
-          })
-        : [{ name: "គ្រឿងផ្សំតាមចំណូលចិត្ត", amount: 100, unit: "ml" }];
-
-      const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
-      const steps = rawSteps.length ? rawSteps : ["លាយគ្រឿងផ្សំចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
-
-      const photoByCat = {
-        espresso: temp === "hot" ? "hot-latte" : "ice-latte",
-        local: temp === "hot" ? "hot-khmer-milk" : "ice-khmer-milk",
-        "non-coffee": temp === "hot" ? "hot-matcha" : "ice-matcha",
-        soda: "kiwi-soda",
-        frappe: "coffee-frappe",
-        other: temp === "hot" ? "hot-honey-lemon" : "ice-honey-lemon"
-      };
-
-      const newItem = {
-        id: "custom_" + Date.now(),
-        temp,
-        category,
-        nameKm,
-        nameEn,
-        photo: photoByCat[category] || (temp === "hot" ? "hot-latte" : "ice-latte"),
-        timeNote,
-        desc,
-        ingredients,
-        steps,
-        tip: "រូបមន្តផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិហាង។",
-        isCustom: true
-      };
-
-      customRecipes.push(newItem);
-      saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
-
-      document.getElementById("addRecipeForm").reset();
-      document.getElementById("addRecipeModal").classList.remove("open");
-      switchTab("all");
-      renderCategoryBar();
-      renderMenu();
-      showToast("បានបន្ថែមមុខភេសជ្ជៈថ្មីរួចរាល់");
-    }
-
-    function deleteActiveCustomRecipe() {
-      if (!state.activeRecipeId) return;
-      customRecipes = customRecipes.filter((r) => r.id !== state.activeRecipeId);
-      favorites.delete(state.activeRecipeId);
-      saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
-      saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
-      document.getElementById("recipeModal").classList.remove("open");
-      renderCategoryBar();
-      renderMenu();
-      showToast("បានលុបមុខភេសជ្ជៈផ្ទាល់ខ្លួន");
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById("toast");
-      toast.textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => toast.classList.remove("show"), 2200);
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
-    function initEvents() {
-      initSwipeNavigation();
-
-      const searchInput = document.getElementById("searchInput");
-      const clearBtn = document.getElementById("clearSearchBtn");
-
-      searchInput.addEventListener("input", () => {
-        state.search = searchInput.value;
-        clearBtn.classList.toggle("visible", state.search.length > 0);
-        if (state.tab === "calc") switchTab("all");
-        else renderMenu();
-      });
-
-      clearBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        state.search = "";
-        clearBtn.classList.remove("visible");
-        renderMenu();
-      });
-
-      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.temp = btn.dataset.temp;
-          document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((b) => {
-            b.classList.toggle("active", b === btn);
-          });
-          if (state.tab === "calc") switchTab("all");
-          else renderMenu();
-        });
-      });
-
-      document.getElementById("navAll").addEventListener("click", () => switchTab("all"));
-      document.getElementById("navFav").addEventListener("click", () => switchTab("fav"));
-      document.getElementById("navCalc").addEventListener("click", () => switchTab("calc"));
-
-      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.cupSize = btn.dataset.size;
-          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (recipe) renderModalIngredients(recipe);
-        });
-      });
-
-      document.querySelectorAll("#batchGroup .seg-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.batch = parseInt(btn.dataset.batch, 10) || 1;
-          document.querySelectorAll("#batchGroup .seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (recipe) renderModalIngredients(recipe);
-        });
-      });
-
-      document.getElementById("closeRecipeModal").addEventListener("click", () => {
-        document.getElementById("recipeModal").classList.remove("open");
-      });
-      document.getElementById("recipeModal").addEventListener("click", (e) => {
-        if (e.target.id === "recipeModal") e.target.classList.remove("open");
-      });
-
-      document.getElementById("copyRecipeBtn").addEventListener("click", copyActiveRecipeText);
-      document.getElementById("modalFavBtn").addEventListener("click", () => {
-        if (state.activeRecipeId) toggleFavorite(state.activeRecipeId);
-      });
-      document.getElementById("deleteCustomBtn").addEventListener("click", deleteActiveCustomRecipe);
-
-      document.getElementById("openAddRecipeBtn").addEventListener("click", () => {
-        document.getElementById("addRecipeModal").classList.add("open");
-      });
-      document.getElementById("closeAddModal").addEventListener("click", () => {
-        document.getElementById("addRecipeModal").classList.remove("open");
-      });
-      document.getElementById("addRecipeModal").addEventListener("click", (e) => {
-        if (e.target.id === "addRecipeModal") e.target.classList.remove("open");
-      });
-      document.getElementById("addRecipeForm").addEventListener("submit", handleAddRecipeSubmit);
-
-      const openTimer = () => document.getElementById("timerModal").classList.add("open");
-      document.getElementById("openTimerBtn").addEventListener("click", openTimer);
-      document.getElementById("quickTimerPill").addEventListener("click", openTimer);
-      document.getElementById("modalTimerBtn").addEventListener("click", openTimer);
-      document.getElementById("closeTimerModal").addEventListener("click", () => {
-        document.getElementById("timerModal").classList.remove("open");
-      });
-      document.getElementById("timerModal").addEventListener("click", (e) => {
-        if (e.target.id === "timerModal") e.target.classList.remove("open");
-      });
-      document.getElementById("timerStartBtn").addEventListener("click", startTimer);
-      document.getElementById("timerPauseBtn").addEventListener("click", pauseTimer);
-      document.getElementById("timerResetBtn").addEventListener("click", resetTimer);
-
-      document.querySelectorAll("#bagPresets .preset-chip").forEach((chip) => {
-        chip.addEventListener("click", () => {
-          document.querySelectorAll("#bagPresets .preset-chip").forEach((c) => c.classList.remove("active"));
-          chip.classList.add("active");
-          document.getElementById("bagGramsInput").value = chip.dataset.grams;
-          calculateBeanYield();
-        });
-      });
-
-      document.getElementById("dosePerCupSelect").addEventListener("change", (e) => {
-        if (e.target.value !== "custom") {
-          document.getElementById("dosePerCupInput").value = e.target.value;
-          calculateBeanYield();
-        }
-      });
-
-      ["bagGramsInput", "dosePerCupInput", "wastePercentInput", "pricePerCupInput"].forEach((id) => {
-        document.getElementById(id).addEventListener("input", calculateBeanYield);
-      });
-    }
-
-    renderCategoryBar();
-    renderMenu();
-    calculateBeanYield();
-    initEvents();
-  </script>
-</body>
-</html>
