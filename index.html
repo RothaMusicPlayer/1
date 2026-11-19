@@ -379,7 +379,6 @@
       color: #FFF;
       letter-spacing: 0.03em;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
-      z-index: 2;
     }
 
     .photo-temp-badge.hot {
@@ -1443,244 +1442,57 @@
     };
 
     const DRINK_VISUALS = {
-      "hot-mocha": {
-        bg: "#262B30",
-        scene: `
-          <defs>
-            <radialGradient id="bgMocha" cx="50%" cy="38%" r="65%">
-              <stop offset="0%" stop-color="#3A4046"/>
-              <stop offset="100%" stop-color="#1E2226"/>
-            </radialGradient>
-            <linearGradient id="cupMocha" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#4B5259"/>
-              <stop offset="55%" stop-color="#393F45"/>
-              <stop offset="100%" stop-color="#272B2F"/>
-            </linearGradient>
-            <radialGradient id="foamMocha" cx="50%" cy="45%" r="55%">
-              <stop offset="0%" stop-color="#F1DCC5"/>
-              <stop offset="65%" stop-color="#C99972"/>
-              <stop offset="100%" stop-color="#6B3A22"/>
-            </radialGradient>
-          </defs>
-          <rect width="160" height="180" fill="url(#bgMocha)"/>
-          <ellipse cx="80" cy="142" rx="56" ry="13" fill="#2D2622" stroke="#5A4C43" stroke-width="2"/>
-          <ellipse cx="80" cy="140" rx="44" ry="8.5" fill="#1B1613"/>
-          <ellipse cx="48" cy="142" rx="4.2" ry="2.4" fill="#4A2B18" transform="rotate(-18 48 142)"/>
-          <ellipse cx="56" cy="145" rx="4.2" ry="2.4" fill="#3B2010" transform="rotate(14 56 145)"/>
-          <ellipse cx="109" cy="143" rx="4.2" ry="2.4" fill="#4A2B18" transform="rotate(20 109 143)"/>
-          <ellipse cx="116" cy="140" rx="3.8" ry="2.2" fill="#3B2010" transform="rotate(-12 116 140)"/>
-          <path d="M114 78 C134 76 138 106 112 112" stroke="#444A51" stroke-width="9" fill="none" stroke-linecap="round"/>
-          <path d="M40 66 H120 L114 118 C111 131 98 138 80 138 C62 138 49 131 46 118 Z" fill="url(#cupMocha)" stroke="#756355" stroke-width="1.5"/>
-          <ellipse cx="80" cy="67" rx="40" ry="12" fill="#5D4A3C"/>
-          <ellipse cx="80" cy="68" rx="36" ry="9.8" fill="url(#foamMocha)"/>
-          <circle cx="80" cy="68" r="14" fill="none" stroke="#8A5233" stroke-width="2.2" stroke-dasharray="5 3" opacity="0.7"/>
-          <circle cx="80" cy="68" r="7" fill="none" stroke="#5E331B" stroke-width="2" opacity="0.75"/>
-          <circle cx="75" cy="66" r="1.4" fill="#472210"/>
-          <circle cx="84" cy="69" r="1.6" fill="#472210"/>
-          <circle cx="79" cy="72" r="1.3" fill="#472210"/>
-          <circle cx="69" cy="69" r="1.2" fill="#472210"/>
-          <circle cx="89" cy="66" r="1.3" fill="#472210"/>
-        `
-      },
-      "hot-latte": {
-        bg: "#7A4824",
-        scene: `
-          <defs>
-            <linearGradient id="bgLatte" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8B532B"/>
-              <stop offset="100%" stop-color="#583116"/>
-            </linearGradient>
-            <linearGradient id="cupLatte" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#F6F1E7"/>
-              <stop offset="65%" stop-color="#E6DEC8"/>
-              <stop offset="100%" stop-color="#C9BE9F"/>
-            </linearGradient>
-          </defs>
-          <rect width="160" height="180" fill="url(#bgLatte)"/>
-          <ellipse cx="80" cy="144" rx="58" ry="15" fill="#E8E0C8" stroke="#C3AE82" stroke-width="2"/>
-          <ellipse cx="80" cy="142" rx="42" ry="9" fill="#D5C8A8"/>
-          <path d="M116 80 C138 78 140 108 114 114" stroke="#E4DCC4" stroke-width="9.5" fill="none" stroke-linecap="round"/>
-          <path d="M38 64 H122 L116 118 C113 133 99 140 80 140 C61 140 47 133 44 118 Z" fill="url(#cupLatte)"/>
-          <ellipse cx="80" cy="65" rx="42" ry="13" fill="#F8F5EE"/>
-          <ellipse cx="80" cy="66" rx="37" ry="10.5" fill="#9A5D30"/>
-          <path d="M80 74 Q80 65 80 57" stroke="#FFFDF8" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-          <path d="M80 58 C75 55 72 59 80 62 C88 59 85 55 80 58 Z" fill="#FFFDF8"/>
-          <path d="M80 61 Q71 58 67 62 Q73 64 80 62" fill="#FFFDF8"/>
-          <path d="M80 61 Q89 58 93 62 Q87 64 80 62" fill="#FFFDF8"/>
-          <path d="M80 65 Q70 62 65 66 Q72 68 80 66" fill="#FFFDF8"/>
-          <path d="M80 65 Q90 62 95 66 Q88 68 80 66" fill="#FFFDF8"/>
-          <path d="M80 69 Q71 67 67 71 Q73 72 80 70" fill="#FFFDF8"/>
-          <path d="M80 69 Q89 67 93 71 Q87 72 80 70" fill="#FFFDF8"/>
-        `
-      },
-      "hot-cappuccino": {
-        bg: "#8A6546",
-        scene: `
-          <defs>
-            <linearGradient id="bgCap" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#9A7352"/>
-              <stop offset="100%" stop-color="#6E4E34"/>
-            </linearGradient>
-          </defs>
-          <rect width="160" height="180" fill="url(#bgCap)"/>
-          <ellipse cx="80" cy="145" rx="58" ry="15" fill="#F4F2EE" stroke="#D5CFC7" stroke-width="1.5"/>
-          <ellipse cx="80" cy="143" rx="41" ry="9" fill="#E3DDD4"/>
-          <path d="M116 80 C138 78 140 108 114 114" stroke="#F2EFEA" stroke-width="9" fill="none" stroke-linecap="round"/>
-          <path d="M38 64 H122 L116 118 C113 133 99 140 80 140 C61 140 47 133 44 118 Z" fill="#F7F5F1"/>
-          <ellipse cx="80" cy="65" rx="42" ry="13" fill="#FFFFFF"/>
-          <ellipse cx="80" cy="66" rx="37" ry="10.5" fill="#D59A62"/>
-          <ellipse cx="80" cy="66.5" rx="31" ry="8.5" fill="#FBF7F2"/>
-          <circle cx="80" cy="66.5" r="1.4" fill="#6E3B1E"/>
-          <circle cx="75" cy="65" r="1.5" fill="#6E3B1E"/>
-          <circle cx="85" cy="65.5" r="1.3" fill="#6E3B1E"/>
-          <circle cx="77" cy="68.5" r="1.4" fill="#6E3B1E"/>
-          <circle cx="83" cy="68" r="1.5" fill="#6E3B1E"/>
-          <circle cx="80" cy="63.5" r="1.2" fill="#6E3B1E"/>
-          <circle cx="72" cy="67" r="1.1" fill="#6E3B1E"/>
-          <circle cx="88" cy="67.5" r="1.2" fill="#6E3B1E"/>
-          <circle cx="79" cy="70" r="1.2" fill="#6E3B1E"/>
-        `
-      },
-      "hot-espresso": {
-        bg: "#7A4824",
-        scene: `
-          <defs>
-            <linearGradient id="bgEsp" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8C542C"/>
-              <stop offset="100%" stop-color="#583015"/>
-            </linearGradient>
-            <radialGradient id="cremaEsp" cx="50%" cy="48%" r="55%">
-              <stop offset="0%" stop-color="#E49B3C"/>
-              <stop offset="70%" stop-color="#C67822"/>
-              <stop offset="100%" stop-color="#965211"/>
-            </radialGradient>
-          </defs>
-          <rect width="160" height="180" fill="url(#bgEsp)"/>
-          <ellipse cx="80" cy="144" rx="56" ry="14" fill="#F4F2EE" stroke="#D5CFC7" stroke-width="1.5"/>
-          <ellipse cx="80" cy="142" rx="38" ry="8.5" fill="#E2DDD4"/>
-          <path d="M113 82 C132 80 134 108 111 114" stroke="#F2EFEA" stroke-width="8.5" fill="none" stroke-linecap="round"/>
-          <path d="M42 66 H118 L113 118 C110 132 97 139 80 139 C63 139 50 132 47 118 Z" fill="#F7F5F1"/>
-          <ellipse cx="80" cy="67" rx="38" ry="12" fill="#FFFFFF"/>
-          <ellipse cx="80" cy="71" rx="33" ry="9.5" fill="url(#cremaEsp)"/>
-          <ellipse cx="80" cy="71" rx="13" ry="3.8" fill="none" stroke="#F3B75B" stroke-width="1.4" opacity="0.7"/>
-          <circle cx="81" cy="71" r="1.4" fill="#FFE09E" opacity="0.8"/>
-          <circle cx="74" cy="70" r="1.0" fill="#FFE09E" opacity="0.7"/>
-        `
-      },
-      "hot-americano": {
-        bg: "#7A4824",
-        scene: `
-          <defs>
-            <linearGradient id="bgAme" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8A522A"/>
-              <stop offset="100%" stop-color="#572F14"/>
-            </linearGradient>
-          </defs>
-          <rect width="160" height="180" fill="url(#bgAme)"/>
-          <ellipse cx="80" cy="145" rx="58" ry="15" fill="#F4F2EE" stroke="#D5CFC7" stroke-width="1.5"/>
-          <ellipse cx="80" cy="143" rx="41" ry="9" fill="#E3DDD4"/>
-          <path d="M116 80 C138 78 140 108 114 114" stroke="#F2EFEA" stroke-width="9" fill="none" stroke-linecap="round"/>
-          <path d="M38 64 H122 L116 118 C113 133 99 140 80 140 C61 140 47 133 44 118 Z" fill="#F7F5F1"/>
-          <ellipse cx="80" cy="65" rx="42" ry="13" fill="#FFFFFF"/>
-          <ellipse cx="80" cy="66" rx="37" ry="10.5" fill="#B57941"/>
-          <ellipse cx="80" cy="66.5" rx="22" ry="6.2" fill="#180B05"/>
-          <circle cx="63" cy="65" r="1.3" fill="#2E1609"/>
-          <circle cx="67" cy="68" r="1.5" fill="#2E1609"/>
-          <circle cx="96" cy="65" r="1.4" fill="#2E1609"/>
-          <circle cx="93" cy="68.5" r="1.2" fill="#2E1609"/>
-          <circle cx="72" cy="62" r="1.1" fill="#2E1609"/>
-          <circle cx="88" cy="62.5" r="1.2" fill="#2E1609"/>
-        `
-      },
-      "ice-americano": {
-        bg: "#E3EFF5",
-        scene: `
-          <rect width="160" height="180" fill="#E3EFF5"/>
-          <line x1="96" y1="16" x2="84" y2="62" stroke="#4A2C18" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="#221008"/>
-          <path d="M45 48 H115 L114 62 H46 Z" fill="#3B1E10" opacity="0.45"/>
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `
-      },
-      "ice-latte": {
-        bg: "#E8EFF4",
-        scene: `
-          <rect width="160" height="180" fill="#E8EFF4"/>
-          <line x1="96" y1="16" x2="84" y2="62" stroke="#8C5327" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="#F2E4D1"/>
-          <path d="M45 48 H115 L112 84 H48 Z" fill="#6A3C1E"/>
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `
-      },
-      "ice-cappuccino": {
-        bg: "#EAEFF3",
-        scene: `
-          <rect width="160" height="180" fill="#EAEFF3"/>
-          <line x1="96" y1="16" x2="84" y2="62" stroke="#6E4224" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="#BA8658"/>
-          <path d="M45 48 H115 L112 84 H48 Z" fill="#FFFFFF"/>
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `
-      },
-      "ice-mocha": {
-        bg: "#ECE6E2",
-        scene: `
-          <rect width="160" height="180" fill="#ECE6E2"/>
-          <line x1="96" y1="16" x2="84" y2="62" stroke="#3B1B0D" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="#542916"/>
-          <path d="M45 48 H115 L112 84 H48 Z" fill="#C99F7E"/>
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `
-      },
-      "ice-caramel": {
-        bg: "#F5ECE0",
-        scene: `
-          <rect width="160" height="180" fill="#F5ECE0"/>
-          <line x1="96" y1="16" x2="84" y2="62" stroke="#D48324" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="#EBD5B7"/>
-          <path d="M45 48 H115 L112 84 H48 Z" fill="#734222"/>
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `
-      },
-      "ice-khmer-milk": {
-        bg: "#F3E7D8",
-        scene: `
-          <rect width="160" height="180" fill="#F3E7D8"/>
-          <line x1="96" y1="16" x2="84" y2="62" stroke="#4A2C18" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="#774423"/>
-          <path d="M45 48 H115 L114 62 H46 Z" fill="#E6C7A1" opacity="0.45"/>
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `
-      },
-      "ice-black-coffee": {
-        bg: "#E4ECEF",
-        scene: `
-          <rect width="160" height="180" fill="#E4ECEF"/>
-          <line x1="96" y1="16" x2="84" y2="62" stroke="#2B150A" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="#190C05"/>
-          <path d="M45 48 H115 L114 62 H46 Z" fill="#422212" opacity="0.45"/>
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `
-      }
+      "hot-espresso":       { style: "hot-cup", bg: "#EFE4D8", cup: "#FFFFFF", liquid: "#2B150A", foam: "#C48843", garnish: "crema" },
+      "hot-americano":      { style: "hot-cup", bg: "#ECE2D8", cup: "#FFFFFF", liquid: "#1C0D06", foam: "#8E582B", garnish: "crema" },
+      "hot-latte":          { style: "hot-art", bg: "#F3E8DC", cup: "#FFFFFF", liquid: "#8D5834", foam: "#FFFDF9", garnish: "heart" },
+      "hot-cappuccino":     { style: "hot-art", bg: "#EFE3D5", cup: "#FFFFFF", liquid: "#7A4A29", foam: "#FFF8EE", garnish: "foam-ring" },
+      "hot-flat-white":     { style: "hot-art", bg: "#EDE2D6", cup: "#F8F3EC", liquid: "#744424", foam: "#FFFDF9", garnish: "heart" },
+      "hot-mocha":          { style: "hot-art", bg: "#EFE0D6", cup: "#FFFFFF", liquid: "#4B2414", foam: "#F7ECE3", garnish: "cocoa" },
+      "hot-caramel":        { style: "hot-art", bg: "#F7E9D7", cup: "#FFFFFF", liquid: "#9C6132", foam: "#FFF9F0", garnish: "caramel" },
+      "hot-piccolo":        { style: "hot-cup", bg: "#EFE3D5", cup: "#FFFFFF", liquid: "#693B1E", foam: "#F8EFE3", garnish: "crema" },
+      "hot-khmer-milk":     { style: "hot-cup", bg: "#F4E5D2", cup: "#FFFFFF", liquid: "#6B3B1D", foam: "#EED2AE", garnish: "milk" },
+      "ice-americano":      { style: "iced-plain", bg: "#E3EFF5", liquid: "#221008", top: "#3B1E10", straw: "#4A2C18", garnish: "none" },
+      "ice-latte":          { style: "iced-layered", bg: "#E8EFF4", liquid: "#F2E4D1", top: "#6A3C1E", straw: "#8C5327", garnish: "none" },
+      "ice-cappuccino":     { style: "iced-layered", bg: "#EAEFF3", liquid: "#BA8658", top: "#FFFFFF", straw: "#6E4224", garnish: "foam" },
+      "ice-mocha":          { style: "iced-layered", bg: "#ECE6E2", liquid: "#542916", top: "#C99F7E", straw: "#3B1B0D", garnish: "none" },
+      "ice-caramel":        { style: "iced-layered", bg: "#F5ECE0", liquid: "#EBD5B7", top: "#734222", straw: "#D48324", garnish: "caramel" },
+      "ice-khmer-milk":     { style: "iced-plain", bg: "#F3E7D8", liquid: "#774423", top: "#E6C7A1", straw: "#4A2C18", garnish: "none" },
+      "ice-black-coffee":   { style: "iced-plain", bg: "#E4ECEF", liquid: "#190C05", top: "#422212", straw: "#2B150A", garnish: "none" }
     };
 
     function renderModelSvg(photoKey) {
       const v = DRINK_VISUALS[photoKey] || DRINK_VISUALS["ice-latte"];
-      return `<svg class="model-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">${v.scene}</svg>`;
+      let inner = "";
+
+      if (v.style === "hot-cup" || v.style === "hot-art") {
+        const artShape = v.garnish === "heart"
+          ? `<path d="M80 51 C74 47 68 53 80 61 C92 53 86 47 80 51 Z" fill="${v.liquid}"/>`
+          : `<ellipse cx="80" cy="56" rx="20" ry="4.5" fill="${v.foam}" opacity="0.6"/>`;
+
+        inner = `
+          <path d="M62 33 Q58 25 62 17 M80 29 Q76 21 80 13 M98 33 Q94 25 98 17" stroke="#9C8778" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          <ellipse cx="80" cy="144" rx="50" ry="7.5" fill="#DFD4C8"/>
+          <path d="M118 66 H128 A14 14 0 0 1 128 104 H118" stroke="${v.cup}" stroke-width="8" fill="none"/>
+          <path d="M42 54 H118 L112 114 A24 24 0 0 1 88 135 H72 A24 24 0 0 1 48 114 Z" fill="${v.cup}" stroke="#D8CEC2" stroke-width="1.5"/>
+          <ellipse cx="80" cy="56" rx="35" ry="9" fill="${v.style === "hot-art" ? v.foam : v.liquid}"/>
+          ${v.style === "hot-art" ? artShape : `<ellipse cx="80" cy="55" rx="26" ry="4" fill="${v.foam}" opacity="0.45"/>`}
+        `;
+      } else {
+        const topLayer = v.style === "iced-layered"
+          ? `<path d="M45 48 H115 L112 84 H48 Z" fill="${v.top}"/>`
+          : `<path d="M45 48 H115 L114 62 H46 Z" fill="${v.top}" opacity="0.45"/>`;
+
+        inner = `
+          <line x1="96" y1="16" x2="84" y2="62" stroke="${v.straw}" stroke-width="5" stroke-linecap="round"/>
+          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="${v.liquid}"/>
+          ${topLayer}
+          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
+          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
+          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
+        `;
+      }
+
+      return `<svg class="model-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg"><rect width="160" height="180" fill="${v.bg}"/>${inner}</svg>`;
     }
 
     const DEFAULT_RECIPES = [
@@ -1908,7 +1720,7 @@
         descEn: "More coffee-forward than a latte — hot uses thin microfoam, iced uses less chilled milk.",
         variants: {
           hot: {
-            photo: "hot-latte",
+            photo: "hot-flat-white",
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត (~62°C) ធ្វើឱ្យក្លិនកាហ្វេដិតច្បាស់។",
             descEn: "Double espresso with very thin microfoam (~62°C) for a stronger espresso flavor.",
             ingredients: [
@@ -2016,7 +1828,7 @@
         descEn: "Vanilla, milk, espresso, and caramel drizzle — hot with steamed milk, iced over ice.",
         variants: {
           hot: {
-            photo: "hot-latte",
+            photo: "hot-caramel",
             descKm: "ទឹកដោះគោចំហុយក្តៅលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
             descEn: "Hot vanilla-steamed milk topped with espresso and a caramel sauce drizzle.",
             ingredients: [
@@ -2073,7 +1885,7 @@
         descEn: "Small, punchy milk coffee — hot with steamed milk, iced with chilled milk and ice.",
         variants: {
           hot: {
-            photo: "hot-espresso",
+            photo: "hot-piccolo",
             descKm: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោចំហុយតិច។",
             descEn: "Small hot glass balancing bold espresso with a modest amount of steamed milk.",
             ingredients: [
@@ -2126,7 +1938,7 @@
         descEn: "Classic sweet condensed milk coffee — hot with hot water, iced over ice.",
         variants: {
           hot: {
-            photo: "hot-americano",
+            photo: "hot-khmer-milk",
             descKm: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
             descEn: "Hot coffee mixed with sweet condensed milk for a classic bold and sweet cup.",
             ingredients: [
@@ -2783,9 +2595,9 @@
       };
       const hotPhotoByCat = {
         espresso: "hot-latte",
-        local: "hot-americano",
+        local: "hot-khmer-milk",
         frappe: "hot-mocha",
-        other: "hot-espresso"
+        other: "hot-americano"
       };
 
       const baseVariant = {
