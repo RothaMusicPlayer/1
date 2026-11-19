@@ -1109,7 +1109,6 @@
           <div id="modalArtBox" class="drink-photo-box" style="width: 84px; height: 94px;"></div>
           <div>
             <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-              <span class="drink-tag" id="modalCatTag"></span>
               <span class="drink-tag" id="modalTempTag"></span>
             </div>
             <h2 id="modalTitleKm" style="margin: 4px 0 2px; font-size: 1.2rem;"></h2>
@@ -1192,7 +1191,7 @@
             </select>
           </div>
           <div class="field-group">
-            <label for="newCategory">ក្រុមភេសជ្ជៈ</label>
+            <label for="newCategory">ប្រភេទភេសជ្ជៈ</label>
             <select id="newCategory" class="field-select">
               <option value="espresso">កាហ្វេម៉ាស៊ីន (Espresso)</option>
               <option value="local">កាហ្វេខ្មែរ និងអាស៊ី</option>
@@ -1260,16 +1259,6 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const CATEGORIES = [
-      { id: "all", label: "ទាំងអស់" },
-      { id: "espresso", label: "កាហ្វេម៉ាស៊ីន" },
-      { id: "local", label: "កាហ្វេខ្មែរ & អាស៊ី" },
-      { id: "non-coffee", label: "គ្មានកាហ្វេ" },
-      { id: "soda", label: "សូដាផ្លែឈើ (Soda)" },
-      { id: "frappe", label: "ភេសជ្ជៈក្រឡុក" },
-      { id: "other", label: "ភេសជ្ជៈផ្សេងៗ" }
-    ];
-
     const DRINK_VISUALS = {
       // HOT
       "hot-espresso":      { style: "hot-cup", bg: "#EFE4D8", cup: "#FFFFFF", liquid: "#2B150A", foam: "#C48843", garnish: "crema" },
@@ -1712,7 +1701,7 @@
         ],
         steps: [
           "ដាក់ទឹកកក ទឹកដោះគោស្រស់ និង Double Espresso ចូលកែវ។",
-          "វាយពពុះទឹកដោះគោត្រជាក់ឱ្យឡើងក្រាស់រលោង។",
+          "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូច នឹងបានពពុះរលោងស្អាត។",
           "ចាក់ពពុះទឹកដោះគោស្រោចពីលើផ្នែកខាងលើបំផុត។"
         ],
         tip: "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូច នឹងបានពពុះរលោងស្អាត។"
@@ -2410,11 +2399,6 @@
       return [...DEFAULT_RECIPES, ...customRecipes];
     }
 
-    function getCategoryLabel(catId) {
-      const found = CATEGORIES.find((c) => c.id === catId);
-      return found ? found.label : catId;
-    }
-
     function getTempLabel(temp) {
       return temp === "hot" ? "ក្តៅ (Hot)" : "ត្រជាក់ (Ice)";
     }
@@ -2487,7 +2471,6 @@
             <div class="drink-info">
               <div class="drink-top-meta">
                 <span class="drink-tag ${tempBadgeClass}">${tempText}</span>
-                <span class="drink-tag">${escapeHtml(getCategoryLabel(r.category))}</span>
                 ${customBadge}
               </div>
               <h3 class="drink-name-km">${escapeHtml(r.nameKm)}</h3>
@@ -2577,7 +2560,6 @@
       });
 
       document.getElementById("modalArtBox").innerHTML = renderDrinkPhoto(recipe.photo, recipe.temp);
-      document.getElementById("modalCatTag").textContent = getCategoryLabel(recipe.category);
 
       const tempTag = document.getElementById("modalTempTag");
       tempTag.textContent = getTempLabel(recipe.temp);
