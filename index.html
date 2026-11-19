@@ -406,6 +406,11 @@
       margin-bottom: 4px;
     }
 
+    .drink-top-meta:empty {
+      display: none;
+      margin-bottom: 0;
+    }
+
     .drink-tag {
       font-size: 0.7rem;
       font-weight: 700;
@@ -1302,10 +1307,10 @@
         customBadge: "ផ្ទាល់ខ្លួន",
         hotBadge: "HOT",
         iceBadge: "ICE",
-        bothBadge: "HOT & ICE",
+        bothBadge: "",
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
-        bothFull: "ក្តៅ & ត្រជាក់ (Hot & Ice)",
+        bothFull: "",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
         navFav: "ចូលចិត្ត",
         navCalc: "គណនាគ្រាប់",
@@ -1376,10 +1381,10 @@
         customBadge: "Custom",
         hotBadge: "HOT",
         iceBadge: "ICE",
-        bothBadge: "HOT & ICE",
+        bothBadge: "",
         hotFull: "Hot",
         iceFull: "Ice",
-        bothFull: "Hot & Ice",
+        bothFull: "",
         navMenu: (n) => `Menu (${n})`,
         navFav: "Favorites",
         navCalc: "Bean Calc",
@@ -2432,6 +2437,9 @@
         const isFav = favorites.has(r.id);
         const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
+        const modeTagHtml = badgeInfo.label
+          ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
+          : "";
         const customBadge = r.isCustom ? `<span class="drink-tag custom">${escapeHtml(s.customBadge)}</span>` : "";
 
         return `
@@ -2439,7 +2447,7 @@
             <div class="drink-photo-box">${renderDrinkPhoto(defaultVar?.photo, badgeInfo.badge, badgeInfo.photoCls)}</div>
             <div class="drink-info">
               <div class="drink-top-meta">
-                <span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>
+                ${modeTagHtml}
                 ${customBadge}
               </div>
               <h3 class="drink-name-main">${escapeHtml(getRecipeNamePrimary(r))}</h3>
