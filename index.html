@@ -98,6 +98,7 @@
       display: flex;
       align-items: center;
       gap: 11px;
+      min-width: 0;
     }
 
     .brand-badge {
@@ -114,7 +115,7 @@
 
     .brand-title h1 {
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 700;
       letter-spacing: -0.01em;
       line-height: 1.3;
@@ -122,14 +123,15 @@
 
     .brand-title p {
       margin: 2px 0 0;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+      flex-shrink: 0;
     }
 
     .icon-btn {
@@ -137,19 +139,20 @@
       background: #FFFFFF;
       color: var(--text-primary);
       border-radius: 13px;
-      padding: 9px 12px;
+      padding: 9px 11px;
       min-height: 38px;
       font-family: inherit;
-      font-size: 0.82rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: transform 0.14s ease, background 0.2s ease;
+      gap: 5px;
+      transition: transform 0.14s ease, background 0.2s ease, border-color 0.2s ease;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       touch-action: manipulation;
+      white-space: nowrap;
     }
 
     .icon-btn:hover {
@@ -168,6 +171,12 @@
 
     .icon-btn.primary:hover {
       background: #361F10;
+    }
+
+    .lang-toggle-btn {
+      border-color: rgba(198, 125, 59, 0.35);
+      background: #FFF9F2;
+      color: #7D4616;
     }
 
     /* Search & Temperature Filter Row */
@@ -444,7 +453,7 @@
       color: var(--accent-success);
     }
 
-    .drink-name-km {
+    .drink-name-main {
       margin: 0;
       font-size: 1rem;
       font-weight: 700;
@@ -452,11 +461,11 @@
       line-height: 1.35;
     }
 
-    .drink-name-en {
+    .drink-name-sub {
       font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-muted);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', sans-serif;
     }
 
     .drink-desc {
@@ -973,17 +982,21 @@
           </div>
           <div>
             <h1 id="mainHeaderTitle">ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេពេញលេញ</h1>
-            <p>បែងចែកក្តៅ (Hot) និង ត្រជាក់ (Ice) ដាច់ដោយឡែក • រង្វាស់ស្តង់ដារ 16oz</p>
+            <p id="mainHeaderSub">បែងចែកក្តៅ (Hot) និង ត្រជាក់ (Ice) ដាច់ដោយឡែក • រង្វាស់ស្តង់ដារ 16oz</p>
           </div>
         </div>
         <div class="header-actions">
+          <button class="icon-btn lang-toggle-btn" id="langToggleBtn" title="ប្តូរភាសា / Switch Language">
+            <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span id="langBadgeText">EN</span>
+          </button>
           <button class="icon-btn" id="openTimerBtn" title="ម៉ោងចម្រាញ់កាហ្វេ">
             <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <span class="btn-label">ម៉ោងឆុង</span>
+            <span class="btn-label" id="timerBtnLabel">ម៉ោងឆុង</span>
           </button>
           <button class="icon-btn primary" id="openAddRecipeBtn" title="បន្ថែមរូបមន្តថ្មី">
             <svg class="ui-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span class="btn-label">បន្ថែមមុខ</span>
+            <span class="btn-label" id="addBtnLabel">បន្ថែមមុខ</span>
           </button>
         </div>
       </div>
@@ -1013,7 +1026,7 @@
 
     <!-- Summary Strip -->
     <div class="summary-strip" id="summaryStrip">
-      <div class="summary-count">កំពុងបង្ហាញ៖ <strong id="shownCount">0</strong> មុខ (សរុប <span id="totalCatalogCount">0</span> មុខ)</div>
+      <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong id="shownCount">0</strong> មុខ (សរុប <span id="totalCatalogCount">0</span> មុខ)</div>
       <button class="timer-pill-btn" id="quickTimerPill">
         <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
         <span>Espresso Standard: 25–30s</span>
@@ -1028,54 +1041,54 @@
     <!-- Secondary View: Bean Bag Yield Calculator -->
     <section id="calculatorView" style="display: none;">
       <div class="calc-panel">
-        <h2>ឧបករណ៍គណនាចំនួនកែវពីកញ្ចប់គ្រាប់កាហ្វេ</h2>
-        <p class="subtitle">គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ បរិមាណម្សៅ ១ កែវ និងភាគរយខាតបង់ (Dial-in / Waste)</p>
+        <h2 id="calcTitle">ឧបករណ៍គណនាចំនួនកែវពីកញ្ចប់គ្រាប់កាហ្វេ</h2>
+        <p class="subtitle" id="calcSubtitle">គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ បរិមាណម្សៅ ១ កែវ និងភាគរយខាតបង់ (Dial-in / Waste)</p>
 
         <div class="preset-row" id="bagPresets">
-          <button class="preset-chip" data-grams="250">២៥០ ក្រាម (250g)</button>
-          <button class="preset-chip active" data-grams="500">៥០០ ក្រាម (500g)</button>
-          <button class="preset-chip" data-grams="1000">១,០០០ ក្រាម (1kg)</button>
-          <button class="preset-chip" data-grams="5000">៥ គីឡូ (5kg)</button>
+          <button class="preset-chip" data-grams="250">250g</button>
+          <button class="preset-chip active" data-grams="500">500g</button>
+          <button class="preset-chip" data-grams="1000">1kg (1,000g)</button>
+          <button class="preset-chip" data-grams="5000">5kg (5,000g)</button>
         </div>
 
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="bagGramsInput">ទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ (ក្រាម)</label>
+            <label for="bagGramsInput" id="lblBagGrams">ទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ (ក្រាម)</label>
             <input type="number" id="bagGramsInput" class="field-input" value="500" min="10" step="10" />
           </div>
           <div class="field-group">
-            <label for="dosePerCupInput">ម្សៅកាហ្វេសម្រាប់ ១ កែវ (ក្រាម)</label>
+            <label for="dosePerCupInput" id="lblDosePerCup">ម្សៅកាហ្វេសម្រាប់ ១ កែវ (ក្រាម)</label>
             <select id="dosePerCupSelect" class="field-select" style="margin-bottom: 6px;">
               <option value="9">Single Shot (~9g)</option>
               <option value="18" selected>Double Shot Standard (~18g)</option>
               <option value="20">Strong Double Shot (~20g)</option>
-              <option value="custom">កំណត់ផ្ទាល់ខ្លួន...</option>
+              <option value="custom" id="optCustomDose">កំណត់ផ្ទាល់ខ្លួន...</option>
             </select>
             <input type="number" id="dosePerCupInput" class="field-input" value="18" min="3" max="60" step="0.5" />
           </div>
           <div class="field-group">
-            <label for="wastePercentInput">ភាគរយខាតបង់ (Dial-in / កំពប់ %)</label>
+            <label for="wastePercentInput" id="lblWastePct">ភាគរយខាតបង់ (Dial-in / កំពប់ %)</label>
             <input type="number" id="wastePercentInput" class="field-input" value="5" min="0" max="50" step="1" />
           </div>
           <div class="field-group">
-            <label for="pricePerCupInput">តម្លៃលក់ ១ កែវ ($)</label>
+            <label for="pricePerCupInput" id="lblPricePerCup">តម្លៃលក់ ១ កែវ ($)</label>
             <input type="number" id="pricePerCupInput" class="field-input" value="1.50" min="0" step="0.05" />
           </div>
         </div>
 
         <div class="calc-results">
           <div class="result-box">
-            <div class="res-label">ចំនួនកែវឆុងបាន (សុទ្ធ)</div>
+            <div class="res-label" id="resNetCupsLabel">ចំនួនកែវឆុងបាន (សុទ្ធ)</div>
             <div class="res-val" id="resNetCups">26 កែវ</div>
             <div class="res-sub" id="resGrossCups">មុនខាត៖ ~27.8 កែវ</div>
           </div>
           <div class="result-box">
-            <div class="res-label">គ្រាប់កាហ្វេខាតបង់</div>
+            <div class="res-label" id="resWasteGramsLabel">គ្រាប់កាហ្វេខាតបង់</div>
             <div class="res-val" id="resWasteGrams">25 g</div>
             <div class="res-sub" id="resUsableGrams">ប្រើបាន៖ 475 g</div>
           </div>
           <div class="result-box">
-            <div class="res-label">ចំណូលប៉ាន់ស្មាន / កញ្ចប់</div>
+            <div class="res-label" id="resEstRevenueLabel">ចំណូលប៉ាន់ស្មាន / កញ្ចប់</div>
             <div class="res-val" id="resEstRevenue">$39.00</div>
             <div class="res-sub" id="resCostPerCup">ម្សៅ/កែវ៖ 18g</div>
           </div>
@@ -1092,11 +1105,11 @@
     </button>
     <button class="nav-item" id="navFav" data-tab="fav">
       <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-      <span>ចូលចិត្ត</span>
+      <span id="navFavLabel">ចូលចិត្ត</span>
     </button>
     <button class="nav-item" id="navCalc" data-tab="calc">
       <svg class="ui-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="10" y2="10"></line><line x1="14" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="10" y2="14"></line><line x1="14" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
-      <span>គណនាគ្រាប់</span>
+      <span id="navCalcLabel">គណនាគ្រាប់</span>
     </button>
   </nav>
 
@@ -1111,8 +1124,8 @@
             <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
               <span class="drink-tag" id="modalTempTag"></span>
             </div>
-            <h2 id="modalTitleKm" style="margin: 4px 0 2px; font-size: 1.2rem;"></h2>
-            <div id="modalTitleEn" class="drink-name-en"></div>
+            <h2 id="modalTitleMain" style="margin: 4px 0 2px; font-size: 1.2rem;"></h2>
+            <div id="modalTitleSub" class="drink-name-sub"></div>
           </div>
         </div>
         <button class="close-modal-btn" id="closeRecipeModal" aria-label="បិទ">X</button>
@@ -1123,7 +1136,7 @@
       <!-- Cup Size & Batch Multiplier -->
       <div class="controls-bar">
         <div>
-          <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ទំហំកែវ (Cup Size)</div>
+          <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ទំហំកែវ (Cup Size)</div>
           <div class="seg-group" id="cupSizeGroup">
             <button class="seg-btn" data-size="12oz">12oz</button>
             <button class="seg-btn active" data-size="16oz">16oz</button>
@@ -1131,7 +1144,7 @@
           </div>
         </div>
         <div>
-          <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ចំនួនកែវឆុង (Batch)</div>
+          <div id="batchLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ចំនួនកែវឆុង (Batch)</div>
           <div class="seg-group" id="batchGroup">
             <button class="seg-btn active" data-batch="1">1x</button>
             <button class="seg-btn" data-batch="2">2x</button>
@@ -1141,10 +1154,10 @@
         </div>
       </div>
 
-      <div class="section-heading">គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)</div>
+      <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)</div>
       <ul class="ingredients-list" id="modalIngredients"></ul>
 
-      <div class="section-heading">របៀបធ្វើតាមជំហាន</div>
+      <div class="section-heading" id="stepsSectionHeading">របៀបធ្វើតាមជំហាន</div>
       <ol class="steps-list" id="modalSteps"></ol>
 
       <div class="tip-box" id="modalTip"></div>
@@ -1164,8 +1177,8 @@
       <div class="drag-handle"></div>
       <div class="modal-header">
         <div>
-          <h2 style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខភេសជ្ជៈថ្មីផ្ទាល់ខ្លួន</h2>
-          <p style="margin: 3px 0 0; font-size: 0.8rem; color: var(--text-secondary);">រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ</p>
+          <h2 id="addModalTitle" style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខភេសជ្ជៈថ្មីផ្ទាល់ខ្លួន</h2>
+          <p id="addModalSub" style="margin: 3px 0 0; font-size: 0.8rem; color: var(--text-secondary);">រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ</p>
         </div>
         <button class="close-modal-btn" id="closeAddModal" aria-label="បិទ">X</button>
       </div>
@@ -1173,58 +1186,58 @@
       <form id="addRecipeForm" style="margin-top: 14px;">
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="newNameKm">ឈ្មោះភេសជ្ជៈ (ខ្មែរ) *</label>
+            <label for="newNameKm" id="lblNewNameKm">ឈ្មោះភេសជ្ជៈ (ខ្មែរ) *</label>
             <input type="text" id="newNameKm" class="field-input" placeholder="ឧទាហរណ៍៖ សូដាកីវីពិសេស" required />
           </div>
           <div class="field-group">
-            <label for="newNameEn">ឈ្មោះភាសាអង់គ្លេស</label>
+            <label for="newNameEn" id="lblNewNameEn">ឈ្មោះភាសាអង់គ្លេស</label>
             <input type="text" id="newNameEn" class="field-input" placeholder="e.g. Signature Kiwi Soda" />
           </div>
         </div>
 
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="newTemp">ប្រភេទសីតុណ្ហភាព (Hot / Ice)</label>
+            <label for="newTemp" id="lblNewTemp">ប្រភេទសីតុណ្ហភាព (Hot / Ice)</label>
             <select id="newTemp" class="field-select">
               <option value="ice">ត្រជាក់ (Ice)</option>
               <option value="hot">ក្តៅ (Hot)</option>
             </select>
           </div>
           <div class="field-group">
-            <label for="newCategory">ប្រភេទភេសជ្ជៈ</label>
+            <label for="newCategory" id="lblNewCategory">ប្រភេទភេសជ្ជៈ</label>
             <select id="newCategory" class="field-select">
-              <option value="espresso">កាហ្វេម៉ាស៊ីន (Espresso)</option>
-              <option value="local">កាហ្វេខ្មែរ និងអាស៊ី</option>
-              <option value="non-coffee">ភេសជ្ជៈគ្មានជាតិកាហ្វេ</option>
-              <option value="soda">សូដាផ្លែឈើ (Soda)</option>
-              <option value="frappe">ភេសជ្ជៈក្រឡុក (Frappe & Smoothie)</option>
-              <option value="other">ភេសជ្ជៈផ្សេងៗ</option>
+              <option value="espresso">Espresso</option>
+              <option value="local">Local / Asian</option>
+              <option value="non-coffee">Non-Coffee</option>
+              <option value="soda">Soda</option>
+              <option value="frappe">Frappe & Smoothie</option>
+              <option value="other">Other</option>
             </select>
           </div>
         </div>
 
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="newTimeNote">ពេលវេលា / កម្រិតរសជាតិ</label>
-            <input type="text" id="newTimeNote" class="field-input" placeholder="ឧទាហរណ៍៖ 1.5 នាទី • ហ្វឺហ្វារស្រស់ស្រាយ" />
+            <label for="newTimeNote" id="lblNewTimeNote">ពេលវេលា / កម្រិតរសជាតិ</label>
+            <input type="text" id="newTimeNote" class="field-input" placeholder="ឧទាហរណ៍៖ 1.5 នាទី • ស្រស់ស្រាយ" />
           </div>
           <div class="field-group">
-            <label for="newDesc">ការពិពណ៌នាសង្ខេប</label>
+            <label for="newDesc" id="lblNewDesc">ការពិពណ៌នាសង្ខេប</label>
             <input type="text" id="newDesc" class="field-input" placeholder="រសជាតិជូរអែមស្រស់ស្រាយ..." />
           </div>
         </div>
 
         <div class="field-group" style="margin-bottom: 12px;">
-          <label for="newIngredients">គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)</label>
+          <label for="newIngredients" id="lblNewIngredients">គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)</label>
           <textarea id="newIngredients" class="field-textarea" rows="4" placeholder="Kiwi Syrup / Puree | 30 | ml&#10;ទឹកសូដាត្រជាក់ | 150 | ml&#10;ទឹកកក | 160 | g"></textarea>
         </div>
 
         <div class="field-group" style="margin-bottom: 14px;">
-          <label for="newSteps">របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)</label>
+          <label for="newSteps" id="lblNewSteps">របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)</label>
           <textarea id="newSteps" class="field-textarea" rows="3" placeholder="ដាក់ទឹកកកចូលកែវ&#10;ចាក់ Syrup/Puree ចូលកែវ&#10;ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ រួចកូរស្រាលៗ"></textarea>
         </div>
 
-        <button type="submit" class="icon-btn primary" style="width: 100%; justify-content: center; padding: 12px;">
+        <button type="submit" class="icon-btn primary" id="saveNewRecipeBtn" style="width: 100%; justify-content: center; padding: 12px;">
           រក្សាទុកមុខភេសជ្ជៈថ្មី
         </button>
       </form>
@@ -1237,8 +1250,8 @@
       <div class="drag-handle"></div>
       <div class="modal-header">
         <div>
-          <h2 style="margin: 0; font-size: 1.1rem;">ម៉ោងកំណត់ចម្រាញ់កាហ្វេ (Shot Timer)</h2>
-          <p style="margin: 2px 0 0; font-size: 0.78rem; color: var(--text-secondary);">ស្តង់ដារ Espresso: 25–30 វិនាទី</p>
+          <h2 id="timerModalTitle" style="margin: 0; font-size: 1.1rem;">ម៉ោងកំណត់ចម្រាញ់កាហ្វេ (Shot Timer)</h2>
+          <p id="timerModalSub" style="margin: 2px 0 0; font-size: 0.78rem; color: var(--text-secondary);">ស្តង់ដារ Espresso: 25–30 វិនាទី</p>
         </div>
         <button class="close-modal-btn" id="closeTimerModal" aria-label="បិទ">X</button>
       </div>
@@ -1259,8 +1272,160 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    const UI_STRINGS = {
+      km: {
+        docTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេពេញលេញ",
+        headerTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេពេញលេញ",
+        headerSub: "បែងចែកក្តៅ (Hot) និង ត្រជាក់ (Ice) ដាច់ដោយឡែក • រង្វាស់ស្តង់ដារ 16oz",
+        langBadge: "EN",
+        timerBtn: "ម៉ោងឆុង",
+        addBtn: "បន្ថែមមុខ",
+        searchPlaceholder: "ស្វែងរកឈ្មោះភេសជ្ជៈ (ខ្មែរ / English) ឬគ្រឿងផ្សំ...",
+        filterAll: (n) => `ទាំងអស់ (${n})`,
+        filterHot: (n) => `ក្តៅ Hot (${n})`,
+        filterIce: (n) => `ត្រជាក់ Ice (${n})`,
+        showingPrefix: "កំពុងបង្ហាញ៖",
+        showingMid: "មុខ (សរុប",
+        showingSuffix: "មុខ)",
+        viewRecipe: "មើលរូបមន្ត →",
+        customBadge: "ផ្ទាល់ខ្លួន",
+        hotBadge: "ក្តៅ (HOT)",
+        iceBadge: "ត្រជាក់ (ICE)",
+        hotFull: "ក្តៅ (Hot)",
+        iceFull: "ត្រជាក់ (Ice)",
+        navMenu: (n) => `ម៉ឺនុយ (${n})`,
+        navFav: "ចូលចិត្ត",
+        navCalc: "គណនាគ្រាប់",
+        emptyTitle: "រកមិនឃើញមុខភេសជ្ជៈ",
+        emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬពាក្យស្វែងរកផ្សេង។",
+        cupSizeLabel: "ទំហំកែវ (Cup Size)",
+        batchLabel: "ចំនួនកែវឆុង (Batch)",
+        ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
+        stepsHeading: "របៀបធ្វើតាមជំហាន",
+        tipPrefix: "គន្លឹះ Barista៖",
+        defaultTip: "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
+        copyBtn: "ចម្លងរូបមន្ត",
+        favBtnSave: "រក្សាទុកចូលចិត្ត",
+        favBtnSaved: "បានរក្សាទុកចូលចិត្ត",
+        modalTimerBtn: "ចាប់ម៉ោងឆុង",
+        deleteCustomBtn: "លុបមុខនេះ",
+        addModalTitle: "បន្ថែមមុខភេសជ្ជៈថ្មីផ្ទាល់ខ្លួន",
+        addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
+        lblNewNameKm: "ឈ្មោះភេសជ្ជៈ (ខ្មែរ) *",
+        lblNewNameEn: "ឈ្មោះភាសាអង់គ្លេស",
+        lblNewTemp: "ប្រភេទសីតុណ្ហភាព (Hot / Ice)",
+        lblNewCategory: "ប្រភេទភេសជ្ជៈ",
+        lblNewTimeNote: "ពេលវេលា / កម្រិតរសជាតិ",
+        lblNewDesc: "ការពិពណ៌នាសង្ខេប",
+        lblNewIngredients: "គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)",
+        lblNewSteps: "របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)",
+        saveNewRecipeBtn: "រក្សាទុកមុខភេសជ្ជៈថ្មី",
+        timerModalTitle: "ម៉ោងកំណត់ចម្រាញ់កាហ្វេ (Shot Timer)",
+        timerModalSub: "ស្តង់ដារ Espresso: 25–30 វិនាទី",
+        timerReady: "ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម",
+        timerRunning: "កំពុងចម្រាញ់... (គោលដៅ 25–30s)",
+        timerIdeal: "ស្ថិតក្នុងកម្រិតស្តង់ដារល្អបំផុត (25–30s)",
+        timerOver: "លើស 30s — ពិនិត្យកម្រិតកិនគ្រាប់កាហ្វេ",
+        calcTitle: "ឧបករណ៍គណនាចំនួនកែវពីកញ្ចប់គ្រាប់កាហ្វេ",
+        calcSubtitle: "គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ បរិមាណម្សៅ ១ កែវ និងភាគរយខាតបង់ (Dial-in / Waste)",
+        lblBagGrams: "ទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ (ក្រាម)",
+        lblDosePerCup: "ម្សៅកាហ្វេសម្រាប់ ១ កែវ (ក្រាម)",
+        optCustomDose: "កំណត់ផ្ទាល់ខ្លួន...",
+        lblWastePct: "ភាគរយខាតបង់ (Dial-in / កំពប់ %)",
+        lblPricePerCup: "តម្លៃលក់ ១ កែវ ($)",
+        resNetCupsLabel: "ចំនួនកែវឆុងបាន (សុទ្ធ)",
+        resGrossCups: (n) => `មុនខាត៖ ~${n} កែវ`,
+        cupUnit: "កែវ",
+        resWasteGramsLabel: "គ្រាប់កាហ្វេខាតបង់",
+        resUsableGrams: (g) => `ប្រើបាន៖ ${g} g`,
+        resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន / កញ្ចប់",
+        resCostPerCup: (d) => `ម្សៅ/កែវ៖ ${d}g`,
+        toastAddedFav: "បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត",
+        toastRemovedFav: "បានដកចេញពីបញ្ជីចូលចិត្ត",
+        toastCopied: "បានចម្លងរូបមន្តរួចរាល់",
+        toastCopyFail: "មិនអាចចម្លងស្វ័យប្រវត្តិបាន",
+        toastAddedRecipe: "បានបន្ថែមមុខភេសជ្ជៈថ្មីរួចរាល់",
+        toastDeletedRecipe: "បានលុបមុខភេសជ្ជៈផ្ទាល់ខ្លួន",
+        toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
+      },
+      en: {
+        docTitle: "Complete Cafe Menu & Recipe Guide",
+        headerTitle: "Complete Cafe Menu & Recipe Guide",
+        headerSub: "Separated Hot & Ice Drinks • Standard 16oz Measure",
+        langBadge: "ខ្មែរ",
+        timerBtn: "Timer",
+        addBtn: "Add Drink",
+        searchPlaceholder: "Search drink name (Khmer / English) or ingredients...",
+        filterAll: (n) => `All (${n})`,
+        filterHot: (n) => `Hot (${n})`,
+        filterIce: (n) => `Ice (${n})`,
+        showingPrefix: "Showing",
+        showingMid: "of",
+        showingSuffix: "drinks",
+        viewRecipe: "View Recipe →",
+        customBadge: "Custom",
+        hotBadge: "HOT",
+        iceBadge: "ICE",
+        hotFull: "Hot",
+        iceFull: "Ice",
+        navMenu: (n) => `Menu (${n})`,
+        navFav: "Favorites",
+        navCalc: "Bean Calc",
+        emptyTitle: "No drinks found",
+        emptyDesc: "Try switching Hot / Ice filters or another search keyword.",
+        cupSizeLabel: "Cup Size",
+        batchLabel: "Batch Multiplier",
+        ingHeading: "Ingredients & Standard Measurements (Tap to check)",
+        stepsHeading: "Step-by-Step Instructions",
+        tipPrefix: "Barista Tip:",
+        defaultTip: "Measure consistently to keep drink quality and flavor balanced.",
+        copyBtn: "Copy Recipe",
+        favBtnSave: "Save to Favorites",
+        favBtnSaved: "Saved in Favorites",
+        modalTimerBtn: "Shot Timer",
+        deleteCustomBtn: "Delete Custom",
+        addModalTitle: "Add Custom Drink Recipe",
+        addModalSub: "Automatically saved on your device",
+        lblNewNameKm: "Drink Name (Khmer) *",
+        lblNewNameEn: "Drink Name (English)",
+        lblNewTemp: "Temperature (Hot / Ice)",
+        lblNewCategory: "Category",
+        lblNewTimeNote: "Prep Time / Taste Note",
+        lblNewDesc: "Short Description",
+        lblNewIngredients: "Ingredients (1 line = Name | Amount | Unit)",
+        lblNewSteps: "Steps (1 line = 1 step)",
+        saveNewRecipeBtn: "Save New Drink",
+        timerModalTitle: "Espresso Extraction Shot Timer",
+        timerModalSub: "Espresso Standard: 25–30 seconds",
+        timerReady: "Ready — Press Start to begin timing",
+        timerRunning: "Extracting... (Target 25–30s)",
+        timerIdeal: "Ideal extraction window (25–30s)",
+        timerOver: "Over 30s — Check grind fineness",
+        calcTitle: "Coffee Bean Bag Yield Calculator",
+        calcSubtitle: "Estimate cup yield by bag weight, dose per cup, and dial-in / waste percentage",
+        lblBagGrams: "Coffee Bean Bag Weight (grams)",
+        lblDosePerCup: "Coffee Dose per Cup (grams)",
+        optCustomDose: "Custom dose...",
+        lblWastePct: "Waste / Dial-in Loss (%)",
+        lblPricePerCup: "Selling Price per Cup ($)",
+        resNetCupsLabel: "Net Cups Yield",
+        resGrossCups: (n) => `Gross: ~${n} cups`,
+        cupUnit: "cups",
+        resWasteGramsLabel: "Bean Waste",
+        resUsableGrams: (g) => `Usable: ${g} g`,
+        resEstRevenueLabel: "Est. Revenue / Bag",
+        resCostPerCup: (d) => `Dose/cup: ${d}g`,
+        toastAddedFav: "Saved to Favorites",
+        toastRemovedFav: "Removed from Favorites",
+        toastCopied: "Recipe copied to clipboard",
+        toastCopyFail: "Could not copy automatically",
+        toastAddedRecipe: "New custom drink added",
+        toastDeletedRecipe: "Custom drink deleted",
+        toastLangSwitched: "Switched to English"
+      }
+    };
+
     const DRINK_VISUALS = {
-      // HOT
       "hot-espresso":      { style: "hot-cup", bg: "#EFE4D8", cup: "#FFFFFF", liquid: "#2B150A", foam: "#C48843", garnish: "crema" },
       "hot-americano":     { style: "hot-cup", bg: "#ECE2D8", cup: "#FFFFFF", liquid: "#1C0D06", foam: "#8E582B", garnish: "crema" },
       "hot-latte":         { style: "hot-art", bg: "#F3E8DC", cup: "#FFFFFF", liquid: "#8D5834", foam: "#FFFDF9", garnish: "heart" },
@@ -1273,8 +1438,6 @@
       "hot-matcha":        { style: "hot-art", bg: "#E7F0DF", cup: "#FFFFFF", liquid: "#6A9144", foam: "#F5FAEF", garnish: "heart" },
       "hot-chocolate":     { style: "hot-cup", bg: "#EFE0D8", cup: "#FFFFFF", liquid: "#3E1D0F", foam: "#EAD7C8", garnish: "cocoa" },
       "hot-honey-lemon":   { style: "hot-cup", bg: "#FCF3D7", cup: "#FFFFFF", liquid: "#EAB932", foam: "#FFF7D6", garnish: "lemon" },
-
-      // ICE COFFEE & NON-COFFEE
       "ice-americano":     { style: "iced-plain", bg: "#E3EFF5", liquid: "#221008", top: "#3B1E10", straw: "#4A2C18", garnish: "none" },
       "ice-latte":         { style: "iced-layered", bg: "#E8EFF4", liquid: "#F2E4D1", top: "#6A3C1E", straw: "#8C5327", garnish: "none" },
       "ice-cappuccino":    { style: "iced-layered", bg: "#EAEFF3", liquid: "#BA8658", top: "#FFFFFF", straw: "#6E4224", garnish: "foam" },
@@ -1290,8 +1453,6 @@
       "ice-chocolate":     { style: "iced-plain", bg: "#EFE4DF", liquid: "#4B2312", top: "#C49574", straw: "#33160A", garnish: "none" },
       "ice-peach-tea":     { style: "iced-plain", bg: "#FDECE0", liquid: "#DE7E2B", top: "#FCE1BC", straw: "#C46216", garnish: "peach" },
       "ice-brown-sugar-milk": { style: "iced-layered", bg: "#F3EAE0", liquid: "#FAF6F0", top: "#783E18", straw: "#5A2A0E", garnish: "none" },
-
-      // SODA
       "kiwi-soda":         { style: "soda", bg: "#E8F5E0", liquid: "#6BB832", top: "#D9F5BE", straw: "#458718", garnish: "kiwi" },
       "strawberry-soda":   { style: "soda", bg: "#FDE4E8", liquid: "#E63946", top: "#FFD6DA", straw: "#B51D29", garnish: "strawberry" },
       "mango-soda":        { style: "soda", bg: "#FFF0D6", liquid: "#F7A418", top: "#FFF0C2", straw: "#D97E00", garnish: "mango" },
@@ -1299,16 +1460,12 @@
       "blue-soda":         { style: "soda", bg: "#DFF3FC", liquid: "#0096C7", top: "#CAF0F8", straw: "#006494", garnish: "lemon" },
       "peach-soda":        { style: "soda", bg: "#FDE7DF", liquid: "#F4845F", top: "#FFE3D8", straw: "#D65A31", garnish: "peach" },
       "passion-honey-soda":{ style: "soda", bg: "#FFF0D4", liquid: "#E59819", top: "#FFF1C9", straw: "#B87209", garnish: "passion" },
-
-      // FRAPPE & SMOOTHIE
       "coffee-frappe":     { style: "frappe", bg: "#EFE5DC", liquid: "#8A5638", top: "#FFFDF9", straw: "#5C351E", garnish: "whip" },
       "matcha-frappe":     { style: "frappe", bg: "#E6F1E2", liquid: "#6B9B42", top: "#FFFDF9", straw: "#497027", garnish: "whip" },
       "chocolate-frappe":  { style: "frappe", bg: "#EDE1DC", liquid: "#4B2414", top: "#FFFDF9", straw: "#2E1409", garnish: "whip" },
       "vanilla-frappe":    { style: "frappe", bg: "#F7F0E4", liquid: "#F2E3CA", top: "#FFFFFF", straw: "#C69C63", garnish: "whip" },
       "strawberry-smoothie":{ style: "frappe", bg: "#FDE5EA", liquid: "#E85D75", top: "#FFE3E8", straw: "#C2364E", garnish: "strawberry" },
       "mango-smoothie":    { style: "frappe", bg: "#FFF1D6", liquid: "#F7A81B", top: "#FFF3CC", straw: "#D98200", garnish: "mango" },
-
-      // OTHER
       "ice-honey-lemon":   { style: "iced-plain", bg: "#FCF4D8", liquid: "#EBC344", top: "#FFF9DC", straw: "#C99A14", garnish: "lemon" },
       "espresso-tonic":    { style: "iced-layered", bg: "#E3EFF5", liquid: "#E7F0F4", top: "#4A2613", straw: "#2B150A", garnish: "lemon" },
       "avocado-smoothie":  { style: "frappe", bg: "#EAF3DF", liquid: "#84A948", top: "#EBF5D8", straw: "#5D7D2B", garnish: "whip" },
@@ -1389,7 +1546,7 @@
     }
 
     const DEFAULT_RECIPES = [
-      // ==================== HOT DRINKS (ក្តៅ) ====================
+      // ==================== HOT DRINKS ====================
       {
         id: "hot-espresso",
         temp: "hot",
@@ -1397,18 +1554,26 @@
         nameKm: "អេស្ព្រេសសូ ក្តៅ",
         nameEn: "Hot Espresso",
         photo: "hot-espresso",
-        timeNote: "25–30s • ដិតខ្លាំង",
-        desc: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ក្តៅៗពីម៉ាស៊ីនសម្ពាធខ្ពស់ រសជាតិខ្លាំង ខាប់ និងមានពពុះ Crema ពណ៌មាស។",
+        timeNoteKm: "25–30s • ដិតខ្លាំង",
+        timeNoteEn: "25–30s • Bold & Rich",
+        descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ក្តៅៗពីម៉ាស៊ីនសម្ពាធខ្ពស់ រសជាតិខ្លាំង ខាប់ និងមានពពុះ Crema ពណ៌មាស។",
+        descEn: "Pure pressurized espresso shot extracted hot with a bold body and golden crema.",
         ingredients: [
-          { name: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", amount: 18, unit: "g" },
-          { name: "ទឹកក្តៅចម្រាញ់ (Yield ~93°C)", amount: 36, unit: "ml" }
+          { nameKm: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", nameEn: "Ground Coffee (Double Shot)", amount: 18, unit: "g" },
+          { nameKm: "ទឹកក្តៅចម្រាញ់ (Yield ~93°C)", nameEn: "Extracted Hot Water (~93°C)", amount: 36, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "កិនគ្រាប់កាហ្វេឱ្យម៉ត់សមល្មម ហើយសង្កត់ (Tamp) ឱ្យស្មើគ្នាក្នុង Portafilter។",
           "ចម្រាញ់យកទឹកកាហ្វេ 36 ml ក្នុងរយៈពេល 25–30 វិនាទី។",
           "ចាក់ដាក់ពែងក្តៅ ហើយបម្រើភ្លាមៗដើម្បីរក្សាក្លិន និង Crema។"
         ],
-        tip: "ប្រើពែងក្តៅឧណ្ហៗជាមុន ដើម្បីកុំឱ្យកាហ្វេឆាប់ត្រជាក់ និងបាត់បង់ក្លិនក្រអូប។"
+        stepsEn: [
+          "Grind beans to fine-medium and tamp evenly inside the portafilter.",
+          "Extract 36 ml of espresso within 25–30 seconds.",
+          "Pour into a preheated cup and serve immediately to preserve crema and aroma."
+        ],
+        tipKm: "ប្រើពែងក្តៅឧណ្ហៗជាមុន ដើម្បីកុំឱ្យកាហ្វេឆាប់ត្រជាក់ និងបាត់បង់ក្លិនក្រអូប។",
+        tipEn: "Preheat your cup so the shot stays warm and preserves its aroma."
       },
       {
         id: "hot-americano",
@@ -1417,18 +1582,26 @@
         nameKm: "អាមេរិកាណូ ក្តៅ",
         nameEn: "Hot Americano",
         photo: "hot-americano",
-        timeNote: "1.5 នាទី • ក្តៅ ស្រាលស្រស់ស្រាយ",
-        desc: "Double Espresso លាយជាមួយទឹកក្តៅសុទ្ធ គ្មានទឹកដោះគោ ឬស្ករ ផ្តល់ក្លិនកាហ្វេច្បាស់។",
+        timeNoteKm: "1.5 នាទី • ក្តៅ ស្រាលស្រស់ស្រាយ",
+        timeNoteEn: "1.5 min • Hot & Crisp",
+        descKm: "Double Espresso លាយជាមួយទឹកក្តៅសុទ្ធ គ្មានទឹកដោះគោ ឬស្ករ ផ្តល់ក្លិនកាហ្វេច្បាស់។",
+        descEn: "Double espresso diluted with hot water—clean, zero milk or sugar, full coffee aroma.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកក្តៅ (~85–90°C)", amount: 180, unit: "ml" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកក្តៅ (~85–90°C)", nameEn: "Hot Water (~85–90°C)", amount: 180, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ចាក់ទឹកក្តៅ (~85–90°C) 180 ml ចូលក្នុងពែង។",
           "ចម្រាញ់ Double Espresso 36 ml ស្រោចពីលើទឹកក្តៅ ដើម្បីរក្សាពពុះ Crema។",
           "បម្រើក្តៅៗ ដោយដាក់កញ្ចប់ស្ករនៅចំហៀងតាមតម្រូវការភ្ញៀវ។"
         ],
-        tip: "ចាក់ Espresso ពីលើទឹកក្តៅ នឹងរក្សា Crema ពណ៌មាសនៅលើផ្ទៃបានស្អាតជាងចាក់ទឹកពីលើកាហ្វេ។"
+        stepsEn: [
+          "Pour 180 ml of hot water (~85–90°C) into the cup.",
+          "Extract 36 ml double espresso on top of the hot water to keep the crema intact.",
+          "Serve hot with sugar packets on the side if desired."
+        ],
+        tipKm: "ចាក់ Espresso ពីលើទឹកក្តៅ នឹងរក្សា Crema ពណ៌មាសនៅលើផ្ទៃបានស្អាតជាងចាក់ទឹកពីលើកាហ្វេ។",
+        tipEn: "Pulling espresso over hot water preserves the top crema better than pouring water over espresso."
       },
       {
         id: "hot-latte",
@@ -1437,18 +1610,26 @@
         nameKm: "ឡាតេ ក្តៅ",
         nameEn: "Hot Latte",
         photo: "hot-latte",
-        timeNote: "2 នាទី • ឈ្ងុយទឹកដោះគោចំហុយ",
-        desc: "Double Espresso ផ្សំជាមួយទឹកដោះគោស្រស់ចំហុយក្តៅ និងពពុះស្តើងរលោងនៅពីលើ។",
+        timeNoteKm: "2 នាទី • ឈ្ងុយទឹកដោះគោចំហុយ",
+        timeNoteEn: "2 min • Creamy Steamed Milk",
+        descKm: "Double Espresso ផ្សំជាមួយទឹកដោះគោស្រស់ចំហុយក្តៅ និងពពុះស្តើងរលោងនៅពីលើ។",
+        descEn: "Double espresso blended with steamed fresh milk and a thin glossy microfoam top.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ (ចំហុយដល់ ~62°C)", amount: 200, unit: "ml" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយដល់ ~62°C)", nameEn: "Fresh Milk (Steamed to ~62°C)", amount: 200, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ចម្រាញ់ Double Espresso ដាក់ក្នុងពែងធំ។",
           "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅដល់ ~60–65°C និងមានពពុះ Microfoam ស្តើងរលោង។",
           "ចាក់ទឹកដោះគោចូលក្នុង Espresso យឺតៗ ដើម្បីបង្កើតក្បាច់ Latte Art។"
         ],
-        tip: "កុំចំហុយទឹកដោះគោលើស 70°C ព្រោះអាចធ្វើឱ្យទឹកដោះគោឆ្អិនជ្រុល និងបាត់រសជាតិផ្អែមធម្មជាតិ។"
+        stepsEn: [
+          "Extract a double espresso into your serving cup.",
+          "Steam fresh milk to ~60–65°C with glossy microfoam.",
+          "Pour steamed milk steadily into the espresso to form latte art."
+        ],
+        tipKm: "កុំចំហុយទឹកដោះគោលើស 70°C ព្រោះអាចធ្វើឱ្យទឹកដោះគោឆ្អិនជ្រុល និងបាត់រសជាតិផ្អែមធម្មជាតិ។",
+        tipEn: "Avoid steaming milk past 70°C so it doesn't scald or lose natural sweetness."
       },
       {
         id: "hot-cappuccino",
@@ -1457,18 +1638,26 @@
         nameKm: "កាពូឈីណូ ក្តៅ",
         nameEn: "Hot Cappuccino",
         photo: "hot-cappuccino",
-        timeNote: "2 នាទី • ពពុះក្រាស់ក្តៅ",
-        desc: "Double Espresso លាយទឹកដោះគោចំហុយ និងស្រទាប់ពពុះទឹកដោះគោក្រាស់ទន់នៅផ្នែកខាងលើ។",
+        timeNoteKm: "2 នាទី • ពពុះក្រាស់ក្តៅ",
+        timeNoteEn: "2 min • Plush Foam Top",
+        descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងស្រទាប់ពពុះទឹកដោះគោក្រាស់ទន់នៅផ្នែកខាងលើ។",
+        descEn: "Double espresso with steamed milk and a thicker, velvety foam layer on top.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ + ពពុះក្រាស់ (~62°C)", amount: 170, unit: "ml" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ + ពពុះក្រាស់ (~62°C)", nameEn: "Fresh Milk + Dense Foam (~62°C)", amount: 170, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ចម្រាញ់ Double Espresso ដាក់ពែង។",
           "ចំហុយទឹកដោះគោបញ្ចូលខ្យល់ច្រើនជាង Latte បន្តិច ដើម្បីបានពពុះក្រាស់រលោង។",
           "ចាក់ចូលពែង រួចអាចរោយម្សៅកាកាវបន្តិចពីលើ។"
         ],
-        tip: "ពពុះ Cappuccino ល្អត្រូវមានសាច់ម៉ត់រលោង គ្មានពពុះខ្យល់ធំៗ។"
+        stepsEn: [
+          "Pull a double espresso into the cup.",
+          "Aerate slightly longer than a latte for a thicker, silky foam layer.",
+          "Pour into the cup and dust lightly with cocoa powder if desired."
+        ],
+        tipKm: "ពពុះ Cappuccino ល្អត្រូវមានសាច់ម៉ត់រលោង គ្មានពពុះខ្យល់ធំៗ។",
+        tipEn: "Tap and swirl the milk pitcher before pouring to eliminate large air bubbles."
       },
       {
         id: "hot-flat-white",
@@ -1477,18 +1666,26 @@
         nameKm: "ហ្វ្លាត វ៉ាយ ក្តៅ",
         nameEn: "Hot Flat White",
         photo: "hot-flat-white",
-        timeNote: "2 នាទី • ក្តៅ រសជាតិកាហ្វេដិត",
-        desc: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត ធ្វើឱ្យរសជាតិកាហ្វេដិតច្បាស់ជាង Latte។",
+        timeNoteKm: "2 នាទី • ក្តៅ រសជាតិកាហ្វេដិត",
+        timeNoteEn: "2 min • Stronger Coffee Note",
+        descKm: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត ធ្វើឱ្យរសជាតិកាហ្វេដិតច្បាស់ជាង Latte។",
+        descEn: "Double espresso with velvety micro-textured milk and minimal foam for a stronger espresso taste.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ (ចំហុយពពុះស្តើង ~62°C)", amount: 150, unit: "ml" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយពពុះស្តើង ~62°C)", nameEn: "Fresh Milk (Thin Microfoam ~62°C)", amount: 150, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ចម្រាញ់ Double Espresso ដាក់ពែងទំហំមធ្យម។",
           "ចំហុយទឹកដោះគោ 150 ml ឱ្យមានពពុះស្តើងរលោងបំផុត។",
           "ចាក់ចូលពែងឱ្យស៊ីសង្វាក់គ្នា រួចបម្រើភ្លាម។"
         ],
-        tip: "ប្រើទឹកដោះគោតិចជាង Latte ដើម្បីរក្សារសជាតិកាហ្វេឱ្យនៅលេចធ្លោ។"
+        stepsEn: [
+          "Pull a double espresso into a medium cup.",
+          "Texture 150 ml of milk with a very thin, glossy microfoam.",
+          "Pour evenly and serve right away."
+        ],
+        tipKm: "ប្រើទឹកដោះគោតិចជាង Latte ដើម្បីរក្សារសជាតិកាហ្វេឱ្យនៅលេចធ្លោ។",
+        tipEn: "Less milk than a latte lets the espresso flavor shine more clearly."
       },
       {
         id: "hot-mocha",
@@ -1497,19 +1694,27 @@
         nameKm: "ម៉ូកា ក្តៅ",
         nameEn: "Hot Mocha",
         photo: "hot-mocha",
-        timeNote: "2.5 នាទី • ក្តៅ កាហ្វេ + សូកូឡា",
-        desc: "Double Espresso ផ្សំជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
+        timeNoteKm: "2.5 នាទី • ក្តៅ កាហ្វេ + សូកូឡា",
+        timeNoteEn: "2.5 min • Hot Coffee & Cocoa",
+        descKm: "Double Espresso ផ្សំជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
+        descEn: "Double espresso combined with chocolate and steamed milk for a rich cocoa-coffee cup.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", amount: 25, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 180, unit: "ml" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់សូកូឡាចូលពែង រួចចម្រាញ់ Double Espresso ក្តៅពីលើ ហើយកូរឱ្យរលាយសព្វ។",
           "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅ និងមានពពុះរលោង។",
           "ចាក់ទឹកដោះគោចូលក្នុងល្បាយសូកូឡាកាហ្វេ រួចបម្រើក្តៅៗ។"
         ],
-        tip: "កូរសូកូឡាជាមួយ Espresso ក្តៅជាមុន នឹងធ្វើឱ្យរសជាតិសូកូឡារលាយស្មើល្អ។"
+        stepsEn: [
+          "Add chocolate to the cup, pull hot double espresso over it, and stir until smooth.",
+          "Steam fresh milk to ~62°C with velvety foam.",
+          "Pour steamed milk into the chocolate-espresso base and serve hot."
+        ],
+        tipKm: "កូរសូកូឡាជាមួយ Espresso ក្តៅជាមុន នឹងធ្វើឱ្យរសជាតិសូកូឡារលាយស្មើល្អ។",
+        tipEn: "Dissolving chocolate in the hot espresso shot first prevents clumping."
       },
       {
         id: "hot-caramel-macchiato",
@@ -1518,20 +1723,28 @@
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ ក្តៅ",
         nameEn: "Hot Caramel Macchiato",
         photo: "hot-caramel",
-        timeNote: "2.5 នាទី • ក្តៅ ផ្អែមឈ្ងុយ Caramel",
-        desc: "ទឹកដោះគោចំហុយលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
+        timeNoteKm: "2.5 នាទី • ក្តៅ ផ្អែមឈ្ងុយ Caramel",
+        timeNoteEn: "2.5 min • Hot Vanilla & Caramel",
+        descKm: "ទឹកដោះគោចំហុយលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
+        descEn: "Vanilla-steamed milk topped with espresso and a caramel sauce drizzle.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "Vanilla Syrup", amount: 15, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 185, unit: "ml" },
-          { name: "Caramel Sauce (ស្រោចពីលើ)", amount: 15, unit: "ml" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "Vanilla Syrup", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 185, unit: "ml" },
+          { nameKm: "Caramel Sauce (ស្រោចពីលើ)", nameEn: "Caramel Sauce (Drizzle)", amount: 15, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ចាក់ Vanilla Syrup ចូលពែង រួចចាក់ទឹកដោះគោចំហុយក្តៅចូល។",
           "ចាក់ Double Espresso ស្រោចពីលើពពុះទឹកដោះគោ។",
           "គូស Caramel Sauce ពីលើផ្នែកខាងលើបំផុត។"
         ],
-        tip: "ចាក់ Espresso យឺតៗតាមចំណុចកណ្តាល ដើម្បីរក្សាស្រទាប់ពណ៌ស្អាត។"
+        stepsEn: [
+          "Pour vanilla syrup into the cup and add steamed milk.",
+          "Pour double espresso gently over the milk foam.",
+          "Drizzle caramel sauce across the top."
+        ],
+        tipKm: "ចាក់ Espresso យឺតៗតាមចំណុចកណ្តាល ដើម្បីរក្សាស្រទាប់ពណ៌ស្អាត។",
+        tipEn: "Pour the espresso slowly at the center for clean layering."
       },
       {
         id: "hot-piccolo",
@@ -1540,18 +1753,26 @@
         nameKm: "ភីកូឡូ / ខូតាដូ ក្តៅ",
         nameEn: "Hot Piccolo / Cortado",
         photo: "hot-piccolo",
-        timeNote: "1.5 នាទី • កែវតូច ក្តៅដិតមុត",
-        desc: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោបន្តិច។",
+        timeNoteKm: "1.5 នាទី • កែវតូច ក្តៅដិតមុត",
+        timeNoteEn: "1.5 min • Small & Punchy",
+        descKm: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោបន្តិច។",
+        descEn: "Small hot milk coffee balancing strong espresso with a modest amount of steamed milk.",
         ingredients: [
-          { name: "Single/Double Espresso", amount: 30, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~60°C)", amount: 50, unit: "ml" }
+          { nameKm: "Single/Double Espresso", nameEn: "Single/Double Espresso", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~60°C)", nameEn: "Fresh Milk (Steamed ~60°C)", amount: 50, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ចម្រាញ់ Espresso ដាក់កែវក្តៅតូច។",
           "ចំហុយទឹកដោះគោបរិមាណតិចឱ្យមានពពុះស្តើងរលោង។",
           "ចាក់ចូលកែវហើយបម្រើភ្លាមៗ។"
         ],
-        tip: "ស័ក្តិសមបំផុតសម្រាប់ភ្ញៀវដែលចង់ភ្លក្សរសជាតិគ្រាប់កាហ្វេសុទ្ធលាយទឹកដោះគោតិច។"
+        stepsEn: [
+          "Extract espresso into a small preheated glass or cup.",
+          "Steam a small amount of milk with fine microfoam.",
+          "Pour into the cup and serve immediately."
+        ],
+        tipKm: "ស័ក្តិសមបំផុតសម្រាប់ភ្ញៀវដែលចង់ភ្លក្សរសជាតិគ្រាប់កាហ្វេសុទ្ធលាយទឹកដោះគោតិច។",
+        tipEn: "Ideal for guests who want to taste the coffee character softened just slightly by milk."
       },
       {
         id: "hot-khmer-milk-coffee",
@@ -1560,19 +1781,27 @@
         nameKm: "កាហ្វេទឹកដោះគោ ក្តៅ",
         nameEn: "Hot Condensed Milk Coffee",
         photo: "hot-khmer-milk",
-        timeNote: "2 នាទី • ក្តៅ ផ្អែមមុត",
-        desc: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
+        timeNoteKm: "2 នាទី • ក្តៅ ផ្អែមមុត",
+        timeNoteEn: "2 min • Hot & Sweet Rich",
+        descKm: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
+        descEn: "Hot coffee mixed with sweet condensed milk for a classic bold and sweet finish.",
         ingredients: [
-          { name: "កាហ្វេចម្រាញ់ / Espresso", amount: 40, unit: "ml" },
-          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 35, unit: "ml" },
-          { name: "ទឹកក្តៅ (~85°C)", amount: 110, unit: "ml" }
+          { nameKm: "កាហ្វេចម្រាញ់ / Espresso", nameEn: "Brewed Coffee / Espresso", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 35, unit: "ml" },
+          { nameKm: "ទឹកក្តៅ (~85°C)", nameEn: "Hot Water (~85°C)", amount: 110, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកដោះគោខាប់ផ្អែមចូលពែងក្តៅ។",
           "ចាក់កាហ្វេ និងទឹកក្តៅចូល រួចកូរឱ្យរលាយចូលគ្នាស្មើល្អ។",
           "បម្រើក្តៅៗជាមួយតែក្តៅ ១ ពែងនៅចំហៀង។"
         ],
-        tip: "កែសម្រួលទឹកដោះគោខាប់តាមកម្រិតផ្អែមដែលភ្ញៀវចូលចិត្ត។"
+        stepsEn: [
+          "Spoon sweetened condensed milk into a hot cup.",
+          "Add coffee and hot water, then stir until fully combined.",
+          "Serve hot."
+        ],
+        tipKm: "កែសម្រួលទឹកដោះគោខាប់តាមកម្រិតផ្អែមដែលភ្ញៀវចូលចិត្ត។",
+        tipEn: "Adjust condensed milk up or down based on your customer's sweetness preference."
       },
       {
         id: "hot-matcha-latte",
@@ -1581,20 +1810,28 @@
         nameKm: "ម៉ាត់ឆា ឡាតេ ក្តៅ",
         nameEn: "Hot Matcha Latte",
         photo: "hot-matcha",
-        timeNote: "2.5 នាទី • តែបៃតងក្តៅឈ្ងុយ",
-        desc: "ម្សៅ Matcha ជប៉ុនវាយរលាយជាមួយទឹកក្តៅឧណ្ហៗ និងទឹកដោះគោចំហុយក្តៅរលោង។",
+        timeNoteKm: "2.5 នាទី • តែបៃតងក្តៅឈ្ងុយ",
+        timeNoteEn: "2.5 min • Warm Green Tea",
+        descKm: "ម្សៅ Matcha ជប៉ុនវាយរលាយជាមួយទឹកក្តៅឧណ្ហៗ និងទឹកដោះគោចំហុយក្តៅរលោង។",
+        descEn: "Whisked matcha green tea whisked with warm water and topped with steamed milk.",
         ingredients: [
-          { name: "ម្សៅ Matcha", amount: 4, unit: "g" },
-          { name: "ទឹកក្តៅ (~80°C)", amount: 40, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 180, unit: "ml" },
-          { name: "ទឹកស្ករ ឬទឹកឃ្មុំ (ជម្រើស)", amount: 15, unit: "ml" }
+          { nameKm: "ម្សៅ Matcha", nameEn: "Matcha Powder", amount: 4, unit: "g" },
+          { nameKm: "ទឹកក្តៅ (~80°C)", nameEn: "Hot Water (~80°C)", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" },
+          { nameKm: "ទឹកស្ករ ឬទឹកឃ្មុំ (ជម្រើស)", nameEn: "Syrup or Honey (Optional)", amount: 15, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "វាយម្សៅ Matcha ជាមួយទឹកក្តៅ ~80°C ឱ្យរលាយគ្មានគ្រាប់កក។",
           "ចាក់ល្បាយ Matcha និងទឹកស្ករចូលពែង។",
           "ចាក់ទឹកដោះគោចំហុយក្តៅចូលពីលើ រួចបម្រើភ្លាម។"
         ],
-        tip: "កុំប្រើទឹកពុះ 100°C រំលាយ Matcha ព្រោះអាចធ្វើឱ្យតែប្រែជាល្វីង។"
+        stepsEn: [
+          "Whisk matcha powder with ~80°C water until smooth with no clumps.",
+          "Pour matcha and optional sweetener into the cup.",
+          "Pour steamed milk on top and serve immediately."
+        ],
+        tipKm: "កុំប្រើទឹកពុះ 100°C រំលាយ Matcha ព្រោះអាចធ្វើឱ្យតែប្រែជាល្វីង។",
+        tipEn: "Water around 80°C keeps matcha vibrant and prevents excess bitterness."
       },
       {
         id: "hot-chocolate",
@@ -1603,20 +1840,28 @@
         nameKm: "សូកូឡា / កាកាវ ក្តៅ",
         nameEn: "Hot Chocolate / Cocoa",
         photo: "hot-chocolate",
-        timeNote: "2 នាទី • ក្តៅ ផ្អែមឈ្ងុយកាកាវ",
-        desc: "សូកូឡាទឹកដោះគោចំហុយក្តៅៗ មានពពុះទន់រលោង ស័ក្តិសមសម្រាប់ពេលព្រឹក ឬថ្ងៃភ្លៀង។",
+        timeNoteKm: "2 នាទី • ក្តៅ ផ្អែមឈ្ងុយកាកាវ",
+        timeNoteEn: "2 min • Cozy Cocoa Cup",
+        descKm: "សូកូឡាទឹកដោះគោចំហុយក្តៅៗ មានពពុះទន់រលោង ស័ក្តិសមសម្រាប់ពេលព្រឹក ឬថ្ងៃភ្លៀង។",
+        descEn: "Warm cocoa or chocolate blended with steamed milk for a comforting cup.",
         ingredients: [
-          { name: "ម្សៅកាកាវ ឬសូកូឡា", amount: 20, unit: "g" },
-          { name: "ទឹកក្តៅរំលាយ", amount: 35, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", amount: 185, unit: "ml" },
-          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 20, unit: "ml" }
+          { nameKm: "ម្សៅកាកាវ ឬសូកូឡា", nameEn: "Cocoa Powder or Chocolate", amount: 20, unit: "g" },
+          { nameKm: "ទឹកក្តៅរំលាយ", nameEn: "Hot Water to Dissolve", amount: 35, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 185, unit: "ml" },
+          { nameKm: "ទឹកស្ករ ឬទឹកដោះគោខាប់", nameEn: "Syrup or Condensed Milk", amount: 20, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "រំលាយម្សៅកាកាវជាមួយទឹកក្តៅ និងទឹកស្ករក្នុងពែងឱ្យរលាយសព្វ។",
           "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅ និងមានពពុះរលោង។",
           "ចាក់ទឹកដោះគោចូលក្នុងពែងសូកូឡា រួចរោយម្សៅកាកាវបន្តិចពីលើ។"
         ],
-        tip: "បន្ថែមអំបិលចុងស្លាបព្រាតិចតួច នឹងជួយឱ្យរសជាតិសូកូឡាកាន់តែឈ្ងុយជ្រៅ។"
+        stepsEn: [
+          "Dissolve cocoa powder with hot water and sweetener in the cup.",
+          "Steam fresh milk to ~62°C with silky foam.",
+          "Pour steamed milk into the cocoa base and dust lightly."
+        ],
+        tipKm: "បន្ថែមអំបិលចុងស្លាបព្រាតិចតួច នឹងជួយឱ្យរសជាតិសូកូឡាកាន់តែឈ្ងុយជ្រៅ។",
+        tipEn: "A tiny pinch of salt deepens chocolate flavor."
       },
       {
         id: "hot-honey-lemon",
@@ -1625,22 +1870,30 @@
         nameKm: "ទឹកក្រូចឆ្មារ ទឹកឃ្មុំ ក្តៅ",
         nameEn: "Hot Honey Lemon Tea",
         photo: "hot-honey-lemon",
-        timeNote: "1.5 នាទី • ក្តៅឧណ្ហៗ ស្រួលបំពង់ក",
-        desc: "ទឹកក្រូចឆ្មារស្រស់លាយទឹកឃ្មុំ និងទឹកក្តៅឧណ្ហៗ ជួយសម្រួលបំពង់ក និងផ្តល់ភាពកក់ក្តៅ។",
+        timeNoteKm: "1.5 នាទី • ក្តៅឧណ្ហៗ ស្រួលបំពង់ក",
+        timeNoteEn: "1.5 min • Soothing Warm",
+        descKm: "ទឹកក្រូចឆ្មារស្រស់លាយទឹកឃ្មុំ និងទឹកក្តៅឧណ្ហៗ ជួយសម្រួលបំពង់ក និងផ្តល់ភាពកក់ក្តៅ។",
+        descEn: "Fresh lemon juice and honey in warm water—soothing and comforting.",
         ingredients: [
-          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 25, unit: "ml" },
-          { name: "ទឹកឃ្មុំ", amount: 30, unit: "ml" },
-          { name: "ទឹកក្តៅឧណ្ហៗ (~70–75°C)", amount: 180, unit: "ml" }
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lemon Juice", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកឃ្មុំ", nameEn: "Honey", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកក្តៅឧណ្ហៗ (~70–75°C)", nameEn: "Warm Water (~70–75°C)", amount: 180, unit: "ml" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកឃ្មុំ និងទឹកក្រូចឆ្មារចូលពែង។",
           "ចាក់ទឹកក្តៅឧណ្ហៗ (~70–75°C) ចូល រួចកូរឱ្យរលាយសព្វ។",
           "ដាក់ចំណិតក្រូចឆ្មារ ១ បន្ទះរួចបម្រើភ្លាម។"
         ],
-        tip: "កុំប្រើទឹកពុះ 100°C ព្រោះអាចធ្វើឱ្យក្រូចឆ្មារល្វីង និងបាត់គុណភាពទឹកឃ្មុំ។"
+        stepsEn: [
+          "Add honey and fresh lemon juice to the cup.",
+          "Pour warm water (~70–75°C) and stir until dissolved.",
+          "Garnish with a lemon slice and serve."
+        ],
+        tipKm: "កុំប្រើទឹកពុះ 100°C ព្រោះអាចធ្វើឱ្យក្រូចឆ្មារល្វីង និងបាត់គុណភាពទឹកឃ្មុំ។",
+        tipEn: "Avoid boiling water so lemon doesn't turn bitter."
       },
 
-      // ==================== ICE DRINKS (ត្រជាក់) ====================
+      // ==================== ICE DRINKS ====================
       {
         id: "ice-americano",
         temp: "ice",
@@ -1648,19 +1901,27 @@
         nameKm: "អាមេរិកាណូ ទឹកកក",
         nameEn: "Iced Americano",
         photo: "ice-americano",
-        timeNote: "1.5 នាទី • ត្រជាក់ ស្រស់ស្រាយ",
-        desc: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក គ្មានទឹកដោះគោ ឬស្ករ។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ស្រស់ស្រាយ",
+        timeNoteEn: "1.5 min • Crisp & Refreshing",
+        descKm: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក គ្មានទឹកដោះគោ ឬស្ករ។",
+        descEn: "Double espresso poured over cold water and ice with no milk or sugar.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកត្រជាក់", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកកក 160g និងទឹកត្រជាក់ 150ml ចូលកែវ។",
           "ចម្រាញ់ Double Espresso រួចចាក់ស្រោចពីលើទឹកកក។",
           "កូរស្រាលៗមុនពេលផឹក ដើម្បីឱ្យរសជាតិស្មើគ្នា។"
         ],
-        tip: "ចាក់ Espresso ពីលើទឹកកក ជួយរក្សាជាន់ពណ៌ស្អាត និងកាត់បន្ថយការរលាយទឹកកកលឿន។"
+        stepsEn: [
+          "Fill the glass with 160g ice and 150ml cold water.",
+          "Extract a double espresso and pour over the ice.",
+          "Stir gently before drinking."
+        ],
+        tipKm: "ចាក់ Espresso ពីលើទឹកកក ជួយរក្សាជាន់ពណ៌ស្អាត និងកាត់បន្ថយការរលាយទឹកកកលឿន។",
+        tipEn: "Pouring espresso over ice creates clean layers and slows ice melt."
       },
       {
         id: "ice-latte",
@@ -1669,20 +1930,28 @@
         nameKm: "ឡាតេ ទឹកកក",
         nameEn: "Iced Latte",
         photo: "ice-latte",
-        timeNote: "2 នាទី • ត្រជាក់ ឈ្ងុយទឹកដោះគោ",
-        desc: "Double Espresso លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក រសជាតិស្រទន់។",
+        timeNoteKm: "2 នាទី • ត្រជាក់ ឈ្ងុយទឹកដោះគោ",
+        timeNoteEn: "2 min • Smooth & Creamy",
+        descKm: "Double Espresso លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក រសជាតិស្រទន់។",
+        descEn: "Double espresso over chilled fresh milk and ice for a smooth everyday latte.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 160, unit: "ml" },
-          { name: "ទឹកស្ករ (ជម្រើស)", amount: 15, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
+          { nameKm: "ទឹកស្ករ (ជម្រើស)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយទឹកដោះគោស្រស់ និងទឹកស្ករចូលគ្នា។",
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
           "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។"
         ],
-        tip: "ប្រើទឹកដោះគោស្រស់ត្រជាក់ល្អ នឹងជួយរក្សាកម្រិតត្រជាក់បានយូរ។"
+        stepsEn: [
+          "Mix chilled fresh milk with optional simple syrup.",
+          "Add ice to the glass and pour in the milk.",
+          "Pour double espresso on top for a layered look."
+        ],
+        tipKm: "ប្រើទឹកដោះគោស្រស់ត្រជាក់ល្អ នឹងជួយរក្សាកម្រិតត្រជាក់បានយូរ។",
+        tipEn: "Well-chilled milk keeps the drink colder longer without watering it down."
       },
       {
         id: "ice-cappuccino",
@@ -1691,20 +1960,28 @@
         nameKm: "កាពូឈីណូ ទឹកកក",
         nameEn: "Iced Cappuccino",
         photo: "ice-cappuccino",
-        timeNote: "2 នាទី • ត្រជាក់ ពពុះក្រាស់",
-        desc: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់នៅពីលើ។",
+        timeNoteKm: "2 នាទី • ត្រជាក់ ពពុះក្រាស់",
+        timeNoteEn: "2 min • Iced + Cold Foam",
+        descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់នៅពីលើ។",
+        descEn: "Iced espresso and milk topped with a thick, creamy cold milk foam cap.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 130, unit: "ml" },
-          { name: "ពពុះទឹកដោះគោត្រជាក់ (Cold Foam)", amount: 40, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
+          { nameKm: "ពពុះទឹកដោះគោត្រជាក់ (Cold Foam)", nameEn: "Chilled Milk Foam (Cold Foam)", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកកក ទឹកដោះគោស្រស់ និង Double Espresso ចូលកែវ។",
           "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូច នឹងបានពពុះរលោងស្អាត។",
           "ចាក់ពពុះទឹកដោះគោស្រោចពីលើផ្នែកខាងលើបំផុត។"
         ],
-        tip: "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូច នឹងបានពពុះរលោងស្អាត។"
+        stepsEn: [
+          "Add ice, chilled milk, and double espresso into the glass.",
+          "Froth cold milk with a handheld frother until thick and smooth.",
+          "Spoon or pour the cold foam over the top."
+        ],
+        tipKm: "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូច នឹងបានពពុះរលោងស្អាត។",
+        tipEn: "A handheld milk frother creates dense cold foam quickly."
       },
       {
         id: "ice-mocha",
@@ -1713,20 +1990,28 @@
         nameKm: "ម៉ូកា ទឹកកក",
         nameEn: "Iced Mocha",
         photo: "ice-mocha",
-        timeNote: "2.5 នាទី • ត្រជាក់ កាហ្វេ + សូកូឡា",
-        desc: "Double Espresso លាយសូកូឡា និងទឹកដោះគោស្រស់ត្រជាក់ ផ្អែមឈ្ងុយកាកាវ។",
+        timeNoteKm: "2.5 នាទី • ត្រជាក់ កាហ្វេ + សូកូឡា",
+        timeNoteEn: "2.5 min • Iced Chocolate Coffee",
+        descKm: "Double Espresso លាយសូកូឡា និងទឹកដោះគោស្រស់ត្រជាក់ ផ្អែមឈ្ងុយកាកាវ។",
+        descEn: "Double espresso blended with chocolate and cold milk over ice.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", amount: 25, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 145, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 145, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "រំលាយសូកូឡាជាមួយ Espresso ក្តៅឱ្យចូលគ្នាល្អ។",
           "ដាក់ទឹកកកចូលកែវ បន្ទាប់មកចាក់ទឹកដោះគោស្រស់។",
           "ចាក់ល្បាយសូកូឡាកាហ្វេចូល រួចកូរឱ្យសព្វមុនលើកជូន។"
         ],
-        tip: "រំលាយសូកូឡាពេល Espresso កំពុងក្តៅ នឹងជួយកុំឱ្យកកជាដុំនៅបាតកែវ។"
+        stepsEn: [
+          "Stir chocolate into the hot espresso shot until smooth.",
+          "Fill glass with ice and add chilled milk.",
+          "Pour in the chocolate-espresso mix and stir well before serving."
+        ],
+        tipKm: "រំលាយសូកូឡាពេល Espresso កំពុងក្តៅ នឹងជួយកុំឱ្យកកជាដុំនៅបាតកែវ។",
+        tipEn: "Mixing chocolate while the espresso is hot keeps it from clumping on cold ice."
       },
       {
         id: "ice-caramel-macchiato",
@@ -1735,21 +2020,29 @@
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ ទឹកកក",
         nameEn: "Iced Caramel Macchiato",
         photo: "ice-caramel",
-        timeNote: "2.5 នាទី • ត្រជាក់ ឈ្ងុយ Caramel",
-        desc: "ទឹកដោះគោស្រស់ត្រជាក់លាយ Vanilla ស្រោច Espresso ពីលើ និងបន្ថែមទឹកស្ករ Caramel។",
+        timeNoteKm: "2.5 នាទី • ត្រជាក់ ឈ្ងុយ Caramel",
+        timeNoteEn: "2.5 min • Iced Vanilla & Caramel",
+        descKm: "ទឹកដោះគោស្រស់ត្រជាក់លាយ Vanilla ស្រោច Espresso ពីលើ និងបន្ថែមទឹកស្ករ Caramel។",
+        descEn: "Vanilla-infused iced milk topped with espresso and a caramel sauce drizzle.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "Vanilla Syrup", amount: 15, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
-          { name: "Caramel Sauce (ស្រោចពីលើ)", amount: 15, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "Vanilla Syrup", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
+          { nameKm: "Caramel Sauce (ស្រោចពីលើ)", nameEn: "Caramel Sauce (Drizzle)", amount: 15, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយ Vanilla Syrup ជាមួយទឹកដោះគោស្រស់ រួចចាក់ចូលកែវទឹកកក។",
           "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។",
           "គូសរង្វង់ Caramel Sauce ពីលើផ្នែកខាងលើបំផុត។"
         ],
-        tip: "ប្រាប់ភ្ញៀវឱ្យកូរមុនផឹក ប្រសិនបើចង់បានរសជាតិស្មើគ្នាពីលើដល់ក្រោម។"
+        stepsEn: [
+          "Stir vanilla syrup into chilled milk and pour over ice.",
+          "Pour double espresso over the top to create layers.",
+          "Drizzle caramel sauce across the top."
+        ],
+        tipKm: "ប្រាប់ភ្ញៀវឱ្យកូរមុនផឹក ប្រសិនបើចង់បានរសជាតិស្មើគ្នាពីលើដល់ក្រោម។",
+        tipEn: "Recommend stirring before sipping so the caramel and espresso blend evenly."
       },
       {
         id: "ice-khmer-condensed-coffee",
@@ -1758,20 +2051,28 @@
         nameKm: "កាហ្វេទឹកដោះគោ ទឹកកក",
         nameEn: "Iced Condensed Milk Coffee",
         photo: "ice-khmer-milk",
-        timeNote: "2 នាទី • ត្រជាក់ ផ្អែមមុត",
-        desc: "កាហ្វេលាយទឹកដោះគោខាប់ផ្អែម និងទឹកកក រសជាតិដិតមុត ពេញនិយមខ្លាំងប្រចាំថ្ងៃ។",
+        timeNoteKm: "2 នាទី • ត្រជាក់ ផ្អែមមុត",
+        timeNoteEn: "2 min • Iced Sweet & Bold",
+        descKm: "កាហ្វេលាយទឹកដោះគោខាប់ផ្អែម និងទឹកកក រសជាតិដិតមុត ពេញនិយមខ្លាំងប្រចាំថ្ងៃ។",
+        descEn: "Bold coffee blended with sweetened condensed milk and ice—a daily favorite.",
         ingredients: [
-          { name: "ម្សៅកាហ្វេ / Espresso", amount: 36, unit: "ml" },
-          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 40, unit: "ml" },
-          { name: "ទឹកដោះគោខាប់មិនផ្អែម (Evaporated)", amount: 20, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "ម្សៅកាហ្វេ / Espresso", nameEn: "Brewed Coffee / Espresso", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកដោះគោខាប់មិនផ្អែម (Evaporated)", nameEn: "Evaporated Milk", amount: 20, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកដោះគោខាប់ផ្អែម និងទឹកដោះគោខាប់មិនផ្អែមចូលកែវ។",
           "ចាក់កាហ្វេចូល រួចកូរឱ្យរលាយចូលគ្នាស្មើល្អ។",
           "ចាក់ទឹកកកពេញកែវ រួចកូរម្តងទៀតមុនពេលបម្រើ។"
         ],
-        tip: "កូរទឹកដោះគោខាប់ជាមួយកាហ្វេមុនដាក់ទឹកកក នឹងជួយកុំឱ្យកកបាតកែវ។"
+        stepsEn: [
+          "Add sweetened condensed milk and evaporated milk to the glass.",
+          "Pour in the coffee and stir until smoothly blended.",
+          "Fill with ice and stir once more before serving."
+        ],
+        tipKm: "កូរទឹកដោះគោខាប់ជាមួយកាហ្វេមុនដាក់ទឹកកក នឹងជួយកុំឱ្យកកបាតកែវ។",
+        tipEn: "Stir condensed milk into the coffee before adding ice so it doesn't settle thick at the bottom."
       },
       {
         id: "ice-black-coffee",
@@ -1780,20 +2081,28 @@
         nameKm: "កាហ្វេខ្មៅ ទឹកកក",
         nameEn: "Iced Black Coffee",
         photo: "ice-black-coffee",
-        timeNote: "1.5 នាទី • ត្រជាក់ ដិតខ្លាំង",
-        desc: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ដិតខ្លាំង",
+        timeNoteEn: "1.5 min • Iced & Strong",
+        descKm: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
+        descEn: "Chilled black coffee lightly sweetened with simple syrup over ice.",
         ingredients: [
-          { name: "ម្សៅកាហ្វេ / Espresso", amount: 40, unit: "ml" },
-          { name: "ទឹកស្ករស (Simple Syrup)", amount: 25, unit: "ml" },
-          { name: "ទឹកធម្មតា", amount: 60, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "ម្សៅកាហ្វេ / Espresso", nameEn: "Brewed Coffee / Espresso", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកស្ករស (Simple Syrup)", nameEn: "Simple Syrup", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកធម្មតា", nameEn: "Water", amount: 60, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយទឹកកាហ្វេ ទឹកស្ករ និងទឹកធម្មតាចូលគ្នា។",
           "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្ញៀវ។",
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយកាហ្វេចូល។"
         ],
-        tip: "ប្រើទឹកស្កររាវ (Simple Syrup) ជំនួសស្ករគ្រាប់ នឹងរលាយបានលឿនជាងក្នុងទឹកត្រជាក់។"
+        stepsEn: [
+          "Combine coffee, simple syrup, and water.",
+          "Adjust sweetness to preference.",
+          "Pour over a glass full of ice."
+        ],
+        tipKm: "ប្រើទឹកស្កររាវ (Simple Syrup) ជំនួសស្ករគ្រាប់ នឹងរលាយបានលឿនជាងក្នុងទឹកត្រជាក់។",
+        tipEn: "Simple syrup dissolves much faster than granulated sugar in cold drinks."
       },
       {
         id: "ice-coconut-coffee",
@@ -1802,20 +2111,28 @@
         nameKm: "កាហ្វេដូង ទឹកកក",
         nameEn: "Iced Coconut Coffee",
         photo: "ice-coconut-coffee",
-        timeNote: "3 នាទី • ត្រជាក់ ឈ្ងុយដូង",
-        desc: "កាហ្វេលាយជាមួយទឹកដោះគោដូង និងទឹកកក រសជាតិផ្អែមឈ្ងុយប្លែកមាត់។",
+        timeNoteKm: "3 នាទី • ត្រជាក់ ឈ្ងុយដូង",
+        timeNoteEn: "3 min • Iced & Coconutty",
+        descKm: "កាហ្វេលាយជាមួយទឹកដោះគោដូង និងទឹកកក រសជាតិផ្អែមឈ្ងុយប្លែកមាត់។",
+        descEn: "Espresso paired with creamy coconut milk and condensed milk over ice.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកដោះគោដូង (Coconut Milk)", amount: 70, unit: "ml" },
-          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 25, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកដោះគោដូង (Coconut Milk)", nameEn: "Coconut Milk", amount: 70, unit: "ml" },
+          { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ក្រឡុក ឬកូរទឹកដោះគោដូង ទឹកដោះគោខាប់ និងទឹកកកបន្តិចឱ្យចូលគ្នា។",
           "ចាក់ល្បាយដូងចូលកែវ រួចបំពេញទឹកកក។",
           "ចាក់ Espresso ស្រោចពីលើបង្កើតជា ២ ពណ៌គួរឱ្យទាក់ទាញ។"
         ],
-        tip: "បន្ថែមសាច់ដូងខ្ចី ឬដូងកំបោរ នឹងបង្កើនភាពទាក់ទាញកាន់តែខ្លាំង។"
+        stepsEn: [
+          "Blend or shake coconut milk, condensed milk, and a little ice until smooth.",
+          "Pour into the glass and top up with ice.",
+          "Pour espresso over top for a two-tone finish."
+        ],
+        tipKm: "បន្ថែមសាច់ដូងខ្ចី ឬដូងកំបោរ នឹងបង្កើនភាពទាក់ទាញកាន់តែខ្លាំង។",
+        tipEn: "Topping with toasted coconut flakes or young coconut meat adds extra texture."
       },
       {
         id: "ice-palm-sugar-latte",
@@ -1824,20 +2141,28 @@
         nameKm: "កាហ្វេទឹកត្នោត ទឹកកក",
         nameEn: "Iced Palm Sugar Latte",
         photo: "ice-palm-sugar",
-        timeNote: "2.5 នាទី • ត្រជាក់ ស្ករត្នោតខ្មែរ",
-        desc: "កាហ្វេទឹកដោះគោស្រស់ត្រជាក់ ប្រើស្ករត្នោតជំនួសស្ករស មានក្លិនក្រអូបប្រពៃណីខ្មែរ។",
+        timeNoteKm: "2.5 នាទី • ត្រជាក់ ស្ករត្នោតខ្មែរ",
+        timeNoteEn: "2.5 min • Iced Khmer Palm Sugar",
+        descKm: "កាហ្វេទឹកដោះគោស្រស់ត្រជាក់ ប្រើស្ករត្នោតជំនួសស្ករស មានក្លិនក្រអូបប្រពៃណីខ្មែរ។",
+        descEn: "Iced latte sweetened with fragrant Khmer palm sugar syrup.",
         ingredients: [
-          { name: "Double Espresso Shot", amount: 36, unit: "ml" },
-          { name: "ទឹកស្ករត្នោតខាប់", amount: 30, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+          { nameKm: "ទឹកស្ករត្នោតខាប់", nameEn: "Palm Sugar Syrup", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "រំលាយស្ករត្នោតជាមួយទឹកក្តៅបន្តិចឱ្យខាប់ល្មម។",
           "ដាក់ទឹកស្ករត្នោត និងទឹកដោះគោស្រស់ចូលកែវទឹកកក។",
           "ចាក់ Espresso ពីលើ រួចកូរឱ្យចូលគ្នាល្អមុនលើកជូន។"
         ],
-        tip: "ស្ករត្នោតមានក្លិនឆ្ងាញ់ស្រាប់ គួរកាត់បន្ថយ Syrup ផ្សេងៗដើម្បីកុំឱ្យបាំងក្លិន។"
+        stepsEn: [
+          "Dissolve palm sugar with a splash of warm water into a smooth syrup.",
+          "Add palm sugar syrup and chilled milk to a glass of ice.",
+          "Pour espresso on top and stir well before serving."
+        ],
+        tipKm: "ស្ករត្នោតមានក្លិនឆ្ងាញ់ស្រាប់ គួរកាត់បន្ថយ Syrup ផ្សេងៗដើម្បីកុំឱ្យបាំងក្លិន។",
+        tipEn: "Palm sugar already has rich aroma—keep extra syrups minimal so it doesn't get masked."
       },
       {
         id: "ice-salt-coffee",
@@ -1846,20 +2171,28 @@
         nameKm: "កាហ្វេអំបិល ទឹកកក",
         nameEn: "Iced Salt Coffee",
         photo: "ice-salt-coffee",
-        timeNote: "3 នាទី • ត្រជាក់ ប្រៃផ្អែមឈ្ងុយ",
-        desc: "កាហ្វេទឹកកកលាយក្រែមទឹកដោះគោប្រៃផ្អែមស្រាលនៅពីលើ ជួយលើករសជាតិកាហ្វេឱ្យកាន់តែមុត។",
+        timeNoteKm: "3 នាទី • ត្រជាក់ ប្រៃផ្អែមឈ្ងុយ",
+        timeNoteEn: "3 min • Iced Salty Cream Top",
+        descKm: "កាហ្វេទឹកកកលាយក្រែមទឹកដោះគោប្រៃផ្អែមស្រាលនៅពីលើ ជួយលើករសជាតិកាហ្វេឱ្យកាន់តែមុត។",
+        descEn: "Iced coffee topped with a lightly salted sweet cream layer that enhances coffee depth.",
         ingredients: [
-          { name: "Double Espresso / កាហ្វេដិត", amount: 40, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 130, unit: "ml" },
-          { name: "Whipping Cream + អំបិលចុងស្លាបព្រា", amount: 45, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "Double Espresso / កាហ្វេដិត", nameEn: "Double Espresso / Strong Coffee", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
+          { nameKm: "Whipping Cream + អំបិលចុងស្លាបព្រា", nameEn: "Whipping Cream + Pinch of Salt", amount: 45, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "វាយ Whipping Cream ជាមួយអំបិលបន្តិច និងទឹកដោះគោខាប់បន្តិចឱ្យឡើងខាប់ស្រាល។",
           "ដាក់ទឹកកក និងទឹកដោះគោស្រស់/កាហ្វេចូលកែវ។",
           "ចាក់ក្រែមប្រៃផ្អែមស្រោចពីលើផ្នែកខាងលើ។"
         ],
-        tip: "ប្រើអំបិលតែបន្តិចប៉ុណ្ណោះ កុំឱ្យប្រៃខ្លាំងពេក ដើម្បីរក្សាតុល្យភាពផ្អែម-ប្រៃ។"
+        stepsEn: [
+          "Whip cream with a pinch of salt and a touch of condensed milk until softly thickened.",
+          "Add ice, milk, and coffee to the glass.",
+          "Spoon or pour the salted cream over the top."
+        ],
+        tipKm: "ប្រើអំបិលតែបន្តិចប៉ុណ្ណោះ កុំឱ្យប្រៃខ្លាំងពេក ដើម្បីរក្សាតុល្យភាពផ្អែម-ប្រៃ។",
+        tipEn: "Use just a light pinch of salt to balance sweet and savory notes without overpowering."
       },
       {
         id: "ice-matcha-latte",
@@ -1868,21 +2201,29 @@
         nameKm: "ម៉ាត់ឆា ឡាតេ ទឹកកក",
         nameEn: "Iced Matcha Latte",
         photo: "ice-matcha",
-        timeNote: "2.5 នាទី • ត្រជាក់ តែបៃតងជប៉ុន",
-        desc: "ម្សៅតែបៃតង Matcha លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ពណ៌បៃតងស្រស់។",
+        timeNoteKm: "2.5 នាទី • ត្រជាក់ តែបៃតងជប៉ុន",
+        timeNoteEn: "2.5 min • Iced Matcha & Milk",
+        descKm: "ម្សៅតែបៃតង Matcha លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ពណ៌បៃតងស្រស់។",
+        descEn: "Vibrant matcha whisked with warm water and poured over chilled milk and ice.",
         ingredients: [
-          { name: "ម្សៅ Matcha", amount: 4, unit: "g" },
-          { name: "ទឹកក្តៅរំលាយ Matcha (~80°C)", amount: 40, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
-          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 20, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "ម្សៅ Matcha", nameEn: "Matcha Powder", amount: 4, unit: "g" },
+          { nameKm: "ទឹកក្តៅរំលាយ Matcha (~80°C)", nameEn: "Warm Water (~80°C)", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកស្ករ ឬទឹកដោះគោខាប់", nameEn: "Syrup or Condensed Milk", amount: 20, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "វាយម្សៅ Matcha ជាមួយទឹកក្តៅឱ្យរលាយគ្មានគ្រាប់កក។",
           "លាយទឹកដោះគោស្រស់ និងទឹកស្ករដាក់កែវទឹកកក។",
           "ចាក់ល្បាយ Matcha ពីលើ រួចកូរចូលគ្នាមុនពេលផឹក។"
         ],
-        tip: "កុំប្រើទឹកពុះ 100°C រំលាយ Matcha ព្រោះអាចធ្វើឱ្យតែល្វីងខ្លាំង។"
+        stepsEn: [
+          "Whisk matcha powder with ~80°C water until smooth.",
+          "Combine chilled milk and sweetener over ice.",
+          "Pour matcha on top and stir before drinking."
+        ],
+        tipKm: "កុំប្រើទឹកពុះ 100°C រំលាយ Matcha ព្រោះអាចធ្វើឱ្យតែល្វីងខ្លាំង។",
+        tipEn: "Keep water around 80°C so the matcha stays sweet and grassy rather than bitter."
       },
       {
         id: "ice-green-thai-tea",
@@ -1891,20 +2232,28 @@
         nameKm: "តែបៃតង / តែក្រហមទឹកដោះគោ ទឹកកក",
         nameEn: "Iced Green Tea / Thai Tea Milk",
         photo: "ice-thai-tea",
-        timeNote: "2 នាទី • ត្រជាក់ ឈ្ងុយតែទឹកដោះគោ",
-        desc: "ទឹកតែឆុងលាយទឹកដោះគោខាប់ និងទឹកដោះគោស្រស់ជាមួយទឹកកក រសជាតិផ្អែមឈ្ងុយ។",
+        timeNoteKm: "2 នាទី • ត្រជាក់ ឈ្ងុយតែទឹកដោះគោ",
+        timeNoteEn: "2 min • Iced Milk Tea",
+        descKm: "ទឹកតែឆុងលាយទឹកដោះគោខាប់ និងទឹកដោះគោស្រស់ជាមួយទឹកកក រសជាតិផ្អែមឈ្ងុយ។",
+        descEn: "Brewed green or Thai tea mixed with condensed and fresh milk over ice.",
         ingredients: [
-          { name: "ទឹកតែបៃតង ឬតែក្រហមឆុងរួច", amount: 110, unit: "ml" },
-          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 35, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 50, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "ទឹកតែបៃតង ឬតែក្រហមឆុងរួច", nameEn: "Brewed Green or Thai Tea", amount: 110, unit: "ml" },
+          { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 35, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Fresh Milk", amount: 50, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយទឹកតែក្តៅជាមួយទឹកដោះគោខាប់ឱ្យរលាយចូលគ្នា។",
           "បន្ថែមទឹកដោះគោស្រស់ រួចកូរឱ្យចូលសព្វ។",
           "ចាក់ចូលកែវដែលមានទឹកកកពេញល្មម។"
         ],
-        tip: "ចម្រោះកាកតែឱ្យស្អាត និងរក្សាទុកទឹកតែក្នុងធុងបិទជិតដើម្បីរក្សាក្លិន។"
+        stepsEn: [
+          "Stir brewed tea with condensed milk until dissolved.",
+          "Add fresh milk and mix evenly.",
+          "Pour over a glass of ice."
+        ],
+        tipKm: "ចម្រោះកាកតែឱ្យស្អាត និងរក្សាទុកទឹកតែក្នុងធុងបិទជិតដើម្បីរក្សាក្លិន។",
+        tipEn: "Strain tea leaves cleanly and store brewed tea sealed to retain aroma."
       },
       {
         id: "ice-chocolate",
@@ -1913,21 +2262,29 @@
         nameKm: "សូកូឡា / កាកាវ ទឹកកក",
         nameEn: "Iced Chocolate / Cocoa",
         photo: "ice-chocolate",
-        timeNote: "2 នាទី • ត្រជាក់ ផ្អែមឈ្ងុយកាកាវ",
-        desc: "ភេសជ្ជៈសូកូឡាទឹកដោះគោត្រជាក់ជាមួយទឹកកក រសជាតិឈ្ងុយឆ្ងាញ់សម្រាប់គ្រប់វ័យ។",
+        timeNoteKm: "2 នាទី • ត្រជាក់ ផ្អែមឈ្ងុយកាកាវ",
+        timeNoteEn: "2 min • Iced Cocoa Milk",
+        descKm: "ភេសជ្ជៈសូកូឡាទឹកដោះគោត្រជាក់ជាមួយទឹកកក រសជាតិឈ្ងុយឆ្ងាញ់សម្រាប់គ្រប់វ័យ។",
+        descEn: "Chilled chocolate milk drink served over ice—rich and crowd-pleasing.",
         ingredients: [
-          { name: "ម្សៅកាកាវ ឬសូកូឡា", amount: 18, unit: "g" },
-          { name: "ទឹកក្តៅរំលាយ", amount: 35, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 150, unit: "ml" },
-          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 25, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "ម្សៅកាកាវ ឬសូកូឡា", nameEn: "Cocoa Powder or Chocolate", amount: 18, unit: "g" },
+          { nameKm: "ទឹកក្តៅរំលាយ", nameEn: "Hot Water to Dissolve", amount: 35, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកស្ករ ឬទឹកដោះគោខាប់", nameEn: "Syrup or Condensed Milk", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "រំលាយម្សៅកាកាវជាមួយទឹកក្តៅ និងទឹកស្ករឱ្យរលាយល្អ។",
           "ចាក់ទឹកដោះគោស្រស់ចូល រួចកូរឱ្យចូលគ្នា។",
           "ដាក់ទឹកកកចូលកែវ ហើយចាក់ល្បាយសូកូឡាចូល។"
         ],
-        tip: "បន្ថែមអំបិលចុងស្លាបព្រា នឹងជួយលើករសជាតិសូកូឡាឱ្យកាន់តែជ្រៅ។"
+        stepsEn: [
+          "Dissolve cocoa powder in hot water with sweetener.",
+          "Stir in chilled fresh milk.",
+          "Pour over ice and serve."
+        ],
+        tipKm: "បន្ថែមអំបិលចុងស្លាបព្រា នឹងជួយលើករសជាតិសូកូឡាឱ្យកាន់តែជ្រៅ។",
+        tipEn: "A pinch of salt rounds out the chocolate richness."
       },
       {
         id: "ice-lemon-peach-tea",
@@ -1936,20 +2293,28 @@
         nameKm: "តែក្រូចឆ្មារ / តែផ្លែប៉េស ទឹកកក",
         nameEn: "Iced Lemon Tea / Peach Tea",
         photo: "ice-peach-tea",
-        timeNote: "1.5 នាទី • ត្រជាក់ ជូរអែមស្រស់ស្រាយ",
-        desc: "តែខ្មៅលាយទឹកក្រូចឆ្មារ ឬសេរ៉ូផ្លែប៉េស និងទឹកកក ជួយបំបាត់ស្រេក និងស្រស់ស្រាយ។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ជូរអែមស្រស់ស្រាយ",
+        timeNoteEn: "1.5 min • Iced Citrus or Peach Tea",
+        descKm: "តែខ្មៅលាយទឹកក្រូចឆ្មារ ឬសេរ៉ូផ្លែប៉េស និងទឹកកក ជួយបំបាត់ស្រេក និងស្រស់ស្រាយ។",
+        descEn: "Chilled black tea infused with fresh lemon or peach syrup over ice.",
         ingredients: [
-          { name: "ទឹកតែខ្មៅឆុងរួច", amount: 120, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារ ឬ Peach Syrup", amount: 25, unit: "ml" },
-          { name: "ទឹកស្ករ", amount: 20, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "ទឹកតែខ្មៅឆុងរួច", nameEn: "Brewed Black Tea", amount: 120, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារ ឬ Peach Syrup", nameEn: "Lemon Juice or Peach Syrup", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកស្ករ", nameEn: "Simple Syrup", amount: 20, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយទឹកតែ ទឹកក្រូចឆ្មារ/Syrup និងទឹកស្ករចូលគ្នា។",
           "ក្រឡុក ឬកូរឱ្យចូលគ្នា រួចចាក់ដាក់កែវទឹកកក។",
           "តុបតែងជាមួយចំណិតក្រូចឆ្មារ ឬផ្លែប៉េសតាមចំណូលចិត្ត។"
         ],
-        tip: "កុំចាក់ទឹកក្រូចឆ្មារពេលទឹកតែក្តៅខ្លាំងពេក ដើម្បីកុំឱ្យប្រែជាល្វីង។"
+        stepsEn: [
+          "Stir brewed tea with lemon/peach syrup and simple syrup.",
+          "Shake or stir well and pour over ice.",
+          "Garnish with a lemon or peach slice."
+        ],
+        tipKm: "កុំចាក់ទឹកក្រូចឆ្មារពេលទឹកតែក្តៅខ្លាំងពេក ដើម្បីកុំឱ្យប្រែជាល្វីង។",
+        tipEn: "Add lemon juice after cooling the tea so it stays bright and fresh."
       },
       {
         id: "ice-fresh-milk-brown-sugar",
@@ -1958,22 +2323,30 @@
         nameKm: "ទឹកដោះគោស្រស់ / ស្ករត្នោត ទឹកកក",
         nameEn: "Iced Fresh Milk / Brown Sugar Milk",
         photo: "ice-brown-sugar-milk",
-        timeNote: "1.5 នាទី • ត្រជាក់ ទន់ភ្លន់",
-        desc: "ទឹកដោះគោស្រស់ត្រជាក់ ឬលាយស្ករត្នោត/ស្ករក្រហម ងាយផឹក និងស័ក្តិសមគ្រប់ពេល។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ទន់ភ្លន់",
+        timeNoteEn: "1.5 min • Mild & Creamy",
+        descKm: "ទឹកដោះគោស្រស់ត្រជាក់ ឬលាយស្ករត្នោត/ស្ករក្រហម ងាយផឹក និងស័ក្តិសមគ្រប់ពេល។",
+        descEn: "Chilled fresh milk with optional brown sugar drizzle over ice.",
         ingredients: [
-          { name: "ទឹកដោះគោស្រស់", amount: 170, unit: "ml" },
-          { name: "Brown Sugar Syrup (ជម្រើស)", amount: 25, unit: "ml" },
-          { name: "ទឹកកក", amount: 150, unit: "g" }
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 170, unit: "ml" },
+          { nameKm: "Brown Sugar Syrup (ជម្រើស)", nameEn: "Brown Sugar Syrup (Optional)", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "បើប្រើស្ករត្នោត/ស្ករក្រហម សូមដាក់ជុំវិញគែមកែវ ឬបាតកែវ។",
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោស្រស់ចូល។",
           "បម្រើភ្លាមៗដោយរក្សាភាពត្រជាក់។"
         ],
-        tip: "អាចបន្ថែមគជ់ ឬ Pudding ដើម្បីបង្កើតជាមុខពិសេសប្រចាំហាង។"
+        stepsEn: [
+          "Swirl optional brown sugar syrup along the inside of the glass.",
+          "Add ice and pour in chilled fresh milk.",
+          "Serve immediately."
+        ],
+        tipKm: "អាចបន្ថែមគជ់ ឬ Pudding ដើម្បីបង្កើតជាមុខពិសេសប្រចាំហាង។",
+        tipEn: "Pair with boba or pudding for a signature milk option."
       },
 
-      // ==================== ALL SODA DRINKS (សូដាផ្លែឈើ - ICE) ====================
+      // ==================== SODA DRINKS ====================
       {
         id: "kiwi-soda",
         temp: "ice",
@@ -1981,20 +2354,28 @@
         nameKm: "សូដា កីវី",
         nameEn: "Kiwi Soda",
         photo: "kiwi-soda",
-        timeNote: "1.5 នាទី • ត្រជាក់ ហ្វឺហ្វារក្លិនកីវី",
-        desc: "សេរ៉ូ ឬ Puree កីវីលាយជាមួយទឹកសូដាត្រជាក់ ពណ៌បៃតងស្អាត រសជាតិជូរអែមស្រស់ស្រាយ។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ហ្វឺហ្វារក្លិនកីវី",
+        timeNoteEn: "1.5 min • Fizzy Kiwi",
+        descKm: "សេរ៉ូ ឬ Puree កីវីលាយជាមួយទឹកសូដាត្រជាក់ ពណ៌បៃតងស្អាត រសជាតិជូរអែមស្រស់ស្រាយ។",
+        descEn: "Kiwi syrup or puree topped with cold sparkling soda water.",
         ingredients: [
-          { name: "Kiwi Syrup / Puree", amount: 30, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារស្រស់ (បន្ថែមជូរស្រាល)", amount: 5, unit: "ml" },
-          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "Kiwi Syrup / Puree", nameEn: "Kiwi Syrup / Puree", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់ (បន្ថែមជូរស្រាល)", nameEn: "Fresh Lime Juice (Optional)", amount: 5, unit: "ml" },
+          { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ Kiwi Syrup/Puree និងទឹកក្រូចឆ្មារចូល។",
           "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗតាមគែមកែវ។",
           "កូរស្រាលៗមួយត្រឡប់ រួចតុបតែងចំណិតកីវី។"
         ],
-        tip: "ចាក់សូដាយឺតៗ នឹងជួយរក្សាពពុះហ្វឺហ្វារបានយូរ និងមើលទៅស្អាត។"
+        stepsEn: [
+          "Add ice, kiwi syrup/puree, and optional lime juice to the glass.",
+          "Pour cold soda water slowly down the side of the glass.",
+          "Give one gentle stir and garnish with a kiwi slice."
+        ],
+        tipKm: "ចាក់សូដាយឺតៗ នឹងជួយរក្សាពពុះហ្វឺហ្វារបានយូរ និងមើលទៅស្អាត។",
+        tipEn: "Pouring soda gently preserves effervescence and prevents fizzing over."
       },
       {
         id: "strawberry-soda",
@@ -2003,20 +2384,28 @@
         nameKm: "សូដា ស្ត្របឺរី",
         nameEn: "Strawberry Soda",
         photo: "strawberry-soda",
-        timeNote: "1.5 នាទី • ត្រជាក់ ផ្អែមជូរ",
-        desc: "ស្ត្របឺរីលាយជាមួយទឹកសូដាត្រជាក់ រសជាតិជូរអែមឈ្ងុយផ្លែស្ត្របឺរី និងហ្វឺហ្វារត្រជាក់ចិត្ត។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ផ្អែមជូរ",
+        timeNoteEn: "1.5 min • Fizzy Berry",
+        descKm: "ស្ត្របឺរីលាយជាមួយទឹកសូដាត្រជាក់ រសជាតិជូរអែមឈ្ងុយផ្លែស្ត្របឺរី និងហ្វឺហ្វារត្រជាក់ចិត្ត។",
+        descEn: "Strawberry syrup or crush with chilled soda water and a touch of lime.",
         ingredients: [
-          { name: "Strawberry Syrup / Crush", amount: 30, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 5, unit: "ml" },
-          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "Strawberry Syrup / Crush", nameEn: "Strawberry Syrup / Crush", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 5, unit: "ml" },
+          { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ Strawberry Syrup និងទឹកក្រូចឆ្មារចូល។",
           "ចាក់ទឹកសូដាត្រជាក់ចូលបំពេញកែវ។",
           "កូរថ្នមៗឱ្យចូលគ្នា រួចអាចបន្ថែមផ្លែស្ត្របឺរីចំណិត។"
         ],
-        tip: "ទឹកក្រូចឆ្មារបន្តិចជួយកាត់បន្ថយភាពផ្អែមរបស់ Syrup និងលើកក្លិនស្ត្របឺរី។"
+        stepsEn: [
+          "Add ice, strawberry syrup, and lime juice to the glass.",
+          "Top up with chilled soda water.",
+          "Stir gently and garnish with sliced strawberry."
+        ],
+        tipKm: "ទឹកក្រូចឆ្មារបន្តិចជួយកាត់បន្ថយភាពផ្អែមរបស់ Syrup និងលើកក្លិនស្ត្របឺរី។",
+        tipEn: "A splash of lime brightens berry flavor and balances syrup sweetness."
       },
       {
         id: "mango-soda",
@@ -2025,20 +2414,28 @@
         nameKm: "សូដា ស្វាយ",
         nameEn: "Mango Soda",
         photo: "mango-soda",
-        timeNote: "1.5 នាទី • ត្រជាក់ ឈ្ងុយស្វាយទុំ",
-        desc: "រសជាតិផ្លែស្វាយទុំផ្សំជាមួយសូដាត្រជាក់ និងក្រូចឆ្មារបន្តិច ផ្តល់ភាពស្រស់ស្រាយប្លែកមាត់។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ឈ្ងុយស្វាយទុំ",
+        timeNoteEn: "1.5 min • Tropical Mango Fizz",
+        descKm: "រសជាតិផ្លែស្វាយទុំផ្សំជាមួយសូដាត្រជាក់ និងក្រូចឆ្មារបន្តិច ផ្តល់ភាពស្រស់ស្រាយប្លែកមាត់។",
+        descEn: "Sweet mango puree or syrup balanced with lime and cold sparkling soda.",
         ingredients: [
-          { name: "Mango Syrup / Puree", amount: 32, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 8, unit: "ml" },
-          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "Mango Syrup / Puree", nameEn: "Mango Syrup / Puree", amount: 32, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 8, unit: "ml" },
+          { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយ Mango Syrup/Puree ជាមួយទឹកក្រូចឆ្មារនៅបាតកែវទឹកកក។",
           "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
           "កូរស្រាលៗមុនលើកជូន ដើម្បីរក្សាពពុះហ្វឺហ្វារ។"
         ],
-        tip: "ស្វាយមានជាតិផ្អែមក្រអូប គួរថែមទឹកក្រូចឆ្មារស្រស់ដើម្បីឱ្យរសជាតិមានតុល្យភាពល្អ។"
+        stepsEn: [
+          "Combine mango syrup/puree and lime juice over ice.",
+          "Pour cold soda water slowly into the glass.",
+          "Stir lightly before serving to keep the fizz lively."
+        ],
+        tipKm: "ស្វាយមានជាតិផ្អែមក្រអូប គួរថែមទឹកក្រូចឆ្មារស្រស់ដើម្បីឱ្យរសជាតិមានតុល្យភាពល្អ។",
+        tipEn: "Fresh lime balances rich mango sweetness for a crisp finish."
       },
       {
         id: "passion-soda",
@@ -2047,20 +2444,28 @@
         nameKm: "សូដា ផាសិន",
         nameEn: "Passion Fruit Soda",
         photo: "passion-soda",
-        timeNote: "1.5 នាទី • ត្រជាក់ ជូរឈ្ងុយ",
-        desc: "ទឹកផាសិនលាយជាមួយទឹកសូដាត្រជាក់ និងទឹកស្ករសមល្មម ជូរស្រាលឈ្ងុយផាសិន។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ជូរឈ្ងុយ",
+        timeNoteEn: "1.5 min • Tangy Passion Fizz",
+        descKm: "ទឹកផាសិនលាយជាមួយទឹកសូដាត្រជាក់ និងទឹកស្ករសមល្មម ជូរស្រាលឈ្ងុយផាសិន។",
+        descEn: "Tangy passion fruit juice or syrup lightly sweetened with cold soda.",
         ingredients: [
-          { name: "ទឹក/សាច់ផាសិន ឬ Passion Syrup", amount: 35, unit: "ml" },
-          { name: "ទឹកស្ករស (Simple Syrup)", amount: 15, unit: "ml" },
-          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 145, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "ទឹក/សាច់ផាសិន ឬ Passion Syrup", nameEn: "Passion Fruit Juice or Syrup", amount: 35, unit: "ml" },
+          { nameKm: "ទឹកស្ករស (Simple Syrup)", nameEn: "Simple Syrup", amount: 15, unit: "ml" },
+          { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 145, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកផាសិន និងទឹកស្ករចូលកែវដែលមានទឹកកក។",
           "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
           "កូរថ្នមៗឱ្យរសជាតិជូរផ្អែមចូលគ្នាស្មើល្អ។"
         ],
-        tip: "បើប្រើផាសិនស្រស់ ត្រូវច្រោះគ្រាប់ចេញខ្លះដើម្បីងាយស្រួលផឹក។"
+        stepsEn: [
+          "Add passion fruit and simple syrup over ice.",
+          "Pour cold soda water slowly.",
+          "Stir gently to blend sweet and tart notes."
+        ],
+        tipKm: "បើប្រើផាសិនស្រស់ ត្រូវច្រោះគ្រាប់ចេញខ្លះដើម្បីងាយស្រួលផឹក។",
+        tipEn: "Strain out excess seeds if using fresh passion fruit pulp."
       },
       {
         id: "blue-hawaii-soda",
@@ -2069,20 +2474,28 @@
         nameKm: "សូដា ប៊្លូ ហាវ៉ៃ",
         nameEn: "Blue Hawaii Soda",
         photo: "blue-soda",
-        timeNote: "1.5 នាទី • ត្រជាក់ ពណ៌ខៀវស្រស់",
-        desc: "Blue Curacao / Blue Hawaii Syrup លាយសូដា និងក្រូចឆ្មារ ពណ៌ខៀវស្អាតទាក់ភ្នែក។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ពណ៌ខៀវស្រស់",
+        timeNoteEn: "1.5 min • Bright Blue Fizz",
+        descKm: "Blue Curacao / Blue Hawaii Syrup លាយសូដា និងក្រូចឆ្មារ ពណ៌ខៀវស្អាតទាក់ភ្នែក។",
+        descEn: "Vibrant blue syrup with soda and a squeeze of lime for a refreshing look.",
         ingredients: [
-          { name: "Blue Hawaii / Blue Curacao Syrup", amount: 30, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 8, unit: "ml" },
-          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "Blue Hawaii / Blue Curacao Syrup", nameEn: "Blue Hawaii / Blue Syrup", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 8, unit: "ml" },
+          { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ Blue Syrup និងទឹកក្រូចឆ្មារចូល។",
           "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
           "កូរស្រាលៗ ហើយតុបតែងចំណិតក្រូចឆ្មារ។"
         ],
-        tip: "ក្រូចឆ្មារបន្តិចធ្វើឱ្យរសជាតិ Blue Soda មិនផ្អែមជ្រុល និងស្រស់ស្រាយជាងមុន។"
+        stepsEn: [
+          "Add ice, blue syrup, and fresh lime juice to the glass.",
+          "Pour cold soda water slowly.",
+          "Stir gently and garnish with a lime wheel."
+        ],
+        tipKm: "ក្រូចឆ្មារបន្តិចធ្វើឱ្យរសជាតិ Blue Soda មិនផ្អែមជ្រុល និងស្រស់ស្រាយជាងមុន។",
+        tipEn: "Fresh lime cuts sweetness and makes the soda taste cleaner."
       },
       {
         id: "peach-soda",
@@ -2091,20 +2504,28 @@
         nameKm: "សូដា ផ្លែប៉េស",
         nameEn: "Peach Soda",
         photo: "peach-soda",
-        timeNote: "1.5 នាទី • ត្រជាក់ ក្រអូបផ្លែប៉េស",
-        desc: "Peach Syrup លាយទឹកសូដាត្រជាក់ ផ្តល់ក្លិនឈ្ងុយផ្លែប៉េស និងរសជាតិផ្អែមស្រាលស្រស់ស្រាយ។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ក្រអូបផ្លែប៉េស",
+        timeNoteEn: "1.5 min • Fragrant Peach Fizz",
+        descKm: "Peach Syrup លាយទឹកសូដាត្រជាក់ ផ្តល់ក្លិនឈ្ងុយផ្លែប៉េស និងរសជាតិផ្អែមស្រាលស្រស់ស្រាយ។",
+        descEn: "Aromatic peach syrup with cold sparkling soda over ice.",
         ingredients: [
-          { name: "Peach Syrup", amount: 30, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារស្រស់ (ជម្រើស)", amount: 5, unit: "ml" },
-          { name: "ទឹកសូដាត្រជាក់ (Soda Water)", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "Peach Syrup", nameEn: "Peach Syrup", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់ (ជម្រើស)", nameEn: "Fresh Lime Juice (Optional)", amount: 5, unit: "ml" },
+          { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ចាក់ Peach Syrup ចូលកែវដែលមានទឹកកក។",
           "ចាក់ទឹកសូដាត្រជាក់ចូលយឺតៗ។",
           "កូរថ្នមៗមុនពេលលើកជូន។"
         ],
-        tip: "អាចបន្ថែមសាច់ផ្លែប៉េសកំប៉ុង ដើម្បីបង្កើនរសជាតិឈ្ងុយ។"
+        stepsEn: [
+          "Pour peach syrup over ice in the glass.",
+          "Top slowly with chilled soda water.",
+          "Stir gently before serving."
+        ],
+        tipKm: "អាចបន្ថែមសាច់ផ្លែប៉េសកំប៉ុង ដើម្បីបង្កើនរសជាតិឈ្ងុយ។",
+        tipEn: "Add canned peach slices for extra aroma and bite."
       },
       {
         id: "passion-honey-soda",
@@ -2113,23 +2534,31 @@
         nameKm: "សូដា ផាសិន ទឹកឃ្មុំ",
         nameEn: "Passion Honey Fizz",
         photo: "passion-honey-soda",
-        timeNote: "1.5 នាទី • ត្រជាក់ ជូរអែមទឹកឃ្មុំ",
-        desc: "ទឹកផាសិនលាយទឹកឃ្មុំ និងសូដាត្រជាក់ ផ្តល់ភាពស្រស់ស្រាយខ្លាំង និងក្លិនផាសិនធម្មជាតិ។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ជូរអែមទឹកឃ្មុំ",
+        timeNoteEn: "1.5 min • Honey Passion Fizz",
+        descKm: "ទឹកផាសិនលាយទឹកឃ្មុំ និងសូដាត្រជាក់ ផ្តល់ភាពស្រស់ស្រាយខ្លាំង និងក្លិនផាសិនធម្មជាតិ។",
+        descEn: "Passion fruit and honey blended with chilled soda over ice.",
         ingredients: [
-          { name: "សាច់/ទឹកផាសិនស្រស់ ឬ Concentrate", amount: 40, unit: "ml" },
-          { name: "ទឹកឃ្មុំ (Honey)", amount: 25, unit: "ml" },
-          { name: "ទឹកសូដាត្រជាក់", amount: 145, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "សាច់/ទឹកផាសិនស្រស់ ឬ Concentrate", nameEn: "Passion Fruit Juice / Concentrate", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកឃ្មុំ (Honey)", nameEn: "Honey", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកសូដាត្រជាក់", nameEn: "Chilled Soda Water", amount: 145, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយទឹកផាសិន និងទឹកឃ្មុំចូលគ្នាឱ្យរលាយស្មើល្អ។",
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយផាសិនទឹកឃ្មុំចូល។",
           "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចកូរស្រាលៗមុនពេលលើកជូន។"
         ],
-        tip: "ប្រើទឹកក្តៅឧណ្ហៗបន្តិច (~10ml) ដើម្បីរំលាយទឹកឃ្មុំងាយស្រួល ប្រសិនបើទឹកឃ្មុំខាប់ខ្លាំង។"
+        stepsEn: [
+          "Stir passion fruit with honey until smoothly blended.",
+          "Add ice and pour in the passion-honey mixture.",
+          "Top with cold soda water and stir lightly."
+        ],
+        tipKm: "ប្រើទឹកក្តៅឧណ្ហៗបន្តិច (~10ml) ដើម្បីរំលាយទឹកឃ្មុំងាយស្រួល ប្រសិនបើទឹកឃ្មុំខាប់ខ្លាំង។",
+        tipEn: "Warm thick honey slightly with a splash of water so it mixes smoothly."
       },
 
-      // ==================== FRAPPE & SMOOTHIES (ក្រឡុក - ICE) ====================
+      // ==================== FRAPPE & SMOOTHIES ====================
       {
         id: "coffee-frappe",
         temp: "ice",
@@ -2137,21 +2566,29 @@
         nameKm: "កាហ្វេក្រឡុក",
         nameEn: "Coffee Frappe (Mocha / Caramel)",
         photo: "coffee-frappe",
-        timeNote: "2 នាទី • ម៉ត់ត្រជាក់ជ្រៅ",
-        desc: "កាហ្វេក្រឡុកជាមួយទឹកកក ទឹកដោះគោ និងរសជាតិ Mocha ឬ Caramel ផ្តល់ភាពត្រជាក់ឈ្ងុយ។",
+        timeNoteKm: "2 នាទី • ម៉ត់ត្រជាក់ជ្រៅ",
+        timeNoteEn: "2 min • Blended & Frosty",
+        descKm: "កាហ្វេក្រឡុកជាមួយទឹកកក ទឹកដោះគោ និងរសជាតិ Mocha ឬ Caramel ផ្តល់ភាពត្រជាក់ឈ្ងុយ។",
+        descEn: "Blended iced coffee with milk, ice, and mocha or caramel flavor.",
         ingredients: [
-          { name: "Double Espresso / កាហ្វេខាប់", amount: 40, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 90, unit: "ml" },
-          { name: "ទឹកស្ករ ឬ Syrup (Mocha/Caramel)", amount: 25, unit: "ml" },
-          { name: "ម្សៅ Frappe Base (ជម្រើស)", amount: 10, unit: "g" },
-          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+          { nameKm: "Double Espresso / កាហ្វេខាប់", nameEn: "Double Espresso / Strong Coffee", amount: 40, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Fresh Milk", amount: 90, unit: "ml" },
+          { nameKm: "ទឹកស្ករ ឬ Syrup (Mocha/Caramel)", nameEn: "Syrup (Mocha / Caramel)", amount: 25, unit: "ml" },
+          { nameKm: "ម្សៅ Frappe Base (ជម្រើស)", nameEn: "Frappe Base Powder (Optional)", amount: 10, unit: "g" },
+          { nameKm: "ទឹកកកក្រឡុក", nameEn: "Crushed / Blender Ice", amount: 180, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់គ្រឿងផ្សំរាវ និងម្សៅចូលម៉ាស៊ីនក្រឡុកមុន រួចដាក់ទឹកកកតាមក្រោយ។",
           "ក្រឡុករហូតដល់ទឹកកកម៉ត់ចូលគ្នាស្មើល្អ។",
           "ចាក់ចូលកែវ រួចតុបតែង Whipping Cream ឬ Syrup ពីលើ។"
         ],
-        tip: "ដាក់វត្ថុរាវនៅបាតម៉ាស៊ីនក្រឡុក នឹងជួយឱ្យកាំបិតក្រឡុកធ្វើការបានស្រួលជាង។"
+        stepsEn: [
+          "Add liquids and powders to the blender first, then add ice.",
+          "Blend until smooth and frosty.",
+          "Pour into the cup and top with whipped cream or syrup if desired."
+        ],
+        tipKm: "ដាក់វត្ថុរាវនៅបាតម៉ាស៊ីនក្រឡុក នឹងជួយឱ្យកាំបិតក្រឡុកធ្វើការបានស្រួលជាង។",
+        tipEn: "Putting liquids at the bottom helps blender blades pull ice down smoothly."
       },
       {
         id: "matcha-frappe",
@@ -2160,21 +2597,29 @@
         nameKm: "ម៉ាត់ឆា ក្រឡុក",
         nameEn: "Matcha Frappe",
         photo: "matcha-frappe",
-        timeNote: "2 នាទី • តែបៃតងក្រឡុក",
-        desc: "ម្សៅ Matcha ក្រឡុកជាមួយទឹកដោះគោ និងទឹកកកម៉ត់ រសជាតិឈ្ងុយតែ និងត្រជាក់ស្រស់ស្រាយ។",
+        timeNoteKm: "2 នាទី • តែបៃតងក្រឡុក",
+        timeNoteEn: "2 min • Blended Matcha",
+        descKm: "ម្សៅ Matcha ក្រឡុកជាមួយទឹកដោះគោ និងទឹកកកម៉ត់ រសជាតិឈ្ងុយតែ និងត្រជាក់ស្រស់ស្រាយ។",
+        descEn: "Smooth blended green tea frappe with milk and ice.",
         ingredients: [
-          { name: "ម្សៅ Matcha", amount: 5, unit: "g" },
-          { name: "ទឹកដោះគោស្រស់", amount: 100, unit: "ml" },
-          { name: "ទឹកស្ករ ឬទឹកដោះគោខាប់", amount: 25, unit: "ml" },
-          { name: "Frappe Base Powder", amount: 10, unit: "g" },
-          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+          { nameKm: "ម្សៅ Matcha", nameEn: "Matcha Powder", amount: 5, unit: "g" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Fresh Milk", amount: 100, unit: "ml" },
+          { nameKm: "ទឹកស្ករ ឬទឹកដោះគោខាប់", nameEn: "Syrup or Condensed Milk", amount: 25, unit: "ml" },
+          { nameKm: "Frappe Base Powder", nameEn: "Frappe Base Powder", amount: 10, unit: "g" },
+          { nameKm: "ទឹកកកក្រឡុក", nameEn: "Blender Ice", amount: 180, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ម្សៅ Matcha ទឹកដោះគោ ទឹកស្ករ និង Frappe Base ចូលម៉ាស៊ីនក្រឡុក។",
           "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់រលោង។",
           "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
         ],
-        tip: "ប្រសិនបើក្រឡុកយូរពេក កម្ដៅពីម៉ាស៊ីនអាចធ្វើឱ្យរលាយទឹកកកលឿន។"
+        stepsEn: [
+          "Combine matcha, milk, sweetener, and frappe base in the blender.",
+          "Add ice and blend until smooth.",
+          "Pour and serve immediately."
+        ],
+        tipKm: "ប្រសិនបើក្រឡុកយូរពេក កម្ដៅពីម៉ាស៊ីនអាចធ្វើឱ្យរលាយទឹកកកលឿន។",
+        tipEn: "Blend just until smooth so motor heat doesn't melt the ice."
       },
       {
         id: "chocolate-frappe",
@@ -2183,21 +2628,29 @@
         nameKm: "សូកូឡា ក្រឡុក",
         nameEn: "Chocolate Frappe",
         photo: "chocolate-frappe",
-        timeNote: "2 នាទី • សូកូឡាម៉ត់ត្រជាក់",
-        desc: "សូកូឡាក្រឡុកជាមួយទឹកដោះគោ និងទឹកកក ផ្អែមឈ្ងុយ ស័ក្តិសមសម្រាប់ថ្ងៃក្តៅ។",
+        timeNoteKm: "2 នាទី • សូកូឡាម៉ត់ត្រជាក់",
+        timeNoteEn: "2 min • Blended Chocolate",
+        descKm: "សូកូឡាក្រឡុកជាមួយទឹកដោះគោ និងទឹកកក ផ្អែមឈ្ងុយ ស័ក្តិសមសម្រាប់ថ្ងៃក្តៅ។",
+        descEn: "Rich blended chocolate frappe with milk and ice.",
         ingredients: [
-          { name: "ម្សៅកាកាវ ឬសូកូឡា", amount: 20, unit: "g" },
-          { name: "ទឹកដោះគោស្រស់", amount: 100, unit: "ml" },
-          { name: "ទឹកស្ករ", amount: 25, unit: "ml" },
-          { name: "Frappe Base Powder", amount: 10, unit: "g" },
-          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+          { nameKm: "ម្សៅកាកាវ ឬសូកូឡា", nameEn: "Cocoa Powder or Chocolate", amount: 20, unit: "g" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Fresh Milk", amount: 100, unit: "ml" },
+          { nameKm: "ទឹកស្ករ", nameEn: "Simple Syrup", amount: 25, unit: "ml" },
+          { nameKm: "Frappe Base Powder", nameEn: "Frappe Base Powder", amount: 10, unit: "g" },
+          { nameKm: "ទឹកកកក្រឡុក", nameEn: "Blender Ice", amount: 180, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ម្សៅកាកាវ ទឹកដោះគោ ទឹកស្ករ និង Frappe Base ចូលម៉ាស៊ីនក្រឡុក។",
           "បន្ថែមទឹកកក រួចក្រឡុករហូតដល់ម៉ត់ស្មើគ្នា។",
           "ចាក់ចូលកែវ ហើយអាចបន្ថែម Chocolate Sauce ពីលើ។"
         ],
-        tip: "អាចបន្ថែម Oreo កិន ដើម្បីក្លាយជា Oreo Chocolate Frappe ដ៏ពេញនិយម។"
+        stepsEn: [
+          "Add cocoa, milk, syrup, and frappe base to the blender.",
+          "Add ice and blend until thick and smooth.",
+          "Pour into the cup and finish with chocolate drizzle if desired."
+        ],
+        tipKm: "អាចបន្ថែម Oreo កិន ដើម្បីក្លាយជា Oreo Chocolate Frappe ដ៏ពេញនិយម។",
+        tipEn: "Add crushed cookies to turn it into a cookies & cream chocolate frappe."
       },
       {
         id: "vanilla-frappe",
@@ -2206,20 +2659,28 @@
         nameKm: "វ៉ានីឡា ក្រឡុក",
         nameEn: "Vanilla Frappe",
         photo: "vanilla-frappe",
-        timeNote: "2 នាទី • ឈ្ងុយ Vanilla ស្រទន់",
-        desc: "ភេសជ្ជៈ Vanilla ក្រឡុកជាមួយទឹកដោះគោ និងទឹកកក រសជាតិផ្អែមស្រទន់ ឈ្ងុយក្លិន Vanilla។",
+        timeNoteKm: "2 នាទី • ឈ្ងុយ Vanilla ស្រទន់",
+        timeNoteEn: "2 min • Creamy Vanilla Blend",
+        descKm: "ភេសជ្ជៈ Vanilla ក្រឡុកជាមួយទឹកដោះគោ និងទឹកកក រសជាតិផ្អែមស្រទន់ ឈ្ងុយក្លិន Vanilla។",
+        descEn: "Creamy blended vanilla frappe with milk and ice.",
         ingredients: [
-          { name: "Vanilla Syrup / Powder", amount: 28, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 105, unit: "ml" },
-          { name: "Frappe Base Powder", amount: 12, unit: "g" },
-          { name: "ទឹកកកក្រឡុក", amount: 180, unit: "g" }
+          { nameKm: "Vanilla Syrup / Powder", nameEn: "Vanilla Syrup or Powder", amount: 28, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Fresh Milk", amount: 105, unit: "ml" },
+          { nameKm: "Frappe Base Powder", nameEn: "Frappe Base Powder", amount: 12, unit: "g" },
+          { nameKm: "ទឹកកកក្រឡុក", nameEn: "Blender Ice", amount: 180, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ Vanilla ទឹកដោះគោ និង Frappe Base ចូលម៉ាស៊ីនក្រឡុក។",
           "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់ចូលគ្នាល្អ។",
           "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
         ],
-        tip: "ជាមូលដ្ឋានល្អសម្រាប់បន្ថែម Topping ផ្សេងៗដូចជា Caramel ឬ Cookie។"
+        stepsEn: [
+          "Add vanilla, milk, and frappe base to the blender.",
+          "Add ice and blend until smooth.",
+          "Pour and serve immediately."
+        ],
+        tipKm: "ជាមូលដ្ឋានល្អសម្រាប់បន្ថែម Topping ផ្សេងៗដូចជា Caramel ឬ Cookie។",
+        tipEn: "A great base for caramel swirls or cookie crumbles."
       },
       {
         id: "strawberry-smoothie",
@@ -2228,20 +2689,28 @@
         nameKm: "ស្ត្របឺរី ក្រឡុក",
         nameEn: "Strawberry Smoothie",
         photo: "strawberry-smoothie",
-        timeNote: "2 នាទី • ជូរអែមផ្លែឈើ",
-        desc: "ស្ត្របឺរីក្រឡុកជាមួយទឹកដោះគោ/ទឹកកក ផ្តល់រសជាតិជូរអែមស្រស់ស្រាយ និងពណ៌ផ្កាឈូកស្រស់។",
+        timeNoteKm: "2 នាទី • ជូរអែមផ្លែឈើ",
+        timeNoteEn: "2 min • Fruity Berry Blend",
+        descKm: "ស្ត្របឺរីក្រឡុកជាមួយទឹកដោះគោ/ទឹកកក ផ្តល់រសជាតិជូរអែមស្រស់ស្រាយ និងពណ៌ផ្កាឈូកស្រស់។",
+        descEn: "Sweet-tart strawberry smoothie blended with ice and milk or syrup.",
         ingredients: [
-          { name: "ស្ត្របឺរីកក ឬស្រស់", amount: 90, unit: "g" },
-          { name: "ទឹកដោះគោស្រស់ ឬទឹកកក", amount: 80, unit: "ml" },
-          { name: "ទឹកស្ករ / Strawberry Syrup", amount: 25, unit: "ml" },
-          { name: "ទឹកកកក្រឡុក", amount: 150, unit: "g" }
+          { nameKm: "ស្ត្របឺរីកក ឬស្រស់", nameEn: "Frozen or Fresh Strawberries", amount: 90, unit: "g" },
+          { nameKm: "ទឹកដោះគោស្រស់ ឬទឹកកក", nameEn: "Fresh Milk or Water", amount: 80, unit: "ml" },
+          { nameKm: "ទឹកស្ករ / Strawberry Syrup", nameEn: "Syrup / Strawberry Syrup", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកកកក្រឡុក", nameEn: "Blender Ice", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ស្ត្របឺរី ទឹកដោះគោ និងទឹកស្ករចូលម៉ាស៊ីនក្រឡុក។",
           "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់ចូលគ្នាស្អាត។",
           "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
         ],
-        tip: "កែសម្រួលបរិមាណទឹកស្ករតាមកម្រិតជូររបស់ស្ត្របឺរីនៅថ្ងៃនោះ។"
+        stepsEn: [
+          "Combine strawberries, milk/water, and syrup in the blender.",
+          "Add ice and blend until smooth.",
+          "Pour and serve immediately."
+        ],
+        tipKm: "កែសម្រួលបរិមាណទឹកស្ករតាមកម្រិតជូររបស់ស្ត្របឺរីនៅថ្ងៃនោះ។",
+        tipEn: "Adjust syrup slightly depending on how tart the berries are."
       },
       {
         id: "mango-smoothie",
@@ -2250,23 +2719,31 @@
         nameKm: "ស្វាយ ក្រឡុក",
         nameEn: "Mango Smoothie",
         photo: "mango-smoothie",
-        timeNote: "2 នាទី • ផ្អែមឈ្ងុយផ្លែស្វាយ",
-        desc: "ផ្លែស្វាយក្រឡុកជាមួយទឹកកក និងទឹកដោះគោ/ទឹកស្ករ មានក្លិនឈ្ងុយផ្លែស្វាយ និងរសជាតិផ្អែមឆ្ងាញ់។",
+        timeNoteKm: "2 នាទី • ផ្អែមឈ្ងុយផ្លែស្វាយ",
+        timeNoteEn: "2 min • Smooth Ripe Mango",
+        descKm: "ផ្លែស្វាយក្រឡុកជាមួយទឹកកក និងទឹកដោះគោ/ទឹកស្ករ មានក្លិនឈ្ងុយផ្លែស្វាយ និងរសជាតិផ្អែមឆ្ងាញ់។",
+        descEn: "Ripe mango blended with ice, sweetener/milk, and a hint of lime.",
         ingredients: [
-          { name: "សាច់ស្វាយទុំ", amount: 100, unit: "g" },
-          { name: "ទឹកស្ករ / ទឹកដោះគោស្រស់", amount: 70, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារបន្តិច (បន្ថែមស្រស់)", amount: 5, unit: "ml" },
-          { name: "ទឹកកកក្រឡុក", amount: 150, unit: "g" }
+          { nameKm: "សាច់ស្វាយទុំ", nameEn: "Ripe Mango Flesh", amount: 100, unit: "g" },
+          { nameKm: "ទឹកស្ករ / ទឹកដោះគោស្រស់", nameEn: "Syrup or Fresh Milk", amount: 70, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារបន្តិច (បន្ថែមស្រស់)", nameEn: "Splash of Lime Juice", amount: 5, unit: "ml" },
+          { nameKm: "ទឹកកកក្រឡុក", nameEn: "Blender Ice", amount: 150, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់សាច់ស្វាយ ទឹកស្ករ/ទឹកដោះគោ និងទឹកក្រូចឆ្មារចូលម៉ាស៊ីនក្រឡុក។",
           "បន្ថែមទឹកកក រួចក្រឡុកឱ្យម៉ត់ស្មើល្អ។",
           "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
         ],
-        tip: "ទឹកក្រូចឆ្មារបន្តិចជួយលើកក្លិនស្វាយ និងកាត់បន្ថយភាពផ្អែមជ្រុល។"
+        stepsEn: [
+          "Add mango flesh, syrup/milk, and lime juice to the blender.",
+          "Add ice and blend until silky smooth.",
+          "Pour and serve immediately."
+        ],
+        tipKm: "ទឹកក្រូចឆ្មារបន្តិចជួយលើកក្លិនស្វាយ និងកាត់បន្ថយភាពផ្អែមជ្រុល។",
+        tipEn: "A touch of lime lifts the mango aroma and keeps it from tasting overly sweet."
       },
 
-      // ==================== OTHER CAFE DRINKS (ផ្សេងៗ - ICE) ====================
+      // ==================== OTHER DRINKS ====================
       {
         id: "honey-lemon-cooler",
         temp: "ice",
@@ -2274,20 +2751,28 @@
         nameKm: "ទឹកក្រូចឆ្មារ ទឹកឃ្មុំ ត្រជាក់",
         nameEn: "Iced Honey Lemon Cooler",
         photo: "ice-honey-lemon",
-        timeNote: "1.5 នាទី • ត្រជាក់ ជូរអែមធម្មជាតិ",
-        desc: "ទឹកក្រូចឆ្មារស្រស់លាយទឹកឃ្មុំ និងទឹកកក ជួយបំបាត់ស្រេក និងបង្កើនភាពស្រស់ស្រាយ។",
+        timeNoteKm: "1.5 នាទី • ត្រជាក់ ជូរអែមធម្មជាតិ",
+        timeNoteEn: "1.5 min • Chilled Citrus & Honey",
+        descKm: "ទឹកក្រូចឆ្មារស្រស់លាយទឹកឃ្មុំ និងទឹកកក ជួយបំបាត់ស្រេក និងបង្កើនភាពស្រស់ស្រាយ។",
+        descEn: "Fresh lemon juice and honey shaken with cold water over ice.",
         ingredients: [
-          { name: "ទឹកក្រូចឆ្មារស្រស់", amount: 30, unit: "ml" },
-          { name: "ទឹកឃ្មុំ", amount: 30, unit: "ml" },
-          { name: "ទឹកត្រជាក់", amount: 150, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lemon Juice", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកឃ្មុំ", nameEn: "Honey", amount: 30, unit: "ml" },
+          { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 150, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "លាយទឹកឃ្មុំជាមួយទឹកក្រូចឆ្មារ និងទឹកត្រជាក់ចូលគ្នា។",
           "ក្រឡុក ឬកូរឱ្យរសជាតិជូរ និងផ្អែមចូលគ្នាល្អ។",
           "ចាក់ចូលកែវដែលមានទឹកកក ហើយតុបតែងចំណិតក្រូចឆ្មារ។"
         ],
-        tip: "ច្របាច់ក្រូចឆ្មារស្រស់ៗ នឹងផ្តល់ក្លិនក្រអូប និងរសជាតិល្អជាងទឹកក្រូចដប។"
+        stepsEn: [
+          "Mix honey, fresh lemon juice, and cold water.",
+          "Shake or stir until well blended.",
+          "Pour over ice and garnish with a lemon slice."
+        ],
+        tipKm: "ច្របាច់ក្រូចឆ្មារស្រស់ៗ នឹងផ្តល់ក្លិនក្រអូប និងរសជាតិល្អជាងទឹកក្រូចដប។",
+        tipEn: "Freshly squeezed lemon gives noticeably brighter aroma than bottled juice."
       },
       {
         id: "espresso-tonic",
@@ -2296,20 +2781,28 @@
         nameKm: "អេស្ព្រេសសូ តូនីក",
         nameEn: "Espresso Tonic",
         photo: "espresso-tonic",
-        timeNote: "2 នាទី • ត្រជាក់ ជូរស្រាលហ្វឺហ្វារ",
-        desc: "ការផ្សំគ្នារវាង Tonic Water និង Espresso ផ្តល់រសជាតិប្លែក ស្រស់ស្រាយ និងមានពពុះហ្វឺហ្វារ។",
+        timeNoteKm: "2 នាទី • ត្រជាក់ ជូរស្រាលហ្វឺហ្វារ",
+        timeNoteEn: "2 min • Sparkling Coffee & Tonic",
+        descKm: "ការផ្សំគ្នារវាង Tonic Water និង Espresso ផ្តល់រសជាតិប្លែក ស្រស់ស្រាយ និងមានពពុះហ្វឺហ្វារ។",
+        descEn: "Crisp tonic water layered with espresso over ice and a citrus garnish.",
         ingredients: [
-          { name: "Tonic Water ត្រជាក់", amount: 160, unit: "ml" },
-          { name: "Single/Double Espresso Shot", amount: 30, unit: "ml" },
-          { name: "ចំណិតក្រូចឆ្មារ ឬក្រូចពោធិ៍សាត់", amount: 1, unit: "ចំណិត" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "Tonic Water ត្រជាក់", nameEn: "Chilled Tonic Water", amount: 160, unit: "ml" },
+          { nameKm: "Single/Double Espresso Shot", nameEn: "Single/Double Espresso Shot", amount: 30, unit: "ml" },
+          { nameKm: "ចំណិតក្រូចឆ្មារ ឬក្រូចពោធិ៍សាត់", nameEn: "Lemon or Citrus Slice", amount: 1, unit: "slice" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់ទឹកកកពេញកែវ រួចចាក់ Tonic Water ត្រជាក់ចូល។",
           "ចាក់ Espresso យឺតៗពីលើផ្ទៃទឹកកក ដើម្បីកុំឱ្យហ្វឺហ្វារហៀរចេញ។",
           "បន្ថែមចំណិតក្រូចឆ្មារនៅគែមកែវមុនពេលបម្រើ។"
         ],
-        tip: "កុំកូរខ្លាំងពេក ដើម្បីរក្សាពពុះហ្វឺហ្វាររបស់ Tonic Water ឱ្យបានយូរ។"
+        stepsEn: [
+          "Fill glass with ice and pour in cold tonic water.",
+          "Pour espresso slowly over the ice to keep bubbles from foaming over.",
+          "Garnish with a citrus slice before serving."
+        ],
+        tipKm: "កុំកូរខ្លាំងពេក ដើម្បីរក្សាពពុះហ្វឺហ្វាររបស់ Tonic Water ឱ្យបានយូរ។",
+        tipEn: "Avoid stirring vigorously so the tonic carbonation stays crisp."
       },
       {
         id: "avocado-milk-shake",
@@ -2318,20 +2811,28 @@
         nameKm: "ប័រ ក្រឡុកទឹកដោះគោ",
         nameEn: "Avocado Milk Shake",
         photo: "avocado-smoothie",
-        timeNote: "2.5 នាទី • ត្រជាក់ ខាប់ឈ្ងុយប័រ",
-        desc: "ផ្លែប័រទុំក្រឡុកជាមួយទឹកដោះគោខាប់ ទឹកដោះគោស្រស់ និងទឹកកក រសជាតិខាប់ឈ្ងុយឆ្ងាញ់។",
+        timeNoteKm: "2.5 នាទី • ត្រជាក់ ខាប់ឈ្ងុយប័រ",
+        timeNoteEn: "2.5 min • Thick & Creamy Avocado",
+        descKm: "ផ្លែប័រទុំក្រឡុកជាមួយទឹកដោះគោខាប់ ទឹកដោះគោស្រស់ និងទឹកកក រសជាតិខាប់ឈ្ងុយឆ្ងាញ់។",
+        descEn: "Ripe avocado blended with condensed milk, fresh milk, and ice.",
         ingredients: [
-          { name: "សាច់ផ្លែប័រទុំ", amount: 110, unit: "g" },
-          { name: "ទឹកដោះគោខាប់ផ្អែម", amount: 35, unit: "ml" },
-          { name: "ទឹកដោះគោស្រស់", amount: 80, unit: "ml" },
-          { name: "ទឹកកកក្រឡុក", amount: 140, unit: "g" }
+          { nameKm: "សាច់ផ្លែប័រទុំ", nameEn: "Ripe Avocado Flesh", amount: 110, unit: "g" },
+          { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 35, unit: "ml" },
+          { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Fresh Milk", amount: 80, unit: "ml" },
+          { nameKm: "ទឹកកកក្រឡុក", nameEn: "Blender Ice", amount: 140, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ដាក់សាច់ផ្លែប័រ ទឹកដោះគោខាប់ និងទឹកដោះគោស្រស់ចូលម៉ាស៊ីនក្រឡុក។",
           "បន្ថែមទឹកកក រួចក្រឡុករហូតដល់ម៉ត់ខាប់រលោង។",
           "ចាក់ដាក់កែវ ហើយបម្រើភ្លាមៗ។"
         ],
-        tip: "ជ្រើសរើសផ្លែប័រទុំល្មម (មិនចាស់ជ្រុល ឬខ្ចីពេក) ដើម្បីកុំឱ្យមានជាតិល្វីង។"
+        stepsEn: [
+          "Add ripe avocado, condensed milk, and fresh milk to the blender.",
+          "Add ice and blend until thick and smooth.",
+          "Pour and serve immediately."
+        ],
+        tipKm: "ជ្រើសរើសផ្លែប័រទុំល្មម (មិនចាស់ជ្រុល ឬខ្ចីពេក) ដើម្បីកុំឱ្យមានជាតិល្វីង។",
+        tipEn: "Choose well-ripened avocados without stringiness or bitterness."
       },
       {
         id: "lemongrass-pandan-cooler",
@@ -2340,32 +2841,42 @@
         nameKm: "ទឹកស្លឹកគ្រៃ និងស្លឹកតយ",
         nameEn: "Lemongrass Pandan Cooler",
         photo: "lemongrass-cooler",
-        timeNote: "2 នាទី • ត្រជាក់ ក្រអូបប្រពៃណី",
-        desc: "ទឹកស្ងោរស្លឹកគ្រៃ និងស្លឹកតយត្រជាក់ លាយទឹកស្ករ ឬទឹកឃ្មុំបន្តិច ក្លិនក្រអូបស្រស់ស្រាយ។",
+        timeNoteKm: "2 នាទី • ត្រជាក់ ក្រអូបប្រពៃណី",
+        timeNoteEn: "2 min • Aromatic Herbal Cooler",
+        descKm: "ទឹកស្ងោរស្លឹកគ្រៃ និងស្លឹកតយត្រជាក់ លាយទឹកស្ករ ឬទឹកឃ្មុំបន្តិច ក្លិនក្រអូបស្រស់ស្រាយ។",
+        descEn: "Chilled lemongrass and pandan infusion lightly sweetened over ice.",
         ingredients: [
-          { name: "ទឹកស្លឹកគ្រៃ + ស្លឹកតយស្ងោរត្រជាក់", amount: 170, unit: "ml" },
-          { name: "ទឹកស្ករ ឬទឹកឃ្មុំ", amount: 25, unit: "ml" },
-          { name: "ទឹកក្រូចឆ្មារស្រស់ (ជម្រើស)", amount: 5, unit: "ml" },
-          { name: "ទឹកកក", amount: 160, unit: "g" }
+          { nameKm: "ទឹកស្លឹកគ្រៃ + ស្លឹកតយស្ងោរត្រជាក់", nameEn: "Chilled Lemongrass & Pandan Tea", amount: 170, unit: "ml" },
+          { nameKm: "ទឹកស្ករ ឬទឹកឃ្មុំ", nameEn: "Simple Syrup or Honey", amount: 25, unit: "ml" },
+          { nameKm: "ទឹកក្រូចឆ្មារស្រស់ (ជម្រើស)", nameEn: "Fresh Lime Juice (Optional)", amount: 5, unit: "ml" },
+          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
         ],
-        steps: [
+        stepsKm: [
           "ស្ងោរស្លឹកគ្រៃ និងស្លឹកតយជាមួយទឹក ប្រហែល 10–15 នាទី រួចចម្រោះទុកឱ្យត្រជាក់។",
           "លាយទឹកស្លឹកគ្រៃ-ស្លឹកតយជាមួយទឹកស្ករ ឬទឹកឃ្មុំ។",
           "ដាក់ទឹកកកចូលកែវ រួចចាក់ភេសជ្ជៈចូលបម្រើ។"
         ],
-        tip: "ទុកទឹកឱ្យត្រជាក់ល្អមុនដាក់ទឹកកក ដើម្បីរក្សាក្លិនក្រអូប និងមិនរលាយទឹកកកលឿន។"
+        stepsEn: [
+          "Simmer lemongrass and pandan in water for 10–15 minutes, then strain and chill.",
+          "Mix the chilled infusion with syrup or honey.",
+          "Pour over ice and serve."
+        ],
+        tipKm: "ទុកទឹកឱ្យត្រជាក់ល្អមុនដាក់ទឹកកក ដើម្បីរក្សាក្លិនក្រអូប និងមិនរលាយទឹកកកលឿន។",
+        tipEn: "Cool the herbal tea completely before pouring over ice."
       }
     ];
 
     const STORAGE_KEYS = {
-      CUSTOM_RECIPES: "cafe_app_custom_recipes_v7",
-      FAVORITES: "cafe_app_favorites_v7"
+      CUSTOM_RECIPES: "cafe_app_custom_recipes_v8",
+      FAVORITES: "cafe_app_favorites_v8",
+      LANG: "cafe_app_lang_v8"
     };
 
     let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
     let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["hot-latte", "ice-latte", "kiwi-soda", "strawberry-soda", "mango-soda"]));
 
     let state = {
+      lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
       tab: "all",
       temp: "all",
       search: "",
@@ -2379,6 +2890,10 @@
       "16oz": 1.0,
       "22oz": 1.3
     };
+
+    function t() {
+      return UI_STRINGS[state.lang] || UI_STRINGS.km;
+    }
 
     function loadJson(key, fallback) {
       try {
@@ -2399,29 +2914,124 @@
       return [...DEFAULT_RECIPES, ...customRecipes];
     }
 
+    function getRecipeNamePrimary(r) {
+      if (state.lang === "en") return r.nameEn || r.nameKm;
+      return r.nameKm;
+    }
+
+    function getRecipeNameSecondary(r) {
+      if (state.lang === "en") return r.nameKm && r.nameEn ? r.nameKm : "";
+      return r.nameEn || "";
+    }
+
+    function getRecipeDesc(r) {
+      return state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
+    }
+
+    function getRecipeTimeNote(r) {
+      return state.lang === "en" ? (r.timeNoteEn || r.timeNoteKm || "") : (r.timeNoteKm || r.timeNoteEn || "");
+    }
+
+    function getRecipeSteps(r) {
+      if (state.lang === "en" && Array.isArray(r.stepsEn) && r.stepsEn.length) return r.stepsEn;
+      if (Array.isArray(r.stepsKm) && r.stepsKm.length) return r.stepsKm;
+      return r.steps || [];
+    }
+
+    function getRecipeTip(r) {
+      return state.lang === "en" ? (r.tipEn || r.tipKm || t().defaultTip) : (r.tipKm || r.tipEn || t().defaultTip);
+    }
+
+    function getIngredientName(ing) {
+      return state.lang === "en" ? (ing.nameEn || ing.nameKm || ing.name || "") : (ing.nameKm || ing.nameEn || ing.name || "");
+    }
+
     function getTempLabel(temp) {
-      return temp === "hot" ? "ក្តៅ (Hot)" : "ត្រជាក់ (Ice)";
+      return temp === "hot" ? t().hotFull : t().iceFull;
+    }
+
+    function applyStaticTranslations() {
+      const s = t();
+      document.documentElement.lang = state.lang;
+      document.title = s.docTitle;
+      document.getElementById("mainHeaderTitle").textContent = s.headerTitle;
+      document.getElementById("mainHeaderSub").textContent = s.headerSub;
+      document.getElementById("langBadgeText").textContent = s.langBadge;
+      document.getElementById("timerBtnLabel").textContent = s.timerBtn;
+      document.getElementById("addBtnLabel").textContent = s.addBtn;
+      document.getElementById("searchInput").placeholder = s.searchPlaceholder;
+      document.getElementById("navFavLabel").textContent = s.navFav;
+      document.getElementById("navCalcLabel").textContent = s.navCalc;
+
+      document.getElementById("cupSizeLabel").textContent = s.cupSizeLabel;
+      document.getElementById("batchLabel").textContent = s.batchLabel;
+      document.getElementById("ingSectionHeading").textContent = s.ingHeading;
+      document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
+      document.getElementById("copyRecipeBtn").textContent = s.copyBtn;
+      document.getElementById("modalTimerBtn").textContent = s.modalTimerBtn;
+      document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
+
+      document.getElementById("addModalTitle").textContent = s.addModalTitle;
+      document.getElementById("addModalSub").textContent = s.addModalSub;
+      document.getElementById("lblNewNameKm").textContent = s.lblNewNameKm;
+      document.getElementById("lblNewNameEn").textContent = s.lblNewNameEn;
+      document.getElementById("lblNewTemp").textContent = s.lblNewTemp;
+      document.getElementById("lblNewCategory").textContent = s.lblNewCategory;
+      document.getElementById("lblNewTimeNote").textContent = s.lblNewTimeNote;
+      document.getElementById("lblNewDesc").textContent = s.lblNewDesc;
+      document.getElementById("lblNewIngredients").textContent = s.lblNewIngredients;
+      document.getElementById("lblNewSteps").textContent = s.lblNewSteps;
+      document.getElementById("saveNewRecipeBtn").textContent = s.saveNewRecipeBtn;
+
+      document.getElementById("timerModalTitle").textContent = s.timerModalTitle;
+      document.getElementById("timerModalSub").textContent = s.timerModalSub;
+
+      document.getElementById("calcTitle").textContent = s.calcTitle;
+      document.getElementById("calcSubtitle").textContent = s.calcSubtitle;
+      document.getElementById("lblBagGrams").textContent = s.lblBagGrams;
+      document.getElementById("lblDosePerCup").textContent = s.lblDosePerCup;
+      document.getElementById("optCustomDose").textContent = s.optCustomDose;
+      document.getElementById("lblWastePct").textContent = s.lblWastePct;
+      document.getElementById("lblPricePerCup").textContent = s.lblPricePerCup;
+      document.getElementById("resNetCupsLabel").textContent = s.resNetCupsLabel;
+      document.getElementById("resWasteGramsLabel").textContent = s.resWasteGramsLabel;
+      document.getElementById("resEstRevenueLabel").textContent = s.resEstRevenueLabel;
+
+      updateTimerUi();
+    }
+
+    function toggleLanguage() {
+      state.lang = state.lang === "km" ? "en" : "km";
+      saveJson(STORAGE_KEYS.LANG, state.lang);
+      applyStaticTranslations();
+      renderMenu();
+      calculateBeanYield();
+      if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
+        openRecipeModal(state.activeRecipeId);
+      }
+      showToast(t().toastLangSwitched);
     }
 
     function updateCatalogCounts() {
+      const s = t();
       const all = getAllRecipes();
       const total = all.length;
       const hotCount = all.filter((r) => r.temp === "hot").length;
       const iceCount = all.filter((r) => r.temp === "ice").length;
 
-      document.getElementById("totalCatalogCount").textContent = total;
-      document.getElementById("navAllLabel").textContent = `ម៉ឺនុយ (${total})`;
+      document.getElementById("navAllLabel").textContent = s.navMenu(total);
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        if (btn.dataset.temp === "all") btn.textContent = `ទាំងអស់ (${total})`;
-        if (btn.dataset.temp === "hot") btn.textContent = `ក្តៅ Hot (${hotCount})`;
-        if (btn.dataset.temp === "ice") btn.textContent = `ត្រជាក់ Ice (${iceCount})`;
+        if (btn.dataset.temp === "all") btn.textContent = s.filterAll(total);
+        if (btn.dataset.temp === "hot") btn.textContent = s.filterHot(hotCount);
+        if (btn.dataset.temp === "ice") btn.textContent = s.filterIce(iceCount);
       });
     }
 
     function renderDrinkPhoto(photoKey, temp) {
+      const badgeText = temp === "hot" ? t().hotBadge : t().iceBadge;
       const badgeHtml = temp
-        ? `<span class="photo-temp-badge ${temp === "hot" ? "hot" : "ice"}">${temp === "hot" ? "HOT" : "ICE"}</span>`
+        ? `<span class="photo-temp-badge ${temp === "hot" ? "hot" : "ice"}">${badgeText}</span>`
         : "";
       return `${renderModelSvg(photoKey)}${badgeHtml}`;
     }
@@ -2435,25 +3045,31 @@
         if (state.temp !== "all" && r.temp !== state.temp) return false;
         if (!q) return true;
 
-        const inNameKm = r.nameKm.toLowerCase().includes(q);
+        const inNameKm = (r.nameKm || "").toLowerCase().includes(q);
         const inNameEn = (r.nameEn || "").toLowerCase().includes(q);
-        const inDesc = (r.desc || "").toLowerCase().includes(q);
-        const inIng = (r.ingredients || []).some((i) => i.name.toLowerCase().includes(q));
+        const inDesc = ((r.descKm || "") + " " + (r.descEn || "")).toLowerCase().includes(q);
+        const inIng = (r.ingredients || []).some((i) =>
+          ((i.nameKm || "") + " " + (i.nameEn || "") + " " + (i.name || "")).toLowerCase().includes(q)
+        );
         return inNameKm || inNameEn || inDesc || inIng;
       });
     }
 
     function renderMenu() {
+      const s = t();
       updateCatalogCounts();
       const grid = document.getElementById("menuGrid");
       const list = getFilteredRecipes();
-      document.getElementById("shownCount").textContent = list.length;
+      const totalAll = getAllRecipes().length;
+
+      document.getElementById("summaryCountText").innerHTML =
+        `${s.showingPrefix} <strong>${list.length}</strong> ${s.showingMid} <span>${totalAll}</span> ${s.showingSuffix}`;
 
       if (list.length === 0) {
         grid.innerHTML = `
           <div class="empty-state">
-            <h3 style="margin:0 0 6px;">រកមិនឃើញមុខភេសជ្ជៈ</h3>
-            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬពាក្យស្វែងរកផ្សេង។</p>
+            <h3 style="margin:0 0 6px;">${escapeHtml(s.emptyTitle)}</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(s.emptyDesc)}</p>
           </div>
         `;
         return;
@@ -2462,26 +3078,28 @@
       grid.innerHTML = list.map((r) => {
         const isFav = favorites.has(r.id);
         const tempBadgeClass = r.temp === "hot" ? "temp-hot" : "temp-ice";
-        const tempText = r.temp === "hot" ? "ក្តៅ (HOT)" : "ត្រជាក់ (ICE)";
-        const customBadge = r.isCustom ? `<span class="drink-tag custom">ផ្ទាល់ខ្លួន</span>` : "";
+        const tempText = getTempLabel(r.temp);
+        const customBadge = r.isCustom ? `<span class="drink-tag custom">${escapeHtml(s.customBadge)}</span>` : "";
+        const primaryName = getRecipeNamePrimary(r);
+        const secondaryName = getRecipeNameSecondary(r);
 
         return `
           <article class="drink-card" data-id="${r.id}">
             <div class="drink-photo-box">${renderDrinkPhoto(r.photo, r.temp)}</div>
             <div class="drink-info">
               <div class="drink-top-meta">
-                <span class="drink-tag ${tempBadgeClass}">${tempText}</span>
+                <span class="drink-tag ${tempBadgeClass}">${escapeHtml(tempText)}</span>
                 ${customBadge}
               </div>
-              <h3 class="drink-name-km">${escapeHtml(r.nameKm)}</h3>
-              <div class="drink-name-en">${escapeHtml(r.nameEn || "")}</div>
-              <p class="drink-desc">${escapeHtml(r.desc || "")}</p>
+              <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
+              <div class="drink-name-sub">${escapeHtml(secondaryName)}</div>
+              <p class="drink-desc">${escapeHtml(getRecipeDesc(r))}</p>
               <div class="drink-footer-meta">
-                <span>${escapeHtml(r.timeNote || "រូបមន្តស្តង់ដារ")}</span>
-                <span>មើលរូបមន្ត →</span>
+                <span>${escapeHtml(getRecipeTimeNote(r))}</span>
+                <span>${escapeHtml(s.viewRecipe)}</span>
               </div>
             </div>
-            <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="រក្សាទុកចូលចិត្ត" aria-label="ចូលចិត្ត">
+            <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="${escapeHtml(s.favBtnSave)}" aria-label="${escapeHtml(s.favBtnSave)}">
               <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             </button>
           </article>
@@ -2504,12 +3122,13 @@
     }
 
     function toggleFavorite(id) {
+      const s = t();
       if (favorites.has(id)) {
         favorites.delete(id);
-        showToast("បានដកចេញពីបញ្ជីចូលចិត្ត");
+        showToast(s.toastRemovedFav);
       } else {
         favorites.add(id);
-        showToast("បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត");
+        showToast(s.toastAddedFav);
       }
       saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
       renderMenu();
@@ -2541,10 +3160,12 @@
       const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * state.batch;
       const val = baseAmt * mult;
       const rounded = val >= 50 ? Math.round(val) : Math.round(val * 10) / 10;
-      return `${rounded} ${unit || ""}`.trim();
+      const unitDisp = state.lang === "en" && unit === "ចំណិត" ? "slice" : (unit || "");
+      return `${rounded} ${unitDisp}`.trim();
     }
 
     function openRecipeModal(id) {
+      const s = t();
       const recipe = getAllRecipes().find((r) => r.id === id);
       if (!recipe) return;
 
@@ -2565,13 +3186,13 @@
       tempTag.textContent = getTempLabel(recipe.temp);
       tempTag.className = "drink-tag " + (recipe.temp === "hot" ? "temp-hot" : "temp-ice");
 
-      document.getElementById("modalTitleKm").textContent = recipe.nameKm;
-      document.getElementById("modalTitleEn").textContent = recipe.nameEn || "";
-      document.getElementById("modalDesc").textContent = recipe.desc || "";
-      document.getElementById("modalTip").innerHTML = `<strong>គន្លឹះ Barista៖</strong> ${escapeHtml(recipe.tip || "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។")}`;
+      document.getElementById("modalTitleMain").textContent = getRecipeNamePrimary(recipe);
+      document.getElementById("modalTitleSub").textContent = getRecipeNameSecondary(recipe);
+      document.getElementById("modalDesc").textContent = getRecipeDesc(recipe);
+      document.getElementById("modalTip").innerHTML = `<strong>${escapeHtml(s.tipPrefix)}</strong> ${escapeHtml(getRecipeTip(recipe))}`;
 
       const stepsOl = document.getElementById("modalSteps");
-      stepsOl.innerHTML = (recipe.steps || []).map((s) => `<li>${escapeHtml(s)}</li>`).join("");
+      stepsOl.innerHTML = getRecipeSteps(recipe).map((st) => `<li>${escapeHtml(st)}</li>`).join("");
 
       const delBtn = document.getElementById("deleteCustomBtn");
       delBtn.style.display = recipe.isCustom ? "inline-flex" : "none";
@@ -2585,12 +3206,13 @@
     function renderModalIngredients(recipe) {
       const ul = document.getElementById("modalIngredients");
       ul.innerHTML = (recipe.ingredients || []).map((ing, idx) => {
+        const ingName = getIngredientName(ing);
         const amtText = formatScaledAmount(ing.amount, ing.unit);
         return `
           <li class="ing-item" data-idx="${idx}">
             <div class="ing-left">
-              <input type="checkbox" class="ing-check" aria-label="${escapeHtml(ing.name)}" />
-              <span>${escapeHtml(ing.name)}</span>
+              <input type="checkbox" class="ing-check" aria-label="${escapeHtml(ingName)}" />
+              <span>${escapeHtml(ingName)}</span>
             </div>
             <span class="ing-amount">${escapeHtml(amtText)}</span>
           </li>
@@ -2610,31 +3232,34 @@
     }
 
     function updateModalFavButton(id) {
+      const s = t();
       const btn = document.getElementById("modalFavBtn");
       const isFav = favorites.has(id);
-      btn.textContent = isFav ? "បានរក្សាទុកចូលចិត្ត" : "រក្សាទុកចូលចិត្ត";
+      btn.textContent = isFav ? s.favBtnSaved : s.favBtnSave;
     }
 
     function copyActiveRecipeText() {
+      const s = t();
       const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
       if (!recipe) return;
 
       const lines = [
-        `${recipe.nameKm} (${recipe.nameEn || ""}) [${getTempLabel(recipe.temp)}] — ${state.cupSize} x${state.batch}`,
-        `គ្រឿងផ្សំ៖`,
-        ...(recipe.ingredients || []).map((i) => `- ${i.name}: ${formatScaledAmount(i.amount, i.unit)}`),
-        `របៀបធ្វើ៖`,
-        ...(recipe.steps || []).map((s, idx) => `${idx + 1}. ${s}`)
+        `${getRecipeNamePrimary(recipe)} (${getRecipeNameSecondary(recipe)}) [${getTempLabel(recipe.temp)}] — ${state.cupSize} x${state.batch}`,
+        state.lang === "en" ? "Ingredients:" : "គ្រឿងផ្សំ៖",
+        ...(recipe.ingredients || []).map((i) => `- ${getIngredientName(i)}: ${formatScaledAmount(i.amount, i.unit)}`),
+        state.lang === "en" ? "Instructions:" : "របៀបធ្វើ៖",
+        ...getRecipeSteps(recipe).map((st, idx) => `${idx + 1}. ${st}`)
       ];
 
       navigator.clipboard?.writeText(lines.join("\n")).then(() => {
-        showToast("បានចម្លងរូបមន្តរួចរាល់");
+        showToast(s.toastCopied);
       }).catch(() => {
-        showToast("មិនអាចចម្លងស្វ័យប្រវត្តិបាន");
+        showToast(s.toastCopyFail);
       });
     }
 
     function calculateBeanYield() {
+      const s = t();
       const bagGrams = Math.max(1, parseFloat(document.getElementById("bagGramsInput").value) || 0);
       const dose = Math.max(1, parseFloat(document.getElementById("dosePerCupInput").value) || 18);
       const wastePct = Math.min(90, Math.max(0, parseFloat(document.getElementById("wastePercentInput").value) || 0));
@@ -2646,12 +3271,12 @@
       const netCups = Math.floor(usableGrams / dose);
       const estRevenue = netCups * pricePerCup;
 
-      document.getElementById("resNetCups").textContent = `${netCups.toLocaleString()} កែវ`;
-      document.getElementById("resGrossCups").textContent = `មុនខាត៖ ~${grossCups.toFixed(1)} កែវ`;
+      document.getElementById("resNetCups").textContent = `${netCups.toLocaleString()} ${s.cupUnit}`;
+      document.getElementById("resGrossCups").textContent = s.resGrossCups(grossCups.toFixed(1));
       document.getElementById("resWasteGrams").textContent = `${Math.round(wasteGrams)} g`;
-      document.getElementById("resUsableGrams").textContent = `ប្រើបាន៖ ${Math.round(usableGrams)} g`;
+      document.getElementById("resUsableGrams").textContent = s.resUsableGrams(Math.round(usableGrams));
       document.getElementById("resEstRevenue").textContent = `$${estRevenue.toFixed(2)}`;
-      document.getElementById("resCostPerCup").textContent = `ម្សៅ/កែវ៖ ${dose}g`;
+      document.getElementById("resCostPerCup").textContent = s.resCostPerCup(dose);
     }
 
     let timerInterval = null;
@@ -2663,18 +3288,19 @@
     }
 
     function updateTimerUi() {
+      const s = t();
       const sec = elapsedMs / 1000;
       document.getElementById("timerDigits").textContent = formatTimer(elapsedMs);
       const statusEl = document.getElementById("timerStatus");
 
       if (sec < 25) {
-        statusEl.textContent = sec === 0 ? "ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម" : "កំពុងចម្រាញ់... (គោលដៅ 25–30s)";
+        statusEl.textContent = sec === 0 ? s.timerReady : s.timerRunning;
         statusEl.style.color = "#6E5D53";
       } else if (sec <= 30) {
-        statusEl.textContent = "ស្ថិតក្នុងកម្រិតស្តង់ដារល្អបំផុត (25–30s)";
+        statusEl.textContent = s.timerIdeal;
         statusEl.style.color = "#1F8A4C";
       } else {
-        statusEl.textContent = "លើស 30s — ពិនិត្យកម្រិតកិនគ្រាប់កាហ្វេ";
+        statusEl.textContent = s.timerOver;
         statusEl.style.color = "#C67D3B";
       }
     }
@@ -2725,30 +3351,33 @@
 
     function handleAddRecipeSubmit(e) {
       e.preventDefault();
-      const nameKm = document.getElementById("newNameKm").value.trim();
-      if (!nameKm) return;
+      const s = t();
+      const nameKm = document.getElementById("newNameKm").value.trim() || document.getElementById("newNameEn").value.trim();
+      const nameEn = document.getElementById("newNameEn").value.trim() || nameKm;
+      if (!nameKm && !nameEn) return;
 
-      const nameEn = document.getElementById("newNameEn").value.trim() || "Custom Drink";
       const temp = document.getElementById("newTemp").value;
       const category = document.getElementById("newCategory").value;
-      const timeNote = document.getElementById("newTimeNote").value.trim() || "រូបមន្តផ្ទាល់ខ្លួន";
-      const desc = document.getElementById("newDesc").value.trim() || "រូបមន្តបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។";
+      const timeNote = document.getElementById("newTimeNote").value.trim() || (state.lang === "en" ? "Custom recipe" : "រូបមន្តផ្ទាល់ខ្លួន");
+      const desc = document.getElementById("newDesc").value.trim() || (state.lang === "en" ? "Custom drink recipe." : "រូបមន្តបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។");
 
       const rawIngs = document.getElementById("newIngredients").value.split("\n").map((l) => l.trim()).filter(Boolean);
       const ingredients = rawIngs.length
         ? rawIngs.map((line) => {
             const parts = line.split("|").map((p) => p.trim());
             const amt = parseFloat(parts[1]);
+            const label = parts[0] || line;
             return {
-              name: parts[0] || line,
+              nameKm: label,
+              nameEn: label,
               amount: isNaN(amt) ? 0 : amt,
               unit: parts[2] || ""
             };
           })
-        : [{ name: "គ្រឿងផ្សំតាមចំណូលចិត្ត", amount: 100, unit: "ml" }];
+        : [{ nameKm: "គ្រឿងផ្សំតាមចំណូលចិត្ត", nameEn: "Ingredients to taste", amount: 100, unit: "ml" }];
 
       const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
-      const steps = rawSteps.length ? rawSteps : ["លាយគ្រឿងផ្សំចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
+      const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine ingredients and serve." : "លាយគ្រឿងផ្សំចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
 
       const photoByCat = {
         espresso: temp === "hot" ? "hot-latte" : "ice-latte",
@@ -2763,14 +3392,18 @@
         id: "custom_" + Date.now(),
         temp,
         category,
-        nameKm,
-        nameEn,
+        nameKm: nameKm || nameEn,
+        nameEn: nameEn || nameKm,
         photo: photoByCat[category] || (temp === "hot" ? "hot-latte" : "ice-latte"),
-        timeNote,
-        desc,
+        timeNoteKm: timeNote,
+        timeNoteEn: timeNote,
+        descKm: desc,
+        descEn: desc,
         ingredients,
-        steps,
-        tip: "រូបមន្តផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិហាង។",
+        stepsKm: stepsList,
+        stepsEn: stepsList,
+        tipKm: "រូបមន្តផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិហាង។",
+        tipEn: "Your custom recipe — adjust measurements to suit your shop's taste.",
         isCustom: true
       };
 
@@ -2781,10 +3414,11 @@
       document.getElementById("addRecipeModal").classList.remove("open");
       switchTab("all");
       renderMenu();
-      showToast("បានបន្ថែមមុខភេសជ្ជៈថ្មីរួចរាល់");
+      showToast(s.toastAddedRecipe);
     }
 
     function deleteActiveCustomRecipe() {
+      const s = t();
       if (!state.activeRecipeId) return;
       customRecipes = customRecipes.filter((r) => r.id !== state.activeRecipeId);
       favorites.delete(state.activeRecipeId);
@@ -2792,7 +3426,7 @@
       saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
       document.getElementById("recipeModal").classList.remove("open");
       renderMenu();
-      showToast("បានលុបមុខភេសជ្ជៈផ្ទាល់ខ្លួន");
+      showToast(s.toastDeletedRecipe);
     }
 
     function showToast(msg) {
@@ -2812,6 +3446,8 @@
     }
 
     function initEvents() {
+      document.getElementById("langToggleBtn").addEventListener("click", toggleLanguage);
+
       const searchInput = document.getElementById("searchInput");
       const clearBtn = document.getElementById("clearSearchBtn");
 
@@ -2921,6 +3557,7 @@
       });
     }
 
+    applyStaticTranslations();
     renderMenu();
     calculateBeanYield();
     initEvents();
