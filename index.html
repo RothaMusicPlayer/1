@@ -1272,6 +1272,18 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // វិធីទី ១៖ Auto-refresh ម្តងនៅពេលបើក tab តាមរយៈ sessionStorage (ការពារ loop)
+    (function () {
+      try {
+        const key = "auto_refreshed_once_" + window.location.pathname;
+        if (!sessionStorage.getItem(key)) {
+          sessionStorage.setItem(key, "1");
+          window.location.reload();
+          return;
+        }
+      } catch {}
+    })();
+
     const UI_STRINGS = {
       km: {
         docTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេពេញលេញ",
@@ -2183,7 +2195,7 @@
         ],
         stepsKm: [
           "វាយ Whipping Cream ជាមួយអំបិលបន្តិច និងទឹកដោះគោខាប់បន្តិចឱ្យឡើងខាប់ស្រាល។",
-          "ដាក់ទឹកកក និងទឹកដោះគោស្រស់/កាហ្វេចូលកែវ។",
+          "ដាក់ទឹកកក ទឹកដោះគោស្រស់/កាហ្វេចូលកែវ។",
           "ចាក់ក្រែមប្រៃផ្អែមស្រោចពីលើផ្នែកខាងលើ។"
         ],
         stepsEn: [
