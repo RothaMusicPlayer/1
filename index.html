@@ -1457,12 +1457,7 @@
       "ice-mocha":          { style: "iced-layered", bg: "#ECE6E2", liquid: "#542916", top: "#C99F7E", straw: "#3B1B0D", garnish: "none" },
       "ice-caramel":        { style: "iced-layered", bg: "#F5ECE0", liquid: "#EBD5B7", top: "#734222", straw: "#D48324", garnish: "caramel" },
       "ice-khmer-milk":     { style: "iced-plain", bg: "#F3E7D8", liquid: "#774423", top: "#E6C7A1", straw: "#4A2C18", garnish: "none" },
-      "ice-black-coffee":   { style: "iced-plain", bg: "#E4ECEF", liquid: "#190C05", top: "#422212", straw: "#2B150A", garnish: "none" },
-      "ice-coconut-coffee": { style: "iced-layered", bg: "#EBF2F4", liquid: "#F8F5F0", top: "#5A3117", straw: "#8D5834", garnish: "coconut" },
-      "ice-palm-sugar":     { style: "iced-layered", bg: "#F4EAD9", liquid: "#DFC098", top: "#63371A", straw: "#B87328", garnish: "none" },
-      "ice-salt-coffee":    { style: "iced-layered", bg: "#E9EFF3", liquid: "#754423", top: "#FFFDF8", straw: "#4A2C18", garnish: "foam" },
-      "coffee-frappe":      { style: "frappe", bg: "#EFE5DC", liquid: "#8A5638", top: "#FFFDF9", straw: "#5C351E", garnish: "whip" },
-      "espresso-tonic":     { style: "iced-layered", bg: "#E3EFF5", liquid: "#E7F0F4", top: "#4A2613", straw: "#2B150A", garnish: "lemon" }
+      "ice-black-coffee":   { style: "iced-plain", bg: "#E4ECEF", liquid: "#190C05", top: "#422212", straw: "#2B150A", garnish: "none" }
     };
 
     function renderModelSvg(photoKey) {
@@ -1481,14 +1476,6 @@
           <path d="M42 54 H118 L112 114 A24 24 0 0 1 88 135 H72 A24 24 0 0 1 48 114 Z" fill="${v.cup}" stroke="#D8CEC2" stroke-width="1.5"/>
           <ellipse cx="80" cy="56" rx="35" ry="9" fill="${v.style === "hot-art" ? v.foam : v.liquid}"/>
           ${v.style === "hot-art" ? artShape : `<ellipse cx="80" cy="55" rx="26" ry="4" fill="${v.foam}" opacity="0.45"/>`}
-        `;
-      } else if (v.style === "frappe") {
-        inner = `
-          <line x1="94" y1="14" x2="84" y2="56" stroke="${v.straw}" stroke-width="5" stroke-linecap="round"/>
-          <path d="M46 58 H114 L104 152 A10 10 0 0 1 94 160 H66 A10 10 0 0 1 56 152 Z" fill="${v.liquid}"/>
-          <path d="M48 76 H112 L110 92 H50 Z" fill="#FFFFFF" opacity="0.18"/>
-          <path d="M52 58 Q62 34 80 38 Q98 34 108 58 Z" fill="${v.top}"/>
-          <path d="M44 58 A36 28 0 0 1 116 58 Z" fill="rgba(255,255,255,0.55)" stroke="#CFC4B8" stroke-width="1.8"/>
         `;
       } else {
         const topLayer = v.style === "iced-layered"
@@ -2030,167 +2017,6 @@
             tipEn: "Simple syrup dissolves much faster than granulated sugar in cold drinks."
           }
         }
-      },
-      {
-        id: "ice-coconut-coffee",
-        category: "local",
-        nameKm: "កាហ្វេដូង ទឹកកក",
-        nameEn: "Iced Coconut Coffee",
-        descKm: "កាហ្វេលាយជាមួយទឹកដោះគោដូង និងទឹកកក រសជាតិផ្អែមឈ្ងុយប្លែកមាត់។",
-        variants: {
-          ice: {
-            photo: "ice-coconut-coffee",
-            descKm: "កាហ្វេលាយជាមួយទឹកដោះគោដូង និងទឹកកក រសជាតិផ្អែមឈ្ងុយប្លែកមាត់។",
-            descEn: "Espresso paired with creamy coconut milk and condensed milk over ice.",
-            ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោដូង (Coconut Milk)", nameEn: "Coconut Milk", amount: 70, unit: "ml" },
-              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 25, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-            ],
-            stepsKm: [
-              "ក្រឡុក ឬកូរទឹកដោះគោដូង ទឹកដោះគោខាប់ និងទឹកកកបន្តិចឱ្យចូលគ្នា។",
-              "ចាក់ល្បាយដូងចូលកែវ រួចបំពេញទឹកកក។",
-              "ចាក់ Espresso ស្រោចពីលើបង្កើតជា ២ ពណ៌គួរឱ្យទាក់ទាញ។"
-            ],
-            stepsEn: [
-              "Blend or shake coconut milk, condensed milk, and a little ice until smooth.",
-              "Pour into the glass and top up with ice.",
-              "Pour espresso over top for a two-tone finish."
-            ],
-            tipKm: "បន្ថែមសាច់ដូងខ្ចី ឬដូងកំបោរ នឹងបង្កើនភាពទាក់ទាញកាន់តែខ្លាំង។",
-            tipEn: "Topping with toasted coconut flakes or young coconut meat adds extra texture."
-          }
-        }
-      },
-      {
-        id: "ice-palm-sugar-latte",
-        category: "local",
-        nameKm: "កាហ្វេទឹកត្នោត ទឹកកក",
-        nameEn: "Iced Palm Sugar Latte",
-        descKm: "កាហ្វេទឹកដោះគោស្រស់ត្រជាក់ ប្រើស្ករត្នោតជំនួសស្ករស មានក្លិនក្រអូបប្រពៃណីខ្មែរ។",
-        variants: {
-          ice: {
-            photo: "ice-palm-sugar",
-            descKm: "កាហ្វេទឹកដោះគោស្រស់ត្រជាក់ ប្រើស្ករត្នោតជំនួសស្ករស មានក្លិនក្រអូបប្រពៃណីខ្មែរ។",
-            descEn: "Iced latte sweetened with fragrant Khmer palm sugar syrup.",
-            ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកស្ករត្នោតខាប់", nameEn: "Palm Sugar Syrup", amount: 30, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-            ],
-            stepsKm: [
-              "រំលាយស្ករត្នោតជាមួយទឹកក្តៅបន្តិចឱ្យខាប់ល្មម។",
-              "ដាក់ទឹកស្ករត្នោត និងទឹកដោះគោស្រស់ចូលកែវទឹកកក។",
-              "ចាក់ Espresso ពីលើ រួចកូរឱ្យចូលគ្នាល្អមុនលើកជូន។"
-            ],
-            stepsEn: [
-              "Dissolve palm sugar with a splash of warm water into a smooth syrup.",
-              "Add palm sugar syrup and chilled milk to a glass of ice.",
-              "Pour espresso on top and stir well before serving."
-            ],
-            tipKm: "ស្ករត្នោតមានក្លិនឆ្ងាញ់ស្រាប់ គួរកាត់បន្ថយ Syrup ផ្សេងៗដើម្បីកុំឱ្យបាំងក្លិន។",
-            tipEn: "Palm sugar already has rich aroma—keep extra syrups minimal so it doesn't get masked."
-          }
-        }
-      },
-      {
-        id: "ice-salt-coffee",
-        category: "local",
-        nameKm: "កាហ្វេអំបិល ទឹកកក",
-        nameEn: "Iced Salt Coffee",
-        descKm: "កាហ្វេទឹកកកលាយក្រែមទឹកដោះគោប្រៃផ្អែមស្រាលនៅពីលើ ជួយលើករសជាតិកាហ្វេឱ្យកាន់តែមុត។",
-        variants: {
-          ice: {
-            photo: "ice-salt-coffee",
-            descKm: "កាហ្វេទឹកកកលាយក្រែមទឹកដោះគោប្រៃផ្អែមស្រាលនៅពីលើ ជួយលើករសជាតិកាហ្វេឱ្យកាន់តែមុត។",
-            descEn: "Iced coffee topped with a lightly salted sweet cream layer that enhances coffee depth.",
-            ingredients: [
-              { nameKm: "Double Espresso / កាហ្វេដិត", nameEn: "Double Espresso / Strong Coffee", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
-              { nameKm: "Whipping Cream + អំបិលចុងស្លាបព្រា", nameEn: "Whipping Cream + Pinch of Salt", amount: 45, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-            ],
-            stepsKm: [
-              "វាយ Whipping Cream ជាមួយអំបិលបន្តិច និងទឹកដោះគោខាប់បន្តិចឱ្យឡើងខាប់ស្រាល។",
-              "ដាក់ទឹកកក ទឹកដោះគោស្រស់/កាហ្វេចូលកែវ។",
-              "ចាក់ក្រែមប្រៃផ្អែមស្រោចពីលើផ្នែកខាងលើ។"
-            ],
-            stepsEn: [
-              "Whip cream with a pinch of salt and a touch of condensed milk until softly thickened.",
-              "Add ice, milk, and coffee to the glass.",
-              "Spoon or pour the salted cream over the top."
-            ],
-            tipKm: "ប្រើអំបិលតែបន្តិចប៉ុណ្ណោះ កុំឱ្យប្រៃខ្លាំងពេក ដើម្បីរក្សាតុល្យភាពផ្អែម-ប្រៃ។",
-            tipEn: "Use just a light pinch of salt to balance sweet and savory notes without overpowering."
-          }
-        }
-      },
-      {
-        id: "coffee-frappe",
-        category: "frappe",
-        nameKm: "កាហ្វេក្រឡុក",
-        nameEn: "Coffee Frappe (Mocha / Caramel)",
-        descKm: "កាហ្វេក្រឡុកជាមួយទឹកកក ទឹកដោះគោ និងរសជាតិ Mocha ឬ Caramel ផ្តល់ភាពត្រជាក់ឈ្ងុយ។",
-        variants: {
-          ice: {
-            photo: "coffee-frappe",
-            descKm: "កាហ្វេក្រឡុកជាមួយទឹកកក ទឹកដោះគោ និងរសជាតិ Mocha ឬ Caramel ផ្តល់ភាពត្រជាក់ឈ្ងុយ។",
-            descEn: "Blended iced coffee with milk, ice, and mocha or caramel flavor.",
-            ingredients: [
-              { nameKm: "Double Espresso / កាហ្វេខាប់", nameEn: "Double Espresso / Strong Coffee", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់", nameEn: "Fresh Milk", amount: 90, unit: "ml" },
-              { nameKm: "ទឹកស្ករ ឬ Syrup (Mocha/Caramel)", nameEn: "Syrup (Mocha / Caramel)", amount: 25, unit: "ml" },
-              { nameKm: "ម្សៅ Frappe Base (ជម្រើស)", nameEn: "Frappe Base Powder (Optional)", amount: 10, unit: "g" },
-              { nameKm: "ទឹកកកក្រឡុក", nameEn: "Crushed / Blender Ice", amount: 180, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់គ្រឿងផ្សំរាវ និងម្សៅចូលម៉ាស៊ីនក្រឡុកមុន រួចដាក់ទឹកកកតាមក្រោយ។",
-              "ក្រឡុករហូតដល់ទឹកកកម៉ត់ចូលគ្នាស្មើល្អ។",
-              "ចាក់ចូលកែវ រួចតុបតែង Whipping Cream ឬ Syrup ពីលើ។"
-            ],
-            stepsEn: [
-              "Add liquids and powders to the blender first, then add ice.",
-              "Blend until smooth and frosty.",
-              "Pour into the cup and top with whipped cream or syrup if desired."
-            ],
-            tipKm: "ដាក់វត្ថុរាវនៅបាតម៉ាស៊ីនក្រឡុក នឹងជួយឱ្យកាំបិតក្រឡុកធ្វើការបានស្រួលជាង។",
-            tipEn: "Putting liquids at the bottom helps blender blades pull ice down smoothly."
-          }
-        }
-      },
-      {
-        id: "espresso-tonic",
-        category: "other",
-        nameKm: "អេស្ព្រេសសូ តូនីក",
-        nameEn: "Espresso Tonic",
-        descKm: "ការផ្សំគ្នារវាង Tonic Water និង Espresso ផ្តល់រសជាតិប្លែក ស្រស់ស្រាយ និងមានពពុះហ្វឺហ្វារ។",
-        variants: {
-          ice: {
-            photo: "espresso-tonic",
-            descKm: "ការផ្សំគ្នារវាង Tonic Water និង Espresso ផ្តល់រសជាតិប្លែក ស្រស់ស្រាយ និងមានពពុះហ្វឺហ្វារ។",
-            descEn: "Crisp tonic water layered with espresso over ice and a citrus garnish.",
-            ingredients: [
-              { nameKm: "Tonic Water ត្រជាក់", nameEn: "Chilled Tonic Water", amount: 160, unit: "ml" },
-              { nameKm: "Single/Double Espresso Shot", nameEn: "Single/Double Espresso Shot", amount: 30, unit: "ml" },
-              { nameKm: "ចំណិតក្រូចឆ្មារ ឬក្រូចពោធិ៍សាត់", nameEn: "Lemon or Citrus Slice", amount: 1, unit: "slice" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកកពេញកែវ រួចចាក់ Tonic Water ត្រជាក់ចូល។",
-              "ចាក់ Espresso យឺតៗពីលើផ្ទៃទឹកកក ដើម្បីកុំឱ្យហ្វឺហ្វារហៀរចេញ។",
-              "បន្ថែមចំណិតក្រូចឆ្មារនៅគែមកែវមុនពេលបម្រើ។"
-            ],
-            stepsEn: [
-              "Fill glass with ice and pour in cold tonic water.",
-              "Pour espresso slowly over the ice to keep bubbles from foaming over.",
-              "Garnish with a citrus slice before serving."
-            ],
-            tipKm: "កុំកូរខ្លាំងពេក ដើម្បីរក្សាពពុះហ្វឺហ្វាររបស់ Tonic Water ឱ្យបានយូរ។",
-            tipEn: "Avoid stirring vigorously so the tonic carbonation stays crisp."
-          }
-        }
       }
     ];
 
@@ -2201,7 +2027,7 @@
     };
 
     let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
-    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["latte-pair", "khmer-milk-coffee-pair", "ice-coconut-coffee"]));
+    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["latte-pair", "khmer-milk-coffee-pair"]));
 
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
@@ -2764,8 +2590,8 @@
       const icePhotoByCat = {
         espresso: "ice-latte",
         local: "ice-khmer-milk",
-        frappe: "coffee-frappe",
-        other: "espresso-tonic"
+        frappe: "ice-mocha",
+        other: "ice-americano"
       };
       const hotPhotoByCat = {
         espresso: "hot-latte",
