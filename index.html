@@ -357,13 +357,16 @@
       place-items: center;
     }
 
+    .drink-photo-box img.model-photo,
     .drink-photo-box svg.model-svg {
       width: 100%;
       height: 100%;
+      object-fit: cover;
       display: block;
       transition: transform 0.25s ease;
     }
 
+    .drink-card:hover .drink-photo-box img.model-photo,
     .drink-card:hover .drink-photo-box svg.model-svg {
       transform: scale(1.06);
     }
@@ -379,6 +382,7 @@
       color: #FFF;
       letter-spacing: 0.03em;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+      z-index: 2;
     }
 
     .photo-temp-badge.hot {
@@ -1441,6 +1445,14 @@
       }
     };
 
+    const REAL_PHOTO_URLS = {
+      "hot-mocha": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/640px-A_small_cup_of_coffee.JPG",
+      "hot-latte": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Latte_art_3.jpg/640px-Latte_art_3.jpg",
+      "hot-cappuccino": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Latte_art_on_cappuccino.jpg/640px-Latte_art_on_cappuccino.jpg",
+      "hot-espresso": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tazzina_di_caff%C3%A8_a_Napoli.jpg/640px-Tazzina_di_caff%C3%A8_a_Napoli.jpg",
+      "hot-americano": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A_cup_of_coffee.jpg/640px-A_cup_of_coffee.jpg"
+    };
+
     const DRINK_VISUALS = {
       "hot-espresso":       { style: "hot-cup", bg: "#EFE4D8", cup: "#FFFFFF", liquid: "#2B150A", foam: "#C48843", garnish: "crema" },
       "hot-americano":      { style: "hot-cup", bg: "#ECE2D8", cup: "#FFFFFF", liquid: "#1C0D06", foam: "#8E582B", garnish: "crema" },
@@ -1460,7 +1472,7 @@
       "ice-black-coffee":   { style: "iced-plain", bg: "#E4ECEF", liquid: "#190C05", top: "#422212", straw: "#2B150A", garnish: "none" }
     };
 
-    function renderModelSvg(photoKey) {
+    function renderFallbackSvg(photoKey) {
       const v = DRINK_VISUALS[photoKey] || DRINK_VISUALS["ice-latte"];
       let inner = "";
 
@@ -1493,6 +1505,15 @@
       }
 
       return `<svg class="model-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg"><rect width="160" height="180" fill="${v.bg}"/>${inner}</svg>`;
+    }
+
+    function renderModelMedia(photoKey, altText = "") {
+      const url = REAL_PHOTO_URLS[photoKey];
+      const fallback = renderFallbackSvg(photoKey).replace(/"/g, "&quot;");
+      if (!url) {
+        return renderFallbackSvg(photoKey);
+      }
+      return `<img class="model-photo" src="${escapeHtml(url)}" alt="${escapeHtml(altText || photoKey)}" loading="lazy" onerror="this.outerHTML='${fallback}'" />`;
     }
 
     const DEFAULT_RECIPES = [
@@ -2209,11 +2230,11 @@
       });
     }
 
-    function renderDrinkPhoto(photoKey, badgeText, badgeCls) {
+    function renderDrinkPhoto(photoKey, badgeText, badgeCls, altText = "") {
       const badgeHtml = badgeText
         ? `<span class="photo-temp-badge ${badgeCls}">${escapeHtml(badgeText)}</span>`
         : "";
-      return `${renderModelSvg(photoKey)}${badgeHtml}`;
+      return `${renderModelMedia(photoKey, altText)}${badgeHtml}`;
     }
 
     function getFilteredRecipes() {
@@ -2270,7 +2291,7 @@
 
         return `
           <article class="drink-card" data-id="${r.id}">
-            <div class="drink-photo-box">${renderDrinkPhoto(defaultVar?.photo, badgeInfo.badge, badgeInfo.photoCls)}</div>
+            <div class="drink-photo-box">${renderDrinkPhoto(defaultVar?.photo, badgeInfo.badge, badgeInfo.photoCls, getRecipeNamePrimary(r))}</div>
             <div class="drink-info">
               <div class="drink-top-meta">
                 ${modeTagHtml}
@@ -2394,7 +2415,8 @@
       document.getElementById("modalArtBox").innerHTML = renderDrinkPhoto(
         variant.photo,
         isHot ? s.hotBadge : s.iceBadge,
-        isHot ? "hot" : "ice"
+        isHot ? "hot" : "ice",
+        getRecipeNamePrimary(recipe)
       );
 
       const tempTag = document.getElementById("modalTempTag");
