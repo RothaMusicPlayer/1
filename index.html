@@ -341,34 +341,196 @@
       line-height: 1.45;
     }
 
-    .fav-toggle-btn {
+    .order-add-btn {
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.86);
-      color: var(--text-muted);
-      width: 44px;
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--accent-espresso);
+      min-width: 44px;
       height: 44px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
       cursor: pointer;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
       flex-shrink: 0;
-      transition: transform 0.14s ease, background 0.18s ease;
+      transition: transform 0.14s ease, background 0.18s ease, color 0.18s ease;
     }
 
-    .fav-toggle-btn.saved {
-      color: #D62D47;
-      border-color: rgba(214, 45, 71, 0.38);
-      background: #FFF2F4;
+    .order-add-btn.has-qty {
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.25);
     }
 
-    .fav-toggle-btn.saved svg {
-      fill: #D62D47;
-      stroke: #D62D47;
+    .order-add-btn:active {
+      transform: scale(0.9);
     }
 
-    .fav-toggle-btn:active {
-      transform: scale(0.88);
+    /* All Order View */
+    .order-panel {
+      background: var(--glass-surface-strong);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      box-shadow: var(--shadow-glass);
+    }
+
+    .order-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .order-header-row h2 {
+      margin: 0 0 4px;
+      font-size: 1.15rem;
+    }
+
+    .order-header-row p.subtitle {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .order-quick-add {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(74, 44, 24, 0.1);
+    }
+
+    .order-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .order-row-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 13px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .order-row-card.done {
+      opacity: 0.65;
+      background: rgba(235, 247, 239, 0.85);
+    }
+
+    .order-row-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .order-row-title {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .order-row-card.done .order-row-name {
+      text-decoration: line-through;
+    }
+
+    .order-row-meta {
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .order-status-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .order-status-badge.pending {
+      background: rgba(198, 125, 59, 0.16);
+      color: #8A4D14;
+    }
+
+    .order-status-badge.done {
+      background: rgba(27, 128, 69, 0.16);
+      color: #1B8045;
+    }
+
+    .order-row-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(118, 118, 128, 0.14);
+      border-radius: 12px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .qty-btn {
+      width: 34px;
+      height: 34px;
+      border: none;
+      background: #FFFFFF;
+      color: var(--text-primary);
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .qty-val {
+      min-width: 28px;
+      text-align: center;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .order-summary-bar {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
     }
 
     /* Empty State */
@@ -915,13 +1077,45 @@
 
     <!-- Summary Strip -->
     <div class="summary-strip" id="summaryStrip">
-      <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong id="shownCount">0</strong> មុខ (សរុប <span id="totalCatalogCount">0</span> មុខ)</div>
+      <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong>0</strong> មុខ (សរុប <span>0</span> មុខ)</div>
     </div>
 
     <!-- Main View: Menu Grid -->
     <main id="menuView">
       <div class="menu-grid" id="menuGrid"></div>
     </main>
+
+    <!-- All Order View -->
+    <section id="orderView" style="display: none;">
+      <div class="order-panel">
+        <div class="order-header-row">
+          <div>
+            <h2 id="orderTitle">All Order</h2>
+            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ទាំងអស់ — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី</p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="icon-btn" id="clearDoneOrdersBtn">សម្អាតមុខរួច</button>
+            <button class="icon-btn" id="clearAllOrdersBtn" style="color:#B81D37;">សម្អាតទាំងអស់</button>
+          </div>
+        </div>
+
+        <div class="order-quick-add" id="orderQuickAddRow">
+          <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 190px;"></select>
+          <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 120px;">
+            <option value="ice" id="optQuickIce">ត្រជាក់ (Ice)</option>
+            <option value="hot" id="optQuickHot">ក្តៅ (Hot)</option>
+          </select>
+          <button class="icon-btn primary" id="quickAddOrderBtn">+ Order</button>
+        </div>
+
+        <div class="order-list" id="orderList"></div>
+
+        <div class="order-summary-bar" id="orderSummaryBar">
+          <span id="orderTotalCupsText">សរុបការកុម្ម៉ង់៖ 0 កែវ</span>
+          <span id="orderDoneCountText">ធ្វើរួច៖ 0 / 0 មុខ</span>
+        </div>
+      </div>
+    </section>
 
     <!-- Secondary View: Bean Bag Yield Calculator -->
     <section id="calculatorView" style="display: none;">
@@ -988,9 +1182,9 @@
       <svg class="ui-icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
       <span id="navAllLabel">ម៉ឺនុយ</span>
     </button>
-    <button class="nav-item" id="navFav" data-tab="fav">
-      <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-      <span id="navFavLabel">ចូលចិត្ត</span>
+    <button class="nav-item" id="navOrder" data-tab="order">
+      <svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="13" y2="16"></line></svg>
+      <span id="navOrderLabel">All Order</span>
     </button>
     <button class="nav-item" id="navCalc" data-tab="calc">
       <svg class="ui-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="10" y2="10"></line><line x1="14" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="10" y2="14"></line><line x1="14" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
@@ -1050,6 +1244,7 @@
       <div class="tip-box" id="modalTip"></div>
 
       <div class="modal-footer-actions" id="modalFooterActions">
+        <button class="icon-btn primary" id="modalAddOrderBtn">+ Add to All Order</button>
         <button class="icon-btn" id="deleteCustomBtn" style="display:none; color:#B81D37;">លុបមុខនេះ</button>
       </div>
     </div>
@@ -1167,17 +1362,31 @@
         iceFull: "ត្រជាក់ (Ice)",
         bothFull: "",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
-        navFav: "ចូលចិត្ត",
+        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
         navCalc: "គណនាគ្រាប់",
         emptyTitle: "រកមិនឃើញមុខកាហ្វេ",
         emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬផ្ទាំងផ្សេង។",
+        orderTitle: "All Order",
+        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ទាំងអស់ — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី",
+        clearDoneOrdersBtn: "សម្អាតមុខរួច",
+        clearAllOrdersBtn: "សម្អាតទាំងអស់",
+        quickAddOrderBtn: "+ Order",
+        orderEmptyTitle: "មិនទាន់មានការកុម្ម៉ង់នៅឡើយ",
+        orderEmptyDesc: "ចុច + លើមុខកាហ្វេក្នុងម៉ឺនុយ ឬជ្រើសរើសខាងលើដើម្បីបន្ថែម Order។",
+        orderStatusPending: "កំពុងធ្វើ",
+        orderStatusDone: "រួចរាល់",
+        orderMarkDone: "រួចរាល់",
+        orderMarkPending: "ដាក់កំពុងធ្វើ",
+        orderRemoveBtn: "លុប",
+        orderTotalCups: (cups) => `សរុបការកុម្ម៉ង់៖ ${cups} កែវ`,
+        orderDoneSummary: (done, total) => `ធ្វើរួច៖ ${done} / ${total} មុខ`,
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         batchLabel: "ចំនួនកែវឆុង (Batch)",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
         stepsHeading: "របៀបធ្វើតាមជំហាន",
         tipPrefix: "គន្លឹះ Barista៖",
         defaultTip: "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
-        favBtnSave: "រក្សាទុកចូលចិត្ត",
+        addOrderBtnLabel: "+ បញ្ចូល All Order",
         deleteCustomBtn: "លុបមុខនេះ",
         addModalTitle: "បន្ថែមមុខកាហ្វេថ្មីផ្ទាល់ខ្លួន",
         addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
@@ -1209,8 +1418,9 @@
         resUsableGrams: (g) => `ប្រើបាន៖ ${g} g`,
         resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន / កញ្ចប់",
         resCostPerCup: (d) => `ម្សៅ/កែវ៖ ${d}g`,
-        toastAddedFav: "បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត",
-        toastRemovedFav: "បានដកចេញពីបញ្ជីចូលចិត្ត",
+        toastAddedOrder: (name) => `បានបន្ថែម "${name}" ចូល All Order`,
+        toastClearedDone: "បានសម្អាតមុខដែលធ្វើរួចរាល់",
+        toastClearedAll: "បានសម្អាតបញ្ជី All Order ទាំងអស់",
         toastAddedRecipe: "បានបន្ថែមមុខកាហ្វេថ្មីរួចរាល់",
         toastDeletedRecipe: "បានលុបមុខកាហ្វេផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
@@ -1232,17 +1442,31 @@
         iceFull: "Ice",
         bothFull: "",
         navMenu: (n) => `Menu (${n})`,
-        navFav: "Favorites",
+        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
         navCalc: "Bean Calc",
         emptyTitle: "No coffee found",
         emptyDesc: "Try switching Hot / Ice filters or another tab.",
+        orderTitle: "All Order",
+        orderSubtitle: "All active and completed orders — adjust quantity, mark served, or clear",
+        clearDoneOrdersBtn: "Clear Done",
+        clearAllOrdersBtn: "Clear All",
+        quickAddOrderBtn: "+ Order",
+        orderEmptyTitle: "No orders yet",
+        orderEmptyDesc: "Tap + on any coffee card or select a drink above to add to All Order.",
+        orderStatusPending: "Pending",
+        orderStatusDone: "Served",
+        orderMarkDone: "Mark Done",
+        orderMarkPending: "Reopen",
+        orderRemoveBtn: "Remove",
+        orderTotalCups: (cups) => `Total Order: ${cups} cups`,
+        orderDoneSummary: (done, total) => `Completed: ${done} / ${total} items`,
         cupSizeLabel: "Cup Size",
         batchLabel: "Batch Multiplier",
         ingHeading: "Ingredients & Standard Measurements (Tap to check)",
         stepsHeading: "Step-by-Step Instructions",
         tipPrefix: "Barista Tip:",
         defaultTip: "Measure consistently to keep coffee quality and flavor balanced.",
-        favBtnSave: "Save to Favorites",
+        addOrderBtnLabel: "+ Add to All Order",
         deleteCustomBtn: "Delete Custom",
         addModalTitle: "Add Custom Coffee Recipe",
         addModalSub: "Automatically saved on your device",
@@ -1274,8 +1498,9 @@
         resUsableGrams: (g) => `Usable: ${g} g`,
         resEstRevenueLabel: "Est. Revenue / Bag",
         resCostPerCup: (d) => `Dose/cup: ${d}g`,
-        toastAddedFav: "Saved to Favorites",
-        toastRemovedFav: "Removed from Favorites",
+        toastAddedOrder: (name) => `Added "${name}" to All Order`,
+        toastClearedDone: "Cleared completed orders",
+        toastClearedAll: "Cleared all orders",
         toastAddedRecipe: "New custom coffee added",
         toastDeletedRecipe: "Custom coffee deleted",
         toastLangSwitched: "Switched to English"
@@ -1758,6 +1983,7 @@
         nameKm: "កាហ្វេខ្មៅ ទឹកកក",
         nameEn: "Iced Black Coffee",
         descKm: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
+        descEn: "Chilled black coffee lightly sweetened with simple syrup over ice.",
         variants: {
           ice: {
             descKm: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
@@ -1787,12 +2013,12 @@
 
     const STORAGE_KEYS = {
       CUSTOM_RECIPES: "cafe_app_paired_custom_v1",
-      FAVORITES: "cafe_app_paired_fav_v1",
+      ORDERS: "cafe_app_paired_orders_v1",
       LANG: "cafe_app_paired_lang_v1"
     };
 
     let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
-    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["latte-pair", "khmer-milk-coffee-pair"]));
+    let orders = loadJson(STORAGE_KEYS.ORDERS, []);
 
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
@@ -1897,6 +2123,10 @@
       return state.lang === "en" ? (ing.nameEn || ing.nameKm || ing.name || "") : (ing.nameKm || ing.nameEn || ing.name || "");
     }
 
+    function getTotalOrderCups() {
+      return orders.reduce((sum, item) => sum + (item.qty || 1), 0);
+    }
+
     function applyStaticTranslations() {
       const s = t();
       document.documentElement.lang = state.lang;
@@ -1905,11 +2135,20 @@
       document.getElementById("langBadgeText").textContent = s.langBadge;
       document.getElementById("timerBtnLabel").textContent = s.timerBtn;
       document.getElementById("addBtnLabel").textContent = s.addBtn;
-      document.getElementById("navFavLabel").textContent = s.navFav;
+      document.getElementById("navOrderLabel").textContent = s.navOrder(getTotalOrderCups());
       document.getElementById("navCalcLabel").textContent = s.navCalc;
+
+      document.getElementById("orderTitle").textContent = s.orderTitle;
+      document.getElementById("orderSubtitle").textContent = s.orderSubtitle;
+      document.getElementById("clearDoneOrdersBtn").textContent = s.clearDoneOrdersBtn;
+      document.getElementById("clearAllOrdersBtn").textContent = s.clearAllOrdersBtn;
+      document.getElementById("optQuickIce").textContent = s.iceFull;
+      document.getElementById("optQuickHot").textContent = s.hotFull;
+      document.getElementById("quickAddOrderBtn").textContent = s.quickAddOrderBtn;
 
       document.getElementById("modeHotBtn").textContent = s.hotFull;
       document.getElementById("modeIceBtn").textContent = s.iceFull;
+      document.getElementById("modalAddOrderBtn").textContent = s.addOrderBtnLabel;
 
       document.getElementById("cupSizeLabel").textContent = s.cupSizeLabel;
       document.getElementById("batchLabel").textContent = s.batchLabel;
@@ -1949,8 +2188,9 @@
       state.lang = state.lang === "km" ? "en" : "km";
       saveJson(STORAGE_KEYS.LANG, state.lang);
       applyStaticTranslations();
-      renderMenu();
-      calculateBeanYield();
+      if (state.tab === "order") renderOrders();
+      else if (state.tab === "calc") calculateBeanYield();
+      else renderMenu();
       if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
         openRecipeModal(state.activeRecipeId, state.activeMode);
       }
@@ -1965,6 +2205,7 @@
       const iceCount = all.filter((r) => supportsTemp(r, "ice")).length;
 
       document.getElementById("navAllLabel").textContent = s.navMenu(total);
+      document.getElementById("navOrderLabel").textContent = s.navOrder(getTotalOrderCups());
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         if (btn.dataset.temp === "all") btn.textContent = s.filterAll(total);
@@ -1976,10 +2217,47 @@
     function getFilteredRecipes() {
       const all = getAllRecipes();
       return all.filter((r) => {
-        if (state.tab === "fav" && !favorites.has(r.id)) return false;
         if (state.temp !== "all" && !supportsTemp(r, state.temp)) return false;
         return true;
       });
+    }
+
+    function getOrderQtyForRecipe(recipeId, mode) {
+      return orders
+        .filter((o) => o.recipeId === recipeId && (!mode || o.mode === mode))
+        .reduce((acc, o) => acc + (o.qty || 1), 0);
+    }
+
+    function addToOrder(recipeId, mode, cupSize = "16oz", qtyToAdd = 1) {
+      const s = t();
+      const recipe = getAllRecipes().find((r) => r.id === recipeId);
+      if (!recipe) return;
+
+      const resolvedMode = supportsTemp(recipe, mode) ? mode : getDefaultVariantKey(recipe);
+      const existing = orders.find(
+        (o) => o.recipeId === recipeId && o.mode === resolvedMode && o.cupSize === cupSize && !o.done
+      );
+
+      if (existing) {
+        existing.qty = (existing.qty || 1) + qtyToAdd;
+      } else {
+        orders.unshift({
+          id: "ord_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+          recipeId,
+          mode: resolvedMode,
+          cupSize,
+          qty: qtyToAdd,
+          done: false,
+          createdAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        });
+      }
+
+      saveJson(STORAGE_KEYS.ORDERS, orders);
+      updateCatalogCounts();
+      if (state.tab === "all") renderMenu();
+      if (state.tab === "order") renderOrders();
+      const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
+      showToast(s.toastAddedOrder(`${getRecipeNamePrimary(recipe)} (${modeLabel})`));
     }
 
     function renderMenu() {
@@ -2003,9 +2281,10 @@
       }
 
       grid.innerHTML = list.map((r) => {
-        const isFav = favorites.has(r.id);
+        const defaultMode = getDefaultVariantKey(r);
+        const qtyInOrder = getOrderQtyForRecipe(r.id, state.temp === "all" ? null : defaultMode);
         const badgeInfo = getCardBadgeInfo(r);
-        const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
+        const defaultVar = getActiveVariant(r, defaultMode);
         const primaryName = getRecipeNamePrimary(r);
         const modeTagHtml = badgeInfo.label
           ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
@@ -2022,8 +2301,8 @@
               <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
             </div>
-            <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="${escapeHtml(s.favBtnSave)}" aria-label="${escapeHtml(s.favBtnSave)}">
-              <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <button class="order-add-btn ${qtyInOrder > 0 ? "has-qty" : ""}" data-order-id="${r.id}" title="${escapeHtml(s.addOrderBtnLabel)}" aria-label="${escapeHtml(s.addOrderBtnLabel)}">
+              <span>${qtyInOrder > 0 ? `+${qtyInOrder}` : "+"}</span>
             </button>
           </article>
         `;
@@ -2031,31 +2310,141 @@
 
       grid.querySelectorAll(".drink-card").forEach((card) => {
         card.addEventListener("click", (e) => {
-          if (e.target.closest(".fav-toggle-btn")) return;
+          if (e.target.closest(".order-add-btn")) return;
           const recipe = getAllRecipes().find((x) => x.id === card.dataset.id);
           openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice");
         });
       });
 
-      grid.querySelectorAll(".fav-toggle-btn").forEach((btn) => {
+      grid.querySelectorAll(".order-add-btn").forEach((btn) => {
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
-          toggleFavorite(btn.dataset.favId);
+          const recipe = getAllRecipes().find((x) => x.id === btn.dataset.orderId);
+          addToOrder(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1);
         });
       });
     }
 
-    function toggleFavorite(id) {
-      const s = t();
-      if (favorites.has(id)) {
-        favorites.delete(id);
-        showToast(s.toastRemovedFav);
-      } else {
-        favorites.add(id);
-        showToast(s.toastAddedFav);
+    function populateQuickOrderSelect() {
+      const sel = document.getElementById("quickOrderSelect");
+      const currentVal = sel.value;
+      const all = getAllRecipes();
+      sel.innerHTML = all.map((r) => `<option value="${r.id}">${escapeHtml(getRecipeNamePrimary(r))}</option>`).join("");
+      if (currentVal && all.some((r) => r.id === currentVal)) {
+        sel.value = currentVal;
       }
-      saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
-      renderMenu();
+      syncQuickOrderModes();
+    }
+
+    function syncQuickOrderModes() {
+      const recipeId = document.getElementById("quickOrderSelect").value;
+      const recipe = getAllRecipes().find((r) => r.id === recipeId);
+      const modeSel = document.getElementById("quickOrderModeSelect");
+      if (!recipe) return;
+
+      const hotOpt = modeSel.querySelector('option[value="hot"]');
+      const iceOpt = modeSel.querySelector('option[value="ice"]');
+      const hasHot = supportsTemp(recipe, "hot");
+      const hasIce = supportsTemp(recipe, "ice");
+
+      hotOpt.disabled = !hasHot;
+      iceOpt.disabled = !hasIce;
+      if (!hasIce && hasHot) modeSel.value = "hot";
+      else if (!hasHot && hasIce) modeSel.value = "ice";
+    }
+
+    function renderOrders() {
+      const s = t();
+      updateCatalogCounts();
+      populateQuickOrderSelect();
+
+      const listEl = document.getElementById("orderList");
+      const allRecipes = getAllRecipes();
+
+      if (orders.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin:0 0 6px;">${escapeHtml(s.orderEmptyTitle)}</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(s.orderEmptyDesc)}</p>
+          </div>
+        `;
+      } else {
+        listEl.innerHTML = orders.map((ord) => {
+          const recipe = allRecipes.find((r) => r.id === ord.recipeId);
+          const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
+          const modeLabel = ord.mode === "hot" ? s.hotFull : s.iceFull;
+          const statusCls = ord.done ? "done" : "pending";
+          const statusText = ord.done ? s.orderStatusDone : s.orderStatusPending;
+          const toggleLabel = ord.done ? s.orderMarkPending : s.orderMarkDone;
+
+          return `
+            <div class="order-row-card ${ord.done ? "done" : ""}" data-order-id="${ord.id}">
+              <div class="order-row-main">
+                <h3 class="order-row-title">
+                  <span class="order-row-name">${escapeHtml(name)}</span>
+                  <span class="drink-tag ${ord.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
+                  <span class="drink-tag">${escapeHtml(ord.cupSize || "16oz")}</span>
+                  <span class="order-status-badge ${statusCls}">${escapeHtml(statusText)}</span>
+                </h3>
+                <div class="order-row-meta">
+                  <span>${escapeHtml(ord.createdAt || "")}</span>
+                </div>
+              </div>
+              <div class="order-row-actions">
+                <div class="qty-stepper">
+                  <button class="qty-btn" data-action="dec" aria-label="Decrease">-</button>
+                  <span class="qty-val">${ord.qty || 1}</span>
+                  <button class="qty-btn" data-action="inc" aria-label="Increase">+</button>
+                </div>
+                <button class="icon-btn" data-action="toggle-done">${escapeHtml(toggleLabel)}</button>
+                <button class="icon-btn" data-action="remove" style="color:#B81D37;">${escapeHtml(s.orderRemoveBtn)}</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        listEl.querySelectorAll(".order-row-card").forEach((row) => {
+          const ordId = row.dataset.orderId;
+          row.querySelector('[data-action="dec"]').addEventListener("click", () => {
+            const target = orders.find((o) => o.id === ordId);
+            if (!target) return;
+            if ((target.qty || 1) > 1) {
+              target.qty -= 1;
+            } else {
+              orders = orders.filter((o) => o.id !== ordId);
+            }
+            saveJson(STORAGE_KEYS.ORDERS, orders);
+            renderOrders();
+          });
+
+          row.querySelector('[data-action="inc"]').addEventListener("click", () => {
+            const target = orders.find((o) => o.id === ordId);
+            if (!target) return;
+            target.qty = (target.qty || 1) + 1;
+            saveJson(STORAGE_KEYS.ORDERS, orders);
+            renderOrders();
+          });
+
+          row.querySelector('[data-action="toggle-done"]').addEventListener("click", () => {
+            const target = orders.find((o) => o.id === ordId);
+            if (!target) return;
+            target.done = !target.done;
+            saveJson(STORAGE_KEYS.ORDERS, orders);
+            renderOrders();
+          });
+
+          row.querySelector('[data-action="remove"]').addEventListener("click", () => {
+            orders = orders.filter((o) => o.id !== ordId);
+            saveJson(STORAGE_KEYS.ORDERS, orders);
+            renderOrders();
+          });
+        });
+      }
+
+      const totalCups = getTotalOrderCups();
+      const doneItems = orders.filter((o) => o.done).length;
+      document.getElementById("orderTotalCupsText").textContent = s.orderTotalCups(totalCups);
+      document.getElementById("orderDoneCountText").textContent = s.orderDoneSummary(doneItems, orders.length);
     }
 
     function switchTab(tabName) {
@@ -2064,15 +2453,19 @@
         btn.classList.toggle("active", btn.dataset.tab === tabName);
       });
 
+      const isOrder = tabName === "order";
       const isCalc = tabName === "calc";
-      document.getElementById("menuView").style.display = isCalc ? "none" : "block";
+      document.getElementById("menuView").style.display = (!isOrder && !isCalc) ? "block" : "none";
+      document.getElementById("orderView").style.display = isOrder ? "block" : "none";
       document.getElementById("calculatorView").style.display = isCalc ? "block" : "none";
-      document.getElementById("summaryStrip").style.display = isCalc ? "none" : "flex";
+      document.getElementById("summaryStrip").style.display = (!isOrder && !isCalc) ? "flex" : "none";
 
-      if (!isCalc) {
-        renderMenu();
-      } else {
+      if (isOrder) {
+        renderOrders();
+      } else if (isCalc) {
         calculateBeanYield();
+      } else {
+        renderMenu();
       }
     }
 
@@ -2343,9 +2736,9 @@
       const s = t();
       if (!state.activeRecipeId) return;
       customRecipes = customRecipes.filter((r) => r.id !== state.activeRecipeId);
-      favorites.delete(state.activeRecipeId);
+      orders = orders.filter((o) => o.recipeId !== state.activeRecipeId);
       saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
-      saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
+      saveJson(STORAGE_KEYS.ORDERS, orders);
       document.getElementById("recipeModal").classList.remove("open");
       renderMenu();
       showToast(s.toastDeletedRecipe);
@@ -2377,13 +2770,40 @@
             b.classList.toggle("active", b === btn);
           });
           if (state.tab === "calc") switchTab("all");
+          else if (state.tab === "order") renderOrders();
           else renderMenu();
         });
       });
 
       document.getElementById("navAll").addEventListener("click", () => switchTab("all"));
-      document.getElementById("navFav").addEventListener("click", () => switchTab("fav"));
+      document.getElementById("navOrder").addEventListener("click", () => switchTab("order"));
       document.getElementById("navCalc").addEventListener("click", () => switchTab("calc"));
+
+      document.getElementById("quickOrderSelect").addEventListener("change", syncQuickOrderModes);
+      document.getElementById("quickAddOrderBtn").addEventListener("click", () => {
+        const recipeId = document.getElementById("quickOrderSelect").value;
+        const mode = document.getElementById("quickOrderModeSelect").value;
+        addToOrder(recipeId, mode, "16oz", 1);
+      });
+
+      document.getElementById("clearDoneOrdersBtn").addEventListener("click", () => {
+        orders = orders.filter((o) => !o.done);
+        saveJson(STORAGE_KEYS.ORDERS, orders);
+        renderOrders();
+        showToast(t().toastClearedDone);
+      });
+
+      document.getElementById("clearAllOrdersBtn").addEventListener("click", () => {
+        orders = [];
+        saveJson(STORAGE_KEYS.ORDERS, orders);
+        renderOrders();
+        showToast(t().toastClearedAll);
+      });
+
+      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
+        if (!state.activeRecipeId) return;
+        addToOrder(state.activeRecipeId, state.activeMode, state.cupSize, state.batch);
+      });
 
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
