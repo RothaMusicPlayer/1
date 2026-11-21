@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>EMinor Menu — Menu Guide</title>
+  <title>EMinor Menu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -149,107 +149,25 @@
       transform: scale(0.96);
     }
 
-    .icon-btn.primary {
-      background: var(--accent-espresso);
-      color: #FAF6F0;
-      border-color: var(--accent-espresso);
-    }
-
     .lang-toggle-btn {
       background: var(--blush-banner);
       border-color: rgba(44, 30, 22, 0.18);
       color: var(--text-primary);
     }
 
-    /* Batch & Yield Calculator View */
+    /* Batch & Yield Calculator Results Panel */
     .calc-panel {
       background: var(--bg-paper);
       border: 1px solid var(--border-strong);
       border-radius: 16px;
-      padding: 20px;
+      padding: 18px;
       box-shadow: var(--shadow-sheet);
-    }
-
-    .calc-panel h2 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
-    }
-
-    .calc-panel p.subtitle {
-      margin: 0 0 18px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .preset-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .preset-chip {
-      border: 1px solid var(--border-hairline);
-      background: #FFFFFF;
-      color: var(--text-primary);
-      padding: 8px 14px;
-      min-height: 40px;
-      border-radius: 11px;
-      font-family: inherit;
-      font-size: 0.84rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .preset-chip.active {
-      background: var(--accent-espresso);
-      color: #FFFFFF;
-      border-color: var(--accent-espresso);
-    }
-
-    .form-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    @media (max-width: 560px) {
-      .form-grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .field-group label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
-    }
-
-    .field-input, .field-select {
-      width: 100%;
-      min-height: 42px;
-      padding: 10px 12px;
-      border-radius: 11px;
-      border: 1px solid var(--border-hairline);
-      background: #FFFFFF;
-      font-family: inherit;
-      font-size: 0.92rem;
-      color: var(--text-primary);
-      outline: none;
-    }
-
-    .field-input:focus, .field-select:focus {
-      border-color: var(--accent-caramel);
     }
 
     .calc-results {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 14px;
     }
 
     @media (max-width: 600px) {
@@ -590,12 +508,6 @@
       background: transparent;
     }
 
-    .guide-cup-visual svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 6px 8px rgba(35, 24, 18, 0.13));
-    }
-
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -646,47 +558,9 @@
       </div>
     </header>
 
-    <!-- Main View Placeholder (MENU GUIDE removed) -->
-    <main id="menuView" style="display: none;"></main>
-
-    <!-- Batch & Yield Calculator View -->
+    <!-- Batch & Yield Calculator Results View -->
     <section id="calculatorView" style="display: block;">
       <div class="calc-panel">
-        <h2 id="calcTitle">ឧបករណ៍គណនាចំនួនកែវតាមទម្ងន់គ្រឿងផ្សំ</h2>
-        <p class="subtitle" id="calcSubtitle">គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់សរុប បរិមាណសម្រាប់ ១ កែវ និងភាគរយខាតបង់ (Waste %)</p>
-
-        <div class="preset-row" id="bagPresets">
-          <button class="preset-chip" data-grams="250">250g</button>
-          <button class="preset-chip active" data-grams="500">500g</button>
-          <button class="preset-chip" data-grams="1000">1kg (1,000g)</button>
-          <button class="preset-chip" data-grams="5000">5kg (5,000g)</button>
-        </div>
-
-        <div class="form-grid-2">
-          <div class="field-group">
-            <label for="bagGramsInput" id="lblBagGrams">ទម្ងន់សរុប (ក្រាម)</label>
-            <input type="number" id="bagGramsInput" class="field-input" value="500" min="10" step="10" />
-          </div>
-          <div class="field-group">
-            <label for="dosePerCupInput" id="lblDosePerCup">បរិមាណសម្រាប់ ១ កែវ (ក្រាម)</label>
-            <select id="dosePerCupSelect" class="field-select" style="margin-bottom: 6px;">
-              <option value="15">Light Portion (~15g)</option>
-              <option value="25" selected>Standard Portion (~25g)</option>
-              <option value="35">Rich Portion (~35g)</option>
-              <option value="custom" id="optCustomDose">កំណត់ផ្ទាល់ខ្លួន...</option>
-            </select>
-            <input type="number" id="dosePerCupInput" class="field-input" value="25" min="3" max="150" step="0.5" />
-          </div>
-          <div class="field-group">
-            <label for="wastePercentInput" id="lblWastePct">ភាគរយខាតបង់ (កំពប់ / Waste %)</label>
-            <input type="number" id="wastePercentInput" class="field-input" value="5" min="0" max="50" step="1" />
-          </div>
-          <div class="field-group">
-            <label for="pricePerCupInput" id="lblPricePerCup">តម្លៃលក់ ១ កែវ ($)</label>
-            <input type="number" id="pricePerCupInput" class="field-input" value="1.75" min="0" step="0.05" />
-          </div>
-        </div>
-
         <div class="calc-results">
           <div class="result-box">
             <div class="res-label" id="resNetCupsLabel">ចំនួនកែវធ្វើបាន (សុទ្ធ)</div>
@@ -805,13 +679,6 @@
         tipPrefix: "គន្លឹះធ្វើ៖",
         defaultTip: "វាស់គ្រឿងផ្សំឱ្យច្បាស់លាស់ ដើម្បីរក្សារសជាតិថេរ។",
         deleteCustomBtn: "លុបមុខនេះ",
-        calcTitle: "ឧបករណ៍គណនាចំនួនកែវតាមទម្ងន់គ្រឿងផ្សំ",
-        calcSubtitle: "គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់សរុប បរិមាណសម្រាប់ ១ កែវ និងភាគរយខាតបង់ (Waste %)",
-        lblBagGrams: "ទម្ងន់សរុប (ក្រាម)",
-        lblDosePerCup: "បរិមាណសម្រាប់ ១ កែវ (ក្រាម)",
-        optCustomDose: "កំណត់ផ្ទាល់ខ្លួន...",
-        lblWastePct: "ភាគរយខាតបង់ (កំពប់ / Waste %)",
-        lblPricePerCup: "តម្លៃលក់ ១ កែវ ($)",
         resNetCupsLabel: "ចំនួនកែវធ្វើបាន (សុទ្ធ)",
         resGrossCups: (n) => `មុនខាត៖ ~${n} កែវ`,
         cupUnit: "កែវ",
@@ -838,13 +705,6 @@
         tipPrefix: "Prep Tip:",
         defaultTip: "Measure ingredients accurately for consistent flavor every time.",
         deleteCustomBtn: "Delete Item",
-        calcTitle: "Ingredient Batch Yield Calculator",
-        calcSubtitle: "Estimate cup yield by total weight, portion per cup, and waste percentage",
-        lblBagGrams: "Total Weight (grams)",
-        lblDosePerCup: "Portion per Cup (grams)",
-        optCustomDose: "Custom portion...",
-        lblWastePct: "Waste Loss (%)",
-        lblPricePerCup: "Selling Price per Cup ($)",
         resNetCupsLabel: "Net Cups Yield",
         resGrossCups: (n) => `Gross: ~${n} cups`,
         cupUnit: "cups",
@@ -960,13 +820,6 @@
       document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
       document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
 
-      document.getElementById("calcTitle").textContent = s.calcTitle;
-      document.getElementById("calcSubtitle").textContent = s.calcSubtitle;
-      document.getElementById("lblBagGrams").textContent = s.lblBagGrams;
-      document.getElementById("lblDosePerCup").textContent = s.lblDosePerCup;
-      document.getElementById("optCustomDose").textContent = s.optCustomDose;
-      document.getElementById("lblWastePct").textContent = s.lblWastePct;
-      document.getElementById("lblPricePerCup").textContent = s.lblPricePerCup;
       document.getElementById("resNetCupsLabel").textContent = s.resNetCupsLabel;
       document.getElementById("resWasteGramsLabel").textContent = s.resWasteGramsLabel;
       document.getElementById("resEstRevenueLabel").textContent = s.resEstRevenueLabel;
@@ -1091,10 +944,10 @@
 
     function calculateBeanYield() {
       const s = t();
-      const bagGrams = Math.max(1, parseFloat(document.getElementById("bagGramsInput").value) || 0);
-      const dose = Math.max(1, parseFloat(document.getElementById("dosePerCupInput").value) || 25);
-      const wastePct = Math.min(90, Math.max(0, parseFloat(document.getElementById("wastePercentInput").value) || 0));
-      const pricePerCup = Math.max(0, parseFloat(document.getElementById("pricePerCupInput").value) || 0);
+      const bagGrams = 500;
+      const dose = 25;
+      const wastePct = 5;
+      const pricePerCup = 1.75;
 
       const wasteGrams = bagGrams * (wastePct / 100);
       const usableGrams = Math.max(0, bagGrams - wasteGrams);
@@ -1183,26 +1036,6 @@
       });
 
       document.getElementById("deleteCustomBtn").addEventListener("click", deleteActiveCustomRecipe);
-
-      document.querySelectorAll("#bagPresets .preset-chip").forEach((chip) => {
-        chip.addEventListener("click", () => {
-          document.querySelectorAll("#bagPresets .preset-chip").forEach((c) => c.classList.remove("active"));
-          chip.classList.add("active");
-          document.getElementById("bagGramsInput").value = chip.dataset.grams;
-          calculateBeanYield();
-        });
-      });
-
-      document.getElementById("dosePerCupSelect").addEventListener("change", (e) => {
-        if (e.target.value !== "custom") {
-          document.getElementById("dosePerCupInput").value = e.target.value;
-          calculateBeanYield();
-        }
-      });
-
-      ["bagGramsInput", "dosePerCupInput", "wastePercentInput", "pricePerCupInput"].forEach((id) => {
-        document.getElementById(id).addEventListener("input", calculateBeanYield);
-      });
     }
 
     applyStaticTranslations();
