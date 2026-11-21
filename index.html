@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>EMinor Coffee — Coffee Guide & Menu</title>
+  <title>EMinor Coffee — Menu Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg-paper: #FAF6F0;
-      --bg-paper-alt: #F3ECE2;
       --card-surface: #FFFDF9;
       --border-hairline: rgba(44, 30, 22, 0.14);
       --border-strong: rgba(44, 30, 22, 0.28);
@@ -273,7 +272,7 @@
     }
 
     /* ============================================================
-       COFFEE GUIDE POSTER SHEET (MATCHING REFERENCE IMAGE LAYOUT)
+       MENU GUIDE POSTER SHEET
        ============================================================ */
     .guide-poster-sheet {
       background-color: var(--bg-paper);
@@ -326,7 +325,7 @@
       color: var(--text-secondary);
     }
 
-    /* Two-Column Coffee Guide Grid with Hairline Dividers */
+    /* Two-Column Guide Grid with Hairline Dividers */
     .coffee-guide-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -345,7 +344,6 @@
       user-select: none;
     }
 
-    /* Vertical center divider between column 1 and column 2 */
     .guide-item:nth-child(odd) {
       border-right: 1px solid var(--border-hairline);
       padding-right: 18px;
@@ -363,7 +361,6 @@
       background: rgba(240, 220, 212, 0.45);
     }
 
-    /* Mobile narrow fallback: stack cleanly while keeping poster styling */
     @media (max-width: 620px) {
       .guide-poster-sheet {
         padding: 22px 14px 20px;
@@ -384,7 +381,6 @@
       }
     }
 
-    /* Clean Cup Illustration / Photo Container (Left Side of Each Cell) */
     .guide-cup-visual {
       width: 104px;
       height: 112px;
@@ -424,7 +420,6 @@
       background: var(--accent-ice);
     }
 
-    /* Right Side of Each Cell: Bold Uppercase Drink Name + Bullet Ingredients */
     .guide-text-col {
       flex: 1;
       min-width: 0;
@@ -475,7 +470,6 @@
       font-size: 0.8em;
     }
 
-    /* Subtle Heart Favorite Toggle in Top-Right Corner of Each Guide Cell */
     .fav-toggle-btn {
       position: absolute;
       top: 12px;
@@ -506,7 +500,6 @@
       stroke: #C92A42;
     }
 
-    /* Poster Footer Banner matching reference bottom note */
     .poster-footer-banner {
       margin-top: 20px;
       background: var(--blush-banner);
@@ -531,7 +524,7 @@
       color: var(--text-secondary);
     }
 
-    /* Bean Calculator View */
+    /* Bean / Ingredient Yield Calculator View */
     .calc-panel {
       background: var(--bg-paper);
       border: 1px solid var(--border-strong);
@@ -950,7 +943,7 @@
       display: none !important;
     }
 
-    /* Barista Shot Timer Box */
+    /* Barista Prep Timer Box */
     .timer-widget {
       background: #FFFFFF;
       border: 1px solid var(--border-hairline);
@@ -1020,18 +1013,18 @@
               <line x1="14" y1="2" x2="14" y2="4"></line>
             </svg>
           </div>
-          <span class="brand-mini-title" id="mainHeaderTitle">EMinor Coffee</span>
+          <span class="brand-mini-title" id="mainHeaderTitle">EMinor Menu</span>
         </div>
         <div class="header-actions">
           <button class="icon-btn lang-toggle-btn" id="langToggleBtn" title="ប្តូរភាសា / Switch Language">
             <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             <span id="langBadgeText">EN</span>
           </button>
-          <button class="icon-btn" id="openTimerBtn" title="ម៉ោងចម្រាញ់កាហ្វេ">
+          <button class="icon-btn" id="openTimerBtn" title="ម៉ោងកំណត់ពេល">
             <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <span class="btn-label" id="timerBtnLabel">ម៉ោងឆុង</span>
+            <span class="btn-label" id="timerBtnLabel">ម៉ោងកំណត់</span>
           </button>
-          <button class="icon-btn primary" id="openAddRecipeBtn" title="បន្ថែមរូបមន្តកាហ្វេថ្មី">
+          <button class="icon-btn primary" id="openAddRecipeBtn" title="បន្ថែមមុខថ្មី">
             <svg class="ui-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             <span class="btn-label" id="addBtnLabel">បន្ថែមមុខ</span>
           </button>
@@ -1047,7 +1040,7 @@
             type="text"
             id="searchInput"
             class="search-input"
-            placeholder="ស្វែងរកឈ្មោះកាហ្វេ (ខ្មែរ / English) ឬគ្រឿងផ្សំ..."
+            placeholder="ស្វែងរកឈ្មោះមុខ (ខ្មែរ / English) ឬគ្រឿងផ្សំ..."
             autocomplete="off"
           />
           <button class="clear-search-btn" id="clearSearchBtn" aria-label="សម្អាត">X</button>
@@ -1061,11 +1054,11 @@
       </div>
     </header>
 
-    <!-- Main View: Coffee Guide Poster Sheet -->
+    <!-- Main View: Menu Guide Poster Sheet -->
     <main id="menuView">
       <div class="guide-poster-sheet">
         <div class="poster-header">
-          <h1 class="poster-main-title" id="posterMainTitle">COFFEE GUIDE</h1>
+          <h1 class="poster-main-title" id="posterMainTitle">MENU GUIDE</h1>
           <div class="poster-divider-heart" aria-hidden="true">
             <span class="poster-divider-line"></span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1073,10 +1066,10 @@
             </svg>
             <span class="poster-divider-line"></span>
           </div>
-          <p class="poster-subtitle" id="posterSubtitle">• មគ្គុទ្ទេសក៍មុខកាហ្វេ និងគ្រឿងផ្សំ •</p>
+          <p class="poster-subtitle" id="posterSubtitle">• មគ្គុទ្ទេសក៍ម៉ឺនុយ និងគ្រឿងផ្សំ •</p>
         </div>
 
-        <!-- 2-Column Coffee Guide Grid -->
+        <!-- 2-Column Menu Grid -->
         <div class="coffee-guide-grid" id="menuGrid"></div>
 
         <!-- Bottom Poster Note -->
@@ -1086,16 +1079,16 @@
             <path d="M10 22h4"></path>
             <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path>
           </svg>
-          <span id="posterFooterText">ចុចលើមុខកាហ្វេនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបឆុង</span>
+          <span id="posterFooterText">ចុចលើមុខនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបធ្វើ</span>
         </div>
       </div>
     </main>
 
-    <!-- Secondary View: Bean Bag Yield Calculator -->
+    <!-- Secondary View: Batch & Yield Calculator -->
     <section id="calculatorView" style="display: none;">
       <div class="calc-panel">
-        <h2 id="calcTitle">ឧបករណ៍គណនាចំនួនកែវពីកញ្ចប់គ្រាប់កាហ្វេ</h2>
-        <p class="subtitle" id="calcSubtitle">គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ បរិមាណម្សៅ ១ កែវ និងភាគរយខាតបង់ (Dial-in / Waste)</p>
+        <h2 id="calcTitle">ឧបករណ៍គណនាចំនួនកែវតាមទម្ងន់គ្រឿងផ្សំ</h2>
+        <p class="subtitle" id="calcSubtitle">គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់សរុប បរិមាណសម្រាប់ ១ កែវ និងភាគរយខាតបង់ (Waste %)</p>
 
         <div class="preset-row" id="bagPresets">
           <button class="preset-chip" data-grams="250">250g</button>
@@ -1106,44 +1099,44 @@
 
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="bagGramsInput" id="lblBagGrams">ទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ (ក្រាម)</label>
+            <label for="bagGramsInput" id="lblBagGrams">ទម្ងន់សរុប (ក្រាម)</label>
             <input type="number" id="bagGramsInput" class="field-input" value="500" min="10" step="10" />
           </div>
           <div class="field-group">
-            <label for="dosePerCupInput" id="lblDosePerCup">ម្សៅកាហ្វេសម្រាប់ ១ កែវ (ក្រាម)</label>
+            <label for="dosePerCupInput" id="lblDosePerCup">បរិមាណសម្រាប់ ១ កែវ (ក្រាម)</label>
             <select id="dosePerCupSelect" class="field-select" style="margin-bottom: 6px;">
-              <option value="9">Single Shot (~9g)</option>
-              <option value="18" selected>Double Shot Standard (~18g)</option>
-              <option value="20">Strong Double Shot (~20g)</option>
+              <option value="15">Light Portion (~15g)</option>
+              <option value="25" selected>Standard Portion (~25g)</option>
+              <option value="35">Rich Portion (~35g)</option>
               <option value="custom" id="optCustomDose">កំណត់ផ្ទាល់ខ្លួន...</option>
             </select>
-            <input type="number" id="dosePerCupInput" class="field-input" value="18" min="3" max="60" step="0.5" />
+            <input type="number" id="dosePerCupInput" class="field-input" value="25" min="3" max="150" step="0.5" />
           </div>
           <div class="field-group">
-            <label for="wastePercentInput" id="lblWastePct">ភាគរយខាតបង់ (Dial-in / កំពប់ %)</label>
+            <label for="wastePercentInput" id="lblWastePct">ភាគរយខាតបង់ (កំពប់ / Waste %)</label>
             <input type="number" id="wastePercentInput" class="field-input" value="5" min="0" max="50" step="1" />
           </div>
           <div class="field-group">
             <label for="pricePerCupInput" id="lblPricePerCup">តម្លៃលក់ ១ កែវ ($)</label>
-            <input type="number" id="pricePerCupInput" class="field-input" value="1.50" min="0" step="0.05" />
+            <input type="number" id="pricePerCupInput" class="field-input" value="1.75" min="0" step="0.05" />
           </div>
         </div>
 
         <div class="calc-results">
           <div class="result-box">
-            <div class="res-label" id="resNetCupsLabel">ចំនួនកែវឆុងបាន (សុទ្ធ)</div>
-            <div class="res-val" id="resNetCups">26 កែវ</div>
-            <div class="res-sub" id="resGrossCups">មុនខាត៖ ~27.8 កែវ</div>
+            <div class="res-label" id="resNetCupsLabel">ចំនួនកែវធ្វើបាន (សុទ្ធ)</div>
+            <div class="res-val" id="resNetCups">19 កែវ</div>
+            <div class="res-sub" id="resGrossCups">មុនខាត៖ ~20.0 កែវ</div>
           </div>
           <div class="result-box">
-            <div class="res-label" id="resWasteGramsLabel">គ្រាប់កាហ្វេខាតបង់</div>
+            <div class="res-label" id="resWasteGramsLabel">បរិមាណខាតបង់</div>
             <div class="res-val" id="resWasteGrams">25 g</div>
             <div class="res-sub" id="resUsableGrams">ប្រើបាន៖ 475 g</div>
           </div>
           <div class="result-box">
-            <div class="res-label" id="resEstRevenueLabel">ចំណូលប៉ាន់ស្មាន / កញ្ចប់</div>
-            <div class="res-val" id="resEstRevenue">$39.00</div>
-            <div class="res-sub" id="resCostPerCup">ម្សៅ/កែវ៖ 18g</div>
+            <div class="res-label" id="resEstRevenueLabel">ចំណូលប៉ាន់ស្មាន</div>
+            <div class="res-val" id="resEstRevenue">$33.25</div>
+            <div class="res-sub" id="resCostPerCup">រង្វាស់/កែវ៖ 25g</div>
           </div>
         </div>
       </div>
@@ -1162,7 +1155,7 @@
     </button>
     <button class="nav-item" id="navCalc" data-tab="calc">
       <svg class="ui-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="10" y2="10"></line><line x1="14" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="10" y2="14"></line><line x1="14" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
-      <span id="navCalcLabel">គណនាគ្រាប់</span>
+      <span id="navCalcLabel">គណនារង្វាស់</span>
     </button>
   </nav>
 
@@ -1202,7 +1195,7 @@
           </div>
         </div>
         <div>
-          <div id="batchLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ចំនួនកែវឆុង (Batch)</div>
+          <div id="batchLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ចំនួនកែវធ្វើ (Batch)</div>
           <div class="seg-group" id="batchGroup">
             <button class="seg-btn active" data-batch="1">1x</button>
             <button class="seg-btn" data-batch="2">2x</button>
@@ -1232,7 +1225,7 @@
       <div class="drag-handle"></div>
       <div class="modal-header">
         <div>
-          <h2 id="addModalTitle" style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខកាហ្វេថ្មីផ្ទាល់ខ្លួន</h2>
+          <h2 id="addModalTitle" style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខថ្មីផ្ទាល់ខ្លួន</h2>
           <p id="addModalSub" style="margin: 3px 0 0; font-size: 0.8rem; color: var(--text-secondary);">រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ</p>
         </div>
         <button class="close-modal-btn" id="closeAddModal" aria-label="បិទ">X</button>
@@ -1241,12 +1234,12 @@
       <form id="addRecipeForm" style="margin-top: 14px;">
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="newNameKm" id="lblNewNameKm">ឈ្មោះកាហ្វេ (ខ្មែរ) *</label>
-            <input type="text" id="newNameKm" class="field-input" placeholder="ឧទាហរណ៍៖ ឡាតេទឹកឃ្មុំ" required />
+            <label for="newNameKm" id="lblNewNameKm">ឈ្មោះមុខ (ខ្មែរ) *</label>
+            <input type="text" id="newNameKm" class="field-input" placeholder="ឧទាហរណ៍៖ តែទឹកឃ្មុំក្រូចឆ្មារ" required />
           </div>
           <div class="field-group">
             <label for="newNameEn" id="lblNewNameEn">ឈ្មោះភាសាអង់គ្លេស</label>
-            <input type="text" id="newNameEn" class="field-input" placeholder="e.g. Honey Latte" />
+            <input type="text" id="newNameEn" class="field-input" placeholder="e.g. Honey Lemon Tea" />
           </div>
         </div>
 
@@ -1262,50 +1255,45 @@
           <div class="field-group">
             <label for="newCategory" id="lblNewCategory">រូបកែវគំរូ</label>
             <select id="newCategory" class="field-select">
-              <option value="espresso">Espresso</option>
-              <option value="americano">Americano</option>
-              <option value="latte">Latte</option>
-              <option value="cappuccino">Cappuccino</option>
-              <option value="flatwhite">Flat White</option>
-              <option value="mocha">Mocha</option>
-              <option value="macchiato">Caramel Macchiato</option>
-              <option value="cortado">Cortado</option>
-              <option value="icedcoffee">Iced Coffee</option>
-              <option value="coldbrew">Cold Brew</option>
+              <option value="hot-cup">Hot Cup</option>
+              <option value="hot-milk">Hot Milk / Foam Cup</option>
+              <option value="latte-art">Latte Art Cup</option>
+              <option value="layered">Layered Glass</option>
+              <option value="iced-glass">Iced Glass</option>
             </select>
           </div>
         </div>
 
         <div class="field-group" style="margin-bottom: 12px;">
           <label for="newDesc" id="lblNewDesc">ការពិពណ៌នាសង្ខេប</label>
-          <input type="text" id="newDesc" class="field-input" placeholder="កាហ្វេលាយទឹកឃ្មុំ និងទឹកដោះគោស្រស់..." />
+          <input type="text" id="newDesc" class="field-input" placeholder="ផ្សំជាមួយទឹកឃ្មុំ និងទឹកក្រូចឆ្មារស្រស់..." />
         </div>
 
         <div class="field-group" style="margin-bottom: 12px;">
           <label for="newIngredients" id="lblNewIngredients">គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)</label>
-          <textarea id="newIngredients" class="field-textarea" rows="4" placeholder="Double Espresso Shot | 36 | ml&#10;ទឹកដោះគោស្រស់ | 150 | ml&#10;ទឹកឃ្មុំ | 20 | ml&#10;ទឹកកក | 150 | g"></textarea>
+          <textarea id="newIngredients" class="field-textarea" rows="4" placeholder="ទឹកតែ ឬទឹកផ្លែឈើ | 150 | ml&#10;ទឹកឃ្មុំ | 25 | ml&#10;ទឹកកក | 150 | g"></textarea>
         </div>
 
         <div class="field-group" style="margin-bottom: 14px;">
           <label for="newSteps" id="lblNewSteps">របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)</label>
-          <textarea id="newSteps" class="field-textarea" rows="3" placeholder="លាយទឹកឃ្មុំជាមួយទឹកដោះគោស្រស់&#10;ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោចូល&#10;ចាក់ Double Espresso ស្រោចពីលើ"></textarea>
+          <textarea id="newSteps" class="field-textarea" rows="3" placeholder="លាយគ្រឿងផ្សំរសជាតិឱ្យរលាយចូលគ្នា&#10;ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយចូល&#10;តុបតែងពីលើ រួចបម្រើភ្លាម"></textarea>
         </div>
 
         <button type="submit" class="icon-btn primary" id="saveNewRecipeBtn" style="width: 100%; justify-content: center; padding: 12px;">
-          រក្សាទុកមុខកាហ្វេថ្មី
+          រក្សាទុកមុខថ្មី
         </button>
       </form>
     </div>
   </div>
 
-  <!-- Live Barista Shot Timer Modal -->
+  <!-- Live Prep Timer Modal -->
   <div class="modal-backdrop" id="timerModal" role="dialog" aria-modal="true">
     <div class="modal-sheet" style="max-width: 420px;">
       <div class="drag-handle"></div>
       <div class="modal-header">
         <div>
-          <h2 id="timerModalTitle" style="margin: 0; font-size: 1.1rem;">ម៉ោងកំណត់ចម្រាញ់កាហ្វេ (Shot Timer)</h2>
-          <p id="timerModalSub" style="margin: 2px 0 0; font-size: 0.78rem; color: var(--text-secondary);">ស្តង់ដារ Espresso: 25–30 វិនាទី</p>
+          <h2 id="timerModalTitle" style="margin: 0; font-size: 1.1rem;">ម៉ោងកំណត់ពេលធ្វើ (Prep Timer)</h2>
+          <p id="timerModalSub" style="margin: 2px 0 0; font-size: 0.78rem; color: var(--text-secondary);">គោលដៅកំណត់ពេល៖ 25–30 វិនាទី</p>
         </div>
         <button class="close-modal-btn" id="closeTimerModal" aria-label="បិទ">X</button>
       </div>
@@ -1328,15 +1316,15 @@
   <script>
     const UI_STRINGS = {
       km: {
-        docTitle: "EMinor Coffee — មគ្គុទ្ទេសក៍មុខកាហ្វេ",
-        headerTitle: "EMinor Coffee",
-        posterTitle: "COFFEE GUIDE",
-        posterSubtitle: "• មគ្គុទ្ទេសក៍មុខកាហ្វេ និងគ្រឿងផ្សំ •",
-        posterFooter: "ចុចលើមុខកាហ្វេនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបឆុង",
+        docTitle: "EMinor Menu — មគ្គុទ្ទេសក៍ម៉ឺនុយ",
+        headerTitle: "EMinor Menu",
+        posterTitle: "MENU GUIDE",
+        posterSubtitle: "• មគ្គុទ្ទេសក៍ម៉ឺនុយ និងគ្រឿងផ្សំ •",
+        posterFooter: "ចុចលើមុខនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបធ្វើ",
         langBadge: "EN",
-        timerBtn: "ម៉ោងឆុង",
+        timerBtn: "ម៉ោងកំណត់",
         addBtn: "បន្ថែមមុខ",
-        searchPlaceholder: "ស្វែងរកឈ្មោះកាហ្វេ (ខ្មែរ / English) ឬគ្រឿងផ្សំ...",
+        searchPlaceholder: "ស្វែងរកឈ្មោះមុខ (ខ្មែរ / English) ឬគ្រឿងផ្សំ...",
         filterAll: (n) => `ទាំងអស់ (${n})`,
         filterHot: (n) => `ក្តៅ Hot (${n})`,
         filterIce: (n) => `ត្រជាក់ Ice (${n})`,
@@ -1347,63 +1335,63 @@
         iceFull: "ត្រជាក់ (Ice)",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
         navFav: "ចូលចិត្ត",
-        navCalc: "គណនាគ្រាប់",
-        emptyTitle: "រកមិនឃើញមុខកាហ្វេ",
+        navCalc: "គណនារង្វាស់",
+        emptyTitle: "រកមិនឃើញមុខក្នុងម៉ឺនុយ",
         emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬពាក្យស្វែងរកផ្សេង។",
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
-        batchLabel: "ចំនួនកែវឆុង (Batch)",
+        batchLabel: "ចំនួនកែវធ្វើ (Batch)",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
         stepsHeading: "របៀបធ្វើតាមជំហាន",
-        tipPrefix: "គន្លឹះ Barista៖",
-        defaultTip: "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
+        tipPrefix: "គន្លឹះធ្វើ៖",
+        defaultTip: "វាស់គ្រឿងផ្សំឱ្យច្បាស់លាស់ ដើម្បីរក្សារសជាតិថេរ។",
         favBtnSave: "រក្សាទុកចូលចិត្ត",
         deleteCustomBtn: "លុបមុខនេះ",
-        addModalTitle: "បន្ថែមមុខកាហ្វេថ្មីផ្ទាល់ខ្លួន",
+        addModalTitle: "បន្ថែមមុខថ្មីផ្ទាល់ខ្លួន",
         addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
-        lblNewNameKm: "ឈ្មោះកាហ្វេ (ខ្មែរ) *",
+        lblNewNameKm: "ឈ្មោះមុខ (ខ្មែរ) *",
         lblNewNameEn: "ឈ្មោះភាសាអង់គ្លេស",
         lblNewTemp: "ជម្រើសក្តៅ / ត្រជាក់",
         lblNewCategory: "រូបកែវគំរូ",
         lblNewDesc: "ការពិពណ៌នាសង្ខេប",
         lblNewIngredients: "គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)",
         lblNewSteps: "របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)",
-        saveNewRecipeBtn: "រក្សាទុកមុខកាហ្វេថ្មី",
-        timerModalTitle: "ម៉ោងកំណត់ចម្រាញ់កាហ្វេ (Shot Timer)",
-        timerModalSub: "ស្តង់ដារ Espresso: 25–30 វិនាទី",
+        saveNewRecipeBtn: "រក្សាទុកមុខថ្មី",
+        timerModalTitle: "ម៉ោងកំណត់ពេលធ្វើ (Prep Timer)",
+        timerModalSub: "គោលដៅកំណត់ពេល៖ 25–30 វិនាទី",
         timerReady: "ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម",
-        timerRunning: "កំពុងចម្រាញ់... (គោលដៅ 25–30s)",
+        timerRunning: "កំពុងដំណើរការ... (គោលដៅ 25–30s)",
         timerIdeal: "ស្ថិតក្នុងកម្រិតស្តង់ដារល្អបំផុត (25–30s)",
-        timerOver: "លើស 30s — ពិនិត្យកម្រិតកិនគ្រាប់កាហ្វេ",
-        calcTitle: "ឧបករណ៍គណនាចំនួនកែវពីកញ្ចប់គ្រាប់កាហ្វេ",
-        calcSubtitle: "គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ បរិមាណម្សៅ ១ កែវ និងភាគរយខាតបង់ (Dial-in / Waste)",
-        lblBagGrams: "ទម្ងន់កញ្ចប់គ្រាប់កាហ្វេ (ក្រាម)",
-        lblDosePerCup: "ម្សៅកាហ្វេសម្រាប់ ១ កែវ (ក្រាម)",
+        timerOver: "លើស 30s — ពិនិត្យពេលវេលា",
+        calcTitle: "ឧបករណ៍គណនាចំនួនកែវតាមទម្ងន់គ្រឿងផ្សំ",
+        calcSubtitle: "គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់សរុប បរិមាណសម្រាប់ ១ កែវ និងភាគរយខាតបង់ (Waste %)",
+        lblBagGrams: "ទម្ងន់សរុប (ក្រាម)",
+        lblDosePerCup: "បរិមាណសម្រាប់ ១ កែវ (ក្រាម)",
         optCustomDose: "កំណត់ផ្ទាល់ខ្លួន...",
-        lblWastePct: "ភាគរយខាតបង់ (Dial-in / កំពប់ %)",
+        lblWastePct: "ភាគរយខាតបង់ (កំពប់ / Waste %)",
         lblPricePerCup: "តម្លៃលក់ ១ កែវ ($)",
-        resNetCupsLabel: "ចំនួនកែវឆុងបាន (សុទ្ធ)",
+        resNetCupsLabel: "ចំនួនកែវធ្វើបាន (សុទ្ធ)",
         resGrossCups: (n) => `មុនខាត៖ ~${n} កែវ`,
         cupUnit: "កែវ",
-        resWasteGramsLabel: "គ្រាប់កាហ្វេខាតបង់",
+        resWasteGramsLabel: "បរិមាណខាតបង់",
         resUsableGrams: (g) => `ប្រើបាន៖ ${g} g`,
-        resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន / កញ្ចប់",
-        resCostPerCup: (d) => `ម្សៅ/កែវ៖ ${d}g`,
+        resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន",
+        resCostPerCup: (d) => `រង្វាស់/កែវ៖ ${d}g`,
         toastAddedFav: "បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត",
         toastRemovedFav: "បានដកចេញពីបញ្ជីចូលចិត្ត",
-        toastAddedRecipe: "បានបន្ថែមមុខកាហ្វេថ្មីរួចរាល់",
-        toastDeletedRecipe: "បានលុបមុខកាហ្វេផ្ទាល់ខ្លួន",
+        toastAddedRecipe: "បានបន្ថែមមុខថ្មីរួចរាល់",
+        toastDeletedRecipe: "បានលុបមុខផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
       en: {
-        docTitle: "EMinor Coffee — Coffee Guide",
-        headerTitle: "EMinor Coffee",
-        posterTitle: "COFFEE GUIDE",
-        posterSubtitle: "• A SIMPLE GUIDE TO COMMON COFFEES •",
-        posterFooter: "INGREDIENTS MAY VARY BASED ON PREPARATION AND PREFERENCE — TAP ANY DRINK FOR RECIPE",
+        docTitle: "EMinor Menu — Menu Guide",
+        headerTitle: "EMinor Menu",
+        posterTitle: "MENU GUIDE",
+        posterSubtitle: "• A SIMPLE MENU & INGREDIENT GUIDE •",
+        posterFooter: "INGREDIENTS MAY VARY BASED ON PREPARATION AND PREFERENCE — TAP ANY ITEM FOR DETAILS",
         langBadge: "ខ្មែរ",
         timerBtn: "Timer",
-        addBtn: "Add Coffee",
-        searchPlaceholder: "Search coffee name (Khmer / English) or ingredients...",
+        addBtn: "Add Item",
+        searchPlaceholder: "Search item name (Khmer / English) or ingredients...",
         filterAll: (n) => `All (${n})`,
         filterHot: (n) => `Hot (${n})`,
         filterIce: (n) => `Ice (${n})`,
@@ -1414,56 +1402,55 @@
         iceFull: "Ice",
         navMenu: (n) => `Menu (${n})`,
         navFav: "Favorites",
-        navCalc: "Bean Calc",
-        emptyTitle: "No coffee found",
+        navCalc: "Yield Calc",
+        emptyTitle: "No items found",
         emptyDesc: "Try switching Hot / Ice filters or another search keyword.",
         cupSizeLabel: "Cup Size",
         batchLabel: "Batch Multiplier",
         ingHeading: "Ingredients & Standard Measurements (Tap to check)",
         stepsHeading: "Step-by-Step Instructions",
-        tipPrefix: "Barista Tip:",
-        defaultTip: "Measure consistently to keep coffee quality and flavor balanced.",
+        tipPrefix: "Prep Tip:",
+        defaultTip: "Measure ingredients accurately for consistent flavor every time.",
         favBtnSave: "Save to Favorites",
         deleteCustomBtn: "Delete Custom",
-        addModalTitle: "Add Custom Coffee Recipe",
+        addModalTitle: "Add Custom Menu Item",
         addModalSub: "Automatically saved on your device",
-        lblNewNameKm: "Coffee Name (Khmer) *",
-        lblNewNameEn: "Coffee Name (English)",
+        lblNewNameKm: "Item Name (Khmer) *",
+        lblNewNameEn: "Item Name (English)",
         lblNewTemp: "Hot / Ice Availability",
         lblNewCategory: "Cup Illustration Style",
         lblNewDesc: "Short Description",
         lblNewIngredients: "Ingredients (1 line = Name | Amount | Unit)",
         lblNewSteps: "Steps (1 line = 1 step)",
-        saveNewRecipeBtn: "Save New Coffee",
-        timerModalTitle: "Espresso Extraction Shot Timer",
-        timerModalSub: "Espresso Standard: 25–30 seconds",
+        saveNewRecipeBtn: "Save New Item",
+        timerModalTitle: "Preparation Timer",
+        timerModalSub: "Target Window: 25–30 seconds",
         timerReady: "Ready — Press Start to begin timing",
-        timerRunning: "Extracting... (Target 25–30s)",
-        timerIdeal: "Ideal extraction window (25–30s)",
-        timerOver: "Over 30s — Check grind fineness",
-        calcTitle: "Coffee Bean Bag Yield Calculator",
-        calcSubtitle: "Estimate cup yield by bag weight, dose per cup, and dial-in / waste percentage",
-        lblBagGrams: "Coffee Bean Bag Weight (grams)",
-        lblDosePerCup: "Coffee Dose per Cup (grams)",
-        optCustomDose: "Custom dose...",
-        lblWastePct: "Waste / Dial-in Loss (%)",
+        timerRunning: "Running... (Target 25–30s)",
+        timerIdeal: "Ideal target window (25–30s)",
+        timerOver: "Over 30s — Check timing",
+        calcTitle: "Ingredient Batch Yield Calculator",
+        calcSubtitle: "Estimate cup yield by total weight, portion per cup, and waste percentage",
+        lblBagGrams: "Total Weight (grams)",
+        lblDosePerCup: "Portion per Cup (grams)",
+        optCustomDose: "Custom portion...",
+        lblWastePct: "Waste Loss (%)",
         lblPricePerCup: "Selling Price per Cup ($)",
         resNetCupsLabel: "Net Cups Yield",
         resGrossCups: (n) => `Gross: ~${n} cups`,
         cupUnit: "cups",
-        resWasteGramsLabel: "Bean Waste",
+        resWasteGramsLabel: "Waste Amount",
         resUsableGrams: (g) => `Usable: ${g} g`,
-        resEstRevenueLabel: "Est. Revenue / Bag",
-        resCostPerCup: (d) => `Dose/cup: ${d}g`,
+        resEstRevenueLabel: "Est. Revenue",
+        resCostPerCup: (d) => `Portion/cup: ${d}g`,
         toastAddedFav: "Saved to Favorites",
         toastRemovedFav: "Removed from Favorites",
-        toastAddedRecipe: "New custom coffee added",
-        toastDeletedRecipe: "Custom coffee deleted",
+        toastAddedRecipe: "New custom item added",
+        toastDeletedRecipe: "Custom item deleted",
         toastLangSwitched: "Switched to English"
       }
     };
 
-    // High-detail SVG cup illustrations matching each of the 10 cups in the Coffee Guide poster
     function getCupIllustrationSvg(cupStyle) {
       const defs = `
         <defs>
@@ -1473,137 +1460,108 @@
             <stop offset="85%" stop-color="rgba(210,200,190,0.28)"/>
             <stop offset="100%" stop-color="rgba(255,255,255,0.7)"/>
           </linearGradient>
-          <linearGradient id="darkCoffee" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#3B2112"/>
-            <stop offset="100%" stop-color="#190D07"/>
+          <linearGradient id="deepBase" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4A2E1B"/>
+            <stop offset="100%" stop-color="#24140B"/>
           </linearGradient>
-          <linearGradient id="cremaGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#B97B40"/>
-            <stop offset="50%" stop-color="#DCA368"/>
-            <stop offset="100%" stop-color="#A86932"/>
+          <linearGradient id="amberLayer" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#C88242"/>
+            <stop offset="50%" stop-color="#E5A76B"/>
+            <stop offset="100%" stop-color="#B36D30"/>
           </linearGradient>
-          <linearGradient id="latteMilk" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#D7B492"/>
-            <stop offset="55%" stop-color="#C89E76"/>
-            <stop offset="100%" stop-color="#B6875D"/>
+          <linearGradient id="warmMilk" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#DFC1A3"/>
+            <stop offset="55%" stop-color="#CFA882"/>
+            <stop offset="100%" stop-color="#BC8E64"/>
           </linearGradient>
-          <linearGradient id="mochaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#8B5A3C"/>
-            <stop offset="50%" stop-color="#6A3F26"/>
-            <stop offset="100%" stop-color="#4A2917"/>
+          <linearGradient id="cocoaLayer" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#96613F"/>
+            <stop offset="50%" stop-color="#744529"/>
+            <stop offset="100%" stop-color="#522E19"/>
           </linearGradient>
-          <linearGradient id="icedAmber" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#6A3B1E"/>
-            <stop offset="55%" stop-color="#3E1E0E"/>
-            <stop offset="100%" stop-color="#221007"/>
+          <linearGradient id="icedLiquid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7B5233"/>
+            <stop offset="55%" stop-color="#4B2D19"/>
+            <stop offset="100%" stop-color="#29170C"/>
           </linearGradient>
           <linearGradient id="iceCubeGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.82)"/>
+            <stop offset="0%" stop-color="rgba(255,255,255,0.84)"/>
             <stop offset="100%" stop-color="rgba(210,185,160,0.38)"/>
           </linearGradient>
         </defs>
       `;
 
       switch (cupStyle) {
-        case "espresso":
+        case "hot-cup":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="50" cy="103" rx="26" ry="5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Handle -->
             <path d="M77 45 C92 45, 92 73, 74 73" fill="none" stroke="#CFC7BE" stroke-width="5.5" stroke-linecap="round"/>
             <path d="M77 45 C92 45, 92 73, 74 73" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/>
-            <!-- Glass Body -->
             <path d="M23 32 L29 94 C30 99, 70 99, 71 94 L77 32 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <!-- Espresso Shot -->
-            <path d="M27.5 67 L29.5 92 C30.5 96, 69.5 96, 70.5 92 L72.5 67 Z" fill="url(#darkCoffee)"/>
-            <!-- Golden Crema -->
-            <ellipse cx="50" cy="67" rx="22.5" ry="5.5" fill="url(#cremaGrad)"/>
-            <!-- Top Rim -->
+            <path d="M27.5 67 L29.5 92 C30.5 96, 69.5 96, 70.5 92 L72.5 67 Z" fill="url(#deepBase)"/>
+            <ellipse cx="50" cy="67" rx="22.5" ry="5.5" fill="url(#amberLayer)"/>
             <ellipse cx="50" cy="32" rx="27" ry="6.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
             <path d="M28 38 L32 90" stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
           </svg>`;
 
-        case "americano":
+        case "hot-clear":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Handle -->
             <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
             <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.2" stroke-linecap="round"/>
-            <!-- Glass Mug -->
             <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <!-- Black Coffee -->
-            <path d="M21 37 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79 37 Z" fill="url(#darkCoffee)"/>
-            <!-- Crema Surface -->
-            <ellipse cx="50" cy="37" rx="29" ry="7" fill="url(#cremaGrad)"/>
-            <ellipse cx="50" cy="37" rx="23" ry="4.5" fill="#4D2B17" opacity="0.55"/>
-            <!-- Rim -->
+            <path d="M21 37 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79 37 Z" fill="url(#deepBase)"/>
+            <ellipse cx="50" cy="37" rx="29" ry="7" fill="url(#amberLayer)"/>
+            <ellipse cx="50" cy="37" rx="23" ry="4.5" fill="#54311B" opacity="0.55"/>
             <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
             <path d="M25 32 L28 90" stroke="rgba(255,255,255,0.45)" stroke-width="2.5" stroke-linecap="round"/>
           </svg>`;
 
-        case "latte":
+        case "latte-art":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Handle -->
             <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
             <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.2" stroke-linecap="round"/>
-            <!-- Glass Mug -->
             <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <!-- Steamed Milk Coffee -->
-            <path d="M20.5 34 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79.5 34 Z" fill="url(#latteMilk)"/>
-            <!-- Foam & Latte Heart -->
+            <path d="M20.5 34 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79.5 34 Z" fill="url(#warmMilk)"/>
             <ellipse cx="50" cy="34" rx="29.5" ry="7.5" fill="#F8F1E7"/>
             <path d="M50 38 C46 34, 42 32, 45 29.5 C47 28, 49.5 29.5, 50 31 C50.5 29.5, 53 28, 55 29.5 C58 32, 54 34, 50 38 Z" fill="#C48956"/>
             <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
             <path d="M25 32 L28 90" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
           </svg>`;
 
-        case "cappuccino":
+        case "hot-milk":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Handle -->
             <path d="M81 38 C98 38, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
-            <!-- Glass Mug -->
             <path d="M19 27 L24 94 C25 101, 75 101, 76 94 L81 27 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <!-- Bottom Coffee/Milk Layer -->
-            <path d="M21.5 48 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L78.5 48 Z" fill="url(#latteMilk)"/>
-            <!-- Thick White Foam Layer -->
+            <path d="M21.5 48 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L78.5 48 Z" fill="url(#warmMilk)"/>
             <path d="M19.5 29 L21.5 48 C34 52, 66 52, 78.5 48 L80.5 29 Z" fill="#FBF7F2"/>
-            <!-- Domed Foam Top -->
             <ellipse cx="50" cy="27" rx="30.5" ry="9" fill="#FFFDF9" stroke="#D8CEC4" stroke-width="1"/>
-            <!-- Cocoa Dusting -->
             <ellipse cx="50" cy="26" rx="14" ry="4" fill="#9E6234" opacity="0.45"/>
             <circle cx="46" cy="25" r="1" fill="#5A3318"/>
             <circle cx="53" cy="27" r="1.1" fill="#5A3318"/>
             <circle cx="50" cy="24" r="0.9" fill="#5A3318"/>
           </svg>`;
 
-        case "flatwhite":
+        case "ceramic-cup":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="50" cy="104" rx="29" ry="5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Ceramic Handle -->
             <path d="M80 42 C97 42, 97 78, 74 78" fill="none" stroke="#EFEAE2" stroke-width="7" stroke-linecap="round"/>
             <path d="M80 42 C97 42, 97 78, 74 78" fill="none" stroke="#CBC2B8" stroke-width="1.4" stroke-linecap="round"/>
-            <!-- White Ceramic Cup -->
             <path d="M18 32 C18 75, 28 97, 50 97 C72 97, 82 75, 82 32 Z" fill="#F7F3EC" stroke="#C8BFB4" stroke-width="1.5"/>
-            <!-- Velvety Microfoam Top -->
             <ellipse cx="50" cy="32" rx="32" ry="8.5" fill="#D59E6A" stroke="#EFEAE2" stroke-width="2"/>
-            <!-- Rosetta Art -->
             <path d="M36 32 C42 28, 58 28, 64 32 C58 36, 42 36, 36 32 Z" fill="#FAF5EE" opacity="0.85"/>
             <path d="M41 32 C45 30, 55 30, 59 32" stroke="#C4864E" stroke-width="1.5" fill="none"/>
           </svg>`;
 
-        case "mocha":
+        case "cocoa-cup":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="50" cy="106" rx="29" ry="5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Handle -->
             <path d="M80 40 C97 40, 97 78, 76 78" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
-            <!-- Glass Mug -->
             <path d="M20 30 L24 95 C25 101, 75 101, 76 95 L80 30 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <!-- Rich Chocolate Mocha -->
-            <path d="M21 38 L24.5 93 C25.5 98, 74.5 98, 75.5 93 L79 38 Z" fill="url(#mochaGrad)"/>
-            <!-- Whipped Cream Mound -->
+            <path d="M21 38 L24.5 93 C25.5 98, 74.5 98, 75.5 93 L79 38 Z" fill="url(#cocoaLayer)"/>
             <path d="M22 36 C22 24, 34 22, 38 18 C43 12, 57 12, 62 18 C66 22, 78 24, 78 36 C65 41, 35 41, 22 36 Z" fill="#FFFDF9" stroke="#D8CEC4" stroke-width="1.2"/>
-            <!-- Chocolate Shavings -->
             <circle cx="43" cy="24" r="1.4" fill="#3B2010"/>
             <circle cx="51" cy="20" r="1.5" fill="#3B2010"/>
             <circle cx="57" cy="26" r="1.3" fill="#3B2010"/>
@@ -1612,587 +1570,569 @@
             <circle cx="62" cy="31" r="1.3" fill="#3B2010"/>
           </svg>`;
 
-        case "macchiato":
+        case "layered":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="52" cy="107" rx="24" ry="4.5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Tall Glass -->
             <path d="M27 20 L33 98 C34 103, 70 103, 71 98 L77 20 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <!-- Bottom Milk Layer -->
             <path d="M31.5 55 L33.5 96 C34.5 100, 69.5 100, 70.5 96 L72.5 55 Z" fill="#EFE4D6"/>
-            <!-- Middle Espresso Layer -->
             <path d="M29.5 36 L31.5 55 L72.5 55 L74.5 36 Z" fill="#78482A"/>
-            <!-- Top Foam & Caramel Crosshatch -->
             <path d="M28 24 L29.5 36 L74.5 36 L76 24 Z" fill="#FAF5EE"/>
             <ellipse cx="52" cy="24" rx="24" ry="6" fill="#FFFDF9" stroke="#C8BFB4" stroke-width="1.2"/>
             <path d="M36 23 L66 26 M38 26 L68 22 M43 20 L58 28 M48 28 L61 20" stroke="#C97A2B" stroke-width="1.6" stroke-linecap="round"/>
           </svg>`;
 
-        case "cortado":
+        case "short-glass":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="52" cy="104" rx="25" ry="4.5" fill="rgba(35,24,18,0.14)"/>
-            <!-- Gibraltar / Cortado Glass -->
             <path d="M26 30 L32 95 C33 100, 71 100, 72 95 L78 30 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.5"/>
-            <!-- Equal Espresso + Warm Milk -->
             <path d="M29.5 56 L32.5 93 C33.5 97, 70.5 97, 71.5 93 L74.5 56 Z" fill="#704327"/>
-            <!-- Silky Top -->
             <ellipse cx="52" cy="56" rx="22.5" ry="5.5" fill="#E3C7A8"/>
             <ellipse cx="52" cy="30" rx="26" ry="6.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
             <path d="M32 36 L36 90" stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
           </svg>`;
 
-        case "icedcoffee":
-        case "coldbrew":
+        case "iced-glass":
         default:
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="52" cy="107" rx="25" ry="4.5" fill="rgba(35,24,18,0.15)"/>
-            <!-- Tall Iced Glass -->
             <path d="M26 20 L31 98 C32 103, 72 103, 73 98 L78 20 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <!-- Iced Coffee Liquid -->
-            <path d="M27.5 30 L31.5 96 C32.5 100, 71.5 100, 72.5 96 L76.5 30 Z" fill="url(#icedAmber)"/>
-            <!-- Translucent Ice Cubes -->
+            <path d="M27.5 30 L31.5 96 C32.5 100, 71.5 100, 72.5 96 L76.5 30 Z" fill="url(#icedLiquid)"/>
             <rect x="34" y="29" width="16" height="15" rx="3" transform="rotate(-10 42 36)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
             <rect x="52" y="31" width="16" height="15" rx="3" transform="rotate(12 60 38)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
             <rect x="37" y="48" width="17" height="16" rx="3" transform="rotate(8 45 56)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
             <rect x="53" y="51" width="15" height="15" rx="3" transform="rotate(-8 60 58)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
             <rect x="42" y="69" width="18" height="16" rx="3" transform="rotate(-5 51 77)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-            <!-- Rim -->
             <ellipse cx="52" cy="20" rx="26" ry="6" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
             <path d="M31 28 L34 92" stroke="rgba(255,255,255,0.5)" stroke-width="2.2" stroke-linecap="round"/>
           </svg>`;
       }
     }
 
-    // Complete 10-Drink Catalog matching the Coffee Guide Poster layout + Hot/Ice support
     const DEFAULT_RECIPES = [
       {
-        id: "espresso-pair",
-        category: "espresso",
-        nameKm: "អេស្ព្រេសសូ",
-        nameEn: "ESPRESSO",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)"],
-        guideBulletsEn: ["Espresso"],
+        id: "item-1",
+        category: "hot-cup",
+        nameKm: "តែក្តៅសុទ្ធ",
+        nameEn: "PURE HOT TEA",
+        guideBulletsKm: ["ស្លឹកតែឆុងស្រស់"],
+        guideBulletsEn: ["Brewed Tea Base"],
         variants: {
           hot: {
-            cupStyle: "espresso",
-            descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ រសជាតិដិតខាប់ និងមានពពុះ Crema ពណ៌មាស។",
-            descEn: "Pure pressurized espresso shot with a rich body and full golden crema.",
+            cupStyle: "hot-cup",
+            descKm: "ទឹកតែឆុងស្រស់ក្តៅៗ រសជាតិស្រទន់ ក្រអូបឈ្ងុយសម្រាប់ផឹកប្រចាំថ្ងៃ។",
+            descEn: "Freshly steeped hot tea with a clean, aromatic finish.",
             ingredients: [
-              { nameKm: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", nameEn: "Ground Coffee (Double Shot)", amount: 18, unit: "g" },
-              { nameKm: "ទឹកក្តៅចម្រាញ់ (~93°C)", nameEn: "Extracted Hot Water (~93°C)", amount: 36, unit: "ml" }
+              { nameKm: "ស្លឹកតែ ឬថង់តែ", nameEn: "Tea Leaves or Bag", amount: 5, unit: "g" },
+              { nameKm: "ទឹកក្តៅ (~90°C)", nameEn: "Hot Water (~90°C)", amount: 150, unit: "ml" }
             ],
             stepsKm: [
               "កំដៅកែវដោយទឹកក្តៅជាមុន រួចចាក់ទឹកចោល។",
-              "កិនគ្រាប់កាហ្វេឱ្យម៉ត់សមល្មម Tamp ឱ្យស្មើ ហើយចម្រាញ់យក 36 ml ក្នុង 25–30 វិនាទី។",
-              "បម្រើក្តៅៗភ្លាមៗ ដើម្បីរក្សា Crema ពណ៌មាស។"
+              "ត្រាំតែជាមួយទឹកក្តៅ 150 ml រយៈពេល 3–4 នាទី។",
+              "យកកាកតែចេញ ហើយបម្រើក្តៅៗភ្លាម។"
             ],
             stepsEn: [
-              "Preheat the glass with hot water and discard before pulling.",
-              "Grind fine-medium, tamp evenly, and extract 36 ml in 25–30 seconds.",
-              "Serve immediately while hot so the crema stays intact."
+              "Preheat the glass with hot water and discard.",
+              "Steep tea with 150 ml hot water for 3–4 minutes.",
+              "Strain out the leaves and serve hot."
             ],
-            tipKm: "Espresso ក្តៅ ផ្តល់ក្លិនក្រអូបខ្លាំងបំផុតនៅ 30 វិនាទីដំបូងបន្ទាប់ពីចម្រាញ់រួច។",
-            tipEn: "Hot espresso expresses its strongest aromatics within 30 seconds of extraction."
+            tipKm: "កុំត្រាំតែយូរពេក ដើម្បីកុំឱ្យចេញរសជាតិល្វីងខ្លាំង។",
+            tipEn: "Avoid over-steeping so the tea stays smooth and balanced."
           },
           ice: {
-            cupStyle: "icedcoffee",
-            descKm: "Double Espresso ស្រោចលើទឹកកក និងទឹកត្រជាក់បន្តិច ដើម្បីឱ្យត្រជាក់ភ្លាមៗដោយមិនបាត់រសជាតិ។",
-            descEn: "Double espresso pulled over ice and a splash of cold water.",
+            cupStyle: "iced-glass",
+            descKm: "តែឆុងដិតស្រស់ស្រោចលើទឹកកកត្រជាក់ ផ្តល់ភាពស្រស់ស្រាយ។",
+            descEn: "Concentrated tea poured over cold ice for a crisp iced drink.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 50, unit: "ml" },
+              { nameKm: "ទឹកតែឆុងខាប់", nameEn: "Concentrated Tea", amount: 110, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់ទឹកកក 150g និងទឹកត្រជាក់ 50ml ចូលកែវ។",
-              "ចម្រាញ់ Double Espresso 36 ml ហើយចាក់ស្រោចពីលើទឹកកកភ្លាម។",
-              "កូរស្រាលៗឱ្យត្រជាក់ស្មើគ្នា រួចបម្រើ។"
+              "ដាក់ទឹកកក 150g ចូលកែវ។",
+              "ចាក់ទឹកតែឆុងខាប់ 110 ml ស្រោចពីលើ។",
+              "កូរស្រាលៗ ហើយបម្រើ។"
             ],
             stepsEn: [
-              "Add 150g ice and 50ml cold water into the glass.",
-              "Extract a 36 ml double espresso and pour right over the ice.",
-              "Stir lightly to chill evenly and serve."
+              "Add 150g ice into the glass.",
+              "Pour 110 ml concentrated tea over the ice.",
+              "Stir lightly and serve."
             ],
-            tipKm: "ប្រើគ្រាប់កាហ្វេលីងកម្រិត Medium-Dark ជួយឱ្យរសជាតិដិតល្អពេលដាក់ទឹកកក។",
-            tipEn: "A medium-dark roast keeps bold depth when chilled over ice."
+            tipKm: "ឆុងតែឱ្យខាប់ជាងធម្មតា ដើម្បីកុំឱ្យរលាយទឹកកកសាប។",
+            tipEn: "Brew slightly stronger so melting ice does not dilute the flavor."
           }
         }
       },
       {
-        id: "americano-pair",
-        category: "americano",
-        nameKm: "អាមេរិកាណូ",
-        nameEn: "AMERICANO",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកក្តៅ / ទឹកត្រជាក់ (Water)"],
-        guideBulletsEn: ["Espresso", "Hot Water"],
+        id: "item-2",
+        category: "hot-clear",
+        nameKm: "តែទឹកក្តៅ",
+        nameEn: "HOT INFUSION",
+        guideBulletsKm: ["មូលដ្ឋានឆុងស្រស់", "ទឹកក្តៅ"],
+        guideBulletsEn: ["Brewed Base", "Hot Water"],
         variants: {
           hot: {
-            cupStyle: "americano",
-            descKm: "Double Espresso លាយទឹកក្តៅ (~85–90°C) ផ្តល់ភាពក្តៅស្រស់ស្រាយ និងមាន Crema នៅពីលើ។",
-            descEn: "Double espresso over hot water (~85–90°C) for a warm, clean cup.",
+            cupStyle: "hot-clear",
+            descKm: "មូលដ្ឋានឆុងស្រស់ផ្សំជាមួយទឹកក្តៅ ផ្តល់ភាពក្តៅស្រួលខ្លួន។",
+            descEn: "Brewed base diluted with hot water for a warm, light cup.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកក្តៅ (~85–90°C)", nameEn: "Hot Water (~85–90°C)", amount: 180, unit: "ml" }
+              { nameKm: "មូលដ្ឋានឆុងខាប់", nameEn: "Concentrated Base", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកក្តៅ (~88°C)", nameEn: "Hot Water (~88°C)", amount: 180, unit: "ml" }
             ],
             stepsKm: [
-              "ចាក់ទឹកក្តៅ (~85–90°C) 180 ml ចូលក្នុងកែវ។",
-              "ចម្រាញ់ Double Espresso 36 ml ស្រោចពីលើទឹកក្តៅ។",
-              "បម្រើក្តៅៗ ដោយអាចដាក់ស្ករនៅចំហៀងតាមចិត្ត។"
+              "ចាក់ទឹកក្តៅ 180 ml ចូលក្នុងកែវ។",
+              "ចាក់មូលដ្ឋានឆុង 40 ml ចូល ហើយកូរចូលគ្នា។",
+              "បម្រើក្តៅៗ។"
             ],
             stepsEn: [
-              "Pour 180 ml of hot water (~85–90°C) into the mug.",
-              "Extract 36 ml double espresso on top of the hot water.",
-              "Serve hot with sugar on the side if preferred."
+              "Pour 180 ml hot water into the glass.",
+              "Add 40 ml concentrated base and stir gently.",
+              "Serve hot."
             ],
-            tipKm: "ចាក់ Espresso ពីលើទឹកក្តៅ នឹងរក្សា Crema ពណ៌មាសបានស្អាតជាង។",
-            tipEn: "Pouring espresso over hot water preserves the golden crema."
+            tipKm: "រក្សាសីតុណ្ហភាពទឹកប្រហែល 85–90°C ដើម្បីរក្សាក្លិនក្រអូប។",
+            tipEn: "Keep water around 85–90°C to preserve delicate aromatics."
           },
           ice: {
-            cupStyle: "icedcoffee",
-            descKm: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រឡះ ដិតកាហ្វេ។",
-            descEn: "Double espresso poured over cold water and ice for a crisp iced coffee.",
+            cupStyle: "iced-glass",
+            descKm: "មូលដ្ឋានឆុងផ្សំជាមួយទឹកត្រជាក់ និងទឹកកកពេញកែវ។",
+            descEn: "Brewed base with cold water and ice for a refreshing cold drink.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 150, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុងខាប់", nameEn: "Concentrated Base", amount: 45, unit: "ml" },
+              { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 140, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់ទឹកកក 160g និងទឹកត្រជាក់ 150ml ចូលកែវ។",
-              "ចម្រាញ់ Double Espresso រួចចាក់ស្រោចពីលើទឹកកក។",
-              "កូរស្រាលៗមុនពេលផឹក។"
+              "ដាក់ទឹកកក 160g និងទឹកត្រជាក់ 140 ml ចូលកែវ។",
+              "ចាក់មូលដ្ឋានឆុង 45 ml ចូល រួចកូរឱ្យសព្វ។",
+              "បម្រើត្រជាក់ៗ។"
             ],
             stepsEn: [
-              "Fill glass with 160g ice and 150ml cold water.",
-              "Extract a double espresso and pour over the ice.",
-              "Stir gently before drinking."
+              "Add 160g ice and 140 ml cold water to the glass.",
+              "Pour in 45 ml concentrated base and stir well.",
+              "Serve chilled."
             ],
-            tipKm: "ដាក់ទឹកកកពេញកែវល្មម នឹងជួយកុំឱ្យកាហ្វេរលាយទឹកកកសាបលឿន។",
-            tipEn: "Using plenty of ice chills quickly and slows dilution."
+            tipKm: "ដាក់ទឹកកកគ្រប់គ្រាន់ ដើម្បីរក្សាភាពត្រជាក់បានយូរ។",
+            tipEn: "Use plenty of ice to keep the drink chilled longer."
           }
         }
       },
       {
-        id: "latte-pair",
-        category: "latte",
-        nameKm: "ឡាតេ",
-        nameEn: "LATTE",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "ពពុះទឹកដោះគោ (Milk Foam)"],
-        guideBulletsEn: ["Espresso", "Steamed Milk", "Milk Foam"],
+        id: "item-3",
+        category: "latte-art",
+        nameKm: "ទឹកដោះគោឆុងក្បាច់",
+        nameEn: "MILK ART",
+        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "ពពុះទឹកដោះគោ"],
+        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Milk Foam"],
         variants: {
           hot: {
-            cupStyle: "latte",
-            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ចំហុយក្តៅ (~62°C) មានពពុះ Microfoam ស្តើងរលោង។",
-            descEn: "Double espresso with steamed fresh milk (~62°C) and silky microfoam.",
+            cupStyle: "latte-art",
+            descKm: "ទឹកដោះគោស្រស់ចំហុយក្តៅផ្សំជាមួយមូលដ្ឋានឆុង និងពពុះរលោងគូសក្បាច់។",
+            descEn: "Steamed milk with a smooth microfoam pour and finished surface art.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 200, unit: "ml" }
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 195, unit: "ml" }
             ],
             stepsKm: [
-              "ចម្រាញ់ Double Espresso ដាក់ក្នុងកែវកញ្ចក់។",
-              "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅដល់ ~60–65°C និងមានពពុះរលោង។",
-              "ចាក់ទឹកដោះគោចូលក្នុង Espresso យឺតៗ ដើម្បីបានក្បាច់ Latte Art។"
+              "ចាក់មូលដ្ឋានឆុង 40 ml ដាក់ក្នុងកែវ។",
+              "ចំហុយទឹកដោះគោស្រស់ឱ្យបានពពុះម៉ត់រលោង (~62°C)។",
+              "ចាក់ទឹកដោះគោចូលយឺតៗ ដើម្បីបានផ្ទៃរលោងស្អាត។"
             ],
             stepsEn: [
-              "Pull a double espresso into a handled glass mug.",
-              "Steam fresh milk to ~60–65°C with glossy microfoam.",
-              "Pour steamed milk steadily into the espresso."
+              "Pour 40 ml brewed base into the glass.",
+              "Steam fresh milk to ~62°C with glossy microfoam.",
+              "Pour steadily into the glass for a smooth finish."
             ],
-            tipKm: "កុំចំហុយទឹកដោះគោលើស 70°C ដើម្បីរក្សារសជាតិផ្អែមធម្មជាតិ។",
-            tipEn: "Keep steaming below 70°C to preserve milk's natural sweetness."
+            tipKm: "កុំចំហុយទឹកដោះគោលើស 70°C ដើម្បីរក្សារសជាតិផ្អែមស្រាល។",
+            tipEn: "Avoid overheating milk past 70°C for a cleaner, sweeter taste."
           },
           ice: {
-            cupStyle: "latte",
-            descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រទន់។",
-            descEn: "Double espresso over chilled fresh milk and ice.",
+            cupStyle: "latte-art",
+            descKm: "ទឹកដោះគោស្រស់ត្រជាក់លើទឹកកក ផ្សំជាមួយមូលដ្ឋានឆុង។",
+            descEn: "Chilled fresh milk over ice layered with the brewed base.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
               { nameKm: "ទឹកស្ករ (ជម្រើស)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
-              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកស្ករចូលគ្នា។",
-              "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
-              "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។"
+              "លាយទឹកដោះគោត្រជាក់ 160 ml និងទឹកស្ករ 15 ml ចូលគ្នា។",
+              "ដាក់ទឹកកក 150g ចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
+              "ចាក់មូលដ្ឋានឆុងស្រោចពីលើបង្កើតជាស្រទាប់។"
             ],
             stepsEn: [
-              "Stir chilled milk with optional simple syrup.",
-              "Add ice to the glass and pour in the milk.",
-              "Pour double espresso on top for clean layering."
+              "Mix 160 ml chilled milk with 15 ml optional simple syrup.",
+              "Add 150g ice to the glass and pour in the milk.",
+              "Pour the base on top for clean layering."
             ],
-            tipKm: "ប្រើទឹកដោះគោស្រស់ត្រជាក់ល្អ នឹងជួយរក្សាកម្រិតត្រជាក់បានយូរ។",
-            tipEn: "Well-chilled milk keeps the drink cold longer."
+            tipKm: "ចាក់ស្រទាប់លើដោយថ្នមៗ នឹងមើលឃើញពណ៌បែងចែកស្អាត។",
+            tipEn: "Pour the top layer slowly for distinct visual layers."
           }
         }
       },
       {
-        id: "cappuccino-pair",
-        category: "cappuccino",
-        nameKm: "កាពូឈីណូ",
-        nameEn: "CAPPUCCINO",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "ពពុះទឹកដោះគោក្រាស់ (Milk Foam)"],
-        guideBulletsEn: ["Espresso", "Steamed Milk", "Milk Foam"],
+        id: "item-4",
+        category: "hot-milk",
+        nameKm: "ពពុះទឹកដោះគោក្រាស់",
+        nameEn: "FOAM CAP",
+        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "ពពុះទឹកដោះគោក្រាស់"],
+        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Thick Milk Foam"],
         variants: {
           hot: {
-            cupStyle: "cappuccino",
-            descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងមានពពុះក្តៅក្រាស់ទន់រោយម្សៅកាកាវនៅផ្នែកខាងលើ។",
-            descEn: "Double espresso with steamed milk and a thick hot foam cap dusted with cocoa.",
+            cupStyle: "hot-milk",
+            descKm: "ទឹកដោះគោចំហុយមានស្រទាប់ពពុះក្រាស់ទន់ រោយម្សៅពីលើស្រាលៗ។",
+            descEn: "Warm milk topped with a thick foam cap and light dusting.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ + ពពុះក្តៅក្រាស់ (~62°C)", nameEn: "Fresh Milk + Thick Hot Foam (~62°C)", amount: 170, unit: "ml" }
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោ + ពពុះក្រាស់ (~62°C)", nameEn: "Milk + Thick Foam (~62°C)", amount: 170, unit: "ml" }
             ],
             stepsKm: [
-              "ចម្រាញ់ Double Espresso ដាក់កែវ។",
-              "ចំហុយទឹកដោះគោបញ្ចូលខ្យល់ច្រើនជាង Latte បន្តិច ដើម្បីបានពពុះក្រាស់។",
-              "ចាក់ចូលកែវ រួចរោយម្សៅកាកាវបន្តិចពីលើ។"
+              "ចាក់មូលដ្ឋានឆុង 40 ml ចូលកែវ។",
+              "ចំហុយទឹកដោះគោឱ្យឡើងពពុះក្រាស់ម៉ត់។",
+              "ចាក់ចូលកែវ រួចរោយម្សៅបន្តិចពីលើ។"
             ],
             stepsEn: [
-              "Pull a double espresso into the mug.",
-              "Aerate slightly more than a latte for a thicker foam cap.",
-              "Pour into the mug and dust lightly with cocoa powder."
+              "Pour 40 ml brewed base into the glass.",
+              "Aerate milk to create a thick, smooth foam layer.",
+              "Pour into the glass and dust lightly on top."
             ],
-            tipKm: "ពពុះ Cappuccino ល្អត្រូវមានសាច់ម៉ត់រលោង គ្មានពពុះខ្យល់ធំៗ។",
-            tipEn: "Swirl the pitcher before pouring for glossy, dense foam."
+            tipKm: "គោះកែវវាយពពុះថ្នមៗមុនចាក់ ដើម្បីបំបាត់ពពុះខ្យល់ធំៗ។",
+            tipEn: "Tap the pitcher gently before pouring to pop large bubbles."
           },
           ice: {
-            cupStyle: "cappuccino",
-            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់ពីលើ។",
-            descEn: "Iced espresso and chilled milk topped with thick cold milk foam.",
+            cupStyle: "hot-milk",
+            descKm: "ទឹកដោះគោត្រជាក់លើទឹកកក មានពពុះទឹកដោះគោត្រជាក់ក្រាស់ពីលើ។",
+            descEn: "Iced milk topped with thick, creamy cold foam.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
-              { nameKm: "ពពុះទឹកដោះគោត្រជាក់ (Cold Foam)", nameEn: "Chilled Milk Foam (Cold Foam)", amount: 40, unit: "ml" },
+              { nameKm: "ពពុះត្រជាក់ (Cold Foam)", nameEn: "Chilled Milk Foam", amount: 40, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់ទឹកកក ទឹកដោះគោស្រស់ និង Double Espresso ចូលកែវ។",
-              "វាយពពុះទឹកដោះគោត្រជាក់ឱ្យឡើងខាប់រលោង។",
-              "ចាក់ពពុះត្រជាក់ស្រោចពីលើផ្នែកខាងលើបំផុត។"
+              "ដាក់ទឹកកក 150g ទឹកដោះគោ 130 ml និងមូលដ្ឋានឆុង 40 ml ចូលកែវ។",
+              "វាយពពុះទឹកដោះគោត្រជាក់ 40 ml ឱ្យឡើងខាប់រលោង។",
+              "ចាក់ពពុះត្រជាក់ពីលើផ្នែកខាងលើបំផុត។"
             ],
             stepsEn: [
-              "Add ice, chilled milk, and double espresso into the glass.",
-              "Froth cold milk until thick and velvety.",
+              "Add 150g ice, 130 ml chilled milk, and 40 ml base to the glass.",
+              "Froth 40 ml cold milk until thick and smooth.",
               "Spoon or pour the cold foam over the top."
             ],
-            tipKm: "ទឹកដោះគោត្រជាក់ខ្លាំងជួយឱ្យពពុះ Cold Foam ឡើងក្រាស់បានល្អ។",
-            tipEn: "Very cold milk froths into a denser, longer-lasting cold foam."
+            tipKm: "ប្រើទឹកដោះគោត្រជាក់ល្អ ពពុះនឹងឡើងក្រាស់ស្អាត។",
+            tipEn: "Cold milk froths into a denser, more stable cold foam."
           }
         }
       },
       {
-        id: "flatwhite-pair",
-        category: "flatwhite",
-        nameKm: "ហ្វ្លេតវ៉ៃ",
-        nameEn: "FLAT WHITE",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយស្តើង (Steamed Milk)"],
-        guideBulletsEn: ["Espresso", "Steamed Milk"],
+        id: "item-5",
+        category: "ceramic-cup",
+        nameKm: "ពែងទឹកដោះគោស្រទន់",
+        nameEn: "VELVET CUP",
+        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយស្រទន់"],
+        guideBulletsEn: ["Brewed Base", "Steamed Milk"],
         variants: {
           hot: {
-            cupStyle: "flatwhite",
-            descKm: "Double Espresso ជាមួយទឹកដោះគោចំហុយពពុះស្តើងម៉ត់រលោង (Velvety Microfoam) មានរសជាតិកាហ្វេដិតជាង Latte។",
-            descEn: "Double espresso with silky thin microfoam for a stronger coffee-to-milk balance than a latte.",
+            cupStyle: "ceramic-cup",
+            descKm: "ផ្សំជាមួយទឹកដោះគោចំហុយស្រទន់មានពពុះស្តើងម៉ត់ រសជាតិមូលល្អ។",
+            descEn: "Paired with silky steamed milk and a thin, velvety top layer.",
             ingredients: [
-              { nameKm: "Double Espresso / Ristretto Shot", nameEn: "Double Espresso / Ristretto Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ចំហុយពពុះស្តើង (~60°C)", nameEn: "Steamed Milk Thin Microfoam (~60°C)", amount: 140, unit: "ml" }
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោចំហុយស្រទន់ (~60°C)", nameEn: "Velvet Steamed Milk (~60°C)", amount: 145, unit: "ml" }
             ],
             stepsKm: [
-              "ចម្រាញ់ Double Espresso ដាក់ក្នុងពែងសេរ៉ាមិច 160–180ml។",
-              "ចំហុយទឹកដោះគោដោយបញ្ចូលខ្យល់តិចបំផុត ដើម្បីបានពពុះស្តើងរលោង។",
-              "ចាក់ទឹកដោះគោចូលកណ្តាលពែង ហើយគូសក្បាច់ Rosetta ឬបេះដូង។"
+              "ចាក់មូលដ្ឋានឆុង 40 ml ដាក់ក្នុងពែងសេរ៉ាមិច។",
+              "ចំហុយទឹកដោះគោដោយបញ្ចូលខ្យល់តិច ដើម្បីបានស្រទាប់រលោង។",
+              "ចាក់ចូលពែង រួចបម្រើភ្លាម។"
             ],
             stepsEn: [
-              "Pull a double espresso into a 160–180ml ceramic cup.",
-              "Steam milk with minimal aeration for ultra-fine microfoam.",
-              "Pour steadily into the center to finish with fine latte art."
+              "Pour 40 ml brewed base into a ceramic cup.",
+              "Steam milk lightly for a smooth, fine texture.",
+              "Pour into the cup and serve."
             ],
-            tipKm: "Flat White ប្រើទឹកដោះគោតិចជាង Latte ធ្វើឱ្យរសជាតិកាហ្វេលេចធ្លោជាង។",
-            tipEn: "Less milk volume than a latte gives a richer espresso forward flavor."
+            tipKm: "រក្សាសមាមាត្រទឹកដោះគោឱ្យសមល្មម ដើម្បីរសជាតិស្រទន់។",
+            tipEn: "Keep the milk ratio balanced for a smooth texture."
           },
           ice: {
-            cupStyle: "latte",
-            descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់បរិមាណល្មម ដើម្បីរក្សារសជាតិកាហ្វេដិត។",
-            descEn: "Double espresso over a smaller ratio of chilled milk for a bold iced flat white.",
+            cupStyle: "iced-glass",
+            descKm: "ផ្សំជាមួយទឹកដោះគោត្រជាក់បរិមាណសមល្មមលើទឹកកក។",
+            descEn: "Balanced chilled milk over ice for a smooth cold cup.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 120, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 125, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 140, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់ទឹកកក 140g និងទឹកដោះគោស្រស់ត្រជាក់ 120ml ចូលកែវ។",
-              "ចម្រាញ់ Double Espresso ហើយចាក់ស្រោចពីលើភ្លាមៗ។",
-              "បម្រើដោយមិនចាំបាច់បន្ថែមពពុះក្រាស់ពីលើ។"
+              "ដាក់ទឹកកក 140g និងទឹកដោះគោត្រជាក់ 125 ml ចូលកែវ។",
+              "ចាក់មូលដ្ឋានឆុង 40 ml ចូល ហើយបម្រើ។"
             ],
             stepsEn: [
-              "Add 140g ice and 120ml chilled fresh milk to the glass.",
-              "Pull double espresso and pour directly over the milk.",
-              "Serve without a thick foam cap."
+              "Add 140g ice and 125 ml chilled milk to the glass.",
+              "Pour in 40 ml base and serve."
             ],
-            tipKm: "កាត់បន្ថយបរិមាណទឹកដោះគោ 20% ធៀបនឹង Iced Latte ដើម្បីបានរសជាតិ Flat White ពិតប្រាកដ។",
-            tipEn: "Using ~20% less milk than an iced latte preserves the bold espresso profile."
+            tipKm: "កូរស្រាលៗមុនពេលផឹក ដើម្បីឱ្យរសជាតិចូលគ្នាស្មើ។",
+            tipEn: "Give a gentle stir before sipping to blend flavors evenly."
           }
         }
       },
       {
-        id: "mocha-pair",
-        category: "mocha",
-        nameKm: "ម៉ូកា",
-        nameEn: "MOCHA",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "សូកូឡា (Chocolate)"],
-        guideBulletsEn: ["Espresso", "Steamed Milk", "Chocolate"],
+        id: "item-6",
+        category: "cocoa-cup",
+        nameKm: "សូកូឡាទឹកដោះគោ",
+        nameEn: "CHOCO MILK",
+        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "សូកូឡា (Chocolate)"],
+        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Chocolate"],
         variants: {
           hot: {
-            cupStyle: "mocha",
-            descKm: "Double Espresso រំលាយជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ បន្ថែម Whipped Cream និងសូកូឡាពីលើ។",
-            descEn: "Double espresso melted with chocolate and steamed milk, topped with whipped cream.",
+            cupStyle: "cocoa-cup",
+            descKm: "ផ្សំសូកូឡា និងទឹកដោះគោក្តៅ បន្ថែម Whipped Cream និងសូកូឡាពីលើ។",
+            descEn: "Chocolate blended with steamed milk and topped with whipped cream.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" },
-              { nameKm: "Whipped Cream + Chocolate", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
+              { nameKm: "សេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup / Cocoa", amount: 25, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 180, unit: "ml" },
+              { nameKm: "Whipped Cream + សូកូឡា", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់សូកូឡាចូលកែវ រួចចម្រាញ់ Double Espresso ក្តៅពីលើ ហើយកូរឱ្យរលាយ។",
-              "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅ រួចចាក់ចូលកែវ។",
-              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើ រួចបម្រើក្តៅៗ។"
+              "ដាក់សូកូឡា 25 ml និងមូលដ្ឋានឆុង 36 ml ចូលកែវ រួចកូរឱ្យរលាយ។",
+              "ចាក់ទឹកដោះគោចំហុយ 180 ml ចូល។",
+              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើ។"
             ],
             stepsEn: [
-              "Add chocolate to the glass, pull hot double espresso over it, and stir smooth.",
-              "Steam fresh milk to ~62°C and pour into the glass.",
-              "Top with whipped cream and chocolate shavings."
+              "Stir 25 ml chocolate with 36 ml base until smooth.",
+              "Pour in 180 ml steamed fresh milk.",
+              "Top with whipped cream and chocolate."
             ],
-            tipKm: "កូរសូកូឡាជាមួយ Espresso ក្តៅជាមុន នឹងរលាយស្មើល្អ។",
-            tipEn: "Dissolving chocolate in hot espresso prevents lumps."
+            tipKm: "កូរសូកូឡាពេលកំពុងក្តៅ នឹងរលាយចូលគ្នាបានល្អ។",
+            tipEn: "Stir chocolate while warm so it dissolves smoothly."
           },
           ice: {
-            cupStyle: "mocha",
-            descKm: "Double Espresso លាយសូកូឡា ទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក បន្ថែម Whipped Cream ពីលើ។",
-            descEn: "Double espresso with chocolate, chilled fresh milk, ice, and whipped cream.",
+            cupStyle: "cocoa-cup",
+            descKm: "សូកូឡា និងទឹកដោះគោត្រជាក់លើទឹកកក បន្ថែម Whipped Cream ពីលើ។",
+            descEn: "Chocolate and chilled milk over ice topped with whipped cream.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
+              { nameKm: "សេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup / Cocoa", amount: 25, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 145, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" },
-              { nameKm: "Whipped Cream + Chocolate", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
+              { nameKm: "Whipped Cream + សូកូឡា", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
             ],
             stepsKm: [
-              "រំលាយសូកូឡាជាមួយ Espresso ក្តៅឱ្យចូលគ្នាល្អ។",
-              "ដាក់ទឹកកកចូលកែវ បន្ទាប់មកចាក់ទឹកដោះគោស្រស់ត្រជាក់ និងល្បាយសូកូឡាកាហ្វេ។",
-              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើមុនលើកជូន។"
+              "រំលាយសូកូឡាជាមួយមូលដ្ឋានឆុងក្តៅឱ្យចូលគ្នា។",
+              "ដាក់ទឹកកក 150g ចូលកែវ រួចចាក់ទឹកដោះគោត្រជាក់ និងល្បាយសូកូឡាចូល។",
+              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើ។"
             ],
             stepsEn: [
-              "Stir chocolate into the hot espresso shot until smooth.",
-              "Fill glass with ice, pour in chilled milk and the chocolate-espresso mix.",
-              "Top with whipped cream and chocolate before serving."
+              "Dissolve chocolate into the warm base until smooth.",
+              "Add 150g ice, pour in chilled milk and the chocolate mix.",
+              "Top with whipped cream and chocolate."
             ],
-            tipKm: "រំលាយសូកូឡាពេល Espresso កំពុងក្តៅ នឹងជួយកុំឱ្យកកជាដុំនៅបាតកែវ។",
-            tipEn: "Mixing chocolate while the espresso is hot avoids clumping on cold ice."
+            tipKm: "រំលាយសូកូឡាឱ្យរលាយមុនដាក់ទឹកកក ដើម្បីកុំឱ្យកកជាដុំ។",
+            tipEn: "Dissolve chocolate fully before adding ice to prevent clumping."
           }
         }
       },
       {
-        id: "macchiato-pair",
-        category: "macchiato",
-        nameKm: "ការ៉ាមែល ម៉ាគីយ៉ាតូ",
-        nameEn: "CARAMEL MACCHIATO",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "ទឹកការ៉ាមែល (Caramel)"],
-        guideBulletsEn: ["Espresso", "Steamed Milk", "Caramel"],
+        id: "item-7",
+        category: "layered",
+        nameKm: "ការ៉ាមែលស្រទាប់",
+        nameEn: "CARAMEL LAYER",
+        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "ទឹកការ៉ាមែល (Caramel)"],
+        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Caramel"],
         variants: {
           hot: {
-            cupStyle: "macchiato",
-            descKm: "ទឹកដោះគោចំហុយលាយសេរ៉ូវ៉ានីឡា ចាក់ Double Espresso ស្រោចពីលើ និងគូសក្រឡាទឹកការ៉ាមែល។",
-            descEn: "Vanilla steamed milk marked with double espresso and finished with a caramel crosshatch.",
+            cupStyle: "layered",
+            descKm: "ទឹកដោះគោផ្សំវ៉ានីឡា ចាក់ស្រទាប់មូលដ្ឋានឆុង និងគូសទឹកការ៉ាមែលពីលើ។",
+            descEn: "Vanilla milk layered with brewed base and finished with caramel drizzle.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 180, unit: "ml" },
-              { nameKm: "សេរ៉ូវ៉ានីឡា (Vanilla Syrup)", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
-              { nameKm: "ទឹកការ៉ាមែល (Caramel Sauce)", nameEn: "Caramel Sauce", amount: 15, unit: "g" }
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 180, unit: "ml" },
+              { nameKm: "សេរ៉ូវ៉ានីឡា", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+              { nameKm: "ទឹកការ៉ាមែល", nameEn: "Caramel Sauce", amount: 15, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់សេរ៉ូវ៉ានីឡាចូលបាតកែវ រួចចាក់ទឹកដោះគោចំហុយមានពពុះចូល។",
-              "ចាក់ Double Espresso យឺតៗចំកណ្តាលពពុះទឹកដោះគោ ដើម្បីបង្កើតជាស្រទាប់។",
-              "គូសទឹកការ៉ាមែលជាក្រឡាខ្វែងពីលើពពុះទឹកដោះគោ។"
+              "ដាក់សេរ៉ូវ៉ានីឡា 15 ml ចូលបាតកែវ រួចចាក់ទឹកដោះគោចំហុយ 180 ml ចូល។",
+              "ចាក់មូលដ្ឋានឆុង 36 ml យឺតៗចំកណ្តាល។",
+              "គូសទឹកការ៉ាមែលជាក្រឡាពីលើ។"
             ],
             stepsEn: [
-              "Pour vanilla syrup into the glass, then add foamed steamed milk.",
-              "Slowly pour double espresso through the center to mark the foam.",
-              "Drizzle caramel sauce in a crosshatch pattern on top."
+              "Add 15 ml vanilla syrup and 180 ml steamed milk to the glass.",
+              "Slowly pour 36 ml base into the center.",
+              "Drizzle caramel sauce in a crosshatch on top."
             ],
-            tipKm: "ចាក់ Espresso យឺតៗលើខ្នងស្លាបព្រា នឹងជួយបំបែកស្រទាប់បានស្អាត។",
-            tipEn: "Pouring espresso slowly over the back of a spoon creates clean layers."
+            tipKm: "ចាក់ស្រទាប់លើដោយយឺតៗ ដើម្បីឱ្យស្រទាប់មើលឃើញច្បាស់។",
+            tipEn: "Pour the top layer slowly to keep the layers distinct."
           },
           ice: {
-            cupStyle: "macchiato",
-            descKm: "ទឹកដោះគោស្រស់ត្រជាក់លាយវ៉ានីឡាលើទឹកកក ស្រោច Double Espresso និងទឹកការ៉ាមែលពីលើ។",
-            descEn: "Chilled vanilla milk over ice, topped with espresso and caramel drizzle.",
+            cupStyle: "layered",
+            descKm: "ទឹកដោះគោត្រជាក់វ៉ានីឡាលើទឹកកក ស្រោចមូលដ្ឋានឆុង និងទឹកការ៉ាមែល។",
+            descEn: "Chilled vanilla milk over ice topped with base and caramel drizzle.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
-              { nameKm: "សេរ៉ូវ៉ានីឡា (Vanilla Syrup)", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
-              { nameKm: "ទឹកការ៉ាមែល (Caramel Sauce)", nameEn: "Caramel Sauce", amount: 15, unit: "g" },
+              { nameKm: "សេរ៉ូវ៉ានីឡា", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+              { nameKm: "ទឹកការ៉ាមែល", nameEn: "Caramel Sauce", amount: 15, unit: "g" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
-              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងសេរ៉ូវ៉ានីឡាចូលគ្នា។",
-              "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោវ៉ានីឡាចូល។",
-              "ចាក់ Double Espresso ស្រោចពីលើ និងគូសទឹកការ៉ាមែល។"
+              "លាយទឹកដោះគោត្រជាក់ 150 ml និងសេរ៉ូវ៉ានីឡា 15 ml ចូលគ្នា។",
+              "ដាក់ទឹកកក 150g ចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
+              "ចាក់មូលដ្ឋានឆុង 36 ml និងគូសទឹកការ៉ាមែល 15g ពីលើ។"
             ],
             stepsEn: [
-              "Stir vanilla syrup into chilled fresh milk.",
-              "Fill glass with ice and pour in the vanilla milk.",
-              "Float double espresso on top and drizzle with caramel sauce."
+              "Mix 150 ml chilled milk with 15 ml vanilla syrup.",
+              "Fill glass with 150g ice and pour in the milk.",
+              "Top with 36 ml base and 15g caramel drizzle."
             ],
-            tipKm: "គូសទឹកការ៉ាមែលនៅខាងក្នុងកែវមុនដាក់ទឹកកក នឹងមើលទៅកាន់តែទាក់ទាញ។",
-            tipEn: "Drizzling caramel inside the glass walls adds visual appeal."
+            tipKm: "ប្រើទឹកការ៉ាមែលខាប់ល្មម ដើម្បីគូសក្រឡាបានស្អាត។",
+            tipEn: "Use medium-thick caramel sauce for neat crosshatch lines."
           }
         }
       },
       {
-        id: "cortado-pair",
-        category: "cortado",
-        nameKm: "ខ័រតាដូ",
-        nameEn: "CORTADO",
-        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយស្មើភាគ (Steamed Milk)"],
-        guideBulletsEn: ["Espresso", "Steamed Milk"],
+        id: "item-8",
+        category: "short-glass",
+        nameKm: "កែវតូចសមាមាត្រ 1:1",
+        nameEn: "MINI 1:1",
+        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោស្មើភាគ"],
+        guideBulletsEn: ["Brewed Base", "Equal Milk"],
         variants: {
           hot: {
-            cupStyle: "cortado",
-            descKm: "Double Espresso លាយជាមួយទឹកដោះគោចំហុយក្តៅក្នុងសមាមាត្រ 1:1 កាត់បន្ថយជាតិជូររបស់កាហ្វេដោយមិនបាត់រសជាតិដើម។",
-            descEn: "Equal parts double espresso and warm silky milk (1:1) to tame acidity while keeping rich espresso punch.",
+            cupStyle: "short-glass",
+            descKm: "ផ្សំមូលដ្ឋានឆុង និងទឹកដោះគោក្តៅក្នុងសមាមាត្រស្មើគ្នា (1:1) ក្នុងកែវតូច។",
+            descEn: "Equal parts brewed base and warm milk (1:1) served in a compact glass.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~60°C)", nameEn: "Warm Steamed Milk (~60°C)", amount: 40, unit: "ml" }
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ក្តៅ (~60°C)", nameEn: "Warm Fresh Milk (~60°C)", amount: 40, unit: "ml" }
             ],
             stepsKm: [
-              "ចម្រាញ់ Double Espresso 36 ml ដាក់ក្នុងកែវកញ្ចក់តូច (Gibraltar Glass)។",
-              "ចំហុយទឹកដោះគោឱ្យក្តៅល្មម (~58–60°C) ដោយមិនបង្កើតពពុះក្រាស់ទេ។",
-              "ចាក់ទឹកដោះគោ 40 ml ចូលលាយជាមួយ Espresso ស្មើភាគ ហើយបម្រើភ្លាម។"
+              "ចាក់មូលដ្ឋានឆុង 36 ml ចូលក្នុងកែវតូច។",
+              "កំដៅទឹកដោះគោ 40 ml ឱ្យក្តៅល្មម រួចចាក់ចូលស្មើភាគ។",
+              "បម្រើភ្លាម។"
             ],
             stepsEn: [
-              "Pull a 36 ml double espresso into a small Gibraltar glass.",
-              "Steam milk gently to ~58–60°C with minimal foam.",
-              "Pour 40 ml warm milk into the espresso for a 1:1 balance."
+              "Pour 36 ml base into a small glass.",
+              "Warm 40 ml milk to ~60°C and pour in for a 1:1 balance.",
+              "Serve immediately."
             ],
-            tipKm: "Cortado ប្រើទឹកដោះគោក្តៅល្មម មិនក្តៅខ្លាំងពេក ដើម្បីអាចផឹកបានភ្លាមៗ។",
-            tipEn: "Keep milk around 60°C so the Cortado is ready to sip immediately."
+            tipKm: "ប្រើកែវតូច ដើម្បីរក្សាសមាមាត្រស្មើគ្នារបស់មុខនេះ។",
+            tipEn: "Use a small glass to preserve the 1:1 balance."
           },
           ice: {
-            cupStyle: "cortado",
-            descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់បរិមាណស្មើគ្នា និងទឹកកកតូចៗ។",
-            descEn: "Equal parts double espresso and chilled fresh milk served over ice.",
+            cupStyle: "short-glass",
+            descKm: "មូលដ្ឋានឆុង និងទឹកដោះគោត្រជាក់ស្មើភាគលើទឹកកកតូចៗ។",
+            descEn: "Equal parts chilled base and milk over small ice cubes.",
             ingredients: [
-              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 40, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 90, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់ទឹកកក 90g ចូលក្នុងកែវតូច។",
-              "ចាក់ទឹកដោះគោស្រស់ត្រជាក់ 40ml និង Double Espresso 36ml ចូល។",
-              "កូរស្រាលៗ រួចបម្រើភ្លាមៗ។"
+              "ដាក់ទឹកកក 90g ចូលកែវតូច។",
+              "ចាក់ទឹកដោះគោត្រជាក់ 40 ml និងមូលដ្ឋានឆុង 36 ml ចូល។",
+              "កូរស្រាលៗ រួចបម្រើ។"
             ],
             stepsEn: [
-              "Place 90g ice cubes into a small glass.",
-              "Add 40ml chilled fresh milk and 36ml double espresso.",
-              "Stir lightly and serve immediately."
+              "Add 90g ice to a small glass.",
+              "Pour in 40 ml chilled milk and 36 ml base.",
+              "Stir lightly and serve."
             ],
-            tipKm: "ប្រើកែវតូច 120–150ml ដើម្បីរក្សាសមាមាត្រ 1:1 របស់ Cortado។",
-            tipEn: "Use a compact 120–150ml glass to keep the classic 1:1 ratio."
+            tipKm: "បម្រើភ្លាមបន្ទាប់ពីចាក់ចូលទឹកកក។",
+            tipEn: "Serve right away once poured over ice."
           }
         }
       },
       {
-        id: "icedcoffee-pair",
-        category: "icedcoffee",
-        nameKm: "កាហ្វេទឹកកក",
-        nameEn: "ICED COFFEE",
-        guideBulletsKm: ["កាហ្វេឆុងស្រស់ (Brewed Coffee)", "ទឹកកក (Ice)"],
-        guideBulletsEn: ["Brewed Coffee", "Ice"],
+        id: "item-9",
+        category: "iced-glass",
+        nameKm: "ភេសជ្ជៈទឹកកក",
+        nameEn: "ICED DRINK",
+        guideBulletsKm: ["មូលដ្ឋានឆុងស្រស់", "ទឹកកក (Ice)"],
+        guideBulletsEn: ["Fresh Base", "Ice"],
         variants: {
           ice: {
-            cupStyle: "icedcoffee",
-            descKm: "កាហ្វេឆុងស្រស់ក្លិនក្រអូប ចាក់លើទឹកកកត្រជាក់ស្រស់ស្រាយ អាចបន្ថែមទឹកស្ករ ឬទឹកដោះគោតាមចំណូលចិត្ត។",
-            descEn: "Freshly brewed coffee chilled over ice — crisp, aromatic, and easy to customize.",
+            cupStyle: "iced-glass",
+            descKm: "ភេសជ្ជៈឆុងស្រស់លើទឹកកកត្រជាក់ស្រស់ស្រាយ អាចបន្ថែមទឹកស្ករតាមចំណូលចិត្ត។",
+            descEn: "Freshly prepared iced drink over ice with optional sweetness.",
             ingredients: [
-              { nameKm: "ទឹកកាហ្វេឆុងស្រស់ (Filter / Drip)", nameEn: "Freshly Brewed Filter Coffee", amount: 180, unit: "ml" },
+              { nameKm: "មូលដ្ឋានឆុងស្រស់", nameEn: "Fresh Brewed Base", amount: 180, unit: "ml" },
               { nameKm: "ទឹកស្ករ (ជម្រើស)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 170, unit: "g" }
             ],
             stepsKm: [
-              "ឆុងកាហ្វេ Drip ឬ Pour-over ឱ្យបានកំហាប់ខ្ពស់បន្តិច (1:12 ratio)។",
-              "ដាក់ទឹកកក 170g ឱ្យពេញកែវ រួចចាក់ទឹកកាហ្វេចូល។",
-              "បន្ថែមទឹកស្ករ ឬទឹកដោះគោស្រស់តាមចំណូលចិត្ត។"
+              "ដាក់ទឹកកក 170g ចូលកែវធំ។",
+              "ចាក់មូលដ្ឋានឆុង 180 ml និងទឹកស្ករ 15 ml (បើចង់បាន) ចូល។",
+              "កូរឱ្យសព្វ រួចបម្រើ។"
             ],
             stepsEn: [
-              "Brew drip or pour-over coffee slightly concentrated (1:12 ratio).",
-              "Fill a tall glass with 170g ice and pour the coffee over.",
-              "Add optional simple syrup or splash of milk to taste."
+              "Fill a tall glass with 170g ice.",
+              "Pour in 180 ml fresh base and optional 15 ml syrup.",
+              "Stir well and serve."
             ],
-            tipKm: "ឆុងកាហ្វេឱ្យដិតបន្តិច ដើម្បីទប់ទល់នឹងការរលាយរបស់ទឹកកក។",
-            tipEn: "Brew slightly stronger so melting ice keeps the flavor balanced."
+            tipKm: "រក្សាទឹកកកឱ្យត្រជាក់ល្អ ដើម្បីបានរសជាតិស្រស់ស្រាយ។",
+            tipEn: "Keep ice well-chilled for a crisp, refreshing finish."
           },
           hot: {
-            cupStyle: "americano",
-            descKm: "កាហ្វេឆុងស្រស់ក្តៅៗ (Hot Brewed Drip Coffee) ក្លិនក្រអូបស្រាលស្រទន់។",
-            descEn: "Freshly brewed hot drip coffee with clean, aromatic clarity.",
+            cupStyle: "hot-clear",
+            descKm: "ជម្រើសឆុងក្តៅស្រស់ស្រាយ រសជាតិស្រាលស្រទន់។",
+            descEn: "Warm preparation option with a clean, light finish.",
             ingredients: [
-              { nameKm: "ម្សៅកាហ្វេកិនកម្រិតមធ្យម", nameEn: "Medium-Ground Coffee", amount: 15, unit: "g" },
-              { nameKm: "ទឹកក្តៅ (~92°C)", nameEn: "Hot Water (~92°C)", amount: 225, unit: "ml" }
+              { nameKm: "មូលដ្ឋានឆុងស្រស់", nameEn: "Fresh Brewed Base", amount: 180, unit: "ml" },
+              { nameKm: "ទឹកក្តៅបន្ថែម", nameEn: "Additional Hot Water", amount: 50, unit: "ml" }
             ],
             stepsKm: [
-              "ដាក់ម្សៅកាហ្វេ 15g ក្នុងតម្រង Dripper ហើយចាក់ទឹកក្តៅ 45ml រង់ចាំ 30 វិនាទី (Bloom)។",
-              "ចាក់ទឹកក្តៅដែលនៅសល់ជារង្វង់យឺតៗរហូតគ្រប់ 225ml។",
-              "បម្រើក្តៅៗក្នុងកែវកញ្ចក់។"
+              "ចាក់មូលដ្ឋានឆុង 180 ml និងទឹកក្តៅ 50 ml ចូលកែវ។",
+              "កូរស្រាលៗ ហើយបម្រើក្តៅៗ។"
             ],
             stepsEn: [
-              "Place 15g medium-ground coffee in a filter and bloom with 45ml hot water for 30s.",
-              "Pour the remaining hot water slowly in circles up to 225ml.",
-              "Serve hot in a glass mug."
+              "Pour 180 ml fresh base and 50 ml hot water into a glass.",
+              "Stir lightly and serve hot."
             ],
-            tipKm: "ប្រើទឹកក្តៅ 90–93°C ជួយទាញរសជាតិផ្អែមធម្មជាតិរបស់គ្រាប់កាហ្វេបានល្អ។",
-            tipEn: "Water at 90–93°C extracts balanced sweetness without bitterness."
+            tipKm: "បម្រើពេលកំពុងក្តៅល្មម ដើម្បីរក្សារសជាតិល្អបំផុត។",
+            tipEn: "Serve warm for the best flavor balance."
           }
         }
       },
       {
-        id: "coldbrew-pair",
-        category: "coldbrew",
-        nameKm: "ខូលប្រ៊ូ",
-        nameEn: "COLD BREW",
-        guideBulletsKm: ["កាហ្វេត្រាំត្រជាក់ (Cold Brewed Coffee)", "ទឹកកក (Ice)"],
-        guideBulletsEn: ["Cold Brewed Coffee", "Ice"],
+        id: "item-10",
+        category: "iced-glass",
+        nameKm: "ភេសជ្ជៈត្រាំត្រជាក់",
+        nameEn: "COLD STEEP",
+        guideBulletsKm: ["មូលដ្ឋានត្រាំត្រជាក់", "ទឹកកក (Ice)"],
+        guideBulletsEn: ["Cold Steeped Base", "Ice"],
         variants: {
           ice: {
-            cupStyle: "coldbrew",
-            descKm: "គ្រាប់កាហ្វេកិនគ្រើមត្រាំក្នុងទឹកត្រជាក់រយៈពេល 14–18 ម៉ោង រសជាតិស្រទន់ ផ្អែមធម្មជាតិ និងមិនជូរ។",
-            descEn: "Coarse coffee steeped in cold water for 14–18 hours for a smooth, naturally sweet, low-acid cup.",
+            cupStyle: "iced-glass",
+            descKm: "មូលដ្ឋានត្រាំក្នុងទឹកត្រជាក់យូរម៉ោង រសជាតិស្រទន់ ផ្អែមស្រាល និងមិនជូរ។",
+            descEn: "Slow cold-steeped base over ice for a smooth, low-acid drink.",
             ingredients: [
-              { nameKm: "ទឹកកាហ្វេ Cold Brew Concentrate", nameEn: "Cold Brew Concentrate", amount: 120, unit: "ml" },
+              { nameKm: "មូលដ្ឋានត្រាំត្រជាក់ខាប់", nameEn: "Cold Steep Concentrate", amount: 120, unit: "ml" },
               { nameKm: "ទឹកត្រជាក់ស្អាត", nameEn: "Filtered Cold Water", amount: 80, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "ត្រាំម្សៅកាហ្វេកិនគ្រើមជាមួយទឹកត្រជាក់ (1:8) ក្នុងទូរទឹកកក 16 ម៉ោង រួចច្រោះឱ្យស្អាត។",
-              "ដាក់ទឹកកក 160g ចូលកែវ រួចចាក់ Cold Brew 120ml និងទឹកត្រជាក់ 80ml ចូល។",
+              "ដាក់ទឹកកក 160g ចូលកែវ។",
+              "ចាក់មូលដ្ឋានត្រាំត្រជាក់ 120 ml និងទឹកត្រជាក់ 80 ml ចូល។",
               "កូរស្រាលៗ ហើយបម្រើត្រជាក់ៗ។"
             ],
             stepsEn: [
-              "Steep coarse coffee in cold water (1:8) for 16 hours in the fridge, then filter clean.",
-              "Fill a glass with 160g ice, pour 120ml Cold Brew and 80ml cold water.",
-              "Stir lightly and serve chilled."
+              "Add 160g ice into a glass.",
+              "Pour in 120 ml cold steep concentrate and 80 ml cold water.",
+              "Stir gently and serve chilled."
             ],
-            tipKm: "Cold Brew អាចរក្សាទុកក្នុងទូរទឹកកកបិទជិតបានរហូតដល់ 5–7 ថ្ងៃ។",
-            tipEn: "Sealed Cold Brew concentrate stays fresh in the fridge for 5–7 days."
+            tipKm: "រក្សាមូលដ្ឋានត្រាំត្រជាក់ក្នុងទូរទឹកកកបិទជិត ដើម្បីរក្សាភាពស្រស់។",
+            tipEn: "Store cold steep concentrate sealed in the fridge to keep it fresh."
           }
         }
       }
     ];
 
     const STORAGE_KEYS = {
-      CUSTOM_RECIPES: "eminor_coffee_custom_v2",
-      FAVORITES: "eminor_coffee_fav_v2",
-      LANG: "eminor_coffee_lang_v2"
+      CUSTOM_RECIPES: "eminor_menu_custom_v1",
+      FAVORITES: "eminor_menu_fav_v1",
+      LANG: "eminor_menu_lang_v1"
     };
 
     let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
-    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["latte-pair", "mocha-pair"]));
+    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["item-3", "item-6"]));
 
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
@@ -2408,7 +2348,7 @@
       grid.innerHTML = list.map((r) => {
         const isFav = favorites.has(r.id);
         const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
-        const cupStyle = defaultVar?.cupStyle || r.category || "latte";
+        const cupStyle = defaultVar?.cupStyle || r.category || "latte-art";
         const displayTitle = state.lang === "en" ? (r.nameEn || r.nameKm) : r.nameKm;
         const subEnglish = state.lang === "km" && r.nameEn ? r.nameEn : "";
         const bullets = getGuideBullets(r, defaultVar);
@@ -2590,7 +2530,7 @@
     function calculateBeanYield() {
       const s = t();
       const bagGrams = Math.max(1, parseFloat(document.getElementById("bagGramsInput").value) || 0);
-      const dose = Math.max(1, parseFloat(document.getElementById("dosePerCupInput").value) || 18);
+      const dose = Math.max(1, parseFloat(document.getElementById("dosePerCupInput").value) || 25);
       const wastePct = Math.min(90, Math.max(0, parseFloat(document.getElementById("wastePercentInput").value) || 0));
       const pricePerCup = Math.max(0, parseFloat(document.getElementById("pricePerCupInput").value) || 0);
 
@@ -2687,7 +2627,7 @@
 
       const tempOpt = document.getElementById("newTemp").value;
       const category = document.getElementById("newCategory").value;
-      const desc = document.getElementById("newDesc").value.trim() || (state.lang === "en" ? "Custom coffee recipe." : "រូបមន្តកាហ្វេបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។");
+      const desc = document.getElementById("newDesc").value.trim() || (state.lang === "en" ? "Custom menu item." : "មុខបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។");
 
       const rawIngs = document.getElementById("newIngredients").value.split("\n").map((l) => l.trim()).filter(Boolean);
       const ingredients = rawIngs.length
@@ -2702,10 +2642,10 @@
               unit: parts[2] || ""
             };
           })
-        : [{ nameKm: "គ្រឿងផ្សំកាហ្វេតាមចំណូលចិត្ត", nameEn: "Coffee ingredients to taste", amount: 100, unit: "ml" }];
+        : [{ nameKm: "គ្រឿងផ្សំតាមចំណូលចិត្ត", nameEn: "Ingredients to taste", amount: 100, unit: "ml" }];
 
       const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
-      const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine coffee ingredients and serve." : "ឆុង និងលាយគ្រឿងផ្សំកាហ្វេចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
+      const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine ingredients and serve." : "លាយគ្រឿងផ្សំចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
 
       const baseVariant = {
         cupStyle: category,
@@ -2714,8 +2654,8 @@
         ingredients,
         stepsKm: stepsList,
         stepsEn: stepsList,
-        tipKm: "រូបមន្តកាហ្វេផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិហាង។",
-        tipEn: "Your custom coffee recipe — adjust measurements to suit your shop's taste."
+        tipKm: "មុខផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិ។",
+        tipEn: "Your custom item — adjust measurements to suit your taste."
       };
 
       const variants = {};
@@ -2729,7 +2669,7 @@
       if (tempOpt === "both" || tempOpt === "ice") {
         variants.ice = {
           ...baseVariant,
-          cupStyle: category === "flatwhite" || category === "cortado" ? "icedcoffee" : category,
+          cupStyle: "iced-glass",
           descKm: `${desc} (ត្រជាក់ / Ice)`,
           descEn: `${desc} (Ice)`
         };
