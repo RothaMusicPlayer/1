@@ -10,11 +10,9 @@
   <style>
     :root {
       --bg-canvas: #EBE4DC;
-      --glass-surface: rgba(255, 255, 255, 0.58);
-      --glass-surface-strong: rgba(255, 255, 255, 0.76);
-      --glass-pill: rgba(255, 255, 255, 0.45);
-      --glass-border: rgba(255, 255, 255, 0.85);
-      --glass-border-inner: rgba(255, 255, 255, 0.45);
+      --glass-surface: rgba(255, 255, 255, 0.72);
+      --glass-surface-strong: rgba(255, 255, 255, 0.86);
+      --glass-border: rgba(255, 255, 255, 0.88);
       --text-primary: #1A120E;
       --text-secondary: #5C4B41;
       --text-muted: #8B796E;
@@ -23,8 +21,8 @@
       --accent-hot: #C93B20;
       --accent-ice: #156A94;
       --accent-success: #1B8045;
-      --shadow-glass: 0 12px 32px -8px rgba(34, 19, 10, 0.14), inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
-      --shadow-float: 0 20px 44px -10px rgba(24, 14, 8, 0.28), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      --shadow-glass: 0 8px 24px -6px rgba(34, 19, 10, 0.12), inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+      --shadow-float: 0 16px 36px -8px rgba(24, 14, 8, 0.24), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -36,21 +34,29 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-canvas);
       background-image:
-        radial-gradient(at 10% 6%, rgba(217, 138, 60, 0.28) 0px, transparent 48%),
-        radial-gradient(at 90% 10%, rgba(45, 138, 184, 0.22) 0px, transparent 46%),
-        radial-gradient(at 80% 65%, rgba(168, 92, 46, 0.20) 0px, transparent 52%),
-        radial-gradient(at 15% 88%, rgba(86, 130, 163, 0.18) 0px, transparent 50%);
-      background-attachment: fixed;
+        radial-gradient(at 10% 6%, rgba(217, 138, 60, 0.24) 0px, transparent 48%),
+        radial-gradient(at 90% 10%, rgba(45, 138, 184, 0.18) 0px, transparent 46%),
+        radial-gradient(at 80% 65%, rgba(168, 92, 46, 0.16) 0px, transparent 52%),
+        radial-gradient(at 15% 88%, rgba(86, 130, 163, 0.15) 0px, transparent 50%);
       color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
-      scroll-behavior: smooth;
+      overscroll-behavior-y: contain;
+    }
+
+    button, input, select, textarea {
+      touch-action: manipulation;
     }
 
     .app-container {
@@ -81,13 +87,14 @@
       top: 10px;
       z-index: 30;
       background: var(--glass-surface-strong);
-      backdrop-filter: blur(28px) saturate(190%);
-      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      backdrop-filter: blur(18px) saturate(165%);
+      -webkit-backdrop-filter: blur(18px) saturate(165%);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
       padding: 14px 16px;
       box-shadow: var(--shadow-glass);
       margin-bottom: 14px;
+      transform: translateZ(0);
     }
 
     .header-top-row {
@@ -113,7 +120,7 @@
       color: #FFF;
       display: grid;
       place-items: center;
-      box-shadow: 0 8px 20px rgba(74, 44, 24, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      box-shadow: 0 6px 16px rgba(74, 44, 24, 0.24), inset 0 1px 1px rgba(255, 255, 255, 0.45);
       flex-shrink: 0;
     }
 
@@ -134,45 +141,37 @@
 
     .icon-btn {
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.68);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.82);
       color: var(--text-primary);
       border-radius: 14px;
-      padding: 9px 12px;
-      min-height: 38px;
+      padding: 10px 14px;
+      min-height: 42px;
       font-family: inherit;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-      touch-action: manipulation;
+      gap: 6px;
+      transition: transform 0.14s ease, background 0.18s ease;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
       white-space: nowrap;
     }
 
-    .icon-btn:hover {
-      background: rgba(255, 255, 255, 0.9);
-    }
-
     .icon-btn:active {
-      transform: scale(0.94);
+      transform: scale(0.95);
     }
 
     .icon-btn.primary {
       background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
       color: #FFFFFF;
       border-color: rgba(255, 255, 255, 0.25);
-      box-shadow: 0 6px 16px rgba(51, 29, 15, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.28);
     }
 
     .lang-toggle-btn {
       border-color: rgba(198, 125, 59, 0.45);
-      background: rgba(255, 248, 238, 0.78);
+      background: rgba(255, 248, 238, 0.9);
       color: #7D4616;
     }
 
@@ -207,36 +206,34 @@
 
     .search-input {
       width: 100%;
-      padding: 10px 36px 10px 38px;
+      min-height: 42px;
+      padding: 10px 40px 10px 38px;
       border-radius: 15px;
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.82);
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--text-primary);
       outline: none;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
-      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      transition: border-color 0.2s ease, background 0.2s ease;
     }
 
     .search-input:focus {
-      background: rgba(255, 255, 255, 0.92);
+      background: #FFFFFF;
       border-color: var(--accent-caramel);
-      box-shadow: 0 0 0 3.5px rgba(198, 125, 59, 0.18);
+      box-shadow: 0 0 0 3px rgba(198, 125, 59, 0.18);
     }
 
     .clear-search-btn {
       position: absolute;
-      right: 9px;
+      right: 8px;
       border: none;
       background: rgba(120, 120, 128, 0.18);
       color: var(--text-secondary);
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
       display: none;
@@ -251,11 +248,9 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       background: rgba(118, 118, 128, 0.14);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       padding: 3px;
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.55);
       gap: 3px;
       flex-shrink: 0;
     }
@@ -264,22 +259,21 @@
       border: none;
       background: transparent;
       color: var(--text-secondary);
-      padding: 7px 14px;
-      min-height: 36px;
+      padding: 8px 14px;
+      min-height: 38px;
       border-radius: 11px;
       font-family: inherit;
       font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: background 0.18s ease, color 0.18s ease;
       white-space: nowrap;
-      touch-action: manipulation;
     }
 
     .temp-pill.active {
-      background: rgba(255, 255, 255, 0.92);
+      background: #FFFFFF;
       color: var(--text-primary);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .temp-pill[data-temp="hot"].active {
@@ -308,7 +302,7 @@
       color: var(--text-primary);
     }
 
-    /* Menu Grid - iOS Frosted Glass Cards */
+    /* Menu Grid - Smooth Hardware-Accelerated iOS Glass Cards */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -326,40 +320,34 @@
 
     .drink-card {
       background: var(--glass-surface);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 11px;
+      padding: 12px;
       display: flex;
       align-items: center;
-      gap: 13px;
+      gap: 14px;
       box-shadow: var(--shadow-glass);
       cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.15s ease, background 0.18s ease;
       position: relative;
       touch-action: manipulation;
       user-select: none;
-    }
-
-    .drink-card:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.76);
-      box-shadow: 0 16px 34px -8px rgba(38, 20, 10, 0.18), inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+      transform: translateZ(0);
     }
 
     .drink-card:active {
-      transform: scale(0.98);
+      transform: scale(0.985) translateZ(0);
+      background: rgba(255, 255, 255, 0.9);
     }
 
     .drink-photo-box {
       width: 96px;
-      height: 108px;
+      height: 106px;
       border-radius: 17px;
-      background: linear-gradient(145deg, #DFD3C6, #CFC0B0);
+      background: #DED2C5;
       flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      box-shadow: 0 6px 16px rgba(34, 18, 9, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 5px 14px rgba(34, 18, 9, 0.12);
       position: relative;
       overflow: hidden;
       display: grid;
@@ -372,11 +360,6 @@
       object-fit: cover;
       object-position: center;
       display: block;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
-    }
-
-    .drink-card:hover .drink-photo-box img.drink-photo {
-      transform: scale(1.07);
     }
 
     .photo-temp-badge {
@@ -389,18 +372,16 @@
       border-radius: 8px;
       color: #FFF;
       letter-spacing: 0.04em;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     }
 
     .photo-temp-badge.hot {
-      background: rgba(196, 56, 30, 0.86);
+      background: rgba(196, 56, 30, 0.92);
     }
 
     .photo-temp-badge.ice {
-      background: rgba(21, 106, 148, 0.86);
+      background: rgba(21, 106, 148, 0.92);
     }
 
     .drink-info {
@@ -428,7 +409,6 @@
       border-radius: 999px;
       background: rgba(74, 44, 24, 0.09);
       color: var(--accent-espresso);
-      border: 1px solid rgba(255, 255, 255, 0.5);
     }
 
     .drink-tag.temp-hot {
@@ -448,7 +428,7 @@
 
     .drink-name-main {
       margin: 0;
-      font-size: 1.02rem;
+      font-size: 1.04rem;
       font-weight: 700;
       color: var(--text-primary);
       line-height: 1.35;
@@ -457,7 +437,7 @@
 
     .drink-desc {
       margin: 4px 0 0;
-      font-size: 0.8rem;
+      font-size: 0.81rem;
       color: var(--text-secondary);
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -468,26 +448,23 @@
 
     .fav-toggle-btn {
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.85);
       color: var(--text-muted);
-      width: 38px;
-      height: 38px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
       flex-shrink: 0;
-      transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease;
-      touch-action: manipulation;
+      transition: transform 0.14s ease, background 0.18s ease;
     }
 
     .fav-toggle-btn.saved {
       color: #D62D47;
       border-color: rgba(214, 45, 71, 0.38);
-      background: rgba(255, 240, 243, 0.88);
+      background: #FFF2F4;
     }
 
     .fav-toggle-btn.saved svg {
@@ -496,7 +473,7 @@
     }
 
     .fav-toggle-btn:active {
-      transform: scale(0.85);
+      transform: scale(0.88);
     }
 
     /* Empty State */
@@ -505,18 +482,14 @@
       text-align: center;
       padding: 48px 20px;
       background: var(--glass-surface);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border-radius: var(--radius-xl);
       border: 1px solid var(--glass-border);
       box-shadow: var(--shadow-glass);
     }
 
-    /* Bean Calculator View - iOS Frosted Glass */
+    /* Bean Calculator View */
     .calc-panel {
       background: var(--glass-surface-strong);
-      backdrop-filter: blur(26px) saturate(180%);
-      -webkit-backdrop-filter: blur(26px) saturate(180%);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
       padding: 20px;
@@ -543,24 +516,21 @@
 
     .preset-chip {
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.85);
       color: var(--text-primary);
-      padding: 8px 14px;
-      min-height: 38px;
+      padding: 9px 15px;
+      min-height: 42px;
       border-radius: 13px;
       font-family: inherit;
       font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.16s ease;
-      touch-action: manipulation;
     }
 
     .preset-chip.active {
       background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
       color: #FFFFFF;
       border-color: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 12px rgba(181, 110, 45, 0.28);
     }
 
     .form-grid-2 {
@@ -586,10 +556,11 @@
 
     .field-input, .field-select, .field-textarea {
       width: 100%;
+      min-height: 42px;
       padding: 10px 12px;
       border-radius: 13px;
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.88);
       font-family: inherit;
       font-size: 0.92rem;
       color: var(--text-primary);
@@ -597,7 +568,7 @@
     }
 
     .field-input:focus, .field-select:focus, .field-textarea:focus {
-      background: rgba(255, 255, 255, 0.95);
+      background: #FFFFFF;
       border-color: var(--accent-caramel);
     }
 
@@ -615,14 +586,11 @@
     }
 
     .result-box {
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.85);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
       padding: 14px;
       text-align: center;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
     }
 
     .result-box .res-label {
@@ -648,13 +616,13 @@
       position: fixed;
       bottom: 14px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateZ(0);
       width: min(470px, calc(100% - 28px));
       height: 62px;
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: blur(28px) saturate(200%);
-      -webkit-backdrop-filter: blur(28px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.95);
       border-radius: 999px;
       box-shadow: var(--shadow-float);
       display: grid;
@@ -676,23 +644,22 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-      touch-action: manipulation;
+      transition: background 0.18s ease, color 0.18s ease;
     }
 
     .nav-item.active {
       background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
       color: #FFFFFF;
-      box-shadow: 0 6px 16px rgba(51, 29, 15, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      box-shadow: 0 5px 14px rgba(51, 29, 15, 0.25);
     }
 
     /* iOS Frosted Modal / Bottom Sheet */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(20, 12, 7, 0.42);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(20, 12, 7, 0.48);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 60;
       display: none;
       align-items: flex-end;
@@ -716,15 +683,15 @@
       max-height: 90vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      background: rgba(252, 248, 243, 0.84);
-      backdrop-filter: blur(32px) saturate(195%);
-      -webkit-backdrop-filter: blur(32px) saturate(195%);
-      border: 1px solid rgba(255, 255, 255, 0.92);
+      overscroll-behavior: contain;
+      background: rgba(252, 248, 243, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.95);
       border-radius: 30px;
       padding: 20px;
-      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-      animation: slideUp 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.32);
+      animation: slideUp 0.22s ease-out;
       position: relative;
+      transform: translateZ(0);
     }
 
     .drag-handle {
@@ -738,11 +705,11 @@
     @keyframes slideUp {
       from {
         opacity: 0;
-        transform: translateY(28px) scale(0.97);
+        transform: translateY(22px);
       }
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
     }
 
@@ -756,19 +723,23 @@
     }
 
     .close-modal-btn {
-      width: 36px;
-      height: 36px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.72);
+      background: #FFFFFF;
       color: var(--text-primary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       flex-shrink: 0;
       display: grid;
       place-items: center;
-      touch-action: manipulation;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .close-modal-btn:active {
+      transform: scale(0.92);
     }
 
     /* Hot vs Ice Mode Switcher inside Modal */
@@ -787,27 +758,26 @@
       border: none;
       background: transparent;
       border-radius: 12px;
-      padding: 9px 12px;
-      min-height: 40px;
+      padding: 10px 12px;
+      min-height: 42px;
       font-family: inherit;
       font-size: 0.86rem;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s ease;
-      touch-action: manipulation;
+      transition: background 0.18s ease, color 0.18s ease;
     }
 
     .mode-option-btn.active[data-mode="hot"] {
       background: linear-gradient(180deg, #D4472B 0%, #B33319 100%);
       color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(184, 66, 37, 0.3);
+      box-shadow: 0 4px 12px rgba(184, 66, 37, 0.28);
     }
 
     .mode-option-btn.active[data-mode="ice"] {
       background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
       color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(29, 110, 150, 0.3);
+      box-shadow: 0 4px 12px rgba(29, 110, 150, 0.28);
     }
 
     .mode-option-btn.disabled-mode {
@@ -821,7 +791,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      background: rgba(255, 255, 255, 0.65);
+      background: rgba(255, 255, 255, 0.8);
       padding: 10px 12px;
       border-radius: var(--radius-md);
       border: 1px solid var(--glass-border);
@@ -839,19 +809,18 @@
     .seg-btn {
       border: none;
       background: transparent;
-      padding: 6px 11px;
-      min-height: 32px;
+      padding: 7px 12px;
+      min-height: 36px;
       border-radius: 8px;
       font-family: inherit;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
-      touch-action: manipulation;
     }
 
     .seg-btn.active {
-      background: rgba(255, 255, 255, 0.94);
+      background: #FFFFFF;
       color: var(--text-primary);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
@@ -876,18 +845,17 @@
     }
 
     .ing-item {
-      background: rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid var(--glass-border);
       border-radius: 14px;
       padding: 11px 12px;
-      min-height: 44px;
+      min-height: 46px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       cursor: pointer;
-      transition: opacity 0.2s ease, background 0.2s ease;
-      touch-action: manipulation;
+      transition: opacity 0.18s ease;
     }
 
     .ing-item.checked {
@@ -902,8 +870,8 @@
     }
 
     .ing-check {
-      width: 18px;
-      height: 18px;
+      width: 19px;
+      height: 19px;
       accent-color: var(--accent-espresso);
       cursor: pointer;
     }
@@ -927,7 +895,7 @@
 
     .tip-box {
       margin-top: 14px;
-      background: rgba(255, 245, 228, 0.78);
+      background: rgba(255, 245, 228, 0.9);
       border: 1px solid rgba(198, 125, 59, 0.28);
       border-left: 4px solid var(--accent-caramel);
       padding: 12px 14px;
@@ -940,14 +908,18 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 18px;
+      margin-top: 16px;
       padding-top: 14px;
       border-top: 1px solid rgba(74, 44, 24, 0.1);
     }
 
+    .modal-footer-actions:empty {
+      display: none;
+    }
+
     /* Barista Shot Timer Box */
     .timer-widget {
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.88);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
       padding: 16px;
@@ -983,9 +955,7 @@
       bottom: 88px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: rgba(28, 18, 13, 0.86);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(28, 18, 13, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.18);
       color: #FFFFFF;
       padding: 10px 18px;
@@ -994,9 +964,9 @@
       font-weight: 600;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.25s ease;
+      transition: all 0.22s ease;
       z-index: 90;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
     }
 
     .toast.show {
@@ -1202,10 +1172,7 @@
 
       <div class="tip-box" id="modalTip"></div>
 
-      <div class="modal-footer-actions">
-        <button class="icon-btn primary" id="copyRecipeBtn">ចម្លងរូបមន្ត</button>
-        <button class="icon-btn" id="modalFavBtn">រក្សាទុកចូលចិត្ត</button>
-        <button class="icon-btn" id="modalTimerBtn">ចាប់ម៉ោងឆុង</button>
+      <div class="modal-footer-actions" id="modalFooterActions">
         <button class="icon-btn" id="deleteCustomBtn" style="display:none; color:#B81D37;">លុបមុខនេះ</button>
       </div>
     </div>
@@ -1337,10 +1304,7 @@
         stepsHeading: "របៀបធ្វើតាមជំហាន",
         tipPrefix: "គន្លឹះ Barista៖",
         defaultTip: "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
-        copyBtn: "ចម្លងរូបមន្ត",
         favBtnSave: "រក្សាទុកចូលចិត្ត",
-        favBtnSaved: "បានរក្សាទុកចូលចិត្ត",
-        modalTimerBtn: "ចាប់ម៉ោងឆុង",
         deleteCustomBtn: "លុបមុខនេះ",
         addModalTitle: "បន្ថែមមុខកាហ្វេថ្មីផ្ទាល់ខ្លួន",
         addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
@@ -1374,8 +1338,6 @@
         resCostPerCup: (d) => `ម្សៅ/កែវ៖ ${d}g`,
         toastAddedFav: "បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត",
         toastRemovedFav: "បានដកចេញពីបញ្ជីចូលចិត្ត",
-        toastCopied: "បានចម្លងរូបមន្តរួចរាល់",
-        toastCopyFail: "មិនអាចចម្លងស្វ័យប្រវត្តិបាន",
         toastAddedRecipe: "បានបន្ថែមមុខកាហ្វេថ្មីរួចរាល់",
         toastDeletedRecipe: "បានលុបមុខកាហ្វេផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
@@ -1411,10 +1373,7 @@
         stepsHeading: "Step-by-Step Instructions",
         tipPrefix: "Barista Tip:",
         defaultTip: "Measure consistently to keep coffee quality and flavor balanced.",
-        copyBtn: "Copy Recipe",
         favBtnSave: "Save to Favorites",
-        favBtnSaved: "Saved in Favorites",
-        modalTimerBtn: "Shot Timer",
         deleteCustomBtn: "Delete Custom",
         addModalTitle: "Add Custom Coffee Recipe",
         addModalSub: "Automatically saved on your device",
@@ -1448,16 +1407,15 @@
         resCostPerCup: (d) => `Dose/cup: ${d}g`,
         toastAddedFav: "Saved to Favorites",
         toastRemovedFav: "Removed from Favorites",
-        toastCopied: "Recipe copied to clipboard",
-        toastCopyFail: "Could not copy automatically",
         toastAddedRecipe: "New custom coffee added",
         toastDeletedRecipe: "Custom coffee deleted",
         toastLangSwitched: "Switched to English"
       }
     };
 
-    // Real high-resolution photography mapped accurately to each hot & iced drink
+    // Verified high-resolution Unsplash coffee photography matching each hot & iced drink
     const DRINK_PHOTOS = {
+      // HOT DRINKS
       "hot-espresso":     "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=400&q=80",
       "hot-americano":    "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=400&q=80",
       "hot-latte":        "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=400&q=80",
@@ -1466,13 +1424,18 @@
       "hot-mocha":        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=400&q=80",
       "hot-caramel":      "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=400&q=80",
       "hot-piccolo":      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80",
-      "hot-khmer-milk":   "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=400&q=80",
+      "hot-khmer-milk":   "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
+
+      // ICED DRINKS
+      "ice-espresso":     "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80",
       "ice-americano":    "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80",
       "ice-latte":        "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80",
       "ice-cappuccino":   "https://images.unsplash.com/photo-1592663527359-cf6642f54cff?auto=format&fit=crop&w=400&q=80",
+      "ice-flat-white":   "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80",
       "ice-mocha":        "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=400&q=80",
-      "ice-caramel":      "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=400&q=80",
-      "ice-khmer-milk":   "https://images.unsplash.com/photo-1582152629442-4a864303fb96?auto=format&fit=crop&w=400&q=80",
+      "ice-caramel":      "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80",
+      "ice-piccolo":      "https://images.unsplash.com/photo-1525480122447-64809d765ec4?auto=format&fit=crop&w=400&q=80",
+      "ice-khmer-milk":   "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=400&q=80",
       "ice-black-coffee": "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=400&q=80"
     };
 
@@ -1510,7 +1473,7 @@
             tipEn: "Hot espresso expresses its strongest aromatics within the first 30 seconds after extraction."
           },
           ice: {
-            photo: "ice-americano",
+            photo: "ice-espresso",
             descKm: "ចម្រាញ់ Double Espresso ស្រោចលើទឹកកកត្រជាក់ និងទឹកត្រជាក់បន្តិច ដើម្បីឱ្យត្រជាក់ភ្លាមៗដោយមិនបាត់រសជាតិ។",
             descEn: "Double espresso pulled over cold water and ice to chill rapidly while keeping bold depth.",
             ingredients: [
@@ -1724,7 +1687,7 @@
             tipEn: "Using less milk than a latte keeps the espresso character prominent."
           },
           ice: {
-            photo: "ice-latte",
+            photo: "ice-flat-white",
             descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់បរិមាណសមល្មម និងទឹកកក ផ្តល់រសជាតិកាហ្វេដិតជាង Iced Latte។",
             descEn: "Double espresso with a balanced splash of chilled milk over ice for a stronger coffee taste.",
             ingredients: [
@@ -1889,7 +1852,7 @@
             tipEn: "Great for tasting espresso character softened just slightly by milk."
           },
           ice: {
-            photo: "ice-latte",
+            photo: "ice-piccolo",
             descKm: "Espresso លាយទឹកដោះគោស្រស់ត្រជាក់តិច និងទឹកកកតូចៗ រសជាតិកាហ្វេដិតត្រជាក់ស្រស់។",
             descEn: "Espresso with a small splash of chilled milk and ice for a bold, chilled mini cup.",
             ingredients: [
@@ -2132,8 +2095,6 @@
       document.getElementById("batchLabel").textContent = s.batchLabel;
       document.getElementById("ingSectionHeading").textContent = s.ingHeading;
       document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
-      document.getElementById("copyRecipeBtn").textContent = s.copyBtn;
-      document.getElementById("modalTimerBtn").textContent = s.modalTimerBtn;
       document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
 
       document.getElementById("addModalTitle").textContent = s.addModalTitle;
@@ -2298,9 +2259,6 @@
       }
       saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
       renderMenu();
-      if (state.activeRecipeId === id) {
-        updateModalFavButton(id);
-      }
     }
 
     function switchTab(tabName) {
@@ -2361,8 +2319,6 @@
       document.getElementById("deleteCustomBtn").style.display = recipe.isCustom ? "inline-flex" : "none";
 
       renderModalVariantContent(recipe, targetMode);
-      updateModalFavButton(id);
-
       document.getElementById("recipeModal").classList.add("open");
     }
 
@@ -2421,35 +2377,6 @@
         cb.addEventListener("change", () => {
           item.classList.toggle("checked", cb.checked);
         });
-      });
-    }
-
-    function updateModalFavButton(id) {
-      const s = t();
-      const btn = document.getElementById("modalFavBtn");
-      const isFav = favorites.has(id);
-      btn.textContent = isFav ? s.favBtnSaved : s.favBtnSave;
-    }
-
-    function copyActiveRecipeText() {
-      const s = t();
-      const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-      const variant = getActiveVariant(recipe, state.activeMode);
-      if (!recipe || !variant) return;
-
-      const modeLabel = state.activeMode === "hot" ? s.hotFull : s.iceFull;
-      const lines = [
-        `${getRecipeNamePrimary(recipe)} [${modeLabel}] — ${state.cupSize} x${state.batch}`,
-        state.lang === "en" ? "Ingredients:" : "គ្រឿងផ្សំ៖",
-        ...(variant.ingredients || []).map((i) => `- ${getIngredientName(i)}: ${formatScaledAmount(i.amount, i.unit)}`),
-        state.lang === "en" ? "Instructions:" : "របៀបធ្វើ៖",
-        ...getRecipeSteps(variant).map((st, idx) => `${idx + 1}. ${st}`)
-      ];
-
-      navigator.clipboard?.writeText(lines.join("\n")).then(() => {
-        showToast(s.toastCopied);
-      }).catch(() => {
-        showToast(s.toastCopyFail);
       });
     }
 
@@ -2735,10 +2662,6 @@
         if (e.target.id === "recipeModal") e.target.classList.remove("open");
       });
 
-      document.getElementById("copyRecipeBtn").addEventListener("click", copyActiveRecipeText);
-      document.getElementById("modalFavBtn").addEventListener("click", () => {
-        if (state.activeRecipeId) toggleFavorite(state.activeRecipeId);
-      });
       document.getElementById("deleteCustomBtn").addEventListener("click", deleteActiveCustomRecipe);
 
       document.getElementById("openAddRecipeBtn").addEventListener("click", () => {
@@ -2754,7 +2677,6 @@
 
       const openTimer = () => document.getElementById("timerModal").classList.add("open");
       document.getElementById("openTimerBtn").addEventListener("click", openTimer);
-      document.getElementById("modalTimerBtn").addEventListener("click", openTimer);
       document.getElementById("closeTimerModal").addEventListener("click", () => {
         document.getElementById("timerModal").classList.remove("open");
       });
