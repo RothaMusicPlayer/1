@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ (Coffee Menu & Recipe Guide)</title>
+  <title>Coffee Menu & Recipe Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -11,8 +11,8 @@
     :root {
       --bg-canvas: #EBE4DC;
       --glass-surface: rgba(255, 255, 255, 0.72);
-      --glass-surface-strong: rgba(255, 255, 255, 0.86);
-      --glass-border: rgba(255, 255, 255, 0.88);
+      --glass-surface-strong: rgba(255, 255, 255, 0.88);
+      --glass-border: rgba(255, 255, 255, 0.9);
       --text-primary: #1A120E;
       --text-secondary: #5C4B41;
       --text-muted: #8B796E;
@@ -126,10 +126,11 @@
 
     .brand-title h1 {
       margin: 0;
-      font-size: 1.12rem;
+      font-size: 1.14rem;
       font-weight: 700;
       letter-spacing: -0.015em;
-      line-height: 1.3;
+      line-height: 1.25;
+      color: var(--text-primary);
     }
 
     .header-actions {
@@ -141,7 +142,7 @@
 
     .icon-btn {
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.85);
       color: var(--text-primary);
       border-radius: 14px;
       padding: 10px 14px;
@@ -171,7 +172,7 @@
 
     .lang-toggle-btn {
       border-color: rgba(198, 125, 59, 0.45);
-      background: rgba(255, 248, 238, 0.9);
+      background: rgba(255, 248, 238, 0.92);
       color: #7D4616;
     }
 
@@ -210,7 +211,7 @@
       padding: 10px 40px 10px 38px;
       border-radius: 15px;
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.85);
       font-family: inherit;
       font-size: 0.92rem;
       color: var(--text-primary);
@@ -302,7 +303,7 @@
       color: var(--text-primary);
     }
 
-    /* Menu Grid - Smooth Hardware-Accelerated iOS Glass Cards */
+    /* Menu Grid */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -337,7 +338,7 @@
 
     .drink-card:active {
       transform: scale(0.985) translateZ(0);
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
     }
 
     .drink-photo-box {
@@ -346,7 +347,7 @@
       border-radius: 17px;
       background: #DED2C5;
       flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.92);
       box-shadow: 0 5px 14px rgba(34, 18, 9, 0.12);
       position: relative;
       overflow: hidden;
@@ -448,7 +449,7 @@
 
     .fav-toggle-btn {
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.86);
       color: var(--text-muted);
       width: 44px;
       height: 44px;
@@ -619,7 +620,7 @@
       transform: translateX(-50%) translateZ(0);
       width: min(470px, calc(100% - 28px));
       height: 62px;
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.95);
@@ -684,7 +685,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
-      background: rgba(252, 248, 243, 0.94);
+      background: rgba(252, 248, 243, 0.95);
       border: 1px solid rgba(255, 255, 255, 0.95);
       border-radius: 30px;
       padding: 20px;
@@ -791,7 +792,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.82);
       padding: 10px 12px;
       border-radius: var(--radius-md);
       border: 1px solid var(--glass-border);
@@ -845,7 +846,7 @@
     }
 
     .ing-item {
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.88);
       border: 1px solid var(--glass-border);
       border-radius: 14px;
       padding: 11px 12px;
@@ -895,7 +896,7 @@
 
     .tip-box {
       margin-top: 14px;
-      background: rgba(255, 245, 228, 0.9);
+      background: rgba(255, 245, 228, 0.92);
       border: 1px solid rgba(198, 125, 59, 0.28);
       border-left: 4px solid var(--accent-caramel);
       padding: 12px 14px;
@@ -908,13 +909,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(74, 44, 24, 0.1);
+      margin-top: 14px;
     }
 
-    .modal-footer-actions:empty {
-      display: none;
+    .modal-footer-actions:empty,
+    #deleteCustomBtn[style*="display: none"] {
+      display: none !important;
     }
 
     /* Barista Shot Timer Box */
@@ -991,7 +991,7 @@
             </svg>
           </div>
           <div>
-            <h1 id="mainHeaderTitle">ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ</h1>
+            <h1 id="mainHeaderTitle">Coffee Menu</h1>
           </div>
         </div>
         <div class="header-actions">
@@ -1274,8 +1274,8 @@
   <script>
     const UI_STRINGS = {
       km: {
-        docTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ",
-        headerTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ",
+        docTitle: "Coffee Menu & Recipe Guide",
+        headerTitle: "Coffee Menu",
         langBadge: "EN",
         timerBtn: "ម៉ោងឆុង",
         addBtn: "បន្ថែមមុខ",
@@ -1344,7 +1344,7 @@
       },
       en: {
         docTitle: "Coffee Menu & Recipe Guide",
-        headerTitle: "Coffee Menu & Recipe Guide",
+        headerTitle: "Coffee Menu",
         langBadge: "ខ្មែរ",
         timerBtn: "Timer",
         addBtn: "Add Coffee",
@@ -1413,8 +1413,20 @@
       }
     };
 
-    // Verified high-resolution Unsplash coffee photography matching each hot & iced drink
+    // Distinct Unsplash coffee photography for All (overview), Hot, and Iced variants
     const DRINK_PHOTOS = {
+      // ALL (OVERVIEW) DRINKS
+      "all-espresso":     "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80",
+      "all-americano":    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
+      "all-latte":        "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=400&q=80",
+      "all-cappuccino":   "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80",
+      "all-flat-white":   "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80",
+      "all-mocha":        "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=400&q=80",
+      "all-caramel":      "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=400&q=80",
+      "all-piccolo":      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80",
+      "all-khmer-milk":   "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=400&q=80",
+      "all-black-coffee": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=400&q=80",
+
       // HOT DRINKS
       "hot-espresso":     "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=400&q=80",
       "hot-americano":    "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=400&q=80",
@@ -1422,30 +1434,30 @@
       "hot-cappuccino":   "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80",
       "hot-flat-white":   "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=400&q=80",
       "hot-mocha":        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=400&q=80",
-      "hot-caramel":      "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=400&q=80",
+      "hot-caramel":      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80",
       "hot-piccolo":      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80",
       "hot-khmer-milk":   "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
 
       // ICED DRINKS
       "ice-espresso":     "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80",
       "ice-americano":    "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80",
-      "ice-latte":        "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80",
+      "ice-latte":        "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=400&q=80",
       "ice-cappuccino":   "https://images.unsplash.com/photo-1592663527359-cf6642f54cff?auto=format&fit=crop&w=400&q=80",
-      "ice-flat-white":   "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80",
-      "ice-mocha":        "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=400&q=80",
-      "ice-caramel":      "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80",
-      "ice-piccolo":      "https://images.unsplash.com/photo-1525480122447-64809d765ec4?auto=format&fit=crop&w=400&q=80",
-      "ice-khmer-milk":   "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=400&q=80",
-      "ice-black-coffee": "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=400&q=80"
+      "ice-flat-white":   "https://images.unsplash.com/photo-1525480122447-64809d765ec4?auto=format&fit=crop&w=400&q=80",
+      "ice-mocha":        "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80",
+      "ice-caramel":      "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=400&q=80",
+      "ice-piccolo":      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80",
+      "ice-khmer-milk":   "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=400&q=80",
+      "ice-black-coffee": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80"
     };
 
-    const FALLBACK_COFFEE_PHOTO = "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80";
+    const FALLBACK_COFFEE_PHOTO = "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80";
 
     const DEFAULT_RECIPES = [
-      // ==================== HOT & ICE PAIRED COFFEES ====================
       {
         id: "espresso-pair",
         category: "espresso",
+        allPhoto: "all-espresso",
         nameKm: "អេស្ព្រេសសូ",
         nameEn: "Espresso",
         descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ (Hot) ឬត្រជាក់ (Ice) ដើម្បីមើលរូបមន្តខុសគ្នា។",
@@ -1499,6 +1511,7 @@
       {
         id: "americano-pair",
         category: "espresso",
+        allPhoto: "all-americano",
         nameKm: "អាមេរិកាណូ",
         nameEn: "Americano",
         descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ ត្រជាក់ប្រើទឹកត្រជាក់ និងទឹកកក។",
@@ -1552,6 +1565,7 @@
       {
         id: "latte-pair",
         category: "espresso",
+        allPhoto: "all-latte",
         nameKm: "ឡាតេ",
         nameEn: "Latte",
         descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់។",
@@ -1606,6 +1620,7 @@
       {
         id: "cappuccino-pair",
         category: "espresso",
+        allPhoto: "all-cappuccino",
         nameKm: "កាពូឈីណូ",
         nameEn: "Cappuccino",
         descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ ត្រជាក់វាយពពុះត្រជាក់ (Cold Foam)។",
@@ -1660,6 +1675,7 @@
       {
         id: "flat-white-pair",
         category: "espresso",
+        allPhoto: "all-flat-white",
         nameKm: "ហ្វ្លាត វ៉ាយ",
         nameEn: "Flat White",
         descKm: "រសជាតិកាហ្វេដិតជាង Latte — ក្តៅប្រើពពុះក្តៅស្តើង ត្រជាក់ប្រើទឹកដោះគោត្រជាក់តិចជាង Latte។",
@@ -1713,6 +1729,7 @@
       {
         id: "mocha-pair",
         category: "espresso",
+        allPhoto: "all-mocha",
         nameKm: "ម៉ូកា",
         nameEn: "Mocha",
         descKm: "កាហ្វេផ្សំជាមួយសូកូឡា — ក្តៅជាមួយទឹកដោះគោចំហុយ ត្រជាក់ជាមួយទឹកដោះគោត្រជាក់ និងទឹកកក។",
@@ -1768,6 +1785,7 @@
       {
         id: "caramel-macchiato-pair",
         category: "espresso",
+        allPhoto: "all-caramel",
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ",
         nameEn: "Caramel Macchiato",
         descKm: "Vanilla + ទឹកដោះគោ + Espresso + Caramel Sauce — ក្តៅចំហុយទឹកដោះគោ ត្រជាក់ដាក់ទឹកកក។",
@@ -1825,6 +1843,7 @@
       {
         id: "piccolo-pair",
         category: "espresso",
+        allPhoto: "all-piccolo",
         nameKm: "ភីកូឡូ / ខូតាដូ",
         nameEn: "Piccolo / Cortado",
         descKm: "កាហ្វេទឹកដោះគោតិច រសជាតិដិតមុត — ក្តៅចំហុយក្តៅ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់ និងទឹកកក។",
@@ -1878,6 +1897,7 @@
       {
         id: "khmer-milk-coffee-pair",
         category: "local",
+        allPhoto: "all-khmer-milk",
         nameKm: "កាហ្វេទឹកដោះគោ",
         nameEn: "Condensed Milk Coffee",
         descKm: "កាហ្វេផ្អែមឈ្ងុយទឹកដោះគោខាប់ — ក្តៅលាយទឹកក្តៅ ត្រជាក់លាយទឹកកក។",
@@ -1930,11 +1950,10 @@
           }
         }
       },
-
-      // ==================== ICE SPECIALTY / LOCAL ====================
       {
         id: "ice-black-coffee",
         category: "local",
+        allPhoto: "all-black-coffee",
         nameKm: "កាហ្វេខ្មៅ ទឹកកក",
         nameEn: "Iced Black Coffee",
         descKm: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
@@ -2031,6 +2050,13 @@
       return recipe.variants[mode] || recipe.variants.ice || recipe.variants.hot;
     }
 
+    function getCardPhotoKey(recipe, variant) {
+      if (state.temp === "all" && recipe.allPhoto) {
+        return recipe.allPhoto;
+      }
+      return variant?.photo || recipe.allPhoto || "ice-latte";
+    }
+
     function getCardBadgeInfo(recipe) {
       const hasHot = supportsTemp(recipe, "hot");
       const hasIce = supportsTemp(recipe, "ice");
@@ -2054,6 +2080,9 @@
     }
 
     function getRecipeDesc(r, variant) {
+      if (state.temp === "all") {
+        return state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
+      }
       if (variant) {
         return state.lang === "en" ? (variant.descEn || variant.descKm || r.descEn || r.descKm || "") : (variant.descKm || variant.descEn || r.descKm || r.descEn || "");
       }
@@ -2208,6 +2237,7 @@
         const isFav = favorites.has(r.id);
         const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
+        const photoKey = getCardPhotoKey(r, defaultVar);
         const primaryName = getRecipeNamePrimary(r);
         const modeTagHtml = badgeInfo.label
           ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
@@ -2216,7 +2246,7 @@
 
         return `
           <article class="drink-card" data-id="${r.id}">
-            <div class="drink-photo-box">${renderDrinkPhoto(defaultVar?.photo, badgeInfo.badge, badgeInfo.photoCls, primaryName)}</div>
+            <div class="drink-photo-box">${renderDrinkPhoto(photoKey, badgeInfo.badge, badgeInfo.photoCls, primaryName)}</div>
             <div class="drink-info">
               <div class="drink-top-meta">
                 ${modeTagHtml}
@@ -2343,7 +2373,9 @@
       tempTag.textContent = isHot ? s.hotFull : s.iceFull;
       tempTag.className = "drink-tag " + (isHot ? "temp-hot" : "temp-ice");
 
-      document.getElementById("modalDesc").textContent = getRecipeDesc(recipe, variant);
+      document.getElementById("modalDesc").textContent = state.lang === "en"
+        ? (variant.descEn || variant.descKm || recipe.descEn || recipe.descKm || "")
+        : (variant.descKm || variant.descEn || recipe.descKm || recipe.descEn || "");
       document.getElementById("modalTip").innerHTML = `<strong>${escapeHtml(s.tipPrefix)}</strong> ${escapeHtml(getRecipeTip(variant))}`;
 
       const stepsOl = document.getElementById("modalSteps");
@@ -2500,6 +2532,12 @@
       const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
       const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine coffee ingredients and serve." : "ឆុង និងលាយគ្រឿងផ្សំកាហ្វេចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
 
+      const allPhotoByCat = {
+        espresso: "all-latte",
+        local: "all-khmer-milk",
+        frappe: "all-mocha",
+        other: "all-americano"
+      };
       const icePhotoByCat = {
         espresso: "ice-latte",
         local: "ice-khmer-milk",
@@ -2544,6 +2582,7 @@
       const newItem = {
         id: "custom_" + Date.now(),
         category,
+        allPhoto: allPhotoByCat[category] || "all-latte",
         nameKm: nameKm || nameEn,
         nameEn: nameEn || nameKm,
         descKm: desc,
