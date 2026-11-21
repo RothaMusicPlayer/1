@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>EMinor Menu</title>
+  <title>EMinor Coffee</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -97,26 +97,33 @@
     .brand-mini {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
     }
 
-    .brand-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 11px;
-      background: var(--accent-espresso);
-      color: #FAF6F0;
+    .brand-logo-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      padding: 3px;
       display: grid;
       place-items: center;
       flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .brand-logo-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .brand-mini-title {
-      font-family: 'Cormorant Garamond', 'Kantumruy Pro', serif;
-      font-size: 1.15rem;
+      font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', sans-serif;
+      font-size: 1.12rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
       color: var(--text-primary);
     }
 
@@ -487,20 +494,25 @@
 </head>
 <body>
   <div class="app-container" id="appContainer">
-    <!-- Top Header Controls -->
+    <!-- Top Header Controls with EMinor Coffee Logo -->
     <header class="top-header">
       <div class="header-top-row">
         <div class="brand-mini">
-          <div class="brand-badge" aria-hidden="true">
-            <svg class="ui-icon" viewBox="0 0 24 24">
-              <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
-              <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
-              <line x1="6" y1="2" x2="6" y2="4"></line>
-              <line x1="10" y1="2" x2="10" y2="4"></line>
-              <line x1="14" y1="2" x2="14" y2="4"></line>
+          <div class="brand-logo-wrap" aria-hidden="true">
+            <svg class="brand-logo-svg" viewBox="0 0 120 120" fill="#18120F" xmlns="http://www.w3.org/2000/svg">
+              <!-- Steam wisps -->
+              <path d="M58 46 C50 38, 52 24, 62 14 C58 24, 61 32, 67 39 C71 44, 67 51, 58 46 Z" />
+              <path d="M68 48 C65 38, 70 27, 77 20 C75 28, 77 35, 81 41 C84 46, 77 52, 68 48 Z" />
+              <!-- Cup rim & handle -->
+              <path d="M63 49 C79 48, 93 52, 95 58 L91 63 C85 58, 75 56, 63 56 Z" />
+              <path d="M93 60 C108 58, 114 67, 109 78 C105 87, 94 92, 81 94 L83 87 C92 85, 99 81, 101 75 C103 69, 99 65, 91 66 Z" />
+              <!-- Cup body & integrated Em -->
+              <path d="M36 53 L66 53 L66 61 L45 61 L45 68 L62 68 L62 76 L45 76 L45 83 L66 83 L66 91 L36 91 Z" />
+              <path d="M70 67 L78 67 L78 71 C80 68, 84 66, 88 66 C92 66, 95 68, 96 71 L96 91 L88 91 L88 75 C88 73, 86 72, 84 72 C81 72, 79 74, 79 77 L79 91 L70 91 Z" />
+              <path d="M36 53 C36 78, 46 98, 66 98 C79 98, 89 93, 95 85 L99 89 C92 98, 80 105, 65 105 C42 105, 30 83, 30 53 Z" />
             </svg>
           </div>
-          <span class="brand-mini-title" id="mainHeaderTitle">EMinor Menu</span>
+          <span class="brand-mini-title" id="mainHeaderTitle">EMinor Coffee</span>
         </div>
         <div class="header-actions">
           <button class="icon-btn lang-toggle-btn" id="langToggleBtn" title="ប្តូរភាសា / Switch Language">
@@ -511,7 +523,7 @@
       </div>
     </header>
 
-    <!-- Main Content Area (Calculator results removed) -->
+    <!-- Main Content Area -->
     <main id="mainContent"></main>
   </div>
 
@@ -597,8 +609,8 @@
   <script>
     const UI_STRINGS = {
       km: {
-        docTitle: "EMinor Menu",
-        headerTitle: "EMinor Menu",
+        docTitle: "EMinor Coffee",
+        headerTitle: "EMinor Coffee",
         langBadge: "EN",
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
@@ -616,8 +628,8 @@
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
       en: {
-        docTitle: "EMinor Menu",
-        headerTitle: "EMinor Menu",
+        docTitle: "EMinor Coffee",
+        headerTitle: "EMinor Coffee",
         langBadge: "ខ្មែរ",
         hotFull: "Hot",
         iceFull: "Ice",
