@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Coffee Menu & Recipe Guide</title>
+  <title>Coffee & Drinks Menu Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -20,6 +20,7 @@
       --accent-caramel: #C67D3B;
       --accent-hot: #C93B20;
       --accent-ice: #156A94;
+      --accent-drink: #1F7A8C;
       --accent-success: #1B8045;
       --shadow-glass: 0 8px 24px -6px rgba(34, 19, 10, 0.12), inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
       --shadow-float: 0 16px 36px -8px rgba(24, 14, 8, 0.24), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
@@ -203,11 +204,11 @@
       border: none;
       background: transparent;
       color: var(--text-secondary);
-      padding: 8px 14px;
+      padding: 8px 10px;
       min-height: 38px;
       border-radius: 11px;
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
       transition: background 0.18s ease, color 0.18s ease;
@@ -220,12 +221,12 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .temp-pill[data-temp="hot"].active {
-      background: linear-gradient(180deg, #D4472B 0%, #B33319 100%);
+    .temp-pill[data-filter="drinks"].active {
+      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
       color: #FFFFFF;
     }
 
-    .temp-pill[data-temp="ice"].active {
+    .temp-pill[data-filter="cart"].active {
       background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
       color: #FFFFFF;
     }
@@ -320,6 +321,11 @@
     .drink-tag.temp-ice {
       background: rgba(21, 106, 148, 0.14);
       color: var(--accent-ice);
+    }
+
+    .drink-tag.drink-cat {
+      background: rgba(31, 122, 140, 0.14);
+      color: #125663;
     }
 
     .drink-tag.sugar-tag {
@@ -1197,7 +1203,7 @@
             </svg>
           </div>
           <div>
-            <h1 id="mainHeaderTitle">Coffee Menu</h1>
+            <h1 id="mainHeaderTitle">Coffee &amp; Drinks Menu</h1>
           </div>
         </div>
         <div class="header-actions">
@@ -1209,7 +1215,7 @@
             <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <span class="btn-label" id="timerBtnLabel">ម៉ោងឆុង</span>
           </button>
-          <button class="icon-btn primary" id="openAddRecipeBtn" title="បន្ថែមរូបមន្តកាហ្វេថ្មី">
+          <button class="icon-btn primary" id="openAddRecipeBtn" title="បន្ថែមរូបមន្តថ្មី">
             <svg class="ui-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             <span class="btn-label" id="addBtnLabel">បន្ថែមមុខ</span>
           </button>
@@ -1217,10 +1223,10 @@
       </div>
 
       <div class="filter-controls-row">
-        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="តម្រងម៉ឺនុយ និងបើកកន្ត្រក">
-          <button class="temp-pill active" data-temp="all">ទាំងអស់</button>
-          <button class="temp-pill" data-temp="hot">ក្តៅ Hot</button>
-          <button class="temp-pill" data-temp="ice" id="filterCartPill">កន្ត្រក</button>
+        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="ជ្រើសរើស Coffee ភេសជ្ជៈ និងកន្ត្រក">
+          <button class="temp-pill active" data-filter="coffee">Coffee</button>
+          <button class="temp-pill" data-filter="drinks">ភេសជ្ជៈ</button>
+          <button class="temp-pill" data-filter="cart" id="filterCartPill">កន្ត្រក</button>
         </div>
       </div>
     </header>
@@ -1241,7 +1247,7 @@
         <div class="order-header-row">
           <div>
             <h2 id="cartTitle">កន្ត្រក (Cart)</h2>
-            <p class="subtitle" id="cartSubtitle">ពិនិត្យ និងកែចំនួនមុខកាហ្វេ រួចចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order ពិតប្រាកដ</p>
+            <p class="subtitle" id="cartSubtitle">ពិនិត្យ និងកែចំនួនមុខទំនិញ រួចចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order ពិតប្រាកដ</p>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button class="icon-btn" id="clearCartBtn" style="color:#B81D37;">សម្អាតកន្ត្រក</button>
@@ -1457,7 +1463,7 @@
       <div class="drag-handle"></div>
       <div class="modal-header">
         <div>
-          <h2 id="addModalTitle" style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខកាហ្វេថ្មីផ្ទាល់ខ្លួន</h2>
+          <h2 id="addModalTitle" style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខកាហ្វេ ឬភេសជ្ជៈថ្មី</h2>
           <p id="addModalSub" style="margin: 3px 0 0; font-size: 0.8rem; color: var(--text-secondary);">រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ</p>
         </div>
         <button class="close-modal-btn" id="closeAddModal" aria-label="បិទ">X</button>
@@ -1466,12 +1472,12 @@
       <form id="addRecipeForm" style="margin-top: 14px;">
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="newNameKm" id="lblNewNameKm">ឈ្មោះកាហ្វេ (ខ្មែរ) *</label>
-            <input type="text" id="newNameKm" class="field-input" placeholder="ឧទាហរណ៍៖ ឡាតេទឹកឃ្មុំ" required />
+            <label for="newNameKm" id="lblNewNameKm">ឈ្មោះមុខទំនិញ (ខ្មែរ) *</label>
+            <input type="text" id="newNameKm" class="field-input" placeholder="ឧទាហរណ៍៖ ផាសិន សូដា" required />
           </div>
           <div class="field-group">
             <label for="newNameEn" id="lblNewNameEn">ឈ្មោះភាសាអង់គ្លេស</label>
-            <input type="text" id="newNameEn" class="field-input" placeholder="e.g. Honey Latte" />
+            <input type="text" id="newNameEn" class="field-input" placeholder="e.g. Passion Soda" />
           </div>
         </div>
 
@@ -1479,39 +1485,37 @@
           <div class="field-group">
             <label for="newTemp" id="lblNewTemp">ជម្រើសក្តៅ / ត្រជាក់</label>
             <select id="newTemp" class="field-select">
+              <option value="ice" selected>ត្រជាក់តែមួយ (Ice only)</option>
               <option value="both">ទាំងក្តៅ និងត្រជាក់ (Hot & Ice)</option>
-              <option value="ice">ត្រជាក់តែមួយ (Ice only)</option>
               <option value="hot">ក្តៅតែមួយ (Hot only)</option>
             </select>
           </div>
           <div class="field-group">
-            <label for="newCategory" id="lblNewCategory">ប្រភេទកាហ្វេ</label>
+            <label for="newCategory" id="lblNewCategory">ផ្នែកម៉ឺនុយ (Section)</label>
             <select id="newCategory" class="field-select">
-              <option value="espresso">Espresso</option>
-              <option value="local">Local / Asian Coffee</option>
-              <option value="frappe">Coffee Frappe</option>
-              <option value="other">Specialty Coffee</option>
+              <option value="coffee">Coffee (កាហ្វេ)</option>
+              <option value="drinks">ភេសជ្ជៈ (Drinks / Soda / Smoothie)</option>
             </select>
           </div>
         </div>
 
         <div class="field-group" style="margin-bottom: 12px;">
           <label for="newDesc" id="lblNewDesc">ការពិពណ៌នាសង្ខេប</label>
-          <input type="text" id="newDesc" class="field-input" placeholder="កាហ្វេលាយទឹកឃ្មុំ និងទឹកដោះគោស្រស់..." />
+          <input type="text" id="newDesc" class="field-input" placeholder="ទឹកផាសិនស្រស់លាយសូដាត្រជាក់..." />
         </div>
 
         <div class="field-group" style="margin-bottom: 12px;">
           <label for="newIngredients" id="lblNewIngredients">គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)</label>
-          <textarea id="newIngredients" class="field-textarea" rows="4" placeholder="Double Espresso Shot | 36 | ml&#10;ទឹកដោះគោស្រស់ | 150 | ml&#10;ទឹកឃ្មុំ | 20 | ml&#10;ទឹកកក | 150 | g"></textarea>
+          <textarea id="newIngredients" class="field-textarea" rows="4" placeholder="Passion Puree / Syrup | 35 | ml&#10;ទឹកស្ករ | 15 | ml&#10;ទឹកសូដា (Soda Water) | 150 | ml&#10;ទឹកកក | 160 | g"></textarea>
         </div>
 
         <div class="field-group" style="margin-bottom: 14px;">
           <label for="newSteps" id="lblNewSteps">របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)</label>
-          <textarea id="newSteps" class="field-textarea" rows="3" placeholder="លាយទឹកឃ្មុំជាមួយទឹកដោះគោស្រស់&#10;ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោចូល&#10;ចាក់ Double Espresso ស្រោចពីលើ"></textarea>
+          <textarea id="newSteps" class="field-textarea" rows="3" placeholder="ដាក់ផាសិន និងទឹកស្ករចូលកែវ&#10;ដាក់ទឹកកកពេញកែវ&#10;ចាក់ទឹកសូដាត្រជាក់ស្រោចពីលើ"></textarea>
         </div>
 
         <button type="submit" class="icon-btn primary" id="saveNewRecipeBtn" style="width: 100%; justify-content: center; padding: 12px;">
-          រក្សាទុកមុខកាហ្វេថ្មី
+          រក្សាទុកមុខថ្មី
         </button>
       </form>
     </div>
@@ -1547,34 +1551,35 @@
   <script>
     const UI_STRINGS = {
       km: {
-        docTitle: "Coffee Menu & Recipe Guide",
-        headerTitle: "Coffee Menu",
+        docTitle: "Coffee & Drinks Menu Guide",
+        headerTitle: "Coffee & Drinks",
         langBadge: "EN",
         timerBtn: "ម៉ោងឆុង",
         addBtn: "បន្ថែមមុខ",
-        filterAll: (n) => `ទាំងអស់ (${n})`,
-        filterHot: (n) => `ក្តៅ Hot (${n})`,
+        filterCoffee: (n) => `Coffee (${n})`,
+        filterDrinks: (n) => `ភេសជ្ជៈ (${n})`,
         filterCart: (n) => n > 0 ? `កន្ត្រក (${n})` : "កន្ត្រក",
         showingPrefix: "កំពុងបង្ហាញ៖",
         showingMid: "មុខ (សរុប",
         showingSuffix: "មុខ)",
         customBadge: "ផ្ទាល់ខ្លួន",
+        drinkBadge: "ភេសជ្ជៈ",
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
         bothFull: "",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
         navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
         navCalc: "គណនាគ្រាប់",
-        emptyTitle: "រកមិនឃើញមុខកាហ្វេ",
-        emptyDesc: "សាកល្បងប្តូរតម្រង ក្តៅ (Hot) / ទាំងអស់ ឬផ្ទាំងផ្សេង។",
+        emptyTitle: "រកមិនឃើញមុខទំនិញ",
+        emptyDesc: "សាកល្បងប្តូរផ្ទាំង Coffee / ភេសជ្ជៈ ឬបន្ថែមមុខថ្មី។",
         cartTitle: "កន្ត្រក (Cart)",
-        cartSubtitle: "ពិនិត្យ និងកែចំនួនមុខកាហ្វេ រួចចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order ពិតប្រាកដ",
+        cartSubtitle: "ពិនិត្យ និងកែចំនួនមុខទំនិញ រួចចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order ពិតប្រាកដ",
         clearCartBtn: "សម្អាតកន្ត្រក",
         confirmCartBtn: "បញ្ជាក់ Order → All Order",
         confirmCartBottomBtn: "បញ្ជាក់ Order ទៅ All Order",
         quickAddOrderBtn: "+ បញ្ចូលកន្ត្រក",
         cartEmptyTitle: "កន្ត្រកនៅទំនេរ",
-        cartEmptyDesc: "ចុច + លើមុខកាហ្វេក្នុងម៉ឺនុយ ដើម្បីដាក់ចូលកន្ត្រកជាមុនសិន។",
+        cartEmptyDesc: "ចុច + លើមុខកាហ្វេ ឬភេសជ្ជៈក្នុងម៉ឺនុយ ដើម្បីដាក់ចូលកន្ត្រកជាមុនសិន។",
         cartTotalCups: (cups) => `ក្នុងកន្ត្រក៖ ${cups} កែវ`,
         orderTitle: "All Order",
         orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់ — ធីករួចរាល់ ឬសម្អាតបញ្ជី",
@@ -1582,7 +1587,7 @@
         clearDoneOrdersBtn: "សម្អាតមុខរួច",
         clearAllOrdersBtn: "សម្អាតទាំងអស់",
         orderEmptyTitle: "មិនទាន់មាន All Order ទេ",
-        orderEmptyDesc: "បញ្ចូលមុខកាហ្វេទៅក្នុងកន្ត្រក ហើយចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order។",
+        orderEmptyDesc: "បញ្ចូលមុខទំនិញទៅក្នុងកន្ត្រក ហើយចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order។",
         orderStatusPending: "កំពុងធ្វើ",
         orderStatusDone: "រួចរាល់",
         orderMarkDone: "រួចរាល់",
@@ -1613,19 +1618,19 @@
         sugarOrderBadge: (pct) => `ស្ករ ${pct}%`,
         stepsHeading: "របៀបធ្វើតាមជំហាន",
         tipPrefix: "គន្លឹះ Barista៖",
-        defaultTip: "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
+        defaultTip: "ឆុង ឬលាយឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
         addOrderBtnLabel: "+ បញ្ចូលកន្ត្រក",
         deleteCustomBtn: "លុបមុខនេះ",
-        addModalTitle: "បន្ថែមមុខកាហ្វេថ្មីផ្ទាល់ខ្លួន",
+        addModalTitle: "បន្ថែមមុខកាហ្វេ ឬភេសជ្ជៈថ្មី",
         addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
-        lblNewNameKm: "ឈ្មោះកាហ្វេ (ខ្មែរ) *",
+        lblNewNameKm: "ឈ្មោះមុខទំនិញ (ខ្មែរ) *",
         lblNewNameEn: "ឈ្មោះភាសាអង់គ្លេស",
         lblNewTemp: "ជម្រើសក្តៅ / ត្រជាក់",
-        lblNewCategory: "ប្រភេទកាហ្វេ",
+        lblNewCategory: "ផ្នែកម៉ឺនុយ (Section)",
         lblNewDesc: "ការពិពណ៌នាសង្ខេប",
         lblNewIngredients: "គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)",
         lblNewSteps: "របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)",
-        saveNewRecipeBtn: "រក្សាទុកមុខកាហ្វេថ្មី",
+        saveNewRecipeBtn: "រក្សាទុកមុខថ្មី",
         timerModalTitle: "ម៉ោងកំណត់ចម្រាញ់កាហ្វេ (Shot Timer)",
         timerModalSub: "ស្តង់ដារ Espresso: 25–30 វិនាទី",
         timerReady: "ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម",
@@ -1647,36 +1652,37 @@
         resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន / កញ្ចប់",
         resCostPerCup: (d) => `ម្សៅ/កែវ៖ ${d}g`,
         toastAddedToCart: (name) => `បានដាក់ "${name}" ចូលកន្ត្រក`,
-        toastCartEmpty: "កន្ត្រកនៅទំនេរ — សូមជ្រើសរើសមុខកាហ្វេជាមុន",
+        toastCartEmpty: "កន្ត្រកនៅទំនេរ — សូមជ្រើសរើសមុខទំនិញជាមុន",
         toastConfirmedOrder: (cups) => `បានបញ្ជាក់ ${cups} កែវ ទៅ All Order រួចរាល់`,
         toastClearedCart: "បានសម្អាតកន្ត្រករួចរាល់",
         toastClearedDone: "បានសម្អាតមុខដែលធ្វើរួចរាល់",
         toastClearedAll: "បានសម្អាត All Order ទាំងអស់",
-        toastAddedRecipe: "បានបន្ថែមមុខកាហ្វេថ្មីរួចរាល់",
-        toastDeletedRecipe: "បានលុបមុខកាហ្វេផ្ទាល់ខ្លួន",
+        toastAddedRecipe: "បានបន្ថែមមុខថ្មីរួចរាល់",
+        toastDeletedRecipe: "បានលុបមុខផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
       en: {
-        docTitle: "Coffee Menu & Recipe Guide",
-        headerTitle: "Coffee Menu",
+        docTitle: "Coffee & Drinks Menu Guide",
+        headerTitle: "Coffee & Drinks",
         langBadge: "ខ្មែរ",
         timerBtn: "Timer",
-        addBtn: "Add Coffee",
-        filterAll: (n) => `All (${n})`,
-        filterHot: (n) => `Hot (${n})`,
+        addBtn: "Add Item",
+        filterCoffee: (n) => `Coffee (${n})`,
+        filterDrinks: (n) => `Drinks (${n})`,
         filterCart: (n) => n > 0 ? `Cart (${n})` : "Cart",
         showingPrefix: "Showing",
         showingMid: "of",
-        showingSuffix: "coffees",
+        showingSuffix: "items",
         customBadge: "Custom",
+        drinkBadge: "Drink",
         hotFull: "Hot",
         iceFull: "Ice",
         bothFull: "",
         navMenu: (n) => `Menu (${n})`,
         navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
         navCalc: "Bean Calc",
-        emptyTitle: "No coffee found",
-        emptyDesc: "Try switching Hot / All filters or another tab.",
+        emptyTitle: "No items found",
+        emptyDesc: "Try switching Coffee / Drinks tabs or add a new item.",
         cartTitle: "Cart",
         cartSubtitle: "Review or edit items in cart, then tap «Confirm Order» to send to All Order",
         clearCartBtn: "Clear Cart",
@@ -1684,7 +1690,7 @@
         confirmCartBottomBtn: "Confirm Order to All Order",
         quickAddOrderBtn: "+ Add to Cart",
         cartEmptyTitle: "Cart is empty",
-        cartEmptyDesc: "Tap + on any coffee card in Menu to add items to your cart first.",
+        cartEmptyDesc: "Tap + on any coffee or drink card in Menu to add items to your cart first.",
         cartTotalCups: (cups) => `In Cart: ${cups} cups`,
         orderTitle: "All Order",
         orderSubtitle: "Confirmed orders — mark served or clear completed items",
@@ -1723,19 +1729,19 @@
         sugarOrderBadge: (pct) => `Sugar ${pct}%`,
         stepsHeading: "Step-by-Step Instructions",
         tipPrefix: "Barista Tip:",
-        defaultTip: "Measure consistently to keep coffee quality and flavor balanced.",
+        defaultTip: "Measure consistently to keep drink quality and flavor balanced.",
         addOrderBtnLabel: "+ Add to Cart",
         deleteCustomBtn: "Delete Custom",
-        addModalTitle: "Add Custom Coffee Recipe",
+        addModalTitle: "Add Custom Coffee or Drink",
         addModalSub: "Automatically saved on your device",
-        lblNewNameKm: "Coffee Name (Khmer) *",
-        lblNewNameEn: "Coffee Name (English)",
+        lblNewNameKm: "Item Name (Khmer) *",
+        lblNewNameEn: "Item Name (English)",
         lblNewTemp: "Hot / Ice Availability",
-        lblNewCategory: "Coffee Category",
+        lblNewCategory: "Menu Section",
         lblNewDesc: "Short Description",
         lblNewIngredients: "Ingredients (1 line = Name | Amount | Unit)",
         lblNewSteps: "Steps (1 line = 1 step)",
-        saveNewRecipeBtn: "Save New Coffee",
+        saveNewRecipeBtn: "Save New Item",
         timerModalTitle: "Espresso Extraction Shot Timer",
         timerModalSub: "Espresso Standard: 25–30 seconds",
         timerReady: "Ready — Press Start to begin timing",
@@ -1757,13 +1763,13 @@
         resEstRevenueLabel: "Est. Revenue / Bag",
         resCostPerCup: (d) => `Dose/cup: ${d}g`,
         toastAddedToCart: (name) => `Added "${name}" to Cart`,
-        toastCartEmpty: "Cart is empty — add a coffee first",
+        toastCartEmpty: "Cart is empty — add an item first",
         toastConfirmedOrder: (cups) => `Confirmed ${cups} cups into All Order`,
         toastClearedCart: "Cleared Cart",
         toastClearedDone: "Cleared completed orders",
         toastClearedAll: "Cleared all items in All Order",
-        toastAddedRecipe: "New custom coffee added",
-        toastDeletedRecipe: "Custom coffee deleted",
+        toastAddedRecipe: "New custom item added",
+        toastDeletedRecipe: "Custom item deleted",
         toastLangSwitched: "Switched to English"
       }
     };
@@ -1773,6 +1779,7 @@
     const DEFAULT_RECIPES = [
       {
         id: "espresso-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "អេស្ព្រេសសូ",
         nameEn: "Espresso",
@@ -1826,6 +1833,7 @@
       },
       {
         id: "americano-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "អាមេរិកាណូ",
         nameEn: "Americano",
@@ -1879,6 +1887,7 @@
       },
       {
         id: "latte-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "ឡាតេ",
         nameEn: "Latte",
@@ -1932,6 +1941,7 @@
       },
       {
         id: "cappuccino-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "កាពូឈីណូ",
         nameEn: "Cappuccino",
@@ -1986,6 +1996,7 @@
       },
       {
         id: "flat-white-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "ហ្វ្លាត វ៉ាយ",
         nameEn: "Flat White",
@@ -2039,6 +2050,7 @@
       },
       {
         id: "mocha-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "ម៉ូកា",
         nameEn: "Mocha",
@@ -2092,6 +2104,7 @@
       },
       {
         id: "caramel-macchiato-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ",
         nameEn: "Caramel Macchiato",
@@ -2147,6 +2160,7 @@
       },
       {
         id: "piccolo-pair",
+        section: "coffee",
         category: "espresso",
         nameKm: "ភីកូឡូ / ខូតាដូ",
         nameEn: "Piccolo / Cortado",
@@ -2200,6 +2214,7 @@
       },
       {
         id: "khmer-milk-coffee-pair",
+        section: "coffee",
         category: "local",
         nameKm: "កាហ្វេទឹកដោះគោ",
         nameEn: "Condensed Milk Coffee",
@@ -2253,6 +2268,7 @@
       },
       {
         id: "ice-black-coffee",
+        section: "coffee",
         category: "local",
         nameKm: "កាហ្វេខ្មៅ ទឹកកក",
         nameEn: "Iced Black Coffee",
@@ -2270,7 +2286,7 @@
             ],
             stepsKm: [
               "លាយទឹកកាហ្វេ ទឹកស្ករ និងទឹកធម្មតាចូលគ្នា។",
-              "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្្ញៀវ។",
+              "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្ញៀវ។",
               "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយកាហ្វេចូល។"
             ],
             stepsEn: [
@@ -2280,6 +2296,300 @@
             ],
             tipKm: "ប្រើទឹកស្កររាវ (Simple Syrup) ជំនួសស្ករគ្រាប់ នឹងរលាយបានលឿនជាងក្នុងទឹកត្រជាក់។",
             tipEn: "Simple syrup dissolves much faster than granulated sugar in cold drinks."
+          }
+        }
+      },
+
+      /* ===================== DRINKS (ភេសជ្ជៈ) ===================== */
+      {
+        id: "drink-strawberry-soda",
+        section: "drinks",
+        category: "soda",
+        nameKm: "ស្ត្របឺរី សូដា",
+        nameEn: "Strawberry Soda",
+        descKm: "តំណក់ទឹកស្ត្របឺរីផ្អែមជូរស្រស់ ផ្សំជាមួយទឹកសូដាត្រជាក់មានពពុះស្រស់ស្រាយ។",
+        descEn: "Sweet-tart strawberry puree and syrup topped with crisp sparkling soda over ice.",
+        variants: {
+          ice: {
+            descKm: "ស្ត្របឺរីលាយទឹកក្រូចឆ្មារស្រស់បន្តិច និងទឹកសូដាត្រជាក់ ផ្តល់រសជាតិជូរផ្អែមត្រជាក់ចិត្ត។",
+            descEn: "Strawberry fruit mix with a splash of lime and chilled sparkling soda over ice.",
+            ingredients: [
+              { nameKm: "Strawberry Puree / Syrup", nameEn: "Strawberry Puree / Syrup", amount: 35, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 15, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Strawberry Puree ទឹកស្ករ និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់យឺតៗពីលើ រួចតុបតែងដោយផ្លែស្ត្របឺរី ឬជីអង្កាម។"
+            ],
+            stepsEn: [
+              "Stir strawberry puree, simple syrup, and lime juice at the bottom of the glass.",
+              "Fill the glass with ice cubes.",
+              "Slowly top with chilled soda water and garnish with strawberry or mint."
+            ],
+            tipKm: "ប្រើទឹកសូដាដែលក្លាសេត្រជាក់ខ្លាំង ដើម្បីរក្សាពពុះហ្គាសបានយូរ និងមិនឆាប់រលាយទឹកកក។",
+            tipEn: "Use ice-cold soda water so carbonation stays lively and ice melts slowly."
+          }
+        }
+      },
+      {
+        id: "drink-blueberry-soda",
+        section: "drinks",
+        category: "soda",
+        nameKm: "ប្លូបឺរី សូដា",
+        nameEn: "Blueberry Soda",
+        descKm: "ទឹកប្លូបឺរីឈ្ងុយផ្អែម លាយជាមួយក្រូចឆ្មារស្រស់ និងទឹកសូដាត្រជាក់ស្រឡះ។",
+        descEn: "Aromatic blueberry fruit base balanced with fresh lime and sparkling soda water.",
+        variants: {
+          ice: {
+            descKm: "រសជាតិប្លូបឺរីពណ៌ស្វាយស្រស់ស្អាត ផ្សំទឹកសូដាត្រជាក់ និងទឹកក្រូចឆ្មារបន្តិច។",
+            descEn: "Vibrant purple blueberry mix topped with cold soda water and a bright lime twist.",
+            ingredients: [
+              { nameKm: "Blueberry Puree / Syrup", nameEn: "Blueberry Puree / Syrup", amount: 35, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 15, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយ Blueberry Puree ទឹកស្ករ និងទឹកក្រូចឆ្មារនៅបាតកែវ។",
+              "បន្ថែមទឹកកកឱ្យពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់ស្រោចពីលើបង្កើតជាពណ៌ស្រទាប់ស្អាត។"
+            ],
+            stepsEn: [
+              "Combine blueberry puree, simple syrup, and lime juice in the glass.",
+              "Fill the glass with ice.",
+              "Pour chilled soda water gently over top for a two-tone layer."
+            ],
+            tipKm: "បន្ថែមទឹកក្រូចឆ្មារ 10ml ជួយឱ្យរសជាតិប្លូបឺរីមិនផ្អែមទ្រលាន់ និងកាន់តែស្រស់ស្រាយ។",
+            tipEn: "Adding 10ml fresh lime juice sharpens the blueberry aroma and keeps it refreshing."
+          }
+        }
+      },
+      {
+        id: "drink-mango-soda",
+        section: "drinks",
+        category: "soda",
+        nameKm: "ស្វាយ សូដា",
+        nameEn: "Mango Soda",
+        descKm: "ទឹកស្វាយទុំក្រអូបផ្អែម លាយជាមួយទឹកសូដាត្រជាក់ និងក្រូចឆ្មារស្រស់។",
+        descEn: "Ripe tropical mango puree with fresh lime and fizzy chilled soda over ice.",
+        variants: {
+          ice: {
+            descKm: "រសជាតិស្វាយទុំឈ្ងុយត្រជាក់ លាយទឹកសូដាមានពពុះស្រស់ស្រាយគ្រប់ពេល។",
+            descEn: "Tropical ripe mango flavor lifted by crisp sparkling soda and lime.",
+            ingredients: [
+              { nameKm: "Mango Puree / Syrup", nameEn: "Mango Puree / Syrup", amount: 40, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 10, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 12, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Mango Puree ទឹកស្ករ និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរឱ្យសព្វ។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចដាក់ក្រូចឆ្មារ ១ ចំណិតតុបតែង។"
+            ],
+            stepsEn: [
+              "Stir mango puree, simple syrup, and lime juice together in the glass.",
+              "Fill with ice cubes.",
+              "Top with cold soda water and garnish with a lime wheel."
+            ],
+            tipKm: "ប្រើទឹកស្វាយខាប់ (Mango Puree) នឹងធ្វើឱ្យពណ៌លឿងស្អាត និងក្លិនស្វាយឈ្ងុយធម្មជាតិ។",
+            tipEn: "Using real mango puree gives a rich golden hue and authentic tropical aroma."
+          }
+        }
+      },
+      {
+        id: "drink-kiwi-soda",
+        section: "drinks",
+        category: "soda",
+        nameKm: "គីវី សូដា",
+        nameEn: "Kiwi Soda",
+        descKm: "រសជាតិគីវីជូរអែមពណ៌បៃតងស្រស់ ផ្សំជាមួយទឹកសូដាត្រជាក់បំបាត់ការស្រេកទឹក។",
+        descEn: "Zesty green kiwi fruit mix with sparkling soda water over ice.",
+        variants: {
+          ice: {
+            descKm: "គីវីជូរផ្អែមស្រស់ស្រាយ លាយជាមួយទឹកសូដាត្រជាក់ និងទឹកក្រូចឆ្មារបន្តិច។",
+            descEn: "Refreshing sweet-tangy kiwi topped with crisp soda water over ice.",
+            ingredients: [
+              { nameKm: "Kiwi Puree / Syrup", nameEn: "Kiwi Puree / Syrup", amount: 35, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 15, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Kiwi Puree ទឹកស្ករ និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចបម្រើជាមួយបំពង់បឺត។"
+            ],
+            stepsEn: [
+              "Mix kiwi puree, simple syrup, and lime juice at the base of the glass.",
+              "Add ice cubes to fill the glass.",
+              "Top with chilled soda water and serve with a straw."
+            ],
+            tipKm: "រំលឹកភ្ញៀវឱ្យកូរពីក្រោមឡើងលើមុនពិសា ដើម្បីឱ្យរសជាតិគីវីចូលសព្វជាមួយសូដា។",
+            tipEn: "Remind guests to stir from the bottom so kiwi blends evenly with soda."
+          }
+        }
+      },
+      {
+        id: "drink-passion-soda",
+        section: "drinks",
+        category: "soda",
+        nameKm: "ផាសិន សូដា",
+        nameEn: "Passion Soda",
+        descKm: "ទឹកផ្លែផាសិនស្រស់ឈ្ងុយជូរផ្អែម លាយជាមួយទឹកសូដាត្រជាក់មានពពុះស្រស់ស្រាយ។",
+        descEn: "Fragrant fresh passion fruit juice and pulp with sparkling soda over ice.",
+        variants: {
+          ice: {
+            descKm: "ផាសិនស្រស់មានគ្រាប់ឈ្ងុយ លាយទឹកស្ករសមល្មម និងទឹកសូដាត្រជាក់។",
+            descEn: "Fresh passion fruit pulp balanced with simple syrup and chilled soda water.",
+            ingredients: [
+              { nameKm: "ទឹកផ្លែផាសិនស្រស់ (Passion Pulp)", nameEn: "Fresh Passion Fruit Pulp", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 25, unit: "ml", isSugar: true },
+              { nameKm: "អំបិលម៉ត់ (បន្តិចបំផុត)", nameEn: "Pinch of Salt", amount: 1, unit: "g" },
+              { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 145, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយទឹកផ្លែផាសិន ទឹកស្ករ និងអំបិលបន្តិចចូលគ្នាឱ្យរលាយសព្វ។",
+              "ដាក់ទឹកកកពេញកែវ រួចចាក់ល្បាយផាសិនចូល។",
+              "ចាក់ទឹកសូដាត្រជាក់ស្រោចពីលើ រួចបម្រើភ្លាម។"
+            ],
+            stepsEn: [
+              "Stir passion fruit pulp, simple syrup, and a tiny pinch of salt together.",
+              "Fill the glass with ice and pour in the passion mix.",
+              "Top with chilled soda water and serve right away."
+            ],
+            tipKm: "អំបិលបន្តិចបំផុតជួយលើករសជាតិផាសិនឱ្យកាន់តែមុត និងមិនជូរឆ្អែតពេក។",
+            tipEn: "A tiny pinch of salt rounds out passion fruit acidity and boosts sweetness."
+          }
+        }
+      },
+      {
+        id: "drink-strawberry-milk",
+        section: "drinks",
+        category: "milk-drink",
+        nameKm: "ស្ត្របឺរី ទឹកដោះគោស្រស់",
+        nameEn: "Strawberry Fresh Milk",
+        descKm: "តំណក់ផ្លែស្ត្របឺរីស្រស់កិន លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ ផ្អែមឈ្ងុយទន់មាត់។",
+        descEn: "Crushed strawberry fruit base layered with cold creamy fresh milk over ice.",
+        variants: {
+          ice: {
+            descKm: "ស្ត្របឺរីនៅបាតកែវ ស្រោចដោយទឹកដោះគោស្រស់ត្រជាក់ ២ ស្រទាប់ពណ៌ផ្កាឈូកស្រស់ស្អាត។",
+            descEn: "Two-tone pink strawberry puree layered under chilled fresh milk.",
+            ingredients: [
+              { nameKm: "Strawberry Puree / Jam", nameEn: "Strawberry Puree / Jam", amount: 45, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម (តាមចិត្ត)", nameEn: "Sweetened Condensed Milk", amount: 10, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Strawberry Puree ដាក់បាតកែវ និងបង្វិលជុំវិញជញ្ជាំងកែវបន្តិច។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "លាយទឹកដោះគោស្រស់ជាមួយទឹកដោះគោខាប់ រួចចាក់ស្រោចពីលើ។"
+            ],
+            stepsEn: [
+              "Spoon strawberry puree into the bottom and swirl lightly along the inner glass.",
+              "Fill the glass with ice cubes.",
+              "Mix fresh milk with condensed milk and pour gently over top."
+            ],
+            tipKm: "ប្រើទឹកដោះគោស្រស់មានជាតិខ្លាញ់ពេញ (Full Cream) នឹងធ្វើឱ្យរសជាតិឈ្ងុយក្រែមល្អ។",
+            tipEn: "Full-cream fresh milk gives the richest, creamiest texture with strawberry."
+          }
+        }
+      },
+      {
+        id: "drink-passion-smoothie",
+        section: "drinks",
+        category: "smoothie",
+        nameKm: "ផាសិន ក្រឡុក (Smoothie)",
+        nameEn: "Passion Fruit Smoothie",
+        descKm: "ផ្លែផាសិនស្រស់ក្រឡុកជាមួយទឹកកកម៉ត់ ផ្អែមជូរត្រជាក់ដល់បេះដូង។",
+        descEn: "Blended ice-smooth passion fruit frappe with bright tropical sweetness.",
+        variants: {
+          ice: {
+            descKm: "ផាសិនស្រស់ក្រឡុកម៉ត់ជាមួយទឹកស្ករ និងទឹកដោះគោខាប់បន្តិចឱ្យសាច់រលោងខាប់។",
+            descEn: "Smoothly blended passion fruit with syrup and a touch of condensed milk for body.",
+            ingredients: [
+              { nameKm: "ទឹកផ្លែផាសិនស្រស់", nameEn: "Fresh Passion Fruit Pulp", amount: 50, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 30, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 15, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកកកដុំតូច", nameEn: "Ice Cubes", amount: 220, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ផាសិន ទឹកស្ករ ទឹកដោះគោខាប់ និងទឹកកកចូលម៉ាស៊ីនក្រឡុក។",
+              "ក្រឡុកល្បឿនលឿនប្រហែល 20–25 វិនាទី រហូតម៉ត់រលោងគ្មានដុំទឹកកក។",
+              "ចាក់ដាក់កែវ រួចស្រោចគ្រាប់ផាសិនបន្តិចពីលើដើម្បីតុបតែង។"
+            ],
+            stepsEn: [
+              "Add passion pulp, simple syrup, condensed milk, and ice into the blender.",
+              "Blend on high for 20–25 seconds until velvety smooth.",
+              "Pour into the glass and garnish with a spoonful of passion seeds."
+            ],
+            tipKm: "កុំក្រឡុកយូរពេក ព្រោះកម្ដៅម៉ាស៊ីនអាចធ្វើឱ្យទឹកកករលាយរាវ។",
+            tipEn: "Avoid over-blending so blade friction doesn't melt the smoothie."
+          }
+        }
+      },
+      {
+        id: "drink-matcha-latte",
+        section: "drinks",
+        category: "tea",
+        nameKm: "ម៉ាត់ឆា ឡាតេ",
+        nameEn: "Matcha Latte",
+        descKm: "ម្សៅតែបៃតងជប៉ុនសុទ្ធ ផ្សំជាមួយទឹកដោះគោស្រស់ — មានទាំងក្តៅ (Hot) និងត្រជាក់ (Ice)។",
+        descEn: "Ceremonial-style Japanese green tea whisked with fresh milk — available Hot or Ice.",
+        variants: {
+          hot: {
+            descKm: "តែបៃតងម៉ាត់ឆាវាយជាមួយទឹកក្តៅឧណ្ហៗ រួចចាក់ទឹកដោះគោចំហុយក្តៅ (~62°C) ពីលើ។",
+            descEn: "Whisked green matcha topped with velvety steamed fresh milk (~62°C).",
+            ingredients: [
+              { nameKm: "ម្សៅតែបៃតង Matcha", nameEn: "Matcha Green Tea Powder", amount: 4, unit: "g" },
+              { nameKm: "ទឹកក្តៅ (~75°C) សម្រាប់វាយតែ", nameEn: "Warm Water (~75°C) for Whisking", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 15, unit: "ml", isSugar: true }
+            ],
+            stepsKm: [
+              "រែងម្សៅ Matcha 4g ចូលកូនចាន ដាក់ទឹកក្តៅ (~75°C) 40ml រួចវាយឱ្យរលាយម៉ត់គ្មានដុំ។",
+              "ចាក់ទឹក Matcha និងទឹកស្ករចូលពែង។",
+              "ចាក់ទឹកដោះគោចំហុយក្តៅចូល រួចបម្រើក្តៅៗ។"
+            ],
+            stepsEn: [
+              "Sift 4g matcha powder, add 40ml warm water (~75°C), and whisk until smooth.",
+              "Pour whisked matcha and simple syrup into the cup.",
+              "Pour steamed milk over top and serve hot."
+            ],
+            tipKm: "កុំប្រើទឹកពុះ 100°C វាយ Matcha ព្រោះវាធ្វើឱ្យតែមានរសជាតិល្វីងខ្លាំង។",
+            tipEn: "Avoid boiling water when whisking matcha to prevent bitterness."
+          },
+          ice: {
+            descKm: "ទឹកដោះគោស្រស់ត្រជាក់ដាក់ទឹកកក ស្រោចដោយទឹកតែបៃតង Matcha ពណ៌បៃតងចាស់ពីលើ។",
+            descEn: "Chilled fresh milk over ice topped with rich whisked green matcha.",
+            ingredients: [
+              { nameKm: "ម្សៅតែបៃតង Matcha", nameEn: "Matcha Green Tea Powder", amount: 4, unit: "g" },
+              { nameKm: "ទឹកក្តៅឧណ្ហៗ (~75°C)", nameEn: "Warm Water (~75°C)", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 20, unit: "ml", isSugar: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "វាយម្សៅ Matcha ជាមួយទឹកក្តៅឧណ្ហៗ 40ml រហូតម៉ត់រលោង។",
+              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកស្ករចាក់ចូលកែវទឹកកក។",
+              "ចាក់ទឹក Matcha ស្រោចពីលើបង្កើតជា ២ ស្រទាប់ពណ៌ស និងបៃតង។"
+            ],
+            stepsEn: [
+              "Whisk matcha powder with 40ml warm water until completely smooth.",
+              "Stir simple syrup into chilled milk and pour over ice.",
+              "Pour the whisked matcha gently over top for a green-and-white layer."
+            ],
+            tipKm: "រែងម្សៅ Matcha តាមកញ្ច្រែងតូចមុនវាយ នឹងជួយកុំឱ្យកកជាគ្រាប់តូចៗ។",
+            tipEn: "Sifting matcha through a fine mesh before whisking prevents clumps."
           }
         }
       }
@@ -2299,7 +2609,7 @@
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
       tab: "all",
-      temp: "all",
+      filter: "coffee",
       activeRecipeId: null,
       activeMode: "ice",
       cupSize: "16oz",
@@ -2319,6 +2629,8 @@
       "សេរ៉ូ",
       "សូកូឡា",
       "ទឹកឃ្មុំ",
+      "puree",
+      "jam",
       "sugar",
       "syrup",
       "condensed milk",
@@ -2356,6 +2668,14 @@
       } catch {}
     }
 
+    function getRecipeSection(r) {
+      if (r && r.section) return r.section;
+      if (r && ["drinks", "soda", "smoothie", "milk-drink", "tea", "juice"].includes(r.category)) {
+        return "drinks";
+      }
+      return "coffee";
+    }
+
     function getAllRecipes() {
       return [...DEFAULT_RECIPES, ...customRecipes];
     }
@@ -2365,7 +2685,6 @@
     }
 
     function getDefaultVariantKey(recipe) {
-      if (state.temp === "hot" && supportsTemp(recipe, "hot")) return "hot";
       if (supportsTemp(recipe, "ice")) return "ice";
       return "hot";
     }
@@ -2378,9 +2697,6 @@
     function getCardBadgeInfo(recipe) {
       const hasHot = supportsTemp(recipe, "hot");
       const hasIce = supportsTemp(recipe, "ice");
-      if (state.temp === "hot" && hasHot) {
-        return { cls: "temp-hot", label: t().hotFull };
-      }
       if (hasHot && hasIce) {
         return { cls: "temp-both", label: t().bothFull };
       }
@@ -2395,13 +2711,12 @@
     }
 
     function getRecipeDesc(r, variant) {
-      if (state.temp === "all") {
-        return state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
-      }
+      const desc = state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
+      if (desc) return desc;
       if (variant) {
-        return state.lang === "en" ? (variant.descEn || variant.descKm || r.descEn || r.descKm || "") : (variant.descKm || variant.descEn || r.descKm || r.descEn || "");
+        return state.lang === "en" ? (variant.descEn || variant.descKm || "") : (variant.descKm || variant.descEn || "");
       }
-      return state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
+      return "";
     }
 
     function getRecipeSteps(variant) {
@@ -2585,7 +2900,8 @@
       const s = t();
       const all = getAllRecipes();
       const total = all.length;
-      const hotCount = all.filter((r) => supportsTemp(r, "hot")).length;
+      const coffeeCount = all.filter((r) => getRecipeSection(r) === "coffee").length;
+      const drinksCount = all.filter((r) => getRecipeSection(r) === "drinks").length;
       const cartCount = getTotalCartCups();
       const orderCount = getTotalOrderCups();
 
@@ -2593,23 +2909,23 @@
       document.getElementById("navOrderLabel").textContent = s.navOrder(orderCount);
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        if (btn.dataset.temp === "all") btn.textContent = s.filterAll(total);
-        if (btn.dataset.temp === "hot") btn.textContent = s.filterHot(hotCount);
-        if (btn.dataset.temp === "ice") btn.textContent = s.filterCart(cartCount);
+        if (btn.dataset.filter === "coffee") btn.textContent = s.filterCoffee(coffeeCount);
+        if (btn.dataset.filter === "drinks") btn.textContent = s.filterDrinks(drinksCount);
+        if (btn.dataset.filter === "cart") btn.textContent = s.filterCart(cartCount);
       });
     }
 
     function getFilteredRecipes() {
       const all = getAllRecipes();
       return all.filter((r) => {
-        if (state.temp === "hot") return supportsTemp(r, "hot");
-        return true;
+        if (state.filter === "drinks") return getRecipeSection(r) === "drinks";
+        return getRecipeSection(r) === "coffee";
       });
     }
 
-    function getCartQtyForRecipe(recipeId, mode) {
+    function getCartQtyForRecipe(recipeId) {
       return cartItems
-        .filter((o) => o.recipeId === recipeId && (!mode || o.mode === mode))
+        .filter((o) => o.recipeId === recipeId)
         .reduce((acc, o) => acc + (o.qty || 1), 0);
     }
 
@@ -2703,10 +3019,10 @@
       updateCatalogCounts();
       const grid = document.getElementById("menuGrid");
       const list = getFilteredRecipes();
-      const totalAll = getAllRecipes().length;
+      const sectionTotal = getAllRecipes().filter((r) => getRecipeSection(r) === state.filter).length;
 
       document.getElementById("summaryCountText").innerHTML =
-        `${s.showingPrefix} <strong>${list.length}</strong> ${s.showingMid} <span>${totalAll}</span> ${s.showingSuffix}`;
+        `${s.showingPrefix} <strong>${list.length}</strong> ${s.showingMid} <span>${sectionTotal}</span> ${s.showingSuffix}`;
 
       if (list.length === 0) {
         grid.innerHTML = `
@@ -2720,7 +3036,7 @@
 
       grid.innerHTML = list.map((r) => {
         const defaultMode = getDefaultVariantKey(r);
-        const qtyInCart = getCartQtyForRecipe(r.id, state.temp === "hot" ? "hot" : null);
+        const qtyInCart = getCartQtyForRecipe(r.id);
         const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, defaultMode);
         const primaryName = getRecipeNamePrimary(r);
@@ -2971,11 +3287,24 @@
       document.getElementById("orderDoneCountText").textContent = s.orderDoneSummary(doneItems, orders.length);
     }
 
+    function syncTopFilterPills() {
+      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
+        if (state.tab === "cart") {
+          btn.classList.toggle("active", btn.dataset.filter === "cart");
+        } else if (state.tab === "all") {
+          btn.classList.toggle("active", btn.dataset.filter === state.filter);
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+    }
+
     function switchTab(tabName) {
       state.tab = tabName;
       document.querySelectorAll(".nav-item").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.tab === tabName);
       });
+      syncTopFilterPills();
 
       const isCart = tabName === "cart";
       const isOrder = tabName === "order";
@@ -3207,8 +3536,8 @@
       if (!nameKm && !nameEn) return;
 
       const tempOpt = document.getElementById("newTemp").value;
-      const category = document.getElementById("newCategory").value;
-      const desc = document.getElementById("newDesc").value.trim() || (state.lang === "en" ? "Custom coffee recipe." : "រូបមន្តកាហ្វេបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។");
+      const section = document.getElementById("newCategory").value === "drinks" ? "drinks" : "coffee";
+      const desc = document.getElementById("newDesc").value.trim() || (state.lang === "en" ? "Custom recipe." : "រូបមន្តបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។");
 
       const rawIngs = document.getElementById("newIngredients").value.split("\n").map((l) => l.trim()).filter(Boolean);
       const ingredients = rawIngs.length
@@ -3225,10 +3554,10 @@
             ingObj.isSugar = isSweetenerIngredient(ingObj);
             return ingObj;
           })
-        : [{ nameKm: "គ្រឿងផ្សំកាហ្វេតាមចំណូលចិត្ត", nameEn: "Coffee ingredients to taste", amount: 100, unit: "ml" }];
+        : [{ nameKm: "គ្រឿងផ្សំតាមចំណូលចិត្ត", nameEn: "Ingredients to taste", amount: 100, unit: "ml" }];
 
       const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
-      const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine coffee ingredients and serve." : "ឆុង និងលាយគ្រឿងផ្សំកាហ្វេចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
+      const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine ingredients and serve." : "លាយគ្រឿងផ្សំចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
 
       const baseVariant = {
         descKm: desc,
@@ -3236,8 +3565,8 @@
         ingredients,
         stepsKm: stepsList,
         stepsEn: stepsList,
-        tipKm: "រូបមន្តកាហ្វេផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិហាង។",
-        tipEn: "Your custom coffee recipe — adjust measurements to suit your shop's taste."
+        tipKm: "រូបមន្តផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិហាង។",
+        tipEn: "Your custom recipe — adjust measurements to suit your shop's taste."
       };
 
       const variants = {};
@@ -3258,7 +3587,8 @@
 
       const newItem = {
         id: "custom_" + Date.now(),
-        category,
+        section,
+        category: section,
         nameKm: nameKm || nameEn,
         nameEn: nameEn || nameKm,
         descKm: desc,
@@ -3272,8 +3602,8 @@
 
       document.getElementById("addRecipeForm").reset();
       document.getElementById("addRecipeModal").classList.remove("open");
+      state.filter = section;
       switchTab("all");
-      renderMenu();
       showToast(s.toastAddedRecipe);
     }
 
@@ -3312,17 +3642,13 @@
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const tempVal = btn.dataset.temp;
-          if (tempVal === "ice") {
+          const filterVal = btn.dataset.filter;
+          if (filterVal === "cart") {
             switchTab("cart");
             return;
           }
-          state.temp = tempVal;
-          document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((b) => {
-            b.classList.toggle("active", b === btn);
-          });
-          if (state.tab !== "all") switchTab("all");
-          else renderMenu();
+          state.filter = filterVal;
+          switchTab("all");
         });
       });
 
