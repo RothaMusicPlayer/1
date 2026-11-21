@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>EMinor Coffee — Menu Guide</title>
+  <title>EMinor Menu — Menu Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -325,7 +325,7 @@
       color: var(--text-secondary);
     }
 
-    /* Two-Column Guide Grid with Hairline Dividers */
+    /* Two-Column Menu Grid with Hairline Dividers */
     .coffee-guide-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -520,11 +520,11 @@
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 42px 16px;
+      padding: 46px 16px;
       color: var(--text-secondary);
     }
 
-    /* Bean / Ingredient Yield Calculator View */
+    /* Batch & Yield Calculator View */
     .calc-panel {
       background: var(--bg-paper);
       border: 1px solid var(--border-strong);
@@ -1079,7 +1079,7 @@
             <path d="M10 22h4"></path>
             <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path>
           </svg>
-          <span id="posterFooterText">ចុចលើមុខនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបធ្វើ</span>
+          <span id="posterFooterText">ចុច «បន្ថែមមុខ» ដើម្បីបង្កើតមុខថ្មីចូលក្នុងម៉ឺនុយ</span>
         </div>
       </div>
     </main>
@@ -1320,7 +1320,7 @@
         headerTitle: "EMinor Menu",
         posterTitle: "MENU GUIDE",
         posterSubtitle: "• មគ្គុទ្ទេសក៍ម៉ឺនុយ និងគ្រឿងផ្សំ •",
-        posterFooter: "ចុចលើមុខនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបធ្វើ",
+        posterFooter: "ចុច «បន្ថែមមុខ» ដើម្បីបង្កើតមុខថ្មីចូលក្នុងម៉ឺនុយ",
         langBadge: "EN",
         timerBtn: "ម៉ោងកំណត់",
         addBtn: "បន្ថែមមុខ",
@@ -1336,8 +1336,8 @@
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
         navFav: "ចូលចិត្ត",
         navCalc: "គណនារង្វាស់",
-        emptyTitle: "រកមិនឃើញមុខក្នុងម៉ឺនុយ",
-        emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬពាក្យស្វែងរកផ្សេង។",
+        emptyTitle: "ម៉ឺនុយមិនទាន់មានមុខណាមួយទេ",
+        emptyDesc: "ចុចប៊ូតុង «បន្ថែមមុខ» នៅខាងលើ ដើម្បីបង្កើតមុខថ្មីដោយខ្លួនឯង។",
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         batchLabel: "ចំនួនកែវធ្វើ (Batch)",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
@@ -1379,7 +1379,7 @@
         toastAddedFav: "បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត",
         toastRemovedFav: "បានដកចេញពីបញ្ជីចូលចិត្ត",
         toastAddedRecipe: "បានបន្ថែមមុខថ្មីរួចរាល់",
-        toastDeletedRecipe: "បានលុបមុខផ្ទាល់ខ្លួន",
+        toastDeletedRecipe: "បានលុបមុខចេញពីម៉ឺនុយ",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
       en: {
@@ -1387,7 +1387,7 @@
         headerTitle: "EMinor Menu",
         posterTitle: "MENU GUIDE",
         posterSubtitle: "• A SIMPLE MENU & INGREDIENT GUIDE •",
-        posterFooter: "INGREDIENTS MAY VARY BASED ON PREPARATION AND PREFERENCE — TAP ANY ITEM FOR DETAILS",
+        posterFooter: "TAP “ADD ITEM” TO CREATE YOUR OWN MENU ITEMS",
         langBadge: "ខ្មែរ",
         timerBtn: "Timer",
         addBtn: "Add Item",
@@ -1403,8 +1403,8 @@
         navMenu: (n) => `Menu (${n})`,
         navFav: "Favorites",
         navCalc: "Yield Calc",
-        emptyTitle: "No items found",
-        emptyDesc: "Try switching Hot / Ice filters or another search keyword.",
+        emptyTitle: "No items in the menu yet",
+        emptyDesc: "Tap “Add Item” above to create your own items.",
         cupSizeLabel: "Cup Size",
         batchLabel: "Batch Multiplier",
         ingHeading: "Ingredients & Standard Measurements (Tap to check)",
@@ -1412,7 +1412,7 @@
         tipPrefix: "Prep Tip:",
         defaultTip: "Measure ingredients accurately for consistent flavor every time.",
         favBtnSave: "Save to Favorites",
-        deleteCustomBtn: "Delete Custom",
+        deleteCustomBtn: "Delete Item",
         addModalTitle: "Add Custom Menu Item",
         addModalSub: "Automatically saved on your device",
         lblNewNameKm: "Item Name (Khmer) *",
@@ -1446,7 +1446,7 @@
         toastAddedFav: "Saved to Favorites",
         toastRemovedFav: "Removed from Favorites",
         toastAddedRecipe: "New custom item added",
-        toastDeletedRecipe: "Custom item deleted",
+        toastDeletedRecipe: "Item removed from menu",
         toastLangSwitched: "Switched to English"
       }
     };
@@ -1474,11 +1474,6 @@
             <stop offset="55%" stop-color="#CFA882"/>
             <stop offset="100%" stop-color="#BC8E64"/>
           </linearGradient>
-          <linearGradient id="cocoaLayer" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#96613F"/>
-            <stop offset="50%" stop-color="#744529"/>
-            <stop offset="100%" stop-color="#522E19"/>
-          </linearGradient>
           <linearGradient id="icedLiquid" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#7B5233"/>
             <stop offset="55%" stop-color="#4B2D19"/>
@@ -1496,38 +1491,10 @@
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
             <ellipse cx="50" cy="103" rx="26" ry="5" fill="rgba(35,24,18,0.14)"/>
             <path d="M77 45 C92 45, 92 73, 74 73" fill="none" stroke="#CFC7BE" stroke-width="5.5" stroke-linecap="round"/>
-            <path d="M77 45 C92 45, 92 73, 74 73" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/>
             <path d="M23 32 L29 94 C30 99, 70 99, 71 94 L77 32 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
             <path d="M27.5 67 L29.5 92 C30.5 96, 69.5 96, 70.5 92 L72.5 67 Z" fill="url(#deepBase)"/>
             <ellipse cx="50" cy="67" rx="22.5" ry="5.5" fill="url(#amberLayer)"/>
             <ellipse cx="50" cy="32" rx="27" ry="6.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-            <path d="M28 38 L32 90" stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>`;
-
-        case "hot-clear":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
-            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M21 37 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79 37 Z" fill="url(#deepBase)"/>
-            <ellipse cx="50" cy="37" rx="29" ry="7" fill="url(#amberLayer)"/>
-            <ellipse cx="50" cy="37" rx="23" ry="4.5" fill="#54311B" opacity="0.55"/>
-            <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-            <path d="M25 32 L28 90" stroke="rgba(255,255,255,0.45)" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>`;
-
-        case "latte-art":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
-            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.2" stroke-linecap="round"/>
-            <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M20.5 34 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79.5 34 Z" fill="url(#warmMilk)"/>
-            <ellipse cx="50" cy="34" rx="29.5" ry="7.5" fill="#F8F1E7"/>
-            <path d="M50 38 C46 34, 42 32, 45 29.5 C47 28, 49.5 29.5, 50 31 C50.5 29.5, 53 28, 55 29.5 C58 32, 54 34, 50 38 Z" fill="#C48956"/>
-            <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-            <path d="M25 32 L28 90" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
           </svg>`;
 
         case "hot-milk":
@@ -1536,38 +1503,17 @@
             <path d="M81 38 C98 38, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
             <path d="M19 27 L24 94 C25 101, 75 101, 76 94 L81 27 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
             <path d="M21.5 48 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L78.5 48 Z" fill="url(#warmMilk)"/>
-            <path d="M19.5 29 L21.5 48 C34 52, 66 52, 78.5 48 L80.5 29 Z" fill="#FBF7F2"/>
             <ellipse cx="50" cy="27" rx="30.5" ry="9" fill="#FFFDF9" stroke="#D8CEC4" stroke-width="1"/>
-            <ellipse cx="50" cy="26" rx="14" ry="4" fill="#9E6234" opacity="0.45"/>
-            <circle cx="46" cy="25" r="1" fill="#5A3318"/>
-            <circle cx="53" cy="27" r="1.1" fill="#5A3318"/>
-            <circle cx="50" cy="24" r="0.9" fill="#5A3318"/>
           </svg>`;
 
-        case "ceramic-cup":
+        case "latte-art":
           return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="50" cy="104" rx="29" ry="5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M80 42 C97 42, 97 78, 74 78" fill="none" stroke="#EFEAE2" stroke-width="7" stroke-linecap="round"/>
-            <path d="M80 42 C97 42, 97 78, 74 78" fill="none" stroke="#CBC2B8" stroke-width="1.4" stroke-linecap="round"/>
-            <path d="M18 32 C18 75, 28 97, 50 97 C72 97, 82 75, 82 32 Z" fill="#F7F3EC" stroke="#C8BFB4" stroke-width="1.5"/>
-            <ellipse cx="50" cy="32" rx="32" ry="8.5" fill="#D59E6A" stroke="#EFEAE2" stroke-width="2"/>
-            <path d="M36 32 C42 28, 58 28, 64 32 C58 36, 42 36, 36 32 Z" fill="#FAF5EE" opacity="0.85"/>
-            <path d="M41 32 C45 30, 55 30, 59 32" stroke="#C4864E" stroke-width="1.5" fill="none"/>
-          </svg>`;
-
-        case "cocoa-cup":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="50" cy="106" rx="29" ry="5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M80 40 C97 40, 97 78, 76 78" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
-            <path d="M20 30 L24 95 C25 101, 75 101, 76 95 L80 30 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M21 38 L24.5 93 C25.5 98, 74.5 98, 75.5 93 L79 38 Z" fill="url(#cocoaLayer)"/>
-            <path d="M22 36 C22 24, 34 22, 38 18 C43 12, 57 12, 62 18 C66 22, 78 24, 78 36 C65 41, 35 41, 22 36 Z" fill="#FFFDF9" stroke="#D8CEC4" stroke-width="1.2"/>
-            <circle cx="43" cy="24" r="1.4" fill="#3B2010"/>
-            <circle cx="51" cy="20" r="1.5" fill="#3B2010"/>
-            <circle cx="57" cy="26" r="1.3" fill="#3B2010"/>
-            <circle cx="47" cy="30" r="1.4" fill="#3B2010"/>
-            <circle cx="37" cy="31" r="1.2" fill="#3B2010"/>
-            <circle cx="62" cy="31" r="1.3" fill="#3B2010"/>
+            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
+            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
+            <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <path d="M20.5 34 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79.5 34 Z" fill="url(#warmMilk)"/>
+            <ellipse cx="50" cy="34" rx="29.5" ry="7.5" fill="#F8F1E7"/>
+            <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
           </svg>`;
 
         case "layered":
@@ -1576,19 +1522,7 @@
             <path d="M27 20 L33 98 C34 103, 70 103, 71 98 L77 20 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
             <path d="M31.5 55 L33.5 96 C34.5 100, 69.5 100, 70.5 96 L72.5 55 Z" fill="#EFE4D6"/>
             <path d="M29.5 36 L31.5 55 L72.5 55 L74.5 36 Z" fill="#78482A"/>
-            <path d="M28 24 L29.5 36 L74.5 36 L76 24 Z" fill="#FAF5EE"/>
             <ellipse cx="52" cy="24" rx="24" ry="6" fill="#FFFDF9" stroke="#C8BFB4" stroke-width="1.2"/>
-            <path d="M36 23 L66 26 M38 26 L68 22 M43 20 L58 28 M48 28 L61 20" stroke="#C97A2B" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>`;
-
-        case "short-glass":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="52" cy="104" rx="25" ry="4.5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M26 30 L32 95 C33 100, 71 100, 72 95 L78 30 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.5"/>
-            <path d="M29.5 56 L32.5 93 C33.5 97, 70.5 97, 71.5 93 L74.5 56 Z" fill="#704327"/>
-            <ellipse cx="52" cy="56" rx="22.5" ry="5.5" fill="#E3C7A8"/>
-            <ellipse cx="52" cy="30" rx="26" ry="6.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-            <path d="M32 36 L36 90" stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
           </svg>`;
 
         case "iced-glass":
@@ -1600,539 +1534,19 @@
             <rect x="34" y="29" width="16" height="15" rx="3" transform="rotate(-10 42 36)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
             <rect x="52" y="31" width="16" height="15" rx="3" transform="rotate(12 60 38)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
             <rect x="37" y="48" width="17" height="16" rx="3" transform="rotate(8 45 56)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
-            <rect x="53" y="51" width="15" height="15" rx="3" transform="rotate(-8 60 58)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
-            <rect x="42" y="69" width="18" height="16" rx="3" transform="rotate(-5 51 77)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
             <ellipse cx="52" cy="20" rx="26" ry="6" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-            <path d="M31 28 L34 92" stroke="rgba(255,255,255,0.5)" stroke-width="2.2" stroke-linecap="round"/>
           </svg>`;
       }
     }
 
-    const DEFAULT_RECIPES = [
-      {
-        id: "item-1",
-        category: "hot-cup",
-        nameKm: "តែក្តៅសុទ្ធ",
-        nameEn: "PURE HOT TEA",
-        guideBulletsKm: ["ស្លឹកតែឆុងស្រស់"],
-        guideBulletsEn: ["Brewed Tea Base"],
-        variants: {
-          hot: {
-            cupStyle: "hot-cup",
-            descKm: "ទឹកតែឆុងស្រស់ក្តៅៗ រសជាតិស្រទន់ ក្រអូបឈ្ងុយសម្រាប់ផឹកប្រចាំថ្ងៃ។",
-            descEn: "Freshly steeped hot tea with a clean, aromatic finish.",
-            ingredients: [
-              { nameKm: "ស្លឹកតែ ឬថង់តែ", nameEn: "Tea Leaves or Bag", amount: 5, unit: "g" },
-              { nameKm: "ទឹកក្តៅ (~90°C)", nameEn: "Hot Water (~90°C)", amount: 150, unit: "ml" }
-            ],
-            stepsKm: [
-              "កំដៅកែវដោយទឹកក្តៅជាមុន រួចចាក់ទឹកចោល។",
-              "ត្រាំតែជាមួយទឹកក្តៅ 150 ml រយៈពេល 3–4 នាទី។",
-              "យកកាកតែចេញ ហើយបម្រើក្តៅៗភ្លាម។"
-            ],
-            stepsEn: [
-              "Preheat the glass with hot water and discard.",
-              "Steep tea with 150 ml hot water for 3–4 minutes.",
-              "Strain out the leaves and serve hot."
-            ],
-            tipKm: "កុំត្រាំតែយូរពេក ដើម្បីកុំឱ្យចេញរសជាតិល្វីងខ្លាំង។",
-            tipEn: "Avoid over-steeping so the tea stays smooth and balanced."
-          },
-          ice: {
-            cupStyle: "iced-glass",
-            descKm: "តែឆុងដិតស្រស់ស្រោចលើទឹកកកត្រជាក់ ផ្តល់ភាពស្រស់ស្រាយ។",
-            descEn: "Concentrated tea poured over cold ice for a crisp iced drink.",
-            ingredients: [
-              { nameKm: "ទឹកតែឆុងខាប់", nameEn: "Concentrated Tea", amount: 110, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកក 150g ចូលកែវ។",
-              "ចាក់ទឹកតែឆុងខាប់ 110 ml ស្រោចពីលើ។",
-              "កូរស្រាលៗ ហើយបម្រើ។"
-            ],
-            stepsEn: [
-              "Add 150g ice into the glass.",
-              "Pour 110 ml concentrated tea over the ice.",
-              "Stir lightly and serve."
-            ],
-            tipKm: "ឆុងតែឱ្យខាប់ជាងធម្មតា ដើម្បីកុំឱ្យរលាយទឹកកកសាប។",
-            tipEn: "Brew slightly stronger so melting ice does not dilute the flavor."
-          }
-        }
-      },
-      {
-        id: "item-2",
-        category: "hot-clear",
-        nameKm: "តែទឹកក្តៅ",
-        nameEn: "HOT INFUSION",
-        guideBulletsKm: ["មូលដ្ឋានឆុងស្រស់", "ទឹកក្តៅ"],
-        guideBulletsEn: ["Brewed Base", "Hot Water"],
-        variants: {
-          hot: {
-            cupStyle: "hot-clear",
-            descKm: "មូលដ្ឋានឆុងស្រស់ផ្សំជាមួយទឹកក្តៅ ផ្តល់ភាពក្តៅស្រួលខ្លួន។",
-            descEn: "Brewed base diluted with hot water for a warm, light cup.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុងខាប់", nameEn: "Concentrated Base", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកក្តៅ (~88°C)", nameEn: "Hot Water (~88°C)", amount: 180, unit: "ml" }
-            ],
-            stepsKm: [
-              "ចាក់ទឹកក្តៅ 180 ml ចូលក្នុងកែវ។",
-              "ចាក់មូលដ្ឋានឆុង 40 ml ចូល ហើយកូរចូលគ្នា។",
-              "បម្រើក្តៅៗ។"
-            ],
-            stepsEn: [
-              "Pour 180 ml hot water into the glass.",
-              "Add 40 ml concentrated base and stir gently.",
-              "Serve hot."
-            ],
-            tipKm: "រក្សាសីតុណ្ហភាពទឹកប្រហែល 85–90°C ដើម្បីរក្សាក្លិនក្រអូប។",
-            tipEn: "Keep water around 85–90°C to preserve delicate aromatics."
-          },
-          ice: {
-            cupStyle: "iced-glass",
-            descKm: "មូលដ្ឋានឆុងផ្សំជាមួយទឹកត្រជាក់ និងទឹកកកពេញកែវ។",
-            descEn: "Brewed base with cold water and ice for a refreshing cold drink.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុងខាប់", nameEn: "Concentrated Base", amount: 45, unit: "ml" },
-              { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 140, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកក 160g និងទឹកត្រជាក់ 140 ml ចូលកែវ។",
-              "ចាក់មូលដ្ឋានឆុង 45 ml ចូល រួចកូរឱ្យសព្វ។",
-              "បម្រើត្រជាក់ៗ។"
-            ],
-            stepsEn: [
-              "Add 160g ice and 140 ml cold water to the glass.",
-              "Pour in 45 ml concentrated base and stir well.",
-              "Serve chilled."
-            ],
-            tipKm: "ដាក់ទឹកកកគ្រប់គ្រាន់ ដើម្បីរក្សាភាពត្រជាក់បានយូរ។",
-            tipEn: "Use plenty of ice to keep the drink chilled longer."
-          }
-        }
-      },
-      {
-        id: "item-3",
-        category: "latte-art",
-        nameKm: "ទឹកដោះគោឆុងក្បាច់",
-        nameEn: "MILK ART",
-        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "ពពុះទឹកដោះគោ"],
-        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Milk Foam"],
-        variants: {
-          hot: {
-            cupStyle: "latte-art",
-            descKm: "ទឹកដោះគោស្រស់ចំហុយក្តៅផ្សំជាមួយមូលដ្ឋានឆុង និងពពុះរលោងគូសក្បាច់។",
-            descEn: "Steamed milk with a smooth microfoam pour and finished surface art.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 195, unit: "ml" }
-            ],
-            stepsKm: [
-              "ចាក់មូលដ្ឋានឆុង 40 ml ដាក់ក្នុងកែវ។",
-              "ចំហុយទឹកដោះគោស្រស់ឱ្យបានពពុះម៉ត់រលោង (~62°C)។",
-              "ចាក់ទឹកដោះគោចូលយឺតៗ ដើម្បីបានផ្ទៃរលោងស្អាត។"
-            ],
-            stepsEn: [
-              "Pour 40 ml brewed base into the glass.",
-              "Steam fresh milk to ~62°C with glossy microfoam.",
-              "Pour steadily into the glass for a smooth finish."
-            ],
-            tipKm: "កុំចំហុយទឹកដោះគោលើស 70°C ដើម្បីរក្សារសជាតិផ្អែមស្រាល។",
-            tipEn: "Avoid overheating milk past 70°C for a cleaner, sweeter taste."
-          },
-          ice: {
-            cupStyle: "latte-art",
-            descKm: "ទឹកដោះគោស្រស់ត្រជាក់លើទឹកកក ផ្សំជាមួយមូលដ្ឋានឆុង។",
-            descEn: "Chilled fresh milk over ice layered with the brewed base.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
-              { nameKm: "ទឹកស្ករ (ជម្រើស)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-            ],
-            stepsKm: [
-              "លាយទឹកដោះគោត្រជាក់ 160 ml និងទឹកស្ករ 15 ml ចូលគ្នា។",
-              "ដាក់ទឹកកក 150g ចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
-              "ចាក់មូលដ្ឋានឆុងស្រោចពីលើបង្កើតជាស្រទាប់។"
-            ],
-            stepsEn: [
-              "Mix 160 ml chilled milk with 15 ml optional simple syrup.",
-              "Add 150g ice to the glass and pour in the milk.",
-              "Pour the base on top for clean layering."
-            ],
-            tipKm: "ចាក់ស្រទាប់លើដោយថ្នមៗ នឹងមើលឃើញពណ៌បែងចែកស្អាត។",
-            tipEn: "Pour the top layer slowly for distinct visual layers."
-          }
-        }
-      },
-      {
-        id: "item-4",
-        category: "hot-milk",
-        nameKm: "ពពុះទឹកដោះគោក្រាស់",
-        nameEn: "FOAM CAP",
-        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "ពពុះទឹកដោះគោក្រាស់"],
-        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Thick Milk Foam"],
-        variants: {
-          hot: {
-            cupStyle: "hot-milk",
-            descKm: "ទឹកដោះគោចំហុយមានស្រទាប់ពពុះក្រាស់ទន់ រោយម្សៅពីលើស្រាលៗ។",
-            descEn: "Warm milk topped with a thick foam cap and light dusting.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោ + ពពុះក្រាស់ (~62°C)", nameEn: "Milk + Thick Foam (~62°C)", amount: 170, unit: "ml" }
-            ],
-            stepsKm: [
-              "ចាក់មូលដ្ឋានឆុង 40 ml ចូលកែវ។",
-              "ចំហុយទឹកដោះគោឱ្យឡើងពពុះក្រាស់ម៉ត់។",
-              "ចាក់ចូលកែវ រួចរោយម្សៅបន្តិចពីលើ។"
-            ],
-            stepsEn: [
-              "Pour 40 ml brewed base into the glass.",
-              "Aerate milk to create a thick, smooth foam layer.",
-              "Pour into the glass and dust lightly on top."
-            ],
-            tipKm: "គោះកែវវាយពពុះថ្នមៗមុនចាក់ ដើម្បីបំបាត់ពពុះខ្យល់ធំៗ។",
-            tipEn: "Tap the pitcher gently before pouring to pop large bubbles."
-          },
-          ice: {
-            cupStyle: "hot-milk",
-            descKm: "ទឹកដោះគោត្រជាក់លើទឹកកក មានពពុះទឹកដោះគោត្រជាក់ក្រាស់ពីលើ។",
-            descEn: "Iced milk topped with thick, creamy cold foam.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
-              { nameKm: "ពពុះត្រជាក់ (Cold Foam)", nameEn: "Chilled Milk Foam", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកក 150g ទឹកដោះគោ 130 ml និងមូលដ្ឋានឆុង 40 ml ចូលកែវ។",
-              "វាយពពុះទឹកដោះគោត្រជាក់ 40 ml ឱ្យឡើងខាប់រលោង។",
-              "ចាក់ពពុះត្រជាក់ពីលើផ្នែកខាងលើបំផុត។"
-            ],
-            stepsEn: [
-              "Add 150g ice, 130 ml chilled milk, and 40 ml base to the glass.",
-              "Froth 40 ml cold milk until thick and smooth.",
-              "Spoon or pour the cold foam over the top."
-            ],
-            tipKm: "ប្រើទឹកដោះគោត្រជាក់ល្អ ពពុះនឹងឡើងក្រាស់ស្អាត។",
-            tipEn: "Cold milk froths into a denser, more stable cold foam."
-          }
-        }
-      },
-      {
-        id: "item-5",
-        category: "ceramic-cup",
-        nameKm: "ពែងទឹកដោះគោស្រទន់",
-        nameEn: "VELVET CUP",
-        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយស្រទន់"],
-        guideBulletsEn: ["Brewed Base", "Steamed Milk"],
-        variants: {
-          hot: {
-            cupStyle: "ceramic-cup",
-            descKm: "ផ្សំជាមួយទឹកដោះគោចំហុយស្រទន់មានពពុះស្តើងម៉ត់ រសជាតិមូលល្អ។",
-            descEn: "Paired with silky steamed milk and a thin, velvety top layer.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោចំហុយស្រទន់ (~60°C)", nameEn: "Velvet Steamed Milk (~60°C)", amount: 145, unit: "ml" }
-            ],
-            stepsKm: [
-              "ចាក់មូលដ្ឋានឆុង 40 ml ដាក់ក្នុងពែងសេរ៉ាមិច។",
-              "ចំហុយទឹកដោះគោដោយបញ្ចូលខ្យល់តិច ដើម្បីបានស្រទាប់រលោង។",
-              "ចាក់ចូលពែង រួចបម្រើភ្លាម។"
-            ],
-            stepsEn: [
-              "Pour 40 ml brewed base into a ceramic cup.",
-              "Steam milk lightly for a smooth, fine texture.",
-              "Pour into the cup and serve."
-            ],
-            tipKm: "រក្សាសមាមាត្រទឹកដោះគោឱ្យសមល្មម ដើម្បីរសជាតិស្រទន់។",
-            tipEn: "Keep the milk ratio balanced for a smooth texture."
-          },
-          ice: {
-            cupStyle: "iced-glass",
-            descKm: "ផ្សំជាមួយទឹកដោះគោត្រជាក់បរិមាណសមល្មមលើទឹកកក។",
-            descEn: "Balanced chilled milk over ice for a smooth cold cup.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 125, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 140, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកក 140g និងទឹកដោះគោត្រជាក់ 125 ml ចូលកែវ។",
-              "ចាក់មូលដ្ឋានឆុង 40 ml ចូល ហើយបម្រើ។"
-            ],
-            stepsEn: [
-              "Add 140g ice and 125 ml chilled milk to the glass.",
-              "Pour in 40 ml base and serve."
-            ],
-            tipKm: "កូរស្រាលៗមុនពេលផឹក ដើម្បីឱ្យរសជាតិចូលគ្នាស្មើ។",
-            tipEn: "Give a gentle stir before sipping to blend flavors evenly."
-          }
-        }
-      },
-      {
-        id: "item-6",
-        category: "cocoa-cup",
-        nameKm: "សូកូឡាទឹកដោះគោ",
-        nameEn: "CHOCO MILK",
-        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "សូកូឡា (Chocolate)"],
-        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Chocolate"],
-        variants: {
-          hot: {
-            cupStyle: "cocoa-cup",
-            descKm: "ផ្សំសូកូឡា និងទឹកដោះគោក្តៅ បន្ថែម Whipped Cream និងសូកូឡាពីលើ។",
-            descEn: "Chocolate blended with steamed milk and topped with whipped cream.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
-              { nameKm: "សេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup / Cocoa", amount: 25, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 180, unit: "ml" },
-              { nameKm: "Whipped Cream + សូកូឡា", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់សូកូឡា 25 ml និងមូលដ្ឋានឆុង 36 ml ចូលកែវ រួចកូរឱ្យរលាយ។",
-              "ចាក់ទឹកដោះគោចំហុយ 180 ml ចូល។",
-              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើ។"
-            ],
-            stepsEn: [
-              "Stir 25 ml chocolate with 36 ml base until smooth.",
-              "Pour in 180 ml steamed fresh milk.",
-              "Top with whipped cream and chocolate."
-            ],
-            tipKm: "កូរសូកូឡាពេលកំពុងក្តៅ នឹងរលាយចូលគ្នាបានល្អ។",
-            tipEn: "Stir chocolate while warm so it dissolves smoothly."
-          },
-          ice: {
-            cupStyle: "cocoa-cup",
-            descKm: "សូកូឡា និងទឹកដោះគោត្រជាក់លើទឹកកក បន្ថែម Whipped Cream ពីលើ។",
-            descEn: "Chocolate and chilled milk over ice topped with whipped cream.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
-              { nameKm: "សេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup / Cocoa", amount: 25, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 145, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" },
-              { nameKm: "Whipped Cream + សូកូឡា", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
-            ],
-            stepsKm: [
-              "រំលាយសូកូឡាជាមួយមូលដ្ឋានឆុងក្តៅឱ្យចូលគ្នា។",
-              "ដាក់ទឹកកក 150g ចូលកែវ រួចចាក់ទឹកដោះគោត្រជាក់ និងល្បាយសូកូឡាចូល។",
-              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើ។"
-            ],
-            stepsEn: [
-              "Dissolve chocolate into the warm base until smooth.",
-              "Add 150g ice, pour in chilled milk and the chocolate mix.",
-              "Top with whipped cream and chocolate."
-            ],
-            tipKm: "រំលាយសូកូឡាឱ្យរលាយមុនដាក់ទឹកកក ដើម្បីកុំឱ្យកកជាដុំ។",
-            tipEn: "Dissolve chocolate fully before adding ice to prevent clumping."
-          }
-        }
-      },
-      {
-        id: "item-7",
-        category: "layered",
-        nameKm: "ការ៉ាមែលស្រទាប់",
-        nameEn: "CARAMEL LAYER",
-        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោចំហុយ", "ទឹកការ៉ាមែល (Caramel)"],
-        guideBulletsEn: ["Brewed Base", "Steamed Milk", "Caramel"],
-        variants: {
-          hot: {
-            cupStyle: "layered",
-            descKm: "ទឹកដោះគោផ្សំវ៉ានីឡា ចាក់ស្រទាប់មូលដ្ឋានឆុង និងគូសទឹកការ៉ាមែលពីលើ។",
-            descEn: "Vanilla milk layered with brewed base and finished with caramel drizzle.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 180, unit: "ml" },
-              { nameKm: "សេរ៉ូវ៉ានីឡា", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
-              { nameKm: "ទឹកការ៉ាមែល", nameEn: "Caramel Sauce", amount: 15, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់សេរ៉ូវ៉ានីឡា 15 ml ចូលបាតកែវ រួចចាក់ទឹកដោះគោចំហុយ 180 ml ចូល។",
-              "ចាក់មូលដ្ឋានឆុង 36 ml យឺតៗចំកណ្តាល។",
-              "គូសទឹកការ៉ាមែលជាក្រឡាពីលើ។"
-            ],
-            stepsEn: [
-              "Add 15 ml vanilla syrup and 180 ml steamed milk to the glass.",
-              "Slowly pour 36 ml base into the center.",
-              "Drizzle caramel sauce in a crosshatch on top."
-            ],
-            tipKm: "ចាក់ស្រទាប់លើដោយយឺតៗ ដើម្បីឱ្យស្រទាប់មើលឃើញច្បាស់។",
-            tipEn: "Pour the top layer slowly to keep the layers distinct."
-          },
-          ice: {
-            cupStyle: "layered",
-            descKm: "ទឹកដោះគោត្រជាក់វ៉ានីឡាលើទឹកកក ស្រោចមូលដ្ឋានឆុង និងទឹកការ៉ាមែល។",
-            descEn: "Chilled vanilla milk over ice topped with base and caramel drizzle.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
-              { nameKm: "សេរ៉ូវ៉ានីឡា", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
-              { nameKm: "ទឹកការ៉ាមែល", nameEn: "Caramel Sauce", amount: 15, unit: "g" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-            ],
-            stepsKm: [
-              "លាយទឹកដោះគោត្រជាក់ 150 ml និងសេរ៉ូវ៉ានីឡា 15 ml ចូលគ្នា។",
-              "ដាក់ទឹកកក 150g ចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
-              "ចាក់មូលដ្ឋានឆុង 36 ml និងគូសទឹកការ៉ាមែល 15g ពីលើ។"
-            ],
-            stepsEn: [
-              "Mix 150 ml chilled milk with 15 ml vanilla syrup.",
-              "Fill glass with 150g ice and pour in the milk.",
-              "Top with 36 ml base and 15g caramel drizzle."
-            ],
-            tipKm: "ប្រើទឹកការ៉ាមែលខាប់ល្មម ដើម្បីគូសក្រឡាបានស្អាត។",
-            tipEn: "Use medium-thick caramel sauce for neat crosshatch lines."
-          }
-        }
-      },
-      {
-        id: "item-8",
-        category: "short-glass",
-        nameKm: "កែវតូចសមាមាត្រ 1:1",
-        nameEn: "MINI 1:1",
-        guideBulletsKm: ["មូលដ្ឋានឆុង", "ទឹកដោះគោស្មើភាគ"],
-        guideBulletsEn: ["Brewed Base", "Equal Milk"],
-        variants: {
-          hot: {
-            cupStyle: "short-glass",
-            descKm: "ផ្សំមូលដ្ឋានឆុង និងទឹកដោះគោក្តៅក្នុងសមាមាត្រស្មើគ្នា (1:1) ក្នុងកែវតូច។",
-            descEn: "Equal parts brewed base and warm milk (1:1) served in a compact glass.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ក្តៅ (~60°C)", nameEn: "Warm Fresh Milk (~60°C)", amount: 40, unit: "ml" }
-            ],
-            stepsKm: [
-              "ចាក់មូលដ្ឋានឆុង 36 ml ចូលក្នុងកែវតូច។",
-              "កំដៅទឹកដោះគោ 40 ml ឱ្យក្តៅល្មម រួចចាក់ចូលស្មើភាគ។",
-              "បម្រើភ្លាម។"
-            ],
-            stepsEn: [
-              "Pour 36 ml base into a small glass.",
-              "Warm 40 ml milk to ~60°C and pour in for a 1:1 balance.",
-              "Serve immediately."
-            ],
-            tipKm: "ប្រើកែវតូច ដើម្បីរក្សាសមាមាត្រស្មើគ្នារបស់មុខនេះ។",
-            tipEn: "Use a small glass to preserve the 1:1 balance."
-          },
-          ice: {
-            cupStyle: "short-glass",
-            descKm: "មូលដ្ឋានឆុង និងទឹកដោះគោត្រជាក់ស្មើភាគលើទឹកកកតូចៗ។",
-            descEn: "Equal parts chilled base and milk over small ice cubes.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុង", nameEn: "Brewed Base", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 90, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកក 90g ចូលកែវតូច។",
-              "ចាក់ទឹកដោះគោត្រជាក់ 40 ml និងមូលដ្ឋានឆុង 36 ml ចូល។",
-              "កូរស្រាលៗ រួចបម្រើ។"
-            ],
-            stepsEn: [
-              "Add 90g ice to a small glass.",
-              "Pour in 40 ml chilled milk and 36 ml base.",
-              "Stir lightly and serve."
-            ],
-            tipKm: "បម្រើភ្លាមបន្ទាប់ពីចាក់ចូលទឹកកក។",
-            tipEn: "Serve right away once poured over ice."
-          }
-        }
-      },
-      {
-        id: "item-9",
-        category: "iced-glass",
-        nameKm: "ភេសជ្ជៈទឹកកក",
-        nameEn: "ICED DRINK",
-        guideBulletsKm: ["មូលដ្ឋានឆុងស្រស់", "ទឹកកក (Ice)"],
-        guideBulletsEn: ["Fresh Base", "Ice"],
-        variants: {
-          ice: {
-            cupStyle: "iced-glass",
-            descKm: "ភេសជ្ជៈឆុងស្រស់លើទឹកកកត្រជាក់ស្រស់ស្រាយ អាចបន្ថែមទឹកស្ករតាមចំណូលចិត្ត។",
-            descEn: "Freshly prepared iced drink over ice with optional sweetness.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុងស្រស់", nameEn: "Fresh Brewed Base", amount: 180, unit: "ml" },
-              { nameKm: "ទឹកស្ករ (ជម្រើស)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 170, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកក 170g ចូលកែវធំ។",
-              "ចាក់មូលដ្ឋានឆុង 180 ml និងទឹកស្ករ 15 ml (បើចង់បាន) ចូល។",
-              "កូរឱ្យសព្វ រួចបម្រើ។"
-            ],
-            stepsEn: [
-              "Fill a tall glass with 170g ice.",
-              "Pour in 180 ml fresh base and optional 15 ml syrup.",
-              "Stir well and serve."
-            ],
-            tipKm: "រក្សាទឹកកកឱ្យត្រជាក់ល្អ ដើម្បីបានរសជាតិស្រស់ស្រាយ។",
-            tipEn: "Keep ice well-chilled for a crisp, refreshing finish."
-          },
-          hot: {
-            cupStyle: "hot-clear",
-            descKm: "ជម្រើសឆុងក្តៅស្រស់ស្រាយ រសជាតិស្រាលស្រទន់។",
-            descEn: "Warm preparation option with a clean, light finish.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានឆុងស្រស់", nameEn: "Fresh Brewed Base", amount: 180, unit: "ml" },
-              { nameKm: "ទឹកក្តៅបន្ថែម", nameEn: "Additional Hot Water", amount: 50, unit: "ml" }
-            ],
-            stepsKm: [
-              "ចាក់មូលដ្ឋានឆុង 180 ml និងទឹកក្តៅ 50 ml ចូលកែវ។",
-              "កូរស្រាលៗ ហើយបម្រើក្តៅៗ។"
-            ],
-            stepsEn: [
-              "Pour 180 ml fresh base and 50 ml hot water into a glass.",
-              "Stir lightly and serve hot."
-            ],
-            tipKm: "បម្រើពេលកំពុងក្តៅល្មម ដើម្បីរក្សារសជាតិល្អបំផុត។",
-            tipEn: "Serve warm for the best flavor balance."
-          }
-        }
-      },
-      {
-        id: "item-10",
-        category: "iced-glass",
-        nameKm: "ភេសជ្ជៈត្រាំត្រជាក់",
-        nameEn: "COLD STEEP",
-        guideBulletsKm: ["មូលដ្ឋានត្រាំត្រជាក់", "ទឹកកក (Ice)"],
-        guideBulletsEn: ["Cold Steeped Base", "Ice"],
-        variants: {
-          ice: {
-            cupStyle: "iced-glass",
-            descKm: "មូលដ្ឋានត្រាំក្នុងទឹកត្រជាក់យូរម៉ោង រសជាតិស្រទន់ ផ្អែមស្រាល និងមិនជូរ។",
-            descEn: "Slow cold-steeped base over ice for a smooth, low-acid drink.",
-            ingredients: [
-              { nameKm: "មូលដ្ឋានត្រាំត្រជាក់ខាប់", nameEn: "Cold Steep Concentrate", amount: 120, unit: "ml" },
-              { nameKm: "ទឹកត្រជាក់ស្អាត", nameEn: "Filtered Cold Water", amount: 80, unit: "ml" },
-              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
-            ],
-            stepsKm: [
-              "ដាក់ទឹកកក 160g ចូលកែវ។",
-              "ចាក់មូលដ្ឋានត្រាំត្រជាក់ 120 ml និងទឹកត្រជាក់ 80 ml ចូល។",
-              "កូរស្រាលៗ ហើយបម្រើត្រជាក់ៗ។"
-            ],
-            stepsEn: [
-              "Add 160g ice into a glass.",
-              "Pour in 120 ml cold steep concentrate and 80 ml cold water.",
-              "Stir gently and serve chilled."
-            ],
-            tipKm: "រក្សាមូលដ្ឋានត្រាំត្រជាក់ក្នុងទូរទឹកកកបិទជិត ដើម្បីរក្សាភាពស្រស់។",
-            tipEn: "Store cold steep concentrate sealed in the fridge to keep it fresh."
-          }
-        }
-      }
-    ];
-
     const STORAGE_KEYS = {
-      CUSTOM_RECIPES: "eminor_menu_custom_v1",
-      FAVORITES: "eminor_menu_fav_v1",
+      CUSTOM_RECIPES: "eminor_menu_custom_empty_v1",
+      FAVORITES: "eminor_menu_fav_empty_v1",
       LANG: "eminor_menu_lang_v1"
     };
 
     let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
-    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, ["item-3", "item-6"]));
+    let favorites = new Set(loadJson(STORAGE_KEYS.FAVORITES, []));
 
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
@@ -2171,7 +1585,7 @@
     }
 
     function getAllRecipes() {
-      return [...DEFAULT_RECIPES, ...customRecipes];
+      return [...customRecipes];
     }
 
     function supportsTemp(recipe, temp) {
@@ -2336,10 +1750,11 @@
       const list = getFilteredRecipes();
 
       if (list.length === 0) {
+        const hasActiveFilter = state.search.trim().length > 0 || state.temp !== "all" || state.tab === "fav";
         grid.innerHTML = `
           <div class="empty-state">
-            <h3 style="margin:0 0 6px;">${escapeHtml(s.emptyTitle)}</h3>
-            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(s.emptyDesc)}</p>
+            <h3 style="margin:0 0 6px;">${escapeHtml(hasActiveFilter ? (state.lang === "en" ? "No items found" : "រកមិនឃើញមុខក្នុងម៉ឺនុយ") : s.emptyTitle)}</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(hasActiveFilter ? (state.lang === "en" ? "Try clearing your search or switching filters." : "សាកល្បងលុបពាក្យស្វែងរក ឬប្តូរតម្រង។") : s.emptyDesc)}</p>
           </div>
         `;
         return;
@@ -2348,7 +1763,7 @@
       grid.innerHTML = list.map((r) => {
         const isFav = favorites.has(r.id);
         const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
-        const cupStyle = defaultVar?.cupStyle || r.category || "latte-art";
+        const cupStyle = defaultVar?.cupStyle || r.category || "iced-glass";
         const displayTitle = state.lang === "en" ? (r.nameEn || r.nameKm) : r.nameKm;
         const subEnglish = state.lang === "km" && r.nameEn ? r.nameEn : "";
         const bullets = getGuideBullets(r, defaultVar);
@@ -2466,7 +1881,7 @@
       iceBtn.classList.toggle("disabled-mode", !hasIce);
 
       document.getElementById("modalTitleMain").textContent = getRecipeDisplayTitle(recipe);
-      document.getElementById("deleteCustomBtn").style.display = recipe.isCustom ? "inline-flex" : "none";
+      document.getElementById("deleteCustomBtn").style.display = "inline-flex";
 
       renderModalVariantContent(recipe, targetMode);
       document.getElementById("recipeModal").classList.add("open");
