@@ -155,53 +155,6 @@
       color: var(--text-primary);
     }
 
-    /* Batch & Yield Calculator Results Panel */
-    .calc-panel {
-      background: var(--bg-paper);
-      border: 1px solid var(--border-strong);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: var(--shadow-sheet);
-    }
-
-    .calc-results {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    @media (max-width: 600px) {
-      .calc-results {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .result-box {
-      background: #FFFFFF;
-      border: 1px solid var(--border-hairline);
-      border-radius: 14px;
-      padding: 14px;
-      text-align: center;
-    }
-
-    .result-box .res-label {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-    }
-
-    .result-box .res-val {
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: var(--accent-espresso);
-    }
-
-    .result-box .res-sub {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
     /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
@@ -558,28 +511,8 @@
       </div>
     </header>
 
-    <!-- Batch & Yield Calculator Results View -->
-    <section id="calculatorView" style="display: block;">
-      <div class="calc-panel">
-        <div class="calc-results">
-          <div class="result-box">
-            <div class="res-label" id="resNetCupsLabel">ចំនួនកែវធ្វើបាន (សុទ្ធ)</div>
-            <div class="res-val" id="resNetCups">19 កែវ</div>
-            <div class="res-sub" id="resGrossCups">មុនខាត៖ ~20.0 កែវ</div>
-          </div>
-          <div class="result-box">
-            <div class="res-label" id="resWasteGramsLabel">បរិមាណខាតបង់</div>
-            <div class="res-val" id="resWasteGrams">25 g</div>
-            <div class="res-sub" id="resUsableGrams">ប្រើបាន៖ 475 g</div>
-          </div>
-          <div class="result-box">
-            <div class="res-label" id="resEstRevenueLabel">ចំណូលប៉ាន់ស្មាន</div>
-            <div class="res-val" id="resEstRevenue">$33.25</div>
-            <div class="res-sub" id="resCostPerCup">រង្វាស់/កែវ៖ 25g</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Main Content Area (Calculator results removed) -->
+    <main id="mainContent"></main>
   </div>
 
   <!-- Bottom Navigation -->
@@ -679,13 +612,6 @@
         tipPrefix: "គន្លឹះធ្វើ៖",
         defaultTip: "វាស់គ្រឿងផ្សំឱ្យច្បាស់លាស់ ដើម្បីរក្សារសជាតិថេរ។",
         deleteCustomBtn: "លុបមុខនេះ",
-        resNetCupsLabel: "ចំនួនកែវធ្វើបាន (សុទ្ធ)",
-        resGrossCups: (n) => `មុនខាត៖ ~${n} កែវ`,
-        cupUnit: "កែវ",
-        resWasteGramsLabel: "បរិមាណខាតបង់",
-        resUsableGrams: (g) => `ប្រើបាន៖ ${g} g`,
-        resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន",
-        resCostPerCup: (d) => `រង្វាស់/កែវ៖ ${d}g`,
         toastDeletedRecipe: "បានលុបមុខចេញពីម៉ឺនុយ",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
@@ -705,13 +631,6 @@
         tipPrefix: "Prep Tip:",
         defaultTip: "Measure ingredients accurately for consistent flavor every time.",
         deleteCustomBtn: "Delete Item",
-        resNetCupsLabel: "Net Cups Yield",
-        resGrossCups: (n) => `Gross: ~${n} cups`,
-        cupUnit: "cups",
-        resWasteGramsLabel: "Waste Amount",
-        resUsableGrams: (g) => `Usable: ${g} g`,
-        resEstRevenueLabel: "Est. Revenue",
-        resCostPerCup: (d) => `Portion/cup: ${d}g`,
         toastDeletedRecipe: "Item removed from menu",
         toastLangSwitched: "Switched to English"
       }
@@ -819,17 +738,12 @@
       document.getElementById("ingSectionHeading").textContent = s.ingHeading;
       document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
       document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
-
-      document.getElementById("resNetCupsLabel").textContent = s.resNetCupsLabel;
-      document.getElementById("resWasteGramsLabel").textContent = s.resWasteGramsLabel;
-      document.getElementById("resEstRevenueLabel").textContent = s.resEstRevenueLabel;
     }
 
     function toggleLanguage() {
       state.lang = state.lang === "km" ? "en" : "km";
       saveJson(STORAGE_KEYS.LANG, state.lang);
       applyStaticTranslations();
-      calculateBeanYield();
       if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
         openRecipeModal(state.activeRecipeId, state.activeMode);
       }
@@ -841,8 +755,6 @@
       document.querySelectorAll(".nav-item").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.tab === tabName);
       });
-      document.getElementById("calculatorView").style.display = "block";
-      calculateBeanYield();
     }
 
     function formatScaledAmount(baseAmt, unit) {
@@ -942,27 +854,6 @@
       });
     }
 
-    function calculateBeanYield() {
-      const s = t();
-      const bagGrams = 500;
-      const dose = 25;
-      const wastePct = 5;
-      const pricePerCup = 1.75;
-
-      const wasteGrams = bagGrams * (wastePct / 100);
-      const usableGrams = Math.max(0, bagGrams - wasteGrams);
-      const grossCups = bagGrams / dose;
-      const netCups = Math.floor(usableGrams / dose);
-      const estRevenue = netCups * pricePerCup;
-
-      document.getElementById("resNetCups").textContent = `${netCups.toLocaleString()} ${s.cupUnit}`;
-      document.getElementById("resGrossCups").textContent = s.resGrossCups(grossCups.toFixed(1));
-      document.getElementById("resWasteGrams").textContent = `${Math.round(wasteGrams)} g`;
-      document.getElementById("resUsableGrams").textContent = s.resUsableGrams(Math.round(usableGrams));
-      document.getElementById("resEstRevenue").textContent = `$${estRevenue.toFixed(2)}`;
-      document.getElementById("resCostPerCup").textContent = s.resCostPerCup(dose);
-    }
-
     function deleteActiveCustomRecipe() {
       const s = t();
       if (!state.activeRecipeId) return;
@@ -1039,7 +930,6 @@
     }
 
     applyStaticTranslations();
-    calculateBeanYield();
     initEvents();
   </script>
 </body>
