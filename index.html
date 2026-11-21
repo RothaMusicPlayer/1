@@ -316,6 +316,11 @@
       color: var(--accent-ice);
     }
 
+    .drink-tag.sugar-tag {
+      background: rgba(198, 125, 59, 0.16);
+      color: #8A4D14;
+    }
+
     .drink-tag.custom {
       background: rgba(27, 128, 69, 0.14);
       color: var(--accent-success);
@@ -889,7 +894,111 @@
       margin: 16px 0 8px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Sugar Percentage Slider Card */
+    .sugar-slider-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(198, 125, 59, 0.32);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 10px rgba(74, 44, 24, 0.05);
+    }
+
+    .sugar-slider-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .sugar-slider-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
       gap: 6px;
+    }
+
+    .sugar-pct-badge {
+      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(181, 110, 45, 0.25);
+      white-space: nowrap;
+    }
+
+    .sugar-range-input {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #C67D3B 0%, #C67D3B 66.6%, rgba(118, 118, 128, 0.2) 66.6%, rgba(118, 118, 128, 0.2) 100%);
+      outline: none;
+      cursor: pointer;
+      margin: 6px 0 10px;
+    }
+
+    .sugar-range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--accent-caramel);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .sugar-range-input::-webkit-slider-thumb:active {
+      transform: scale(1.12);
+    }
+
+    .sugar-range-input::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--accent-caramel);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .sugar-presets-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
+
+    .sugar-preset-btn {
+      border: 1px solid rgba(74, 44, 24, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-secondary);
+      border-radius: 9px;
+      padding: 5px 4px;
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .sugar-preset-btn.active {
+      background: var(--accent-espresso);
+      color: #FFFFFF;
+      border-color: var(--accent-espresso);
     }
 
     .ingredients-list {
@@ -915,6 +1024,11 @@
       transition: opacity 0.18s ease;
     }
 
+    .ing-item.is-sweetener {
+      border-color: rgba(198, 125, 59, 0.42);
+      background: rgba(255, 250, 242, 0.95);
+    }
+
     .ing-item.checked {
       opacity: 0.55;
       text-decoration: line-through;
@@ -924,6 +1038,16 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .ing-sugar-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(198, 125, 59, 0.18);
+      color: #8A4D14;
     }
 
     .ing-check {
@@ -1100,10 +1224,18 @@
         </div>
 
         <div class="order-quick-add" id="orderQuickAddRow">
-          <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 190px;"></select>
-          <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 120px;">
+          <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 170px;"></select>
+          <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 115px;">
             <option value="ice" id="optQuickIce">ត្រជាក់ (Ice)</option>
             <option value="hot" id="optQuickHot">ក្តៅ (Hot)</option>
+          </select>
+          <select id="quickOrderSugarSelect" class="field-select" style="width: auto; min-width: 105px;">
+            <option value="0">ស្ករ 0%</option>
+            <option value="25">ស្ករ 25%</option>
+            <option value="50">ស្ករ 50%</option>
+            <option value="75">ស្ករ 75%</option>
+            <option value="100" selected>ស្ករ 100%</option>
+            <option value="125">ស្ករ 125%</option>
           </select>
           <button class="icon-btn primary" id="quickAddOrderBtn">+ Order</button>
         </div>
@@ -1236,6 +1368,24 @@
       </div>
 
       <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)</div>
+
+      <!-- Sugar Level Percentage Slider -->
+      <div class="sugar-slider-card" id="sugarSliderCard">
+        <div class="sugar-slider-header">
+          <span class="sugar-slider-title" id="sugarSliderTitle">កម្រិតផ្អែម / ស្ករ (Sugar %)</span>
+          <span class="sugar-pct-badge" id="sugarPctBadge">100% (ធម្មតា)</span>
+        </div>
+        <input type="range" id="sugarRangeInput" class="sugar-range-input" min="0" max="150" step="5" value="100" aria-label="កម្រិតផ្អែមជាភាគរយ" />
+        <div class="sugar-presets-row" id="sugarPresetsRow">
+          <button type="button" class="sugar-preset-btn" data-sugar="0">0%</button>
+          <button type="button" class="sugar-preset-btn" data-sugar="25">25%</button>
+          <button type="button" class="sugar-preset-btn" data-sugar="50">50%</button>
+          <button type="button" class="sugar-preset-btn" data-sugar="75">75%</button>
+          <button type="button" class="sugar-preset-btn active" data-sugar="100">100%</button>
+          <button type="button" class="sugar-preset-btn" data-sugar="125">125%</button>
+        </div>
+      </div>
+
       <ul class="ingredients-list" id="modalIngredients"></ul>
 
       <div class="section-heading" id="stepsSectionHeading">របៀបធ្វើតាមជំហាន</div>
@@ -1383,6 +1533,16 @@
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         batchLabel: "ចំនួនកែវឆុង (Batch)",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
+        sugarSliderTitle: "កម្រិតផ្អែម / ស្ករ (Sugar %)",
+        sugarBadgeText: (pct) => {
+          if (pct === 0) return "0% (អត់ស្ករ)";
+          if (pct < 50) return `${pct}% (ផ្អែមតិចបំផុត)`;
+          if (pct < 85) return `${pct}% (ផ្អែមតិច)`;
+          if (pct <= 105) return `${pct}% (ធម្មតា)`;
+          return `${pct}% (ផ្អែមខ្លាំង)`;
+        },
+        sugarPillLabel: (pct) => `ស្ករ ${pct}%`,
+        sugarOrderBadge: (pct) => `ស្ករ ${pct}%`,
         stepsHeading: "របៀបធ្វើតាមជំហាន",
         tipPrefix: "គន្លឹះ Barista៖",
         defaultTip: "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
@@ -1463,6 +1623,16 @@
         cupSizeLabel: "Cup Size",
         batchLabel: "Batch Multiplier",
         ingHeading: "Ingredients & Standard Measurements (Tap to check)",
+        sugarSliderTitle: "Sweetness / Sugar Level (%)",
+        sugarBadgeText: (pct) => {
+          if (pct === 0) return "0% (No Sugar)";
+          if (pct < 50) return `${pct}% (Quarter Sweet)`;
+          if (pct < 85) return `${pct}% (Less Sweet)`;
+          if (pct <= 105) return `${pct}% (Normal)`;
+          return `${pct}% (Extra Sweet)`;
+        },
+        sugarPillLabel: (pct) => `Sugar ${pct}%`,
+        sugarOrderBadge: (pct) => `Sugar ${pct}%`,
         stepsHeading: "Step-by-Step Instructions",
         tipPrefix: "Barista Tip:",
         defaultTip: "Measure consistently to keep coffee quality and flavor balanced.",
@@ -1521,7 +1691,8 @@
             descEn: "Pulled hot into a preheated cup with a rich body and full golden crema.",
             ingredients: [
               { nameKm: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", nameEn: "Ground Coffee (Double Shot)", amount: 18, unit: "g" },
-              { nameKm: "ទឹកក្តៅចម្រាញ់ (~93°C)", nameEn: "Extracted Hot Water (~93°C)", amount: 36, unit: "ml" }
+              { nameKm: "ទឹកក្តៅចម្រាញ់ (~93°C)", nameEn: "Extracted Hot Water (~93°C)", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 10, unit: "ml", isSugar: true }
             ],
             stepsKm: [
               "កំដៅពែងដោយទឹកក្តៅជាមុន រួចចាក់ទឹកចោល។",
@@ -1542,6 +1713,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 50, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml", isSugar: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
@@ -1572,7 +1744,8 @@
             descEn: "Double espresso over hot water (~85–90°C) for a warm, clean cup with crema on top.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកក្តៅ (~85–90°C)", nameEn: "Hot Water (~85–90°C)", amount: 180, unit: "ml" }
+              { nameKm: "ទឹកក្តៅ (~85–90°C)", nameEn: "Hot Water (~85–90°C)", amount: 180, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml", isSugar: true }
             ],
             stepsKm: [
               "ចាក់ទឹកក្តៅ (~85–90°C) 180 ml ចូលក្នុងពែង។",
@@ -1593,6 +1766,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml", isSugar: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
@@ -1623,7 +1797,8 @@
             descEn: "Double espresso with steamed fresh milk (~62°C) and a thin, glossy microfoam layer.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 200, unit: "ml" }
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 200, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml", isSugar: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Double Espresso ដាក់ក្នុងពែងធំ។",
@@ -1644,7 +1819,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
-              { nameKm: "ទឹកស្ករ (ជម្រើស)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 15, unit: "ml", isSugar: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
@@ -1653,7 +1828,7 @@
               "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។"
             ],
             stepsEn: [
-              "Stir chilled milk with optional simple syrup.",
+              "Stir chilled milk with simple syrup.",
               "Add ice to the glass and pour in the milk.",
               "Pour double espresso on top for clean layering."
             ],
@@ -1675,7 +1850,8 @@
             descEn: "Double espresso with steamed milk and a thick, plush hot foam cap.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ + ពពុះក្តៅក្រាស់ (~62°C)", nameEn: "Fresh Milk + Thick Hot Foam (~62°C)", amount: 170, unit: "ml" }
+              { nameKm: "ទឹកដោះគោស្រស់ + ពពុះក្តៅក្រាស់ (~62°C)", nameEn: "Fresh Milk + Thick Hot Foam (~62°C)", amount: 170, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml", isSugar: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Double Espresso ដាក់ពែង។",
@@ -1696,6 +1872,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (Simple Syrup)", nameEn: "Simple Syrup", amount: 15, unit: "ml", isSugar: true },
               { nameKm: "ពពុះទឹកដោះគោត្រជាក់ (Cold Foam)", nameEn: "Chilled Milk Foam (Cold Foam)", amount: 40, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
@@ -1727,7 +1904,8 @@
             descEn: "Double espresso with very thin microfoam (~62°C) for a stronger espresso flavor.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ (ពពុះស្តើង ~62°C)", nameEn: "Fresh Milk (Thin Microfoam ~62°C)", amount: 150, unit: "ml" }
+              { nameKm: "ទឹកដោះគោស្រស់ (ពពុះស្តើង ~62°C)", nameEn: "Fresh Milk (Thin Microfoam ~62°C)", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 10, unit: "ml", isSugar: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Double Espresso ដាក់ពែងទំហំមធ្យម។",
@@ -1748,6 +1926,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 115, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 10, unit: "ml", isSugar: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
@@ -1778,7 +1957,7 @@
             descEn: "Double espresso melted with chocolate and steamed milk for a warm cocoa-coffee cup.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
+              { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml", isSugar: true },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" }
             ],
             stepsKm: [
@@ -1799,7 +1978,7 @@
             descEn: "Double espresso with chocolate, chilled fresh milk, and ice.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
+              { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml", isSugar: true },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 145, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
@@ -1831,9 +2010,9 @@
             descEn: "Hot vanilla-steamed milk topped with espresso and a caramel sauce drizzle.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "Vanilla Syrup", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+              { nameKm: "Vanilla Syrup", nameEn: "Vanilla Syrup", amount: 15, unit: "ml", isSugar: true },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 185, unit: "ml" },
-              { nameKm: "Caramel Sauce (ស្រោចពីលើ)", nameEn: "Caramel Sauce (Drizzle)", amount: 15, unit: "ml" }
+              { nameKm: "Caramel Sauce (ស្រោចពីលើ)", nameEn: "Caramel Sauce (Drizzle)", amount: 15, unit: "ml", isSugar: true }
             ],
             stepsKm: [
               "ចាក់ Vanilla Syrup ចូលពែង រួចចាក់ទឹកដោះគោចំហុយក្តៅចូល។",
@@ -1853,9 +2032,9 @@
             descEn: "Chilled vanilla milk over ice topped with espresso and a caramel drizzle.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "Vanilla Syrup", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+              { nameKm: "Vanilla Syrup", nameEn: "Vanilla Syrup", amount: 15, unit: "ml", isSugar: true },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
-              { nameKm: "Caramel Sauce (ស្រោចពីលើ)", nameEn: "Caramel Sauce (Drizzle)", amount: 15, unit: "ml" },
+              { nameKm: "Caramel Sauce (ស្រោចពីលើ)", nameEn: "Caramel Sauce (Drizzle)", amount: 15, unit: "ml", isSugar: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
@@ -1886,7 +2065,8 @@
             descEn: "Small hot glass balancing bold espresso with a modest amount of steamed milk.",
             ingredients: [
               { nameKm: "Single/Double Espresso", nameEn: "Single/Double Espresso", amount: 30, unit: "ml" },
-              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~60°C)", nameEn: "Fresh Milk (Steamed ~60°C)", amount: 50, unit: "ml" }
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~60°C)", nameEn: "Fresh Milk (Steamed ~60°C)", amount: 50, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 8, unit: "ml", isSugar: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Espresso ដាក់កែវក្តៅតូច។",
@@ -1907,6 +2087,7 @@
             ingredients: [
               { nameKm: "Single/Double Espresso", nameEn: "Single/Double Espresso", amount: 30, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 45, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (តាមចំណូលចិត្ត)", nameEn: "Simple Syrup (Optional)", amount: 8, unit: "ml", isSugar: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 80, unit: "g" }
             ],
             stepsKm: [
@@ -1937,7 +2118,7 @@
             descEn: "Hot coffee mixed with sweet condensed milk for a classic bold and sweet cup.",
             ingredients: [
               { nameKm: "កាហ្វេចម្រាញ់ / Espresso", nameEn: "Brewed Coffee / Espresso", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 35, unit: "ml" },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 35, unit: "ml", isSugar: true },
               { nameKm: "ទឹកក្តៅ (~85°C)", nameEn: "Hot Water (~85°C)", amount: 110, unit: "ml" }
             ],
             stepsKm: [
@@ -1958,7 +2139,7 @@
             descEn: "Bold coffee blended with sweetened condensed milk, evaporated milk, and ice.",
             ingredients: [
               { nameKm: "ម្សៅកាហ្វេ / Espresso", nameEn: "Brewed Coffee / Espresso", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 40, unit: "ml", isSugar: true },
               { nameKm: "ទឹកដោះគោខាប់មិនផ្អែម (Evaporated)", nameEn: "Evaporated Milk", amount: 20, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
@@ -1990,7 +2171,7 @@
             descEn: "Chilled black coffee lightly sweetened with simple syrup over ice.",
             ingredients: [
               { nameKm: "ម្សៅកាហ្វេ / Espresso", nameEn: "Brewed Coffee / Espresso", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកស្ករស (Simple Syrup)", nameEn: "Simple Syrup", amount: 25, unit: "ml" },
+              { nameKm: "ទឹកស្ករស (Simple Syrup)", nameEn: "Simple Syrup", amount: 25, unit: "ml", isSugar: true },
               { nameKm: "ទឹកធម្មតា", nameEn: "Water", amount: 60, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
@@ -2027,7 +2208,8 @@
       activeRecipeId: null,
       activeMode: "ice",
       cupSize: "16oz",
-      batch: 1
+      batch: 1,
+      sugarPct: 100
     };
 
     const CUP_SIZE_MULTIPLIER = {
@@ -2035,6 +2217,30 @@
       "16oz": 1.0,
       "22oz": 1.3
     };
+
+    const SWEETENER_KEYWORDS = [
+      "ស្ករ",
+      "ទឹកដោះគោខាប់ផ្អែម",
+      "សេរ៉ូ",
+      "សូកូឡា",
+      "ទឹកឃ្មុំ",
+      "sugar",
+      "syrup",
+      "condensed milk",
+      "sweetened condensed",
+      "chocolate",
+      "caramel",
+      "vanilla",
+      "honey"
+    ];
+
+    function isSweetenerIngredient(ing) {
+      if (!ing) return false;
+      if (ing.isSugar === true) return true;
+      const text = `${ing.nameKm || ""} ${ing.nameEn || ""} ${ing.name || ""}`.toLowerCase();
+      if (text.includes("មិនផ្អែម") || text.includes("evaporated")) return false;
+      return SWEETENER_KEYWORDS.some((kw) => text.includes(kw));
+    }
 
     function t() {
       return UI_STRINGS[state.lang] || UI_STRINGS.km;
@@ -2127,6 +2333,28 @@
       return orders.reduce((sum, item) => sum + (item.qty || 1), 0);
     }
 
+    function updateSugarSliderUI() {
+      const s = t();
+      const pct = state.sugarPct;
+      const slider = document.getElementById("sugarRangeInput");
+      const badge = document.getElementById("sugarPctBadge");
+      const title = document.getElementById("sugarSliderTitle");
+
+      if (title) title.textContent = s.sugarSliderTitle;
+      if (slider) {
+        slider.value = pct;
+        const fillPct = Math.min(100, Math.max(0, (pct / 150) * 100));
+        slider.style.background = `linear-gradient(90deg, #C67D3B 0%, #C67D3B ${fillPct}%, rgba(118, 118, 128, 0.2) ${fillPct}%, rgba(118, 118, 128, 0.2) 100%)`;
+      }
+      if (badge) {
+        badge.textContent = s.sugarBadgeText(pct);
+      }
+
+      document.querySelectorAll("#sugarPresetsRow .sugar-preset-btn").forEach((btn) => {
+        btn.classList.toggle("active", parseInt(btn.dataset.sugar, 10) === pct);
+      });
+    }
+
     function applyStaticTranslations() {
       const s = t();
       document.documentElement.lang = state.lang;
@@ -2146,6 +2374,13 @@
       document.getElementById("optQuickHot").textContent = s.hotFull;
       document.getElementById("quickAddOrderBtn").textContent = s.quickAddOrderBtn;
 
+      const quickSugarSel = document.getElementById("quickOrderSugarSelect");
+      if (quickSugarSel) {
+        Array.from(quickSugarSel.options).forEach((opt) => {
+          opt.textContent = s.sugarOrderBadge(opt.value);
+        });
+      }
+
       document.getElementById("modeHotBtn").textContent = s.hotFull;
       document.getElementById("modeIceBtn").textContent = s.iceFull;
       document.getElementById("modalAddOrderBtn").textContent = s.addOrderBtnLabel;
@@ -2155,6 +2390,8 @@
       document.getElementById("ingSectionHeading").textContent = s.ingHeading;
       document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
       document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
+
+      updateSugarSliderUI();
 
       document.getElementById("addModalTitle").textContent = s.addModalTitle;
       document.getElementById("addModalSub").textContent = s.addModalSub;
@@ -2192,7 +2429,7 @@
       else if (state.tab === "calc") calculateBeanYield();
       else renderMenu();
       if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
-        openRecipeModal(state.activeRecipeId, state.activeMode);
+        openRecipeModal(state.activeRecipeId, state.activeMode, state.sugarPct);
       }
       showToast(t().toastLangSwitched);
     }
@@ -2228,14 +2465,19 @@
         .reduce((acc, o) => acc + (o.qty || 1), 0);
     }
 
-    function addToOrder(recipeId, mode, cupSize = "16oz", qtyToAdd = 1) {
+    function addToOrder(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sugarPct = 100) {
       const s = t();
       const recipe = getAllRecipes().find((r) => r.id === recipeId);
       if (!recipe) return;
 
       const resolvedMode = supportsTemp(recipe, mode) ? mode : getDefaultVariantKey(recipe);
       const existing = orders.find(
-        (o) => o.recipeId === recipeId && o.mode === resolvedMode && o.cupSize === cupSize && !o.done
+        (o) =>
+          o.recipeId === recipeId &&
+          o.mode === resolvedMode &&
+          o.cupSize === cupSize &&
+          (o.sugarPct ?? 100) === sugarPct &&
+          !o.done
       );
 
       if (existing) {
@@ -2246,6 +2488,7 @@
           recipeId,
           mode: resolvedMode,
           cupSize,
+          sugarPct,
           qty: qtyToAdd,
           done: false,
           createdAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -2257,7 +2500,7 @@
       if (state.tab === "all") renderMenu();
       if (state.tab === "order") renderOrders();
       const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
-      showToast(s.toastAddedOrder(`${getRecipeNamePrimary(recipe)} (${modeLabel})`));
+      showToast(s.toastAddedOrder(`${getRecipeNamePrimary(recipe)} (${modeLabel}, ${s.sugarOrderBadge(sugarPct)})`));
     }
 
     function renderMenu() {
@@ -2312,7 +2555,7 @@
         card.addEventListener("click", (e) => {
           if (e.target.closest(".order-add-btn")) return;
           const recipe = getAllRecipes().find((x) => x.id === card.dataset.id);
-          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice");
+          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice", 100);
         });
       });
 
@@ -2320,7 +2563,7 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const recipe = getAllRecipes().find((x) => x.id === btn.dataset.orderId);
-          addToOrder(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1);
+          addToOrder(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100);
         });
       });
     }
@@ -2373,6 +2616,7 @@
           const recipe = allRecipes.find((r) => r.id === ord.recipeId);
           const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
           const modeLabel = ord.mode === "hot" ? s.hotFull : s.iceFull;
+          const sugarPct = ord.sugarPct ?? 100;
           const statusCls = ord.done ? "done" : "pending";
           const statusText = ord.done ? s.orderStatusDone : s.orderStatusPending;
           const toggleLabel = ord.done ? s.orderMarkPending : s.orderMarkDone;
@@ -2384,6 +2628,7 @@
                   <span class="order-row-name">${escapeHtml(name)}</span>
                   <span class="drink-tag ${ord.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
                   <span class="drink-tag">${escapeHtml(ord.cupSize || "16oz")}</span>
+                  <span class="drink-tag sugar-tag">${escapeHtml(s.sugarOrderBadge(sugarPct))}</span>
                   <span class="order-status-badge ${statusCls}">${escapeHtml(statusText)}</span>
                 </h3>
                 <div class="order-row-meta">
@@ -2469,16 +2714,17 @@
       }
     }
 
-    function formatScaledAmount(baseAmt, unit) {
+    function formatScaledAmount(baseAmt, unit, isSugar = false) {
       if (typeof baseAmt !== "number" || isNaN(baseAmt)) return "";
-      const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * state.batch;
+      const sugarFactor = isSugar ? (state.sugarPct / 100) : 1;
+      const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * state.batch * sugarFactor;
       const val = baseAmt * mult;
       const rounded = val >= 50 ? Math.round(val) : Math.round(val * 10) / 10;
       const unitDisp = state.lang === "en" && unit === "ចំណិត" ? "slice" : (unit || "");
       return `${rounded} ${unitDisp}`.trim();
     }
 
-    function openRecipeModal(id, preferredMode) {
+    function openRecipeModal(id, preferredMode, preserveSugarPct) {
       const recipe = getAllRecipes().find((r) => r.id === id);
       if (!recipe) return;
 
@@ -2487,6 +2733,7 @@
       state.activeMode = targetMode;
       state.cupSize = "16oz";
       state.batch = 1;
+      state.sugarPct = typeof preserveSugarPct === "number" ? preserveSugarPct : 100;
 
       document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => {
         b.classList.toggle("active", b.dataset.size === "16oz");
@@ -2494,6 +2741,8 @@
       document.querySelectorAll("#batchGroup .seg-btn").forEach((b) => {
         b.classList.toggle("active", b.dataset.batch === "1");
       });
+
+      updateSugarSliderUI();
 
       const hotBtn = document.getElementById("modeHotBtn");
       const iceBtn = document.getElementById("modeIceBtn");
@@ -2538,20 +2787,47 @@
     }
 
     function renderModalIngredients(variant) {
+      const s = t();
       const ul = document.getElementById("modalIngredients");
-      ul.innerHTML = (variant.ingredients || []).map((ing, idx) => {
+      const items = variant.ingredients || [];
+      const hasSweetener = items.some((ing) => isSweetenerIngredient(ing));
+
+      ul.innerHTML = items.map((ing, idx) => {
         const ingName = getIngredientName(ing);
-        const amtText = formatScaledAmount(ing.amount, ing.unit);
+        const sweetener = isSweetenerIngredient(ing);
+        const amtText = formatScaledAmount(ing.amount, ing.unit, sweetener);
+        const sugarTagHtml = sweetener
+          ? `<span class="ing-sugar-pill">${escapeHtml(s.sugarPillLabel(state.sugarPct))}</span>`
+          : "";
         return `
-          <li class="ing-item" data-idx="${idx}">
+          <li class="ing-item ${sweetener ? "is-sweetener" : ""}" data-idx="${idx}">
             <div class="ing-left">
               <input type="checkbox" class="ing-check" aria-label="${escapeHtml(ingName)}" />
               <span>${escapeHtml(ingName)}</span>
+              ${sugarTagHtml}
             </div>
             <span class="ing-amount">${escapeHtml(amtText)}</span>
           </li>
         `;
       }).join("");
+
+      if (!hasSweetener && state.sugarPct > 0) {
+        const extraSugarAmt = formatScaledAmount(15, "ml", true);
+        const extraLabel = state.lang === "en" ? "Simple Syrup (Added)" : "ទឹកស្ករ (បន្ថែមតាម %)";
+        ul.insertAdjacentHTML(
+          "beforeend",
+          `
+          <li class="ing-item is-sweetener" data-idx="extra-sugar">
+            <div class="ing-left">
+              <input type="checkbox" class="ing-check" aria-label="${escapeHtml(extraLabel)}" />
+              <span>${escapeHtml(extraLabel)}</span>
+              <span class="ing-sugar-pill">${escapeHtml(s.sugarPillLabel(state.sugarPct))}</span>
+            </div>
+            <span class="ing-amount">${escapeHtml(extraSugarAmt)}</span>
+          </li>
+        `
+        );
+      }
 
       ul.querySelectorAll(".ing-item").forEach((item) => {
         const cb = item.querySelector(".ing-check");
@@ -2673,12 +2949,14 @@
             const parts = line.split("|").map((p) => p.trim());
             const amt = parseFloat(parts[1]);
             const label = parts[0] || line;
-            return {
+            const ingObj = {
               nameKm: label,
               nameEn: label,
               amount: isNaN(amt) ? 0 : amt,
               unit: parts[2] || ""
             };
+            ingObj.isSugar = isSweetenerIngredient(ingObj);
+            return ingObj;
           })
         : [{ nameKm: "គ្រឿងផ្សំកាហ្វេតាមចំណូលចិត្ត", nameEn: "Coffee ingredients to taste", amount: 100, unit: "ml" }];
 
@@ -2783,7 +3061,8 @@
       document.getElementById("quickAddOrderBtn").addEventListener("click", () => {
         const recipeId = document.getElementById("quickOrderSelect").value;
         const mode = document.getElementById("quickOrderModeSelect").value;
-        addToOrder(recipeId, mode, "16oz", 1);
+        const sugarPct = parseInt(document.getElementById("quickOrderSugarSelect").value, 10) || 0;
+        addToOrder(recipeId, mode, "16oz", 1, sugarPct);
       });
 
       document.getElementById("clearDoneOrdersBtn").addEventListener("click", () => {
@@ -2802,7 +3081,7 @@
 
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
         if (!state.activeRecipeId) return;
-        addToOrder(state.activeRecipeId, state.activeMode, state.cupSize, state.batch);
+        addToOrder(state.activeRecipeId, state.activeMode, state.cupSize, state.batch, state.sugarPct);
       });
 
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
@@ -2829,6 +3108,24 @@
         btn.addEventListener("click", () => {
           state.batch = parseInt(btn.dataset.batch, 10) || 1;
           document.querySelectorAll("#batchGroup .seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          const variant = getActiveVariant(recipe, state.activeMode);
+          if (variant) renderModalIngredients(variant);
+        });
+      });
+
+      document.getElementById("sugarRangeInput").addEventListener("input", (e) => {
+        state.sugarPct = parseInt(e.target.value, 10) || 0;
+        updateSugarSliderUI();
+        const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+        const variant = getActiveVariant(recipe, state.activeMode);
+        if (variant) renderModalIngredients(variant);
+      });
+
+      document.querySelectorAll("#sugarPresetsRow .sugar-preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.sugarPct = parseInt(btn.dataset.sugar, 10) || 0;
+          updateSugarSliderUI();
           const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
           const variant = getActiveVariant(recipe, state.activeMode);
           if (variant) renderModalIngredients(variant);
