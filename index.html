@@ -3,29 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>EMinor Coffee — Menu & Recipe Guide</title>
+  <title>EMinor Coffee — Coffee Guide & Menu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-canvas: #EBE4DC;
-      --glass-surface: rgba(255, 255, 255, 0.72);
-      --glass-surface-strong: rgba(255, 255, 255, 0.88);
-      --glass-border: rgba(255, 255, 255, 0.9);
-      --text-primary: #1A120E;
-      --text-secondary: #5C4B41;
-      --text-muted: #8B796E;
-      --accent-espresso: #3A2010;
-      --accent-caramel: #C67D3B;
-      --accent-hot: #C93B20;
-      --accent-ice: #156A94;
-      --accent-success: #1B8045;
-      --shadow-glass: 0 8px 24px -6px rgba(34, 19, 10, 0.12), inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
-      --shadow-float: 0 16px 36px -8px rgba(24, 14, 8, 0.24), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
+      --bg-paper: #FAF6F0;
+      --bg-paper-alt: #F3ECE2;
+      --card-surface: #FFFDF9;
+      --border-hairline: rgba(44, 30, 22, 0.14);
+      --border-strong: rgba(44, 30, 22, 0.28);
+      --text-primary: #231812;
+      --text-secondary: #58463B;
+      --text-muted: #8A7668;
+      --accent-espresso: #331F14;
+      --accent-caramel: #B87235;
+      --accent-hot: #B93820;
+      --accent-ice: #18648B;
+      --accent-success: #1D7A43;
+      --blush-banner: #F0DCD4;
+      --shadow-sheet: 0 12px 34px rgba(35, 24, 18, 0.08);
+      --shadow-float: 0 14px 32px rgba(24, 14, 8, 0.22);
       --nav-height: 76px;
     }
 
@@ -42,13 +41,11 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-canvas);
+      font-family: 'Kantumruy Pro', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #EFE8DE;
       background-image:
-        radial-gradient(at 10% 6%, rgba(217, 138, 60, 0.24) 0px, transparent 48%),
-        radial-gradient(at 90% 10%, rgba(45, 138, 184, 0.18) 0px, transparent 46%),
-        radial-gradient(at 80% 65%, rgba(168, 92, 46, 0.16) 0px, transparent 52%),
-        radial-gradient(at 15% 88%, rgba(86, 130, 163, 0.15) 0px, transparent 50%);
+        radial-gradient(at 15% 10%, rgba(212, 163, 115, 0.14) 0px, transparent 50%),
+        radial-gradient(at 85% 90%, rgba(168, 124, 92, 0.12) 0px, transparent 50%);
       color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
@@ -60,9 +57,9 @@
     }
 
     .app-container {
-      max-width: 1040px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 14px 16px calc(var(--nav-height) + 40px);
+      padding: 12px 14px calc(var(--nav-height) + 40px);
     }
 
     .ui-icon {
@@ -70,110 +67,100 @@
       height: 16px;
       stroke: currentColor;
       fill: none;
-      stroke-width: 2.1;
+      stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
       flex-shrink: 0;
     }
 
-    .ui-icon-lg {
-      width: 22px;
-      height: 22px;
-    }
-
-    /* iOS Frosted Glass Top Header */
+    /* Top Control Bar */
     .top-header {
       position: sticky;
-      top: 10px;
+      top: 8px;
       z-index: 30;
-      background: var(--glass-surface-strong);
-      backdrop-filter: blur(18px) saturate(165%);
-      -webkit-backdrop-filter: blur(18px) saturate(165%);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xl);
-      padding: 14px 16px;
-      box-shadow: var(--shadow-glass);
+      background: rgba(250, 246, 240, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-hairline);
+      border-radius: 20px;
+      padding: 10px 14px;
+      box-shadow: 0 6px 20px rgba(35, 24, 18, 0.06);
       margin-bottom: 14px;
-      transform: translateZ(0);
     }
 
     .header-top-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 11px;
+      gap: 8px;
+      margin-bottom: 9px;
     }
 
-    .brand-title {
+    .brand-mini {
       display: flex;
       align-items: center;
-      gap: 11px;
-      min-width: 0;
+      gap: 9px;
     }
 
     .brand-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 15px;
-      background: linear-gradient(145deg, #4A2C18 0%, #8C5327 55%, #C67D3B 100%);
-      color: #FFF;
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: var(--accent-espresso);
+      color: #FAF6F0;
       display: grid;
       place-items: center;
-      box-shadow: 0 6px 16px rgba(74, 44, 24, 0.24), inset 0 1px 1px rgba(255, 255, 255, 0.45);
       flex-shrink: 0;
     }
 
-    .brand-title h1 {
-      margin: 0;
-      font-size: 1.14rem;
+    .brand-mini-title {
+      font-family: 'Cormorant Garamond', 'Kantumruy Pro', serif;
+      font-size: 1.15rem;
       font-weight: 700;
-      letter-spacing: -0.015em;
-      line-height: 1.25;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--text-primary);
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 7px;
-      flex-shrink: 0;
+      gap: 6px;
     }
 
     .icon-btn {
-      border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--border-hairline);
+      background: #FFFFFF;
       color: var(--text-primary);
-      border-radius: 14px;
-      padding: 10px 14px;
-      min-height: 42px;
+      border-radius: 12px;
+      padding: 8px 12px;
+      min-height: 38px;
       font-family: inherit;
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.8rem;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: transform 0.14s ease, background 0.18s ease;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      gap: 5px;
+      transition: transform 0.14s ease, background 0.16s ease;
       white-space: nowrap;
     }
 
     .icon-btn:active {
-      transform: scale(0.95);
+      transform: scale(0.96);
     }
 
     .icon-btn.primary {
-      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
-      color: #FFFFFF;
-      border-color: rgba(255, 255, 255, 0.25);
+      background: var(--accent-espresso);
+      color: #FAF6F0;
+      border-color: var(--accent-espresso);
     }
 
     .lang-toggle-btn {
-      border-color: rgba(198, 125, 59, 0.45);
-      background: rgba(255, 248, 238, 0.92);
-      color: #7D4616;
+      background: var(--blush-banner);
+      border-color: rgba(44, 30, 22, 0.18);
+      color: var(--text-primary);
     }
 
     /* Search & Temperature Filter Row */
@@ -188,6 +175,9 @@
         flex-direction: column;
         align-items: stretch;
       }
+      .header-actions .btn-label {
+        display: none;
+      }
     }
 
     .search-box {
@@ -199,7 +189,7 @@
 
     .search-icon {
       position: absolute;
-      left: 13px;
+      left: 12px;
       color: var(--text-muted);
       pointer-events: none;
       display: flex;
@@ -207,34 +197,31 @@
 
     .search-input {
       width: 100%;
-      min-height: 42px;
-      padding: 10px 40px 10px 38px;
-      border-radius: 15px;
-      border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.85);
+      min-height: 38px;
+      padding: 8px 36px 8px 34px;
+      border-radius: 12px;
+      border: 1px solid var(--border-hairline);
+      background: #FFFFFF;
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--text-primary);
       outline: none;
-      transition: border-color 0.2s ease, background 0.2s ease;
     }
 
     .search-input:focus {
-      background: #FFFFFF;
       border-color: var(--accent-caramel);
-      box-shadow: 0 0 0 3px rgba(198, 125, 59, 0.18);
     }
 
     .clear-search-btn {
       position: absolute;
-      right: 8px;
+      right: 7px;
       border: none;
-      background: rgba(120, 120, 128, 0.18);
+      background: rgba(44, 30, 22, 0.12);
       color: var(--text-secondary);
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       font-weight: 700;
       cursor: pointer;
       display: none;
@@ -248,10 +235,9 @@
     .temp-filter-group {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      background: rgba(118, 118, 128, 0.14);
+      background: #EAE2D6;
       padding: 3px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 12px;
       gap: 3px;
       flex-shrink: 0;
     }
@@ -260,243 +246,298 @@
       border: none;
       background: transparent;
       color: var(--text-secondary);
-      padding: 8px 14px;
-      min-height: 38px;
-      border-radius: 11px;
+      padding: 7px 12px;
+      min-height: 34px;
+      border-radius: 9px;
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.18s ease, color 0.18s ease;
       white-space: nowrap;
     }
 
     .temp-pill.active {
       background: #FFFFFF;
       color: var(--text-primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .temp-pill[data-temp="hot"].active {
-      background: linear-gradient(180deg, #D4472B 0%, #B33319 100%);
+      background: var(--accent-hot);
       color: #FFFFFF;
     }
 
     .temp-pill[data-temp="ice"].active {
-      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
+      background: var(--accent-ice);
       color: #FFFFFF;
     }
 
-    /* Summary Strip */
-    .summary-strip {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 6px 6px 14px;
-      font-size: 0.84rem;
-      color: var(--text-secondary);
+    /* ============================================================
+       COFFEE GUIDE POSTER SHEET (MATCHING REFERENCE IMAGE LAYOUT)
+       ============================================================ */
+    .guide-poster-sheet {
+      background-color: var(--bg-paper);
+      background-image: radial-gradient(rgba(44, 30, 22, 0.03) 1px, transparent 0);
+      background-size: 16px 16px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 28px 22px 24px;
+      box-shadow: var(--shadow-sheet);
     }
 
-    .summary-count strong {
+    .poster-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .poster-main-title {
+      font-family: 'Cormorant Garamond', 'Kantumruy Pro', Georgia, serif;
+      font-size: clamp(2rem, 5.2vw, 3.15rem);
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin: 0;
+      line-height: 1.08;
+    }
+
+    .poster-divider-heart {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      max-width: 340px;
+      margin: 8px auto 8px;
       color: var(--text-primary);
     }
 
-    /* Menu Grid */
-    .menu-grid {
+    .poster-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border-strong);
+    }
+
+    .poster-subtitle {
+      margin: 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* Two-Column Coffee Guide Grid with Hairline Dividers */
+    .coffee-guide-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      border-top: 1px solid var(--border-hairline);
     }
 
-    @media (max-width: 680px) {
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-      .header-actions .btn-label {
-        display: none;
-      }
-    }
-
-    .drink-card {
-      background: var(--glass-surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 12px;
+    .guide-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      box-shadow: var(--shadow-glass);
+      gap: 16px;
+      padding: 18px 14px;
+      border-bottom: 1px solid var(--border-hairline);
       cursor: pointer;
-      transition: transform 0.15s ease, background 0.18s ease;
       position: relative;
-      touch-action: manipulation;
+      transition: background 0.16s ease;
       user-select: none;
-      transform: translateZ(0);
     }
 
-    .drink-card:active {
-      transform: scale(0.985) translateZ(0);
-      background: rgba(255, 255, 255, 0.92);
+    /* Vertical center divider between column 1 and column 2 */
+    .guide-item:nth-child(odd) {
+      border-right: 1px solid var(--border-hairline);
+      padding-right: 18px;
     }
 
-    .drink-photo-box {
-      width: 96px;
-      height: 106px;
-      border-radius: 17px;
-      background: #DED2C5;
+    .guide-item:nth-child(even) {
+      padding-left: 18px;
+    }
+
+    .guide-item:hover {
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .guide-item:active {
+      background: rgba(240, 220, 212, 0.45);
+    }
+
+    /* Mobile narrow fallback: stack cleanly while keeping poster styling */
+    @media (max-width: 620px) {
+      .guide-poster-sheet {
+        padding: 22px 14px 20px;
+      }
+      .coffee-guide-grid {
+        grid-template-columns: 1fr;
+      }
+      .guide-item:nth-child(odd) {
+        border-right: none;
+        padding-right: 10px;
+      }
+      .guide-item:nth-child(even) {
+        padding-left: 10px;
+      }
+      .guide-item {
+        padding: 14px 10px;
+        gap: 14px;
+      }
+    }
+
+    /* Clean Cup Illustration / Photo Container (Left Side of Each Cell) */
+    .guide-cup-visual {
+      width: 104px;
+      height: 112px;
       flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.92);
-      box-shadow: 0 5px 14px rgba(34, 18, 9, 0.12);
-      position: relative;
-      overflow: hidden;
       display: grid;
       place-items: center;
+      position: relative;
+      background: transparent;
     }
 
-    /* Cropped sprite view for the 10-cup EMinor Coffee image (1795238936822.jpg) */
-    .drink-photo-sprite {
+    .guide-cup-visual svg {
       width: 100%;
       height: 100%;
-      background-image: url('1795238936822.jpg');
-      background-repeat: no-repeat;
-      display: block;
+      filter: drop-shadow(0 6px 8px rgba(35, 24, 18, 0.13));
     }
 
-    .photo-temp-badge {
+    .cup-mode-pill {
       position: absolute;
-      bottom: 6px;
-      left: 6px;
-      font-size: 0.58rem;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
       font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 8px;
+      letter-spacing: 0.06em;
+      padding: 1.5px 7px;
+      border-radius: 999px;
       color: #FFF;
-      letter-spacing: 0.04em;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-      z-index: 2;
+      text-transform: uppercase;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.18);
     }
 
-    .photo-temp-badge.hot {
-      background: rgba(196, 56, 30, 0.92);
+    .cup-mode-pill.hot {
+      background: var(--accent-hot);
     }
 
-    .photo-temp-badge.ice {
-      background: rgba(21, 106, 148, 0.92);
+    .cup-mode-pill.ice {
+      background: var(--accent-ice);
     }
 
-    .drink-info {
+    /* Right Side of Each Cell: Bold Uppercase Drink Name + Bullet Ingredients */
+    .guide-text-col {
       flex: 1;
       min-width: 0;
+      padding-right: 26px;
     }
 
-    .drink-top-meta {
+    .guide-title-row {
       display: flex;
       align-items: center;
       gap: 6px;
       flex-wrap: wrap;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
-    .drink-top-meta:empty {
-      display: none;
-      margin-bottom: 0;
-    }
-
-    .drink-tag {
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 2.5px 9px;
-      border-radius: 999px;
-      background: rgba(74, 44, 24, 0.09);
-      color: var(--accent-espresso);
-    }
-
-    .drink-tag.temp-hot {
-      background: rgba(201, 59, 32, 0.14);
-      color: var(--accent-hot);
-    }
-
-    .drink-tag.temp-ice {
-      background: rgba(21, 106, 148, 0.14);
-      color: var(--accent-ice);
-    }
-
-    .drink-tag.custom {
-      background: rgba(27, 128, 69, 0.14);
-      color: var(--accent-success);
-    }
-
-    .drink-name-main {
+    .guide-drink-title {
       margin: 0;
-      font-size: 1.04rem;
+      font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', sans-serif;
+      font-size: 1.12rem;
       font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       color: var(--text-primary);
-      line-height: 1.35;
-      letter-spacing: -0.01em;
+      line-height: 1.25;
     }
 
-    .drink-desc {
-      margin: 4px 0 0;
-      font-size: 0.81rem;
+    .custom-mini-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(29, 122, 67, 0.14);
+      color: var(--accent-success);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .guide-ingredient-bullets {
+      margin: 0;
+      padding-left: 16px;
+      list-style-type: disc;
       color: var(--text-secondary);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      line-height: 1.42;
+      font-size: 0.88rem;
+      line-height: 1.55;
     }
 
+    .guide-ingredient-bullets li::marker {
+      color: var(--text-primary);
+      font-size: 0.8em;
+    }
+
+    /* Subtle Heart Favorite Toggle in Top-Right Corner of Each Guide Cell */
     .fav-toggle-btn {
-      border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.86);
-      color: var(--text-muted);
-      width: 44px;
-      height: 44px;
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      border: none;
+      background: transparent;
+      color: rgba(88, 70, 59, 0.42);
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-      flex-shrink: 0;
-      transition: transform 0.14s ease, background 0.18s ease;
+      transition: transform 0.14s ease, color 0.16s ease, background 0.16s ease;
+    }
+
+    .fav-toggle-btn:hover {
+      background: rgba(44, 30, 22, 0.06);
+      color: var(--text-primary);
     }
 
     .fav-toggle-btn.saved {
-      color: #D62D47;
-      border-color: rgba(214, 45, 71, 0.38);
-      background: #FFF2F4;
+      color: #C92A42;
     }
 
     .fav-toggle-btn.saved svg {
-      fill: #D62D47;
-      stroke: #D62D47;
+      fill: #C92A42;
+      stroke: #C92A42;
     }
 
-    .fav-toggle-btn:active {
-      transform: scale(0.88);
+    /* Poster Footer Banner matching reference bottom note */
+    .poster-footer-banner {
+      margin-top: 20px;
+      background: var(--blush-banner);
+      border-radius: 8px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      text-align: center;
     }
 
-    /* Empty State */
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 48px 20px;
-      background: var(--glass-surface);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow-glass);
+      padding: 42px 16px;
+      color: var(--text-secondary);
     }
 
     /* Bean Calculator View */
     .calc-panel {
-      background: var(--glass-surface-strong);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-xl);
+      background: var(--bg-paper);
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
       padding: 20px;
-      box-shadow: var(--shadow-glass);
+      box-shadow: var(--shadow-sheet);
     }
 
     .calc-panel h2 {
@@ -518,12 +559,12 @@
     }
 
     .preset-chip {
-      border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--border-hairline);
+      background: #FFFFFF;
       color: var(--text-primary);
-      padding: 9px 15px;
-      min-height: 42px;
-      border-radius: 13px;
+      padding: 8px 14px;
+      min-height: 40px;
+      border-radius: 11px;
       font-family: inherit;
       font-size: 0.84rem;
       font-weight: 600;
@@ -531,9 +572,9 @@
     }
 
     .preset-chip.active {
-      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
+      background: var(--accent-espresso);
       color: #FFFFFF;
-      border-color: rgba(255, 255, 255, 0.4);
+      border-color: var(--accent-espresso);
     }
 
     .form-grid-2 {
@@ -561,9 +602,9 @@
       width: 100%;
       min-height: 42px;
       padding: 10px 12px;
-      border-radius: 13px;
-      border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.88);
+      border-radius: 11px;
+      border: 1px solid var(--border-hairline);
+      background: #FFFFFF;
       font-family: inherit;
       font-size: 0.92rem;
       color: var(--text-primary);
@@ -571,7 +612,6 @@
     }
 
     .field-input:focus, .field-select:focus, .field-textarea:focus {
-      background: #FFFFFF;
       border-color: var(--accent-caramel);
     }
 
@@ -589,9 +629,9 @@
     }
 
     .result-box {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
       padding: 14px;
       text-align: center;
     }
@@ -614,18 +654,18 @@
       margin-top: 2px;
     }
 
-    /* iOS Floating Dock Bottom Navigation */
+    /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 14px;
       left: 50%;
-      transform: translateX(-50%) translateZ(0);
-      width: min(470px, calc(100% - 28px));
-      height: 62px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.95);
+      transform: translateX(-50%);
+      width: min(460px, calc(100% - 28px));
+      height: 60px;
+      background: rgba(250, 246, 240, 0.95);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-strong);
       border-radius: 999px;
       box-shadow: var(--shadow-float);
       display: grid;
@@ -647,22 +687,20 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.18s ease, color 0.18s ease;
     }
 
     .nav-item.active {
-      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
-      color: #FFFFFF;
-      box-shadow: 0 5px 14px rgba(51, 29, 15, 0.25);
+      background: var(--accent-espresso);
+      color: #FAF6F0;
     }
 
-    /* iOS Frosted Modal / Bottom Sheet */
+    /* Modal / Bottom Sheet */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(20, 12, 7, 0.48);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(20, 12, 7, 0.52);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       z-index: 60;
       display: none;
       align-items: flex-end;
@@ -682,19 +720,17 @@
 
     .modal-sheet {
       width: 100%;
-      max-width: 660px;
+      max-width: 640px;
       max-height: 90vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-      background: rgba(252, 248, 243, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      border-radius: 30px;
+      background: var(--bg-paper);
+      border: 1px solid var(--border-strong);
+      border-radius: 26px;
       padding: 20px;
       box-shadow: 0 24px 56px rgba(0, 0, 0, 0.32);
-      animation: slideUp 0.22s ease-out;
+      animation: slideUp 0.2s ease-out;
       position: relative;
-      transform: translateZ(0);
     }
 
     .drag-handle {
@@ -706,14 +742,8 @@
     }
 
     @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(22px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .modal-header {
@@ -722,70 +752,77 @@
       justify-content: space-between;
       gap: 12px;
       padding-bottom: 14px;
-      border-bottom: 1px solid rgba(74, 44, 24, 0.1);
+      border-bottom: 1px solid var(--border-hairline);
     }
 
     .close-modal-btn {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      border: 1px solid var(--glass-border);
+      border: 1px solid var(--border-hairline);
       background: #FFFFFF;
       color: var(--text-primary);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       flex-shrink: 0;
       display: grid;
       place-items: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
-    .close-modal-btn:active {
-      transform: scale(0.92);
-    }
-
-    /* Hot vs Ice Mode Switcher inside Modal */
     .mode-switch-bar {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
-      background: rgba(118, 118, 128, 0.14);
+      background: #EAE2D6;
       padding: 4px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 14px;
       margin-top: 12px;
     }
 
     .mode-option-btn {
       border: none;
       background: transparent;
-      border-radius: 12px;
-      padding: 10px 12px;
-      min-height: 42px;
+      border-radius: 10px;
+      padding: 9px 12px;
+      min-height: 40px;
       font-family: inherit;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: background 0.18s ease, color 0.18s ease;
     }
 
     .mode-option-btn.active[data-mode="hot"] {
-      background: linear-gradient(180deg, #D4472B 0%, #B33319 100%);
+      background: var(--accent-hot);
       color: #FFFFFF;
-      box-shadow: 0 4px 12px rgba(184, 66, 37, 0.28);
     }
 
     .mode-option-btn.active[data-mode="ice"] {
-      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
+      background: var(--accent-ice);
       color: #FFFFFF;
-      box-shadow: 0 4px 12px rgba(29, 110, 150, 0.28);
     }
 
     .mode-option-btn.disabled-mode {
-      opacity: 0.36;
+      opacity: 0.35;
       cursor: not-allowed;
+    }
+
+    .drink-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2.5px 9px;
+      border-radius: 999px;
+    }
+
+    .drink-tag.temp-hot {
+      background: rgba(185, 56, 32, 0.14);
+      color: var(--accent-hot);
+    }
+
+    .drink-tag.temp-ice {
+      background: rgba(24, 100, 139, 0.14);
+      color: var(--accent-ice);
     }
 
     .controls-bar {
@@ -794,27 +831,27 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      background: rgba(255, 255, 255, 0.82);
+      background: #FFFFFF;
       padding: 10px 12px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      border: 1px solid var(--border-hairline);
       margin: 12px 0;
     }
 
     .seg-group {
       display: inline-flex;
-      background: rgba(118, 118, 128, 0.14);
+      background: #EAE2D6;
       padding: 3px;
-      border-radius: 11px;
+      border-radius: 10px;
       gap: 2px;
     }
 
     .seg-btn {
       border: none;
       background: transparent;
-      padding: 7px 12px;
-      min-height: 36px;
-      border-radius: 8px;
+      padding: 6px 11px;
+      min-height: 34px;
+      border-radius: 7px;
       font-family: inherit;
       font-size: 0.8rem;
       font-weight: 700;
@@ -825,7 +862,7 @@
     .seg-btn.active {
       background: #FFFFFF;
       color: var(--text-primary);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     }
 
     .section-heading {
@@ -833,9 +870,6 @@
       font-weight: 700;
       color: var(--accent-espresso);
       margin: 16px 0 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .ingredients-list {
@@ -848,17 +882,16 @@
     }
 
     .ing-item {
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      padding: 11px 12px;
-      min-height: 46px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
+      padding: 10px 12px;
+      min-height: 44px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       cursor: pointer;
-      transition: opacity 0.18s ease;
     }
 
     .ing-item.checked {
@@ -873,10 +906,9 @@
     }
 
     .ing-check {
-      width: 19px;
-      height: 19px;
+      width: 18px;
+      height: 18px;
       accent-color: var(--accent-espresso);
-      cursor: pointer;
     }
 
     .ing-amount {
@@ -898,13 +930,12 @@
 
     .tip-box {
       margin-top: 14px;
-      background: rgba(255, 245, 228, 0.92);
-      border: 1px solid rgba(198, 125, 59, 0.28);
+      background: var(--blush-banner);
       border-left: 4px solid var(--accent-caramel);
       padding: 12px 14px;
-      border-radius: 14px;
+      border-radius: 12px;
       font-size: 0.84rem;
-      color: #5A3716;
+      color: var(--text-primary);
     }
 
     .modal-footer-actions {
@@ -921,16 +952,15 @@
 
     /* Barista Shot Timer Box */
     .timer-widget {
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
+      background: #FFFFFF;
+      border: 1px solid var(--border-hairline);
+      border-radius: 16px;
       padding: 16px;
       text-align: center;
       margin-top: 10px;
     }
 
     .timer-digits {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Plus Jakarta Sans', sans-serif;
       font-size: 2.6rem;
       font-weight: 700;
       color: var(--accent-espresso);
@@ -954,21 +984,19 @@
     /* Toast Notification */
     .toast {
       position: fixed;
-      bottom: 88px;
+      bottom: 84px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: rgba(28, 18, 13, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(35, 24, 18, 0.92);
       color: #FFFFFF;
-      padding: 10px 18px;
+      padding: 9px 18px;
       border-radius: 999px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 600;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.22s ease;
+      transition: all 0.2s ease;
       z-index: 90;
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
     }
 
     .toast.show {
@@ -979,12 +1007,12 @@
 </head>
 <body>
   <div class="app-container" id="appContainer">
-    <!-- Top Header -->
+    <!-- Top Header Controls -->
     <header class="top-header">
       <div class="header-top-row">
-        <div class="brand-title">
+        <div class="brand-mini">
           <div class="brand-badge" aria-hidden="true">
-            <svg class="ui-icon ui-icon-lg" viewBox="0 0 24 24">
+            <svg class="ui-icon" viewBox="0 0 24 24">
               <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
               <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
               <line x1="6" y1="2" x2="6" y2="4"></line>
@@ -992,9 +1020,7 @@
               <line x1="14" y1="2" x2="14" y2="4"></line>
             </svg>
           </div>
-          <div>
-            <h1 id="mainHeaderTitle">EMinor Coffee</h1>
-          </div>
+          <span class="brand-mini-title" id="mainHeaderTitle">EMinor Coffee</span>
         </div>
         <div class="header-actions">
           <button class="icon-btn lang-toggle-btn" id="langToggleBtn" title="ប្តូរភាសា / Switch Language">
@@ -1035,14 +1061,34 @@
       </div>
     </header>
 
-    <!-- Summary Strip -->
-    <div class="summary-strip" id="summaryStrip">
-      <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong id="shownCount">0</strong> មុខ (សរុប <span id="totalCatalogCount">0</span> មុខ)</div>
-    </div>
-
-    <!-- Main View: Menu Grid -->
+    <!-- Main View: Coffee Guide Poster Sheet -->
     <main id="menuView">
-      <div class="menu-grid" id="menuGrid"></div>
+      <div class="guide-poster-sheet">
+        <div class="poster-header">
+          <h1 class="poster-main-title" id="posterMainTitle">COFFEE GUIDE</h1>
+          <div class="poster-divider-heart" aria-hidden="true">
+            <span class="poster-divider-line"></span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span class="poster-divider-line"></span>
+          </div>
+          <p class="poster-subtitle" id="posterSubtitle">• មគ្គុទ្ទេសក៍មុខកាហ្វេ និងគ្រឿងផ្សំ •</p>
+        </div>
+
+        <!-- 2-Column Coffee Guide Grid -->
+        <div class="coffee-guide-grid" id="menuGrid"></div>
+
+        <!-- Bottom Poster Note -->
+        <div class="poster-footer-banner" id="posterFooterBanner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18h6"></path>
+            <path d="M10 22h4"></path>
+            <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path>
+          </svg>
+          <span id="posterFooterText">ចុចលើមុខកាហ្វេនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបឆុង</span>
+        </div>
+      </div>
     </main>
 
     <!-- Secondary View: Bean Bag Yield Calculator -->
@@ -1125,13 +1171,13 @@
     <div class="modal-sheet" id="recipeSheet">
       <div class="drag-handle"></div>
       <div class="modal-header">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div id="modalArtBox" class="drink-photo-box" style="width: 88px; height: 98px;"></div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div id="modalArtBox" class="guide-cup-visual" style="width: 86px; height: 94px;"></div>
           <div>
             <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
               <span class="drink-tag" id="modalTempTag"></span>
             </div>
-            <h2 id="modalTitleMain" style="margin: 4px 0 2px; font-size: 1.2rem;"></h2>
+            <h2 id="modalTitleMain" style="margin: 4px 0 2px; font-size: 1.25rem; text-transform: uppercase;"></h2>
           </div>
         </div>
         <button class="close-modal-btn" id="closeRecipeModal" aria-label="បិទ">X</button>
@@ -1217,10 +1263,15 @@
             <label for="newCategory" id="lblNewCategory">រូបកែវគំរូ</label>
             <select id="newCategory" class="field-select">
               <option value="espresso">Espresso</option>
-              <option value="latte">Latte</option>
               <option value="americano">Americano</option>
+              <option value="latte">Latte</option>
               <option value="cappuccino">Cappuccino</option>
+              <option value="flatwhite">Flat White</option>
               <option value="mocha">Mocha</option>
+              <option value="macchiato">Caramel Macchiato</option>
+              <option value="cortado">Cortado</option>
+              <option value="icedcoffee">Iced Coffee</option>
+              <option value="coldbrew">Cold Brew</option>
             </select>
           </div>
         </div>
@@ -1277,8 +1328,11 @@
   <script>
     const UI_STRINGS = {
       km: {
-        docTitle: "EMinor Coffee — Menu & Recipe Guide",
+        docTitle: "EMinor Coffee — មគ្គុទ្ទេសក៍មុខកាហ្វេ",
         headerTitle: "EMinor Coffee",
+        posterTitle: "COFFEE GUIDE",
+        posterSubtitle: "• មគ្គុទ្ទេសក៍មុខកាហ្វេ និងគ្រឿងផ្សំ •",
+        posterFooter: "ចុចលើមុខកាហ្វេនីមួយៗ ដើម្បីមើលរង្វាស់ ml/g លម្អិត និងរបៀបឆុង",
         langBadge: "EN",
         timerBtn: "ម៉ោងឆុង",
         addBtn: "បន្ថែមមុខ",
@@ -1286,16 +1340,11 @@
         filterAll: (n) => `ទាំងអស់ (${n})`,
         filterHot: (n) => `ក្តៅ Hot (${n})`,
         filterIce: (n) => `ត្រជាក់ Ice (${n})`,
-        showingPrefix: "កំពុងបង្ហាញ៖",
-        showingMid: "មុខ (សរុប",
-        showingSuffix: "មុខ)",
         customBadge: "ផ្ទាល់ខ្លួន",
         hotBadge: "HOT",
         iceBadge: "ICE",
-        bothBadge: "",
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
-        bothFull: "",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
         navFav: "ចូលចិត្ត",
         navCalc: "គណនាគ្រាប់",
@@ -1346,8 +1395,11 @@
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
       en: {
-        docTitle: "EMinor Coffee — Menu & Recipe Guide",
+        docTitle: "EMinor Coffee — Coffee Guide",
         headerTitle: "EMinor Coffee",
+        posterTitle: "COFFEE GUIDE",
+        posterSubtitle: "• A SIMPLE GUIDE TO COMMON COFFEES •",
+        posterFooter: "INGREDIENTS MAY VARY BASED ON PREPARATION AND PREFERENCE — TAP ANY DRINK FOR RECIPE",
         langBadge: "ខ្មែរ",
         timerBtn: "Timer",
         addBtn: "Add Coffee",
@@ -1355,16 +1407,11 @@
         filterAll: (n) => `All (${n})`,
         filterHot: (n) => `Hot (${n})`,
         filterIce: (n) => `Ice (${n})`,
-        showingPrefix: "Showing",
-        showingMid: "of",
-        showingSuffix: "coffees",
         customBadge: "Custom",
         hotBadge: "HOT",
         iceBadge: "ICE",
-        bothBadge: "",
         hotFull: "Hot",
         iceFull: "Ice",
-        bothFull: "",
         navMenu: (n) => `Menu (${n})`,
         navFav: "Favorites",
         navCalc: "Bean Calc",
@@ -1383,7 +1430,7 @@
         lblNewNameKm: "Coffee Name (Khmer) *",
         lblNewNameEn: "Coffee Name (English)",
         lblNewTemp: "Hot / Ice Availability",
-        lblNewCategory: "Cup Photo Style",
+        lblNewCategory: "Cup Illustration Style",
         lblNewDesc: "Short Description",
         lblNewIngredients: "Ingredients (1 line = Name | Amount | Unit)",
         lblNewSteps: "Steps (1 line = 1 step)",
@@ -1416,37 +1463,219 @@
       }
     };
 
-    // Exact cropped coordinates matching each of the 10 EMinor Coffee glass cups in 1795238936822.jpg
-    const CUP_SPRITE_POSITIONS = {
-      // Top Row: HOT DRINKS
-      "hot-espresso":   { pos: "12.5% 42%", size: "660% auto" },
-      "hot-latte":      { pos: "31.5% 40%", size: "580% auto" },
-      "hot-americano":  { pos: "50.0% 40%", size: "600% auto" },
-      "hot-cappuccino": { pos: "67.5% 41%", size: "580% auto" },
-      "hot-mocha":      { pos: "86.0% 39%", size: "550% auto" },
+    // High-detail SVG cup illustrations matching each of the 10 cups in the Coffee Guide poster
+    function getCupIllustrationSvg(cupStyle) {
+      const defs = `
+        <defs>
+          <linearGradient id="glassRim" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
+            <stop offset="20%" stop-color="rgba(220,212,204,0.35)"/>
+            <stop offset="85%" stop-color="rgba(210,200,190,0.28)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.7)"/>
+          </linearGradient>
+          <linearGradient id="darkCoffee" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3B2112"/>
+            <stop offset="100%" stop-color="#190D07"/>
+          </linearGradient>
+          <linearGradient id="cremaGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#B97B40"/>
+            <stop offset="50%" stop-color="#DCA368"/>
+            <stop offset="100%" stop-color="#A86932"/>
+          </linearGradient>
+          <linearGradient id="latteMilk" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#D7B492"/>
+            <stop offset="55%" stop-color="#C89E76"/>
+            <stop offset="100%" stop-color="#B6875D"/>
+          </linearGradient>
+          <linearGradient id="mochaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8B5A3C"/>
+            <stop offset="50%" stop-color="#6A3F26"/>
+            <stop offset="100%" stop-color="#4A2917"/>
+          </linearGradient>
+          <linearGradient id="icedAmber" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6A3B1E"/>
+            <stop offset="55%" stop-color="#3E1E0E"/>
+            <stop offset="100%" stop-color="#221007"/>
+          </linearGradient>
+          <linearGradient id="iceCubeGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.82)"/>
+            <stop offset="100%" stop-color="rgba(210,185,160,0.38)"/>
+          </linearGradient>
+        </defs>
+      `;
 
-      // Bottom Row: ICED DRINKS
-      "ice-espresso":   { pos: "12.5% 78%", size: "620% auto" },
-      "ice-latte":      { pos: "31.5% 75%", size: "560% auto" },
-      "ice-americano":  { pos: "50.0% 75%", size: "560% auto" },
-      "ice-cappuccino": { pos: "68.5% 75%", size: "560% auto" },
-      "ice-mocha":      { pos: "86.5% 74%", size: "540% auto" }
-    };
+      switch (cupStyle) {
+        case "espresso":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="50" cy="103" rx="26" ry="5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Handle -->
+            <path d="M77 45 C92 45, 92 73, 74 73" fill="none" stroke="#CFC7BE" stroke-width="5.5" stroke-linecap="round"/>
+            <path d="M77 45 C92 45, 92 73, 74 73" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/>
+            <!-- Glass Body -->
+            <path d="M23 32 L29 94 C30 99, 70 99, 71 94 L77 32 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <!-- Espresso Shot -->
+            <path d="M27.5 67 L29.5 92 C30.5 96, 69.5 96, 70.5 92 L72.5 67 Z" fill="url(#darkCoffee)"/>
+            <!-- Golden Crema -->
+            <ellipse cx="50" cy="67" rx="22.5" ry="5.5" fill="url(#cremaGrad)"/>
+            <!-- Top Rim -->
+            <ellipse cx="50" cy="32" rx="27" ry="6.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
+            <path d="M28 38 L32 90" stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>`;
 
+        case "americano":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Handle -->
+            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
+            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- Glass Mug -->
+            <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <!-- Black Coffee -->
+            <path d="M21 37 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79 37 Z" fill="url(#darkCoffee)"/>
+            <!-- Crema Surface -->
+            <ellipse cx="50" cy="37" rx="29" ry="7" fill="url(#cremaGrad)"/>
+            <ellipse cx="50" cy="37" rx="23" ry="4.5" fill="#4D2B17" opacity="0.55"/>
+            <!-- Rim -->
+            <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
+            <path d="M25 32 L28 90" stroke="rgba(255,255,255,0.45)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>`;
+
+        case "latte":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Handle -->
+            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
+            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- Glass Mug -->
+            <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <!-- Steamed Milk Coffee -->
+            <path d="M20.5 34 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79.5 34 Z" fill="url(#latteMilk)"/>
+            <!-- Foam & Latte Heart -->
+            <ellipse cx="50" cy="34" rx="29.5" ry="7.5" fill="#F8F1E7"/>
+            <path d="M50 38 C46 34, 42 32, 45 29.5 C47 28, 49.5 29.5, 50 31 C50.5 29.5, 53 28, 55 29.5 C58 32, 54 34, 50 38 Z" fill="#C48956"/>
+            <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
+            <path d="M25 32 L28 90" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>`;
+
+        case "cappuccino":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Handle -->
+            <path d="M81 38 C98 38, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
+            <!-- Glass Mug -->
+            <path d="M19 27 L24 94 C25 101, 75 101, 76 94 L81 27 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <!-- Bottom Coffee/Milk Layer -->
+            <path d="M21.5 48 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L78.5 48 Z" fill="url(#latteMilk)"/>
+            <!-- Thick White Foam Layer -->
+            <path d="M19.5 29 L21.5 48 C34 52, 66 52, 78.5 48 L80.5 29 Z" fill="#FBF7F2"/>
+            <!-- Domed Foam Top -->
+            <ellipse cx="50" cy="27" rx="30.5" ry="9" fill="#FFFDF9" stroke="#D8CEC4" stroke-width="1"/>
+            <!-- Cocoa Dusting -->
+            <ellipse cx="50" cy="26" rx="14" ry="4" fill="#9E6234" opacity="0.45"/>
+            <circle cx="46" cy="25" r="1" fill="#5A3318"/>
+            <circle cx="53" cy="27" r="1.1" fill="#5A3318"/>
+            <circle cx="50" cy="24" r="0.9" fill="#5A3318"/>
+          </svg>`;
+
+        case "flatwhite":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="50" cy="104" rx="29" ry="5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Ceramic Handle -->
+            <path d="M80 42 C97 42, 97 78, 74 78" fill="none" stroke="#EFEAE2" stroke-width="7" stroke-linecap="round"/>
+            <path d="M80 42 C97 42, 97 78, 74 78" fill="none" stroke="#CBC2B8" stroke-width="1.4" stroke-linecap="round"/>
+            <!-- White Ceramic Cup -->
+            <path d="M18 32 C18 75, 28 97, 50 97 C72 97, 82 75, 82 32 Z" fill="#F7F3EC" stroke="#C8BFB4" stroke-width="1.5"/>
+            <!-- Velvety Microfoam Top -->
+            <ellipse cx="50" cy="32" rx="32" ry="8.5" fill="#D59E6A" stroke="#EFEAE2" stroke-width="2"/>
+            <!-- Rosetta Art -->
+            <path d="M36 32 C42 28, 58 28, 64 32 C58 36, 42 36, 36 32 Z" fill="#FAF5EE" opacity="0.85"/>
+            <path d="M41 32 C45 30, 55 30, 59 32" stroke="#C4864E" stroke-width="1.5" fill="none"/>
+          </svg>`;
+
+        case "mocha":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="50" cy="106" rx="29" ry="5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Handle -->
+            <path d="M80 40 C97 40, 97 78, 76 78" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
+            <!-- Glass Mug -->
+            <path d="M20 30 L24 95 C25 101, 75 101, 76 95 L80 30 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <!-- Rich Chocolate Mocha -->
+            <path d="M21 38 L24.5 93 C25.5 98, 74.5 98, 75.5 93 L79 38 Z" fill="url(#mochaGrad)"/>
+            <!-- Whipped Cream Mound -->
+            <path d="M22 36 C22 24, 34 22, 38 18 C43 12, 57 12, 62 18 C66 22, 78 24, 78 36 C65 41, 35 41, 22 36 Z" fill="#FFFDF9" stroke="#D8CEC4" stroke-width="1.2"/>
+            <!-- Chocolate Shavings -->
+            <circle cx="43" cy="24" r="1.4" fill="#3B2010"/>
+            <circle cx="51" cy="20" r="1.5" fill="#3B2010"/>
+            <circle cx="57" cy="26" r="1.3" fill="#3B2010"/>
+            <circle cx="47" cy="30" r="1.4" fill="#3B2010"/>
+            <circle cx="37" cy="31" r="1.2" fill="#3B2010"/>
+            <circle cx="62" cy="31" r="1.3" fill="#3B2010"/>
+          </svg>`;
+
+        case "macchiato":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="52" cy="107" rx="24" ry="4.5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Tall Glass -->
+            <path d="M27 20 L33 98 C34 103, 70 103, 71 98 L77 20 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <!-- Bottom Milk Layer -->
+            <path d="M31.5 55 L33.5 96 C34.5 100, 69.5 100, 70.5 96 L72.5 55 Z" fill="#EFE4D6"/>
+            <!-- Middle Espresso Layer -->
+            <path d="M29.5 36 L31.5 55 L72.5 55 L74.5 36 Z" fill="#78482A"/>
+            <!-- Top Foam & Caramel Crosshatch -->
+            <path d="M28 24 L29.5 36 L74.5 36 L76 24 Z" fill="#FAF5EE"/>
+            <ellipse cx="52" cy="24" rx="24" ry="6" fill="#FFFDF9" stroke="#C8BFB4" stroke-width="1.2"/>
+            <path d="M36 23 L66 26 M38 26 L68 22 M43 20 L58 28 M48 28 L61 20" stroke="#C97A2B" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>`;
+
+        case "cortado":
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="52" cy="104" rx="25" ry="4.5" fill="rgba(35,24,18,0.14)"/>
+            <!-- Gibraltar / Cortado Glass -->
+            <path d="M26 30 L32 95 C33 100, 71 100, 72 95 L78 30 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.5"/>
+            <!-- Equal Espresso + Warm Milk -->
+            <path d="M29.5 56 L32.5 93 C33.5 97, 70.5 97, 71.5 93 L74.5 56 Z" fill="#704327"/>
+            <!-- Silky Top -->
+            <ellipse cx="52" cy="56" rx="22.5" ry="5.5" fill="#E3C7A8"/>
+            <ellipse cx="52" cy="30" rx="26" ry="6.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
+            <path d="M32 36 L36 90" stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>`;
+
+        case "icedcoffee":
+        case "coldbrew":
+        default:
+          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
+            <ellipse cx="52" cy="107" rx="25" ry="4.5" fill="rgba(35,24,18,0.15)"/>
+            <!-- Tall Iced Glass -->
+            <path d="M26 20 L31 98 C32 103, 72 103, 73 98 L78 20 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
+            <!-- Iced Coffee Liquid -->
+            <path d="M27.5 30 L31.5 96 C32.5 100, 71.5 100, 72.5 96 L76.5 30 Z" fill="url(#icedAmber)"/>
+            <!-- Translucent Ice Cubes -->
+            <rect x="34" y="29" width="16" height="15" rx="3" transform="rotate(-10 42 36)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+            <rect x="52" y="31" width="16" height="15" rx="3" transform="rotate(12 60 38)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+            <rect x="37" y="48" width="17" height="16" rx="3" transform="rotate(8 45 56)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+            <rect x="53" y="51" width="15" height="15" rx="3" transform="rotate(-8 60 58)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+            <rect x="42" y="69" width="18" height="16" rx="3" transform="rotate(-5 51 77)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+            <!-- Rim -->
+            <ellipse cx="52" cy="20" rx="26" ry="6" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
+            <path d="M31 28 L34 92" stroke="rgba(255,255,255,0.5)" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>`;
+      }
+    }
+
+    // Complete 10-Drink Catalog matching the Coffee Guide Poster layout + Hot/Ice support
     const DEFAULT_RECIPES = [
       {
         id: "espresso-pair",
         category: "espresso",
-        allPhoto: "hot-espresso",
         nameKm: "អេស្ព្រេសសូ",
-        nameEn: "Espresso",
-        descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ (Hot) ឬត្រជាក់ (Ice) ដើម្បីមើលរូបមន្តខុសគ្នា។",
-        descEn: "Pure pressurized espresso shot — switch between Hot and Ice to compare recipes.",
+        nameEn: "ESPRESSO",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)"],
+        guideBulletsEn: ["Espresso"],
         variants: {
           hot: {
-            photo: "hot-espresso",
-            descKm: "ចម្រាញ់ក្តៅៗដាក់កែវកញ្ចក់តូច រសជាតិដិតខាប់ និងរក្សាពពុះ Crema ពណ៌មាសពេញលេញ។",
-            descEn: "Pulled hot into a small glass with a rich body and full golden crema.",
+            cupStyle: "espresso",
+            descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ រសជាតិដិតខាប់ និងមានពពុះ Crema ពណ៌មាស។",
+            descEn: "Pure pressurized espresso shot with a rich body and full golden crema.",
             ingredients: [
               { nameKm: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", nameEn: "Ground Coffee (Double Shot)", amount: 18, unit: "g" },
               { nameKm: "ទឹកក្តៅចម្រាញ់ (~93°C)", nameEn: "Extracted Hot Water (~93°C)", amount: 36, unit: "ml" }
@@ -1454,7 +1683,7 @@
             stepsKm: [
               "កំដៅកែវដោយទឹកក្តៅជាមុន រួចចាក់ទឹកចោល។",
               "កិនគ្រាប់កាហ្វេឱ្យម៉ត់សមល្មម Tamp ឱ្យស្មើ ហើយចម្រាញ់យក 36 ml ក្នុង 25–30 វិនាទី។",
-              "បម្រើក្តៅៗភ្លាមៗ ដើម្បីកុំឱ្យ Crema រលាយបាត់។"
+              "បម្រើក្តៅៗភ្លាមៗ ដើម្បីរក្សា Crema ពណ៌មាស។"
             ],
             stepsEn: [
               "Preheat the glass with hot water and discard before pulling.",
@@ -1462,12 +1691,12 @@
               "Serve immediately while hot so the crema stays intact."
             ],
             tipKm: "Espresso ក្តៅ ផ្តល់ក្លិនក្រអូបខ្លាំងបំផុតនៅ 30 វិនាទីដំបូងបន្ទាប់ពីចម្រាញ់រួច។",
-            tipEn: "Hot espresso expresses its strongest aromatics within the first 30 seconds after extraction."
+            tipEn: "Hot espresso expresses its strongest aromatics within 30 seconds of extraction."
           },
           ice: {
-            photo: "ice-espresso",
-            descKm: "ចម្រាញ់ Double Espresso ស្រោចលើទឹកកកត្រជាក់ និងទឹកត្រជាក់បន្តិច ដើម្បីឱ្យត្រជាក់ភ្លាមៗដោយមិនបាត់រសជាតិ។",
-            descEn: "Double espresso pulled over cold water and ice to chill rapidly while keeping bold depth.",
+            cupStyle: "icedcoffee",
+            descKm: "Double Espresso ស្រោចលើទឹកកក និងទឹកត្រជាក់បន្តិច ដើម្បីឱ្យត្រជាក់ភ្លាមៗដោយមិនបាត់រសជាតិ។",
+            descEn: "Double espresso pulled over ice and a splash of cold water.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 50, unit: "ml" },
@@ -1483,24 +1712,23 @@
               "Extract a 36 ml double espresso and pour right over the ice.",
               "Stir lightly to chill evenly and serve."
             ],
-            tipKm: "ទឹកកកត្រជាក់ធ្វើឱ្យក្លិនកាហ្វេក្តៅធ្លាក់ចុះបន្តិច គួរប្រើគ្រាប់កាហ្វេរសជាតិដិតល្អ។",
-            tipEn: "Cold temperatures mute aromatics slightly, so a bold roast profile works best iced."
+            tipKm: "ប្រើគ្រាប់កាហ្វេលីងកម្រិត Medium-Dark ជួយឱ្យរសជាតិដិតល្អពេលដាក់ទឹកកក។",
+            tipEn: "A medium-dark roast keeps bold depth when chilled over ice."
           }
         }
       },
       {
         id: "americano-pair",
         category: "americano",
-        allPhoto: "ice-americano",
         nameKm: "អាមេរិកាណូ",
-        nameEn: "Americano",
-        descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ ត្រជាក់ប្រើទឹកត្រជាក់ និងទឹកកក។",
-        descEn: "Double espresso with water — hot uses hot water, iced uses cold water and ice.",
+        nameEn: "AMERICANO",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកក្តៅ / ទឹកត្រជាក់ (Water)"],
+        guideBulletsEn: ["Espresso", "Hot Water"],
         variants: {
           hot: {
-            photo: "hot-americano",
+            cupStyle: "americano",
             descKm: "Double Espresso លាយទឹកក្តៅ (~85–90°C) ផ្តល់ភាពក្តៅស្រស់ស្រាយ និងមាន Crema នៅពីលើ។",
-            descEn: "Double espresso over hot water (~85–90°C) for a warm, clean cup with crema on top.",
+            descEn: "Double espresso over hot water (~85–90°C) for a warm, clean cup.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកក្តៅ (~85–90°C)", nameEn: "Hot Water (~85–90°C)", amount: 180, unit: "ml" }
@@ -1511,17 +1739,17 @@
               "បម្រើក្តៅៗ ដោយអាចដាក់ស្ករនៅចំហៀងតាមចិត្ត។"
             ],
             stepsEn: [
-              "Pour 180 ml of hot water (~85–90°C) into the glass.",
+              "Pour 180 ml of hot water (~85–90°C) into the mug.",
               "Extract 36 ml double espresso on top of the hot water.",
               "Serve hot with sugar on the side if preferred."
             ],
             tipKm: "ចាក់ Espresso ពីលើទឹកក្តៅ នឹងរក្សា Crema ពណ៌មាសបានស្អាតជាង។",
-            tipEn: "Pouring espresso over hot water preserves the crema better than pouring water over espresso."
+            tipEn: "Pouring espresso over hot water preserves the golden crema."
           },
           ice: {
-            photo: "ice-americano",
+            cupStyle: "icedcoffee",
             descKm: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រឡះ ដិតកាហ្វេ។",
-            descEn: "Double espresso poured over cold water and ice for a crisp, refreshing iced coffee.",
+            descEn: "Double espresso poured over cold water and ice for a crisp iced coffee.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 150, unit: "ml" },
@@ -1538,31 +1766,30 @@
               "Stir gently before drinking."
             ],
             tipKm: "ដាក់ទឹកកកពេញកែវល្មម នឹងជួយកុំឱ្យកាហ្វេរលាយទឹកកកសាបលឿន។",
-            tipEn: "Using enough ice chills quickly and slows dilution."
+            tipEn: "Using plenty of ice chills quickly and slows dilution."
           }
         }
       },
       {
         id: "latte-pair",
         category: "latte",
-        allPhoto: "hot-latte",
         nameKm: "ឡាតេ",
-        nameEn: "Latte",
-        descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់។",
-        descEn: "Double espresso with fresh milk — hot uses steamed milk, iced uses chilled milk over ice.",
+        nameEn: "LATTE",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "ពពុះទឹកដោះគោ (Milk Foam)"],
+        guideBulletsEn: ["Espresso", "Steamed Milk", "Milk Foam"],
         variants: {
           hot: {
-            photo: "hot-latte",
-            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ចំហុយក្តៅ (~62°C) មានពពុះ Microfoam ស្តើងរលោង និងក្បាច់ Latte Art។",
-            descEn: "Double espresso with steamed fresh milk (~62°C) and a glossy microfoam layer.",
+            cupStyle: "latte",
+            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ចំហុយក្តៅ (~62°C) មានពពុះ Microfoam ស្តើងរលោង។",
+            descEn: "Double espresso with steamed fresh milk (~62°C) and silky microfoam.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 200, unit: "ml" }
             ],
             stepsKm: [
-              "ចម្រាញ់ Double Espresso ដាក់ក្នុងកែវកញ្ចក់មានដៃកាន់។",
+              "ចម្រាញ់ Double Espresso ដាក់ក្នុងកែវកញ្ចក់។",
               "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅដល់ ~60–65°C និងមានពពុះរលោង។",
-              "ចាក់ទឹកដោះគោចូលក្នុង Espresso យឺតៗ ដើម្បីបានផ្ទៃរលោងស្អាត។"
+              "ចាក់ទឹកដោះគោចូលក្នុង Espresso យឺតៗ ដើម្បីបានក្បាច់ Latte Art។"
             ],
             stepsEn: [
               "Pull a double espresso into a handled glass mug.",
@@ -1573,9 +1800,9 @@
             tipEn: "Keep steaming below 70°C to preserve milk's natural sweetness."
           },
           ice: {
-            photo: "ice-latte",
+            cupStyle: "latte",
             descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រទន់។",
-            descEn: "Double espresso over chilled fresh milk and ice for a smooth, cold latte.",
+            descEn: "Double espresso over chilled fresh milk and ice.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
@@ -1593,21 +1820,20 @@
               "Pour double espresso on top for clean layering."
             ],
             tipKm: "ប្រើទឹកដោះគោស្រស់ត្រជាក់ល្អ នឹងជួយរក្សាកម្រិតត្រជាក់បានយូរ។",
-            tipEn: "Well-chilled milk keeps the drink cold longer without excess ice melt."
+            tipEn: "Well-chilled milk keeps the drink cold longer."
           }
         }
       },
       {
         id: "cappuccino-pair",
         category: "cappuccino",
-        allPhoto: "hot-cappuccino",
         nameKm: "កាពូឈីណូ",
-        nameEn: "Cappuccino",
-        descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ ត្រជាក់វាយពពុះត្រជាក់ (Cold Foam)។",
-        descEn: "Foam-topped coffee — hot uses steamed foam, iced uses chilled cold foam on top.",
+        nameEn: "CAPPUCCINO",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "ពពុះទឹកដោះគោក្រាស់ (Milk Foam)"],
+        guideBulletsEn: ["Espresso", "Steamed Milk", "Milk Foam"],
         variants: {
           hot: {
-            photo: "hot-cappuccino",
+            cupStyle: "cappuccino",
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងមានពពុះក្តៅក្រាស់ទន់រោយម្សៅកាកាវនៅផ្នែកខាងលើ។",
             descEn: "Double espresso with steamed milk and a thick hot foam cap dusted with cocoa.",
             ingredients: [
@@ -1620,17 +1846,17 @@
               "ចាក់ចូលកែវ រួចរោយម្សៅកាកាវបន្តិចពីលើ។"
             ],
             stepsEn: [
-              "Pull a double espresso into the glass.",
+              "Pull a double espresso into the mug.",
               "Aerate slightly more than a latte for a thicker foam cap.",
-              "Pour into the glass and dust lightly with cocoa powder."
+              "Pour into the mug and dust lightly with cocoa powder."
             ],
             tipKm: "ពពុះ Cappuccino ល្អត្រូវមានសាច់ម៉ត់រលោង គ្មានពពុះខ្យល់ធំៗ។",
-            tipEn: "Tap and swirl the pitcher before pouring for smooth foam."
+            tipEn: "Swirl the pitcher before pouring for glossy, dense foam."
           },
           ice: {
-            photo: "ice-cappuccino",
+            cupStyle: "cappuccino",
             descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់ពីលើ។",
-            descEn: "Iced espresso and chilled milk topped with thick, creamy cold milk foam.",
+            descEn: "Iced espresso and chilled milk topped with thick cold milk foam.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
@@ -1639,53 +1865,105 @@
             ],
             stepsKm: [
               "ដាក់ទឹកកក ទឹកដោះគោស្រស់ និង Double Espresso ចូលកែវ។",
-              "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូចឱ្យឡើងខាប់រលោង។",
+              "វាយពពុះទឹកដោះគោត្រជាក់ឱ្យឡើងខាប់រលោង។",
               "ចាក់ពពុះត្រជាក់ស្រោចពីលើផ្នែកខាងលើបំផុត។"
             ],
             stepsEn: [
               "Add ice, chilled milk, and double espresso into the glass.",
-              "Froth cold milk with a handheld frother until thick and smooth.",
+              "Froth cold milk until thick and velvety.",
               "Spoon or pour the cold foam over the top."
             ],
-            tipKm: "វាយទឹកដោះគោត្រជាក់ជ្រៅនឹងធ្វើឱ្យពពុះ Cold Foam ឡើងក្រាស់បានល្អ។",
-            tipEn: "Cold milk froths into a denser, more stable cold foam."
+            tipKm: "ទឹកដោះគោត្រជាក់ខ្លាំងជួយឱ្យពពុះ Cold Foam ឡើងក្រាស់បានល្អ។",
+            tipEn: "Very cold milk froths into a denser, longer-lasting cold foam."
+          }
+        }
+      },
+      {
+        id: "flatwhite-pair",
+        category: "flatwhite",
+        nameKm: "ហ្វ្លេតវ៉ៃ",
+        nameEn: "FLAT WHITE",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយស្តើង (Steamed Milk)"],
+        guideBulletsEn: ["Espresso", "Steamed Milk"],
+        variants: {
+          hot: {
+            cupStyle: "flatwhite",
+            descKm: "Double Espresso ជាមួយទឹកដោះគោចំហុយពពុះស្តើងម៉ត់រលោង (Velvety Microfoam) មានរសជាតិកាហ្វេដិតជាង Latte។",
+            descEn: "Double espresso with silky thin microfoam for a stronger coffee-to-milk balance than a latte.",
+            ingredients: [
+              { nameKm: "Double Espresso / Ristretto Shot", nameEn: "Double Espresso / Ristretto Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ចំហុយពពុះស្តើង (~60°C)", nameEn: "Steamed Milk Thin Microfoam (~60°C)", amount: 140, unit: "ml" }
+            ],
+            stepsKm: [
+              "ចម្រាញ់ Double Espresso ដាក់ក្នុងពែងសេរ៉ាមិច 160–180ml។",
+              "ចំហុយទឹកដោះគោដោយបញ្ចូលខ្យល់តិចបំផុត ដើម្បីបានពពុះស្តើងរលោង។",
+              "ចាក់ទឹកដោះគោចូលកណ្តាលពែង ហើយគូសក្បាច់ Rosetta ឬបេះដូង។"
+            ],
+            stepsEn: [
+              "Pull a double espresso into a 160–180ml ceramic cup.",
+              "Steam milk with minimal aeration for ultra-fine microfoam.",
+              "Pour steadily into the center to finish with fine latte art."
+            ],
+            tipKm: "Flat White ប្រើទឹកដោះគោតិចជាង Latte ធ្វើឱ្យរសជាតិកាហ្វេលេចធ្លោជាង។",
+            tipEn: "Less milk volume than a latte gives a richer espresso forward flavor."
+          },
+          ice: {
+            cupStyle: "latte",
+            descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់បរិមាណល្មម ដើម្បីរក្សារសជាតិកាហ្វេដិត។",
+            descEn: "Double espresso over a smaller ratio of chilled milk for a bold iced flat white.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 120, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 140, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកកក 140g និងទឹកដោះគោស្រស់ត្រជាក់ 120ml ចូលកែវ។",
+              "ចម្រាញ់ Double Espresso ហើយចាក់ស្រោចពីលើភ្លាមៗ។",
+              "បម្រើដោយមិនចាំបាច់បន្ថែមពពុះក្រាស់ពីលើ។"
+            ],
+            stepsEn: [
+              "Add 140g ice and 120ml chilled fresh milk to the glass.",
+              "Pull double espresso and pour directly over the milk.",
+              "Serve without a thick foam cap."
+            ],
+            tipKm: "កាត់បន្ថយបរិមាណទឹកដោះគោ 20% ធៀបនឹង Iced Latte ដើម្បីបានរសជាតិ Flat White ពិតប្រាកដ។",
+            tipEn: "Using ~20% less milk than an iced latte preserves the bold espresso profile."
           }
         }
       },
       {
         id: "mocha-pair",
         category: "mocha",
-        allPhoto: "ice-mocha",
         nameKm: "ម៉ូកា",
-        nameEn: "Mocha",
-        descKm: "កាហ្វេផ្សំជាមួយសូកូឡា និង Whipped Cream — ក្តៅជាមួយទឹកដោះគោចំហុយ ត្រជាក់ជាមួយទឹកដោះគោត្រជាក់។",
-        descEn: "Chocolate and coffee with whipped cream — hot with steamed milk, iced with chilled milk.",
+        nameEn: "MOCHA",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "សូកូឡា (Chocolate)"],
+        guideBulletsEn: ["Espresso", "Steamed Milk", "Chocolate"],
         variants: {
           hot: {
-            photo: "hot-mocha",
-            descKm: "Double Espresso រំលាយជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ បន្ថែម Whipped Cream និងទឹកសូកូឡាពីលើ។",
-            descEn: "Double espresso melted with chocolate and steamed milk, topped with whipped cream and chocolate drizzle.",
+            cupStyle: "mocha",
+            descKm: "Double Espresso រំលាយជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ បន្ថែម Whipped Cream និងសូកូឡាពីលើ។",
+            descEn: "Double espresso melted with chocolate and steamed milk, topped with whipped cream.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" },
-              { nameKm: "Whipped Cream + Chocolate Sauce", nameEn: "Whipped Cream + Chocolate Sauce", amount: 25, unit: "g" }
+              { nameKm: "Whipped Cream + Chocolate", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
             ],
             stepsKm: [
               "ដាក់សូកូឡាចូលកែវ រួចចម្រាញ់ Double Espresso ក្តៅពីលើ ហើយកូរឱ្យរលាយ។",
               "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅ រួចចាក់ចូលកែវ។",
-              "បាញ់ Whipped Cream និងគូសទឹកសូកូឡាពីលើ រួចបម្រើក្តៅៗ។"
+              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើ រួចបម្រើក្តៅៗ។"
             ],
             stepsEn: [
               "Add chocolate to the glass, pull hot double espresso over it, and stir smooth.",
               "Steam fresh milk to ~62°C and pour into the glass.",
-              "Top with whipped cream and chocolate drizzle, then serve hot."
+              "Top with whipped cream and chocolate shavings."
             ],
             tipKm: "កូរសូកូឡាជាមួយ Espresso ក្តៅជាមុន នឹងរលាយស្មើល្អ។",
-            tipEn: "Dissolving chocolate in the hot espresso shot first prevents lumps."
+            tipEn: "Dissolving chocolate in hot espresso prevents lumps."
           },
           ice: {
-            photo: "ice-mocha",
+            cupStyle: "mocha",
             descKm: "Double Espresso លាយសូកូឡា ទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក បន្ថែម Whipped Cream ពីលើ។",
             descEn: "Double espresso with chocolate, chilled fresh milk, ice, and whipped cream.",
             ingredients: [
@@ -1693,29 +1971,224 @@
               { nameKm: "ទឹកសេរ៉ូ ឬម្សៅសូកូឡា", nameEn: "Chocolate Syrup or Cocoa", amount: 25, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 145, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" },
-              { nameKm: "Whipped Cream + Chocolate Sauce", nameEn: "Whipped Cream + Chocolate Sauce", amount: 25, unit: "g" }
+              { nameKm: "Whipped Cream + Chocolate", nameEn: "Whipped Cream + Chocolate", amount: 25, unit: "g" }
             ],
             stepsKm: [
               "រំលាយសូកូឡាជាមួយ Espresso ក្តៅឱ្យចូលគ្នាល្អ។",
               "ដាក់ទឹកកកចូលកែវ បន្ទាប់មកចាក់ទឹកដោះគោស្រស់ត្រជាក់ និងល្បាយសូកូឡាកាហ្វេ។",
-              "បាញ់ Whipped Cream និងគូសទឹកសូកូឡាពីលើមុនលើកជូន។"
+              "បាញ់ Whipped Cream និងរោយសូកូឡាពីលើមុនលើកជូន។"
             ],
             stepsEn: [
               "Stir chocolate into the hot espresso shot until smooth.",
               "Fill glass with ice, pour in chilled milk and the chocolate-espresso mix.",
-              "Top with whipped cream and chocolate drizzle before serving."
+              "Top with whipped cream and chocolate before serving."
             ],
             tipKm: "រំលាយសូកូឡាពេល Espresso កំពុងក្តៅ នឹងជួយកុំឱ្យកកជាដុំនៅបាតកែវ។",
             tipEn: "Mixing chocolate while the espresso is hot avoids clumping on cold ice."
+          }
+        }
+      },
+      {
+        id: "macchiato-pair",
+        category: "macchiato",
+        nameKm: "ការ៉ាមែល ម៉ាគីយ៉ាតូ",
+        nameEn: "CARAMEL MACCHIATO",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយ (Steamed Milk)", "ទឹកការ៉ាមែល (Caramel)"],
+        guideBulletsEn: ["Espresso", "Steamed Milk", "Caramel"],
+        variants: {
+          hot: {
+            cupStyle: "macchiato",
+            descKm: "ទឹកដោះគោចំហុយលាយសេរ៉ូវ៉ានីឡា ចាក់ Double Espresso ស្រោចពីលើ និងគូសក្រឡាទឹកការ៉ាមែល។",
+            descEn: "Vanilla steamed milk marked with double espresso and finished with a caramel crosshatch.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~62°C)", nameEn: "Steamed Fresh Milk (~62°C)", amount: 180, unit: "ml" },
+              { nameKm: "សេរ៉ូវ៉ានីឡា (Vanilla Syrup)", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+              { nameKm: "ទឹកការ៉ាមែល (Caramel Sauce)", nameEn: "Caramel Sauce", amount: 15, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់សេរ៉ូវ៉ានីឡាចូលបាតកែវ រួចចាក់ទឹកដោះគោចំហុយមានពពុះចូល។",
+              "ចាក់ Double Espresso យឺតៗចំកណ្តាលពពុះទឹកដោះគោ ដើម្បីបង្កើតជាស្រទាប់។",
+              "គូសទឹកការ៉ាមែលជាក្រឡាខ្វែងពីលើពពុះទឹកដោះគោ។"
+            ],
+            stepsEn: [
+              "Pour vanilla syrup into the glass, then add foamed steamed milk.",
+              "Slowly pour double espresso through the center to mark the foam.",
+              "Drizzle caramel sauce in a crosshatch pattern on top."
+            ],
+            tipKm: "ចាក់ Espresso យឺតៗលើខ្នងស្លាបព្រា នឹងជួយបំបែកស្រទាប់បានស្អាត។",
+            tipEn: "Pouring espresso slowly over the back of a spoon creates clean layers."
+          },
+          ice: {
+            cupStyle: "macchiato",
+            descKm: "ទឹកដោះគោស្រស់ត្រជាក់លាយវ៉ានីឡាលើទឹកកក ស្រោច Double Espresso និងទឹកការ៉ាមែលពីលើ។",
+            descEn: "Chilled vanilla milk over ice, topped with espresso and caramel drizzle.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
+              { nameKm: "សេរ៉ូវ៉ានីឡា (Vanilla Syrup)", nameEn: "Vanilla Syrup", amount: 15, unit: "ml" },
+              { nameKm: "ទឹកការ៉ាមែល (Caramel Sauce)", nameEn: "Caramel Sauce", amount: 15, unit: "g" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងសេរ៉ូវ៉ានីឡាចូលគ្នា។",
+              "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោវ៉ានីឡាចូល។",
+              "ចាក់ Double Espresso ស្រោចពីលើ និងគូសទឹកការ៉ាមែល។"
+            ],
+            stepsEn: [
+              "Stir vanilla syrup into chilled fresh milk.",
+              "Fill glass with ice and pour in the vanilla milk.",
+              "Float double espresso on top and drizzle with caramel sauce."
+            ],
+            tipKm: "គូសទឹកការ៉ាមែលនៅខាងក្នុងកែវមុនដាក់ទឹកកក នឹងមើលទៅកាន់តែទាក់ទាញ។",
+            tipEn: "Drizzling caramel inside the glass walls adds visual appeal."
+          }
+        }
+      },
+      {
+        id: "cortado-pair",
+        category: "cortado",
+        nameKm: "ខ័រតាដូ",
+        nameEn: "CORTADO",
+        guideBulletsKm: ["កាហ្វេអេស្ព្រេសសូ (Espresso)", "ទឹកដោះគោចំហុយស្មើភាគ (Steamed Milk)"],
+        guideBulletsEn: ["Espresso", "Steamed Milk"],
+        variants: {
+          hot: {
+            cupStyle: "cortado",
+            descKm: "Double Espresso លាយជាមួយទឹកដោះគោចំហុយក្តៅក្នុងសមាមាត្រ 1:1 កាត់បន្ថយជាតិជូររបស់កាហ្វេដោយមិនបាត់រសជាតិដើម។",
+            descEn: "Equal parts double espresso and warm silky milk (1:1) to tame acidity while keeping rich espresso punch.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ចំហុយ (~60°C)", nameEn: "Warm Steamed Milk (~60°C)", amount: 40, unit: "ml" }
+            ],
+            stepsKm: [
+              "ចម្រាញ់ Double Espresso 36 ml ដាក់ក្នុងកែវកញ្ចក់តូច (Gibraltar Glass)។",
+              "ចំហុយទឹកដោះគោឱ្យក្តៅល្មម (~58–60°C) ដោយមិនបង្កើតពពុះក្រាស់ទេ។",
+              "ចាក់ទឹកដោះគោ 40 ml ចូលលាយជាមួយ Espresso ស្មើភាគ ហើយបម្រើភ្លាម។"
+            ],
+            stepsEn: [
+              "Pull a 36 ml double espresso into a small Gibraltar glass.",
+              "Steam milk gently to ~58–60°C with minimal foam.",
+              "Pour 40 ml warm milk into the espresso for a 1:1 balance."
+            ],
+            tipKm: "Cortado ប្រើទឹកដោះគោក្តៅល្មម មិនក្តៅខ្លាំងពេក ដើម្បីអាចផឹកបានភ្លាមៗ។",
+            tipEn: "Keep milk around 60°C so the Cortado is ready to sip immediately."
+          },
+          ice: {
+            cupStyle: "cortado",
+            descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់បរិមាណស្មើគ្នា និងទឹកកកតូចៗ។",
+            descEn: "Equal parts double espresso and chilled fresh milk served over ice.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 90, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកកក 90g ចូលក្នុងកែវតូច។",
+              "ចាក់ទឹកដោះគោស្រស់ត្រជាក់ 40ml និង Double Espresso 36ml ចូល។",
+              "កូរស្រាលៗ រួចបម្រើភ្លាមៗ។"
+            ],
+            stepsEn: [
+              "Place 90g ice cubes into a small glass.",
+              "Add 40ml chilled fresh milk and 36ml double espresso.",
+              "Stir lightly and serve immediately."
+            ],
+            tipKm: "ប្រើកែវតូច 120–150ml ដើម្បីរក្សាសមាមាត្រ 1:1 របស់ Cortado។",
+            tipEn: "Use a compact 120–150ml glass to keep the classic 1:1 ratio."
+          }
+        }
+      },
+      {
+        id: "icedcoffee-pair",
+        category: "icedcoffee",
+        nameKm: "កាហ្វេទឹកកក",
+        nameEn: "ICED COFFEE",
+        guideBulletsKm: ["កាហ្វេឆុងស្រស់ (Brewed Coffee)", "ទឹកកក (Ice)"],
+        guideBulletsEn: ["Brewed Coffee", "Ice"],
+        variants: {
+          ice: {
+            cupStyle: "icedcoffee",
+            descKm: "កាហ្វេឆុងស្រស់ក្លិនក្រអូប ចាក់លើទឹកកកត្រជាក់ស្រស់ស្រាយ អាចបន្ថែមទឹកស្ករ ឬទឹកដោះគោតាមចំណូលចិត្ត។",
+            descEn: "Freshly brewed coffee chilled over ice — crisp, aromatic, and easy to customize.",
+            ingredients: [
+              { nameKm: "ទឹកកាហ្វេឆុងស្រស់ (Filter / Drip)", nameEn: "Freshly Brewed Filter Coffee", amount: 180, unit: "ml" },
+              { nameKm: "ទឹកស្ករ (ជម្រើស)", nameEn: "Simple Syrup (Optional)", amount: 15, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 170, unit: "g" }
+            ],
+            stepsKm: [
+              "ឆុងកាហ្វេ Drip ឬ Pour-over ឱ្យបានកំហាប់ខ្ពស់បន្តិច (1:12 ratio)។",
+              "ដាក់ទឹកកក 170g ឱ្យពេញកែវ រួចចាក់ទឹកកាហ្វេចូល។",
+              "បន្ថែមទឹកស្ករ ឬទឹកដោះគោស្រស់តាមចំណូលចិត្ត។"
+            ],
+            stepsEn: [
+              "Brew drip or pour-over coffee slightly concentrated (1:12 ratio).",
+              "Fill a tall glass with 170g ice and pour the coffee over.",
+              "Add optional simple syrup or splash of milk to taste."
+            ],
+            tipKm: "ឆុងកាហ្វេឱ្យដិតបន្តិច ដើម្បីទប់ទល់នឹងការរលាយរបស់ទឹកកក។",
+            tipEn: "Brew slightly stronger so melting ice keeps the flavor balanced."
+          },
+          hot: {
+            cupStyle: "americano",
+            descKm: "កាហ្វេឆុងស្រស់ក្តៅៗ (Hot Brewed Drip Coffee) ក្លិនក្រអូបស្រាលស្រទន់។",
+            descEn: "Freshly brewed hot drip coffee with clean, aromatic clarity.",
+            ingredients: [
+              { nameKm: "ម្សៅកាហ្វេកិនកម្រិតមធ្យម", nameEn: "Medium-Ground Coffee", amount: 15, unit: "g" },
+              { nameKm: "ទឹកក្តៅ (~92°C)", nameEn: "Hot Water (~92°C)", amount: 225, unit: "ml" }
+            ],
+            stepsKm: [
+              "ដាក់ម្សៅកាហ្វេ 15g ក្នុងតម្រង Dripper ហើយចាក់ទឹកក្តៅ 45ml រង់ចាំ 30 វិនាទី (Bloom)។",
+              "ចាក់ទឹកក្តៅដែលនៅសល់ជារង្វង់យឺតៗរហូតគ្រប់ 225ml។",
+              "បម្រើក្តៅៗក្នុងកែវកញ្ចក់។"
+            ],
+            stepsEn: [
+              "Place 15g medium-ground coffee in a filter and bloom with 45ml hot water for 30s.",
+              "Pour the remaining hot water slowly in circles up to 225ml.",
+              "Serve hot in a glass mug."
+            ],
+            tipKm: "ប្រើទឹកក្តៅ 90–93°C ជួយទាញរសជាតិផ្អែមធម្មជាតិរបស់គ្រាប់កាហ្វេបានល្អ។",
+            tipEn: "Water at 90–93°C extracts balanced sweetness without bitterness."
+          }
+        }
+      },
+      {
+        id: "coldbrew-pair",
+        category: "coldbrew",
+        nameKm: "ខូលប្រ៊ូ",
+        nameEn: "COLD BREW",
+        guideBulletsKm: ["កាហ្វេត្រាំត្រជាក់ (Cold Brewed Coffee)", "ទឹកកក (Ice)"],
+        guideBulletsEn: ["Cold Brewed Coffee", "Ice"],
+        variants: {
+          ice: {
+            cupStyle: "coldbrew",
+            descKm: "គ្រាប់កាហ្វេកិនគ្រើមត្រាំក្នុងទឹកត្រជាក់រយៈពេល 14–18 ម៉ោង រសជាតិស្រទន់ ផ្អែមធម្មជាតិ និងមិនជូរ។",
+            descEn: "Coarse coffee steeped in cold water for 14–18 hours for a smooth, naturally sweet, low-acid cup.",
+            ingredients: [
+              { nameKm: "ទឹកកាហ្វេ Cold Brew Concentrate", nameEn: "Cold Brew Concentrate", amount: 120, unit: "ml" },
+              { nameKm: "ទឹកត្រជាក់ស្អាត", nameEn: "Filtered Cold Water", amount: 80, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ត្រាំម្សៅកាហ្វេកិនគ្រើមជាមួយទឹកត្រជាក់ (1:8) ក្នុងទូរទឹកកក 16 ម៉ោង រួចច្រោះឱ្យស្អាត។",
+              "ដាក់ទឹកកក 160g ចូលកែវ រួចចាក់ Cold Brew 120ml និងទឹកត្រជាក់ 80ml ចូល។",
+              "កូរស្រាលៗ ហើយបម្រើត្រជាក់ៗ។"
+            ],
+            stepsEn: [
+              "Steep coarse coffee in cold water (1:8) for 16 hours in the fridge, then filter clean.",
+              "Fill a glass with 160g ice, pour 120ml Cold Brew and 80ml cold water.",
+              "Stir lightly and serve chilled."
+            ],
+            tipKm: "Cold Brew អាចរក្សាទុកក្នុងទូរទឹកកកបិទជិតបានរហូតដល់ 5–7 ថ្ងៃ។",
+            tipEn: "Sealed Cold Brew concentrate stays fresh in the fridge for 5–7 days."
           }
         }
       }
     ];
 
     const STORAGE_KEYS = {
-      CUSTOM_RECIPES: "eminor_coffee_custom_v1",
-      FAVORITES: "eminor_coffee_fav_v1",
-      LANG: "eminor_coffee_lang_v1"
+      CUSTOM_RECIPES: "eminor_coffee_custom_v2",
+      FAVORITES: "eminor_coffee_fav_v2",
+      LANG: "eminor_coffee_lang_v2"
     };
 
     let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
@@ -1727,7 +2200,7 @@
       temp: "all",
       search: "",
       activeRecipeId: null,
-      activeMode: "ice",
+      activeMode: "hot",
       cupSize: "16oz",
       batch: 1
     };
@@ -1768,52 +2241,32 @@
     function getDefaultVariantKey(recipe) {
       if (state.temp === "hot" && supportsTemp(recipe, "hot")) return "hot";
       if (state.temp === "ice" && supportsTemp(recipe, "ice")) return "ice";
-      if (supportsTemp(recipe, "ice")) return "ice";
-      return "hot";
+      if (supportsTemp(recipe, "hot")) return "hot";
+      return "ice";
     }
 
     function getActiveVariant(recipe, mode = state.activeMode) {
       if (!recipe || !recipe.variants) return null;
-      return recipe.variants[mode] || recipe.variants.ice || recipe.variants.hot;
+      return recipe.variants[mode] || recipe.variants.hot || recipe.variants.ice;
     }
 
-    function getCardPhotoKey(recipe, variant) {
-      if (state.temp === "all" && recipe.allPhoto) {
-        return recipe.allPhoto;
+    function getRecipeDisplayTitle(r) {
+      if (state.lang === "en") {
+        return r.nameEn || r.nameKm;
       }
-      return variant?.photo || recipe.allPhoto || "ice-latte";
+      return r.nameEn ? `${r.nameKm} (${r.nameEn})` : r.nameKm;
     }
 
-    function getCardBadgeInfo(recipe) {
-      const hasHot = supportsTemp(recipe, "hot");
-      const hasIce = supportsTemp(recipe, "ice");
-      if (state.temp === "hot" && hasHot) {
-        return { cls: "temp-hot", photoCls: "hot", label: t().hotFull, badge: t().hotBadge };
+    function getGuideBullets(r, variant) {
+      if (state.temp === "all" && Array.isArray(r.guideBulletsKm)) {
+        return state.lang === "en" ? (r.guideBulletsEn || r.guideBulletsKm) : r.guideBulletsKm;
       }
-      if (state.temp === "ice" && hasIce) {
-        return { cls: "temp-ice", photoCls: "ice", label: t().iceFull, badge: t().iceBadge };
+      if (variant && Array.isArray(variant.ingredients)) {
+        return variant.ingredients.slice(0, 3).map((ing) =>
+          state.lang === "en" ? (ing.nameEn || ing.nameKm) : (ing.nameKm || ing.nameEn)
+        );
       }
-      if (hasHot && hasIce) {
-        return { cls: "temp-both", photoCls: "both", label: t().bothFull, badge: t().bothBadge };
-      }
-      if (hasHot) {
-        return { cls: "temp-hot", photoCls: "hot", label: t().hotFull, badge: t().hotBadge };
-      }
-      return { cls: "temp-ice", photoCls: "ice", label: t().iceFull, badge: t().iceBadge };
-    }
-
-    function getRecipeNamePrimary(r) {
-      return state.lang === "en" ? (r.nameEn || r.nameKm) : r.nameKm;
-    }
-
-    function getRecipeDesc(r, variant) {
-      if (state.temp === "all") {
-        return state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
-      }
-      if (variant) {
-        return state.lang === "en" ? (variant.descEn || variant.descKm || r.descEn || r.descKm || "") : (variant.descKm || variant.descEn || r.descKm || r.descEn || "");
-      }
-      return state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
+      return [];
     }
 
     function getRecipeSteps(variant) {
@@ -1837,6 +2290,9 @@
       document.documentElement.lang = state.lang;
       document.title = s.docTitle;
       document.getElementById("mainHeaderTitle").textContent = s.headerTitle;
+      document.getElementById("posterMainTitle").textContent = s.posterTitle;
+      document.getElementById("posterSubtitle").textContent = s.posterSubtitle;
+      document.getElementById("posterFooterText").textContent = s.posterFooter;
       document.getElementById("langBadgeText").textContent = s.langBadge;
       document.getElementById("timerBtnLabel").textContent = s.timerBtn;
       document.getElementById("addBtnLabel").textContent = s.addBtn;
@@ -1909,16 +2365,6 @@
       });
     }
 
-    function renderDrinkPhoto(photoKey, badgeText, badgeCls, altText = "") {
-      const sprite = (photoKey && CUP_SPRITE_POSITIONS[photoKey])
-        ? CUP_SPRITE_POSITIONS[photoKey]
-        : CUP_SPRITE_POSITIONS["ice-latte"];
-      const badgeHtml = badgeText
-        ? `<span class="photo-temp-badge ${badgeCls}">${escapeHtml(badgeText)}</span>`
-        : "";
-      return `<div class="drink-photo-sprite" role="img" aria-label="${escapeHtml(altText)}" style="background-position: ${sprite.pos}; background-size: ${sprite.size};"></div>${badgeHtml}`;
-    }
-
     function getFilteredRecipes() {
       const all = getAllRecipes();
       const q = state.search.trim().toLowerCase();
@@ -1930,7 +2376,8 @@
 
         const inNameKm = (r.nameKm || "").toLowerCase().includes(q);
         const inNameEn = (r.nameEn || "").toLowerCase().includes(q);
-        const inDesc = ((r.descKm || "") + " " + (r.descEn || "")).toLowerCase().includes(q);
+        const inBullets = [...(r.guideBulletsKm || []), ...(r.guideBulletsEn || [])]
+          .some((b) => b.toLowerCase().includes(q));
         const allIngs = [
           ...(r.variants?.hot?.ingredients || []),
           ...(r.variants?.ice?.ingredients || [])
@@ -1938,7 +2385,7 @@
         const inIng = allIngs.some((i) =>
           ((i.nameKm || "") + " " + (i.nameEn || "") + " " + (i.name || "")).toLowerCase().includes(q)
         );
-        return inNameKm || inNameEn || inDesc || inIng;
+        return inNameKm || inNameEn || inBullets || inIng;
       });
     }
 
@@ -1947,10 +2394,6 @@
       updateCatalogCounts();
       const grid = document.getElementById("menuGrid");
       const list = getFilteredRecipes();
-      const totalAll = getAllRecipes().length;
-
-      document.getElementById("summaryCountText").innerHTML =
-        `${s.showingPrefix} <strong>${list.length}</strong> ${s.showingMid} <span>${totalAll}</span> ${s.showingSuffix}`;
 
       if (list.length === 0) {
         grid.innerHTML = `
@@ -1964,25 +2407,35 @@
 
       grid.innerHTML = list.map((r) => {
         const isFav = favorites.has(r.id);
-        const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
-        const photoKey = getCardPhotoKey(r, defaultVar);
-        const primaryName = getRecipeNamePrimary(r);
-        const modeTagHtml = badgeInfo.label
-          ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
-          : "";
-        const customBadge = r.isCustom ? `<span class="drink-tag custom">${escapeHtml(s.customBadge)}</span>` : "";
+        const cupStyle = defaultVar?.cupStyle || r.category || "latte";
+        const displayTitle = state.lang === "en" ? (r.nameEn || r.nameKm) : r.nameKm;
+        const subEnglish = state.lang === "km" && r.nameEn ? r.nameEn : "";
+        const bullets = getGuideBullets(r, defaultVar);
+        const customBadge = r.isCustom ? `<span class="custom-mini-tag">${escapeHtml(s.customBadge)}</span>` : "";
+
+        let modePillHtml = "";
+        if (state.temp === "hot") {
+          modePillHtml = `<span class="cup-mode-pill hot">${escapeHtml(s.hotBadge)}</span>`;
+        } else if (state.temp === "ice") {
+          modePillHtml = `<span class="cup-mode-pill ice">${escapeHtml(s.iceBadge)}</span>`;
+        }
 
         return `
-          <article class="drink-card" data-id="${r.id}">
-            <div class="drink-photo-box">${renderDrinkPhoto(photoKey, badgeInfo.badge, badgeInfo.photoCls, primaryName)}</div>
-            <div class="drink-info">
-              <div class="drink-top-meta">
-                ${modeTagHtml}
+          <article class="guide-item" data-id="${r.id}">
+            <div class="guide-cup-visual">
+              ${getCupIllustrationSvg(cupStyle)}
+              ${modePillHtml}
+            </div>
+            <div class="guide-text-col">
+              <div class="guide-title-row">
+                <h3 class="guide-drink-title">${escapeHtml(displayTitle)}</h3>
                 ${customBadge}
               </div>
-              <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
-              <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
+              ${subEnglish ? `<div style="font-size:0.74rem; font-weight:700; letter-spacing:0.06em; color:var(--text-muted); margin:-3px 0 5px;">${escapeHtml(subEnglish)}</div>` : ""}
+              <ul class="guide-ingredient-bullets">
+                ${bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}
+              </ul>
             </div>
             <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="${escapeHtml(s.favBtnSave)}" aria-label="${escapeHtml(s.favBtnSave)}">
               <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -1991,11 +2444,11 @@
         `;
       }).join("");
 
-      grid.querySelectorAll(".drink-card").forEach((card) => {
+      grid.querySelectorAll(".guide-item").forEach((card) => {
         card.addEventListener("click", (e) => {
           if (e.target.closest(".fav-toggle-btn")) return;
           const recipe = getAllRecipes().find((x) => x.id === card.dataset.id);
-          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice");
+          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "hot");
         });
       });
 
@@ -2029,7 +2482,6 @@
       const isCalc = tabName === "calc";
       document.getElementById("menuView").style.display = isCalc ? "none" : "block";
       document.getElementById("calculatorView").style.display = isCalc ? "block" : "none";
-      document.getElementById("summaryStrip").style.display = isCalc ? "none" : "flex";
 
       if (!isCalc) {
         renderMenu();
@@ -2043,8 +2495,7 @@
       const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * state.batch;
       const val = baseAmt * mult;
       const rounded = val >= 50 ? Math.round(val) : Math.round(val * 10) / 10;
-      const unitDisp = state.lang === "en" && unit === "ចំណិត" ? "slice" : (unit || "");
-      return `${rounded} ${unitDisp}`.trim();
+      return `${rounded} ${unit || ""}`.trim();
     }
 
     function openRecipeModal(id, preferredMode) {
@@ -2074,7 +2525,7 @@
       iceBtn.disabled = !hasIce;
       iceBtn.classList.toggle("disabled-mode", !hasIce);
 
-      document.getElementById("modalTitleMain").textContent = getRecipeNamePrimary(recipe);
+      document.getElementById("modalTitleMain").textContent = getRecipeDisplayTitle(recipe);
       document.getElementById("deleteCustomBtn").style.display = recipe.isCustom ? "inline-flex" : "none";
 
       renderModalVariantContent(recipe, targetMode);
@@ -2091,20 +2542,15 @@
       });
 
       const isHot = mode === "hot";
-      document.getElementById("modalArtBox").innerHTML = renderDrinkPhoto(
-        variant.photo,
-        isHot ? s.hotBadge : s.iceBadge,
-        isHot ? "hot" : "ice",
-        getRecipeNamePrimary(recipe)
-      );
+      document.getElementById("modalArtBox").innerHTML = getCupIllustrationSvg(variant.cupStyle || recipe.category);
 
       const tempTag = document.getElementById("modalTempTag");
       tempTag.textContent = isHot ? s.hotFull : s.iceFull;
       tempTag.className = "drink-tag " + (isHot ? "temp-hot" : "temp-ice");
 
       document.getElementById("modalDesc").textContent = state.lang === "en"
-        ? (variant.descEn || variant.descKm || recipe.descEn || recipe.descKm || "")
-        : (variant.descKm || variant.descEn || recipe.descKm || recipe.descEn || "");
+        ? (variant.descEn || variant.descKm || "")
+        : (variant.descKm || variant.descEn || "");
       document.getElementById("modalTip").innerHTML = `<strong>${escapeHtml(s.tipPrefix)}</strong> ${escapeHtml(getRecipeTip(variant))}`;
 
       const stepsOl = document.getElementById("modalSteps");
@@ -2178,13 +2624,13 @@
 
       if (sec < 25) {
         statusEl.textContent = sec === 0 ? s.timerReady : s.timerRunning;
-        statusEl.style.color = "#5C4B41";
+        statusEl.style.color = "#58463B";
       } else if (sec <= 30) {
         statusEl.textContent = s.timerIdeal;
-        statusEl.style.color = "#1B8045";
+        statusEl.style.color = "#1D7A43";
       } else {
         statusEl.textContent = s.timerOver;
-        statusEl.style.color = "#C67D3B";
+        statusEl.style.color = "#B87235";
       }
     }
 
@@ -2236,7 +2682,7 @@
       e.preventDefault();
       const s = t();
       const nameKm = document.getElementById("newNameKm").value.trim() || document.getElementById("newNameEn").value.trim();
-      const nameEn = document.getElementById("newNameEn").value.trim() || nameKm;
+      const nameEn = (document.getElementById("newNameEn").value.trim() || nameKm).toUpperCase();
       if (!nameKm && !nameEn) return;
 
       const tempOpt = document.getElementById("newTemp").value;
@@ -2261,22 +2707,8 @@
       const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
       const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine coffee ingredients and serve." : "ឆុង និងលាយគ្រឿងផ្សំកាហ្វេចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
 
-      const icePhotoByCat = {
-        espresso: "ice-espresso",
-        latte: "ice-latte",
-        americano: "ice-americano",
-        cappuccino: "ice-cappuccino",
-        mocha: "ice-mocha"
-      };
-      const hotPhotoByCat = {
-        espresso: "hot-espresso",
-        latte: "hot-latte",
-        americano: "hot-americano",
-        cappuccino: "hot-cappuccino",
-        mocha: "hot-mocha"
-      };
-
       const baseVariant = {
+        cupStyle: category,
         descKm: desc,
         descEn: desc,
         ingredients,
@@ -2290,7 +2722,6 @@
       if (tempOpt === "both" || tempOpt === "hot") {
         variants.hot = {
           ...baseVariant,
-          photo: hotPhotoByCat[category] || "hot-latte",
           descKm: `${desc} (ក្តៅ / Hot)`,
           descEn: `${desc} (Hot)`
         };
@@ -2298,20 +2729,21 @@
       if (tempOpt === "both" || tempOpt === "ice") {
         variants.ice = {
           ...baseVariant,
-          photo: icePhotoByCat[category] || "ice-latte",
+          cupStyle: category === "flatwhite" || category === "cortado" ? "icedcoffee" : category,
           descKm: `${desc} (ត្រជាក់ / Ice)`,
           descEn: `${desc} (Ice)`
         };
       }
 
+      const bulletLabels = ingredients.slice(0, 3).map((i) => i.nameKm);
+
       const newItem = {
         id: "custom_" + Date.now(),
         category,
-        allPhoto: hotPhotoByCat[category] || "hot-latte",
         nameKm: nameKm || nameEn,
-        nameEn: nameEn || nameKm,
-        descKm: desc,
-        descEn: desc,
+        nameEn,
+        guideBulletsKm: bulletLabels,
+        guideBulletsEn: bulletLabels,
         variants,
         isCustom: true
       };
