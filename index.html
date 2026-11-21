@@ -161,212 +161,6 @@
       color: var(--text-primary);
     }
 
-    /* ============================================================
-       MENU GUIDE POSTER SHEET
-       ============================================================ */
-    .guide-poster-sheet {
-      background-color: var(--bg-paper);
-      background-image: radial-gradient(rgba(44, 30, 22, 0.03) 1px, transparent 0);
-      background-size: 16px 16px;
-      border: 1px solid var(--border-strong);
-      border-radius: 8px;
-      padding: 28px 22px 24px;
-      box-shadow: var(--shadow-sheet);
-    }
-
-    .poster-header {
-      text-align: center;
-      margin-bottom: 18px;
-    }
-
-    .poster-main-title {
-      font-family: 'Cormorant Garamond', 'Kantumruy Pro', Georgia, serif;
-      font-size: clamp(2rem, 5.2vw, 3.15rem);
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--text-primary);
-      margin: 0;
-      line-height: 1.08;
-    }
-
-    .poster-divider-heart {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      max-width: 340px;
-      margin: 8px auto 8px;
-      color: var(--text-primary);
-    }
-
-    .poster-divider-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border-strong);
-    }
-
-    .poster-subtitle {
-      margin: 0;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-    }
-
-    /* Two-Column Menu Grid with Hairline Dividers */
-    .coffee-guide-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-top: 1px solid var(--border-hairline);
-    }
-
-    .guide-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 14px;
-      border-bottom: 1px solid var(--border-hairline);
-      cursor: pointer;
-      position: relative;
-      transition: background 0.16s ease;
-      user-select: none;
-    }
-
-    .guide-item:nth-child(odd) {
-      border-right: 1px solid var(--border-hairline);
-      padding-right: 18px;
-    }
-
-    .guide-item:nth-child(even) {
-      padding-left: 18px;
-    }
-
-    .guide-item:hover {
-      background: rgba(255, 255, 255, 0.65);
-    }
-
-    .guide-item:active {
-      background: rgba(240, 220, 212, 0.45);
-    }
-
-    @media (max-width: 620px) {
-      .guide-poster-sheet {
-        padding: 22px 14px 20px;
-      }
-      .coffee-guide-grid {
-        grid-template-columns: 1fr;
-      }
-      .guide-item:nth-child(odd) {
-        border-right: none;
-        padding-right: 10px;
-      }
-      .guide-item:nth-child(even) {
-        padding-left: 10px;
-      }
-      .guide-item {
-        padding: 14px 10px;
-        gap: 14px;
-      }
-    }
-
-    .guide-cup-visual {
-      width: 104px;
-      height: 112px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      position: relative;
-      background: transparent;
-    }
-
-    .guide-cup-visual svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 6px 8px rgba(35, 24, 18, 0.13));
-    }
-
-    .guide-text-col {
-      flex: 1;
-      min-width: 0;
-      padding-right: 26px;
-    }
-
-    .guide-title-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
-
-    .guide-drink-title {
-      margin: 0;
-      font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', sans-serif;
-      font-size: 1.12rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--text-primary);
-      line-height: 1.25;
-    }
-
-    .custom-mini-tag {
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(29, 122, 67, 0.14);
-      color: var(--accent-success);
-      text-transform: none;
-      letter-spacing: 0;
-    }
-
-    .guide-ingredient-bullets {
-      margin: 0;
-      padding-left: 16px;
-      list-style-type: disc;
-      color: var(--text-secondary);
-      font-size: 0.88rem;
-      line-height: 1.55;
-    }
-
-    .guide-ingredient-bullets li::marker {
-      color: var(--text-primary);
-      font-size: 0.8em;
-    }
-
-    .fav-toggle-btn {
-      position: absolute;
-      top: 12px;
-      right: 10px;
-      border: none;
-      background: transparent;
-      color: rgba(88, 70, 59, 0.42);
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: transform 0.14s ease, color 0.16s ease, background 0.16s ease;
-    }
-
-    .fav-toggle-btn:hover {
-      background: rgba(44, 30, 22, 0.06);
-      color: var(--text-primary);
-    }
-
-    .fav-toggle-btn.saved {
-      color: #C92A42;
-    }
-
-    .fav-toggle-btn.saved svg {
-      fill: #C92A42;
-      stroke: #C92A42;
-    }
-
     /* Batch & Yield Calculator View */
     .calc-panel {
       background: var(--bg-paper);
@@ -434,7 +228,7 @@
       margin-bottom: 6px;
     }
 
-    .field-input, .field-select, .field-textarea {
+    .field-input, .field-select {
       width: 100%;
       min-height: 42px;
       padding: 10px 12px;
@@ -447,7 +241,7 @@
       outline: none;
     }
 
-    .field-input:focus, .field-select:focus, .field-textarea:focus {
+    .field-input:focus, .field-select:focus {
       border-color: var(--accent-caramel);
     }
 
@@ -786,6 +580,22 @@
       display: none !important;
     }
 
+    .guide-cup-visual {
+      width: 86px;
+      height: 94px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background: transparent;
+    }
+
+    .guide-cup-visual svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 6px 8px rgba(35, 24, 18, 0.13));
+    }
+
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -836,28 +646,11 @@
       </div>
     </header>
 
-    <!-- Main View: Menu Guide Poster Sheet -->
-    <main id="menuView">
-      <div class="guide-poster-sheet">
-        <div class="poster-header">
-          <h1 class="poster-main-title" id="posterMainTitle">MENU GUIDE</h1>
-          <div class="poster-divider-heart" aria-hidden="true">
-            <span class="poster-divider-line"></span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <span class="poster-divider-line"></span>
-          </div>
-          <p class="poster-subtitle" id="posterSubtitle">• មគ្គុទ្ទេសក៍ម៉ឺនុយ និងគ្រឿងផ្សំ •</p>
-        </div>
+    <!-- Main View Placeholder (MENU GUIDE removed) -->
+    <main id="menuView" style="display: none;"></main>
 
-        <!-- 2-Column Menu Grid -->
-        <div class="coffee-guide-grid" id="menuGrid"></div>
-      </div>
-    </main>
-
-    <!-- Secondary View: Batch & Yield Calculator -->
-    <section id="calculatorView" style="display: none;">
+    <!-- Batch & Yield Calculator View -->
+    <section id="calculatorView" style="display: block;">
       <div class="calc-panel">
         <h2 id="calcTitle">ឧបករណ៍គណនាចំនួនកែវតាមទម្ងន់គ្រឿងផ្សំ</h2>
         <p class="subtitle" id="calcSubtitle">គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់សរុប បរិមាណសម្រាប់ ១ កែវ និងភាគរយខាតបង់ (Waste %)</p>
@@ -917,15 +710,15 @@
 
   <!-- Bottom Navigation -->
   <nav class="bottom-nav" aria-label="ម៉ឺនុយរុករក">
-    <button class="nav-item active" id="navAll" data-tab="all">
+    <button class="nav-item" id="navAll" data-tab="all">
       <svg class="ui-icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-      <span id="navAllLabel">ម៉ឺនុយ</span>
+      <span id="navAllLabel">ម៉ឺនុយ (0)</span>
     </button>
     <button class="nav-item" id="navFav" data-tab="fav">
       <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
       <span id="navFavLabel">ចូលចិត្ត</span>
     </button>
-    <button class="nav-item" id="navCalc" data-tab="calc">
+    <button class="nav-item active" id="navCalc" data-tab="calc">
       <svg class="ui-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="10" y2="10"></line><line x1="14" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="10" y2="14"></line><line x1="14" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
       <span id="navCalcLabel">គណនារង្វាស់</span>
     </button>
@@ -937,7 +730,7 @@
       <div class="drag-handle"></div>
       <div class="modal-header">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <div id="modalArtBox" class="guide-cup-visual" style="width: 86px; height: 94px;"></div>
+          <div id="modalArtBox" class="guide-cup-visual"></div>
           <div>
             <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
               <span class="drink-tag" id="modalTempTag"></span>
@@ -997,25 +790,20 @@
   <script>
     const UI_STRINGS = {
       km: {
-        docTitle: "EMinor Menu — មគ្គុទ្ទេសក៍ម៉ឺនុយ",
+        docTitle: "EMinor Menu",
         headerTitle: "EMinor Menu",
-        posterTitle: "MENU GUIDE",
-        posterSubtitle: "• មគ្គុទ្ទេសក៍ម៉ឺនុយ និងគ្រឿងផ្សំ •",
         langBadge: "EN",
-        customBadge: "ផ្ទាល់ខ្លួន",
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
         navFav: "ចូលចិត្ត",
         navCalc: "គណនារង្វាស់",
-        emptyTitle: "ម៉ឺនុយមិនទាន់មានមុខណាមួយទេ",
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         batchLabel: "ចំនួនកែវធ្វើ (Batch)",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
         stepsHeading: "របៀបធ្វើតាមជំហាន",
         tipPrefix: "គន្លឹះធ្វើ៖",
         defaultTip: "វាស់គ្រឿងផ្សំឱ្យច្បាស់លាស់ ដើម្បីរក្សារសជាតិថេរ។",
-        favBtnSave: "រក្សាទុកចូលចិត្ត",
         deleteCustomBtn: "លុបមុខនេះ",
         calcTitle: "ឧបករណ៍គណនាចំនួនកែវតាមទម្ងន់គ្រឿងផ្សំ",
         calcSubtitle: "គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់សរុប បរិមាណសម្រាប់ ១ កែវ និងភាគរយខាតបង់ (Waste %)",
@@ -1031,31 +819,24 @@
         resUsableGrams: (g) => `ប្រើបាន៖ ${g} g`,
         resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន",
         resCostPerCup: (d) => `រង្វាស់/កែវ៖ ${d}g`,
-        toastAddedFav: "បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត",
-        toastRemovedFav: "បានដកចេញពីបញ្ជីចូលចិត្ត",
         toastDeletedRecipe: "បានលុបមុខចេញពីម៉ឺនុយ",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
       en: {
-        docTitle: "EMinor Menu — Menu Guide",
+        docTitle: "EMinor Menu",
         headerTitle: "EMinor Menu",
-        posterTitle: "MENU GUIDE",
-        posterSubtitle: "• A SIMPLE MENU & INGREDIENT GUIDE •",
         langBadge: "ខ្មែរ",
-        customBadge: "Custom",
         hotFull: "Hot",
         iceFull: "Ice",
         navMenu: (n) => `Menu (${n})`,
         navFav: "Favorites",
         navCalc: "Yield Calc",
-        emptyTitle: "No items in the menu yet",
         cupSizeLabel: "Cup Size",
         batchLabel: "Batch Multiplier",
         ingHeading: "Ingredients & Standard Measurements (Tap to check)",
         stepsHeading: "Step-by-Step Instructions",
         tipPrefix: "Prep Tip:",
         defaultTip: "Measure ingredients accurately for consistent flavor every time.",
-        favBtnSave: "Save to Favorites",
         deleteCustomBtn: "Delete Item",
         calcTitle: "Ingredient Batch Yield Calculator",
         calcSubtitle: "Estimate cup yield by total weight, portion per cup, and waste percentage",
@@ -1071,100 +852,10 @@
         resUsableGrams: (g) => `Usable: ${g} g`,
         resEstRevenueLabel: "Est. Revenue",
         resCostPerCup: (d) => `Portion/cup: ${d}g`,
-        toastAddedFav: "Saved to Favorites",
-        toastRemovedFav: "Removed from Favorites",
         toastDeletedRecipe: "Item removed from menu",
         toastLangSwitched: "Switched to English"
       }
     };
-
-    function getCupIllustrationSvg(cupStyle) {
-      const defs = `
-        <defs>
-          <linearGradient id="glassRim" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
-            <stop offset="20%" stop-color="rgba(220,212,204,0.35)"/>
-            <stop offset="85%" stop-color="rgba(210,200,190,0.28)"/>
-            <stop offset="100%" stop-color="rgba(255,255,255,0.7)"/>
-          </linearGradient>
-          <linearGradient id="deepBase" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#4A2E1B"/>
-            <stop offset="100%" stop-color="#24140B"/>
-          </linearGradient>
-          <linearGradient id="amberLayer" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#C88242"/>
-            <stop offset="50%" stop-color="#E5A76B"/>
-            <stop offset="100%" stop-color="#B36D30"/>
-          </linearGradient>
-          <linearGradient id="warmMilk" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#DFC1A3"/>
-            <stop offset="55%" stop-color="#CFA882"/>
-            <stop offset="100%" stop-color="#BC8E64"/>
-          </linearGradient>
-          <linearGradient id="icedLiquid" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#7B5233"/>
-            <stop offset="55%" stop-color="#4B2D19"/>
-            <stop offset="100%" stop-color="#29170C"/>
-          </linearGradient>
-          <linearGradient id="iceCubeGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.84)"/>
-            <stop offset="100%" stop-color="rgba(210,185,160,0.38)"/>
-          </linearGradient>
-        </defs>
-      `;
-
-      switch (cupStyle) {
-        case "hot-cup":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="50" cy="103" rx="26" ry="5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M77 45 C92 45, 92 73, 74 73" fill="none" stroke="#CFC7BE" stroke-width="5.5" stroke-linecap="round"/>
-            <path d="M23 32 L29 94 C30 99, 70 99, 71 94 L77 32 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M27.5 67 L29.5 92 C30.5 96, 69.5 96, 70.5 92 L72.5 67 Z" fill="url(#deepBase)"/>
-            <ellipse cx="50" cy="67" rx="22.5" ry="5.5" fill="url(#amberLayer)"/>
-            <ellipse cx="50" cy="32" rx="27" ry="6.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-          </svg>`;
-
-        case "hot-milk":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M81 38 C98 38, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
-            <path d="M19 27 L24 94 C25 101, 75 101, 76 94 L81 27 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M21.5 48 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L78.5 48 Z" fill="url(#warmMilk)"/>
-            <ellipse cx="50" cy="27" rx="30.5" ry="9" fill="#FFFDF9" stroke="#D8CEC4" stroke-width="1"/>
-          </svg>`;
-
-        case "latte-art":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="50" cy="105" rx="30" ry="5.5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M81 36 C98 36, 98 76, 77 76" fill="none" stroke="#CFC7BE" stroke-width="6" stroke-linecap="round"/>
-            <path d="M19 25 L24 94 C25 101, 75 101, 76 94 L81 25 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M20.5 34 L24.5 92 C25.5 98, 74.5 98, 75.5 92 L79.5 34 Z" fill="url(#warmMilk)"/>
-            <ellipse cx="50" cy="34" rx="29.5" ry="7.5" fill="#F8F1E7"/>
-            <ellipse cx="50" cy="25" rx="31" ry="7.5" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-          </svg>`;
-
-        case "layered":
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="52" cy="107" rx="24" ry="4.5" fill="rgba(35,24,18,0.14)"/>
-            <path d="M27 20 L33 98 C34 103, 70 103, 71 98 L77 20 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M31.5 55 L33.5 96 C34.5 100, 69.5 100, 70.5 96 L72.5 55 Z" fill="#EFE4D6"/>
-            <path d="M29.5 36 L31.5 55 L72.5 55 L74.5 36 Z" fill="#78482A"/>
-            <ellipse cx="52" cy="24" rx="24" ry="6" fill="#FFFDF9" stroke="#C8BFB4" stroke-width="1.2"/>
-          </svg>`;
-
-        case "iced-glass":
-        default:
-          return `<svg viewBox="0 0 110 120" aria-hidden="true">${defs}
-            <ellipse cx="52" cy="107" rx="25" ry="4.5" fill="rgba(35,24,18,0.15)"/>
-            <path d="M26 20 L31 98 C32 103, 72 103, 73 98 L78 20 Z" fill="url(#glassRim)" stroke="#B8AFA6" stroke-width="1.4"/>
-            <path d="M27.5 30 L31.5 96 C32.5 100, 71.5 100, 72.5 96 L76.5 30 Z" fill="url(#icedLiquid)"/>
-            <rect x="34" y="29" width="16" height="15" rx="3" transform="rotate(-10 42 36)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
-            <rect x="52" y="31" width="16" height="15" rx="3" transform="rotate(12 60 38)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
-            <rect x="37" y="48" width="17" height="16" rx="3" transform="rotate(8 45 56)" fill="url(#iceCubeGrad)" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
-            <ellipse cx="52" cy="20" rx="26" ry="6" fill="none" stroke="#B8AFA6" stroke-width="1.5"/>
-          </svg>`;
-      }
-    }
 
     const STORAGE_KEYS = {
       CUSTOM_RECIPES: "eminor_menu_custom_clean_v1",
@@ -1177,7 +868,7 @@
 
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
-      tab: "all",
+      tab: "calc",
       activeRecipeId: null,
       activeMode: "hot",
       cupSize: "16oz",
@@ -1234,18 +925,6 @@
       return r.nameEn ? `${r.nameKm} (${r.nameEn})` : r.nameKm;
     }
 
-    function getGuideBullets(r, variant) {
-      if (Array.isArray(r.guideBulletsKm)) {
-        return state.lang === "en" ? (r.guideBulletsEn || r.guideBulletsKm) : r.guideBulletsKm;
-      }
-      if (variant && Array.isArray(variant.ingredients)) {
-        return variant.ingredients.slice(0, 3).map((ing) =>
-          state.lang === "en" ? (ing.nameEn || ing.nameKm) : (ing.nameKm || ing.nameEn)
-        );
-      }
-      return [];
-    }
-
     function getRecipeSteps(variant) {
       if (!variant) return [];
       if (state.lang === "en" && Array.isArray(variant.stepsEn) && variant.stepsEn.length) return variant.stepsEn;
@@ -1267,9 +946,8 @@
       document.documentElement.lang = state.lang;
       document.title = s.docTitle;
       document.getElementById("mainHeaderTitle").textContent = s.headerTitle;
-      document.getElementById("posterMainTitle").textContent = s.posterTitle;
-      document.getElementById("posterSubtitle").textContent = s.posterSubtitle;
       document.getElementById("langBadgeText").textContent = s.langBadge;
+      document.getElementById("navAllLabel").textContent = s.navMenu(getAllRecipes().length);
       document.getElementById("navFavLabel").textContent = s.navFav;
       document.getElementById("navCalcLabel").textContent = s.navCalc;
 
@@ -1298,7 +976,6 @@
       state.lang = state.lang === "km" ? "en" : "km";
       saveJson(STORAGE_KEYS.LANG, state.lang);
       applyStaticTranslations();
-      renderMenu();
       calculateBeanYield();
       if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
         openRecipeModal(state.activeRecipeId, state.activeMode);
@@ -1306,110 +983,13 @@
       showToast(t().toastLangSwitched);
     }
 
-    function updateCatalogCounts() {
-      const s = t();
-      const total = getAllRecipes().length;
-      document.getElementById("navAllLabel").textContent = s.navMenu(total);
-    }
-
-    function getFilteredRecipes() {
-      const all = getAllRecipes();
-      return all.filter((r) => {
-        if (state.tab === "fav" && !favorites.has(r.id)) return false;
-        return true;
-      });
-    }
-
-    function renderMenu() {
-      const s = t();
-      updateCatalogCounts();
-      const grid = document.getElementById("menuGrid");
-      const list = getFilteredRecipes();
-
-      if (list.length === 0) {
-        grid.innerHTML = `
-          <div class="empty-state">
-            <h3 style="margin:0; font-size:1rem; font-weight:600; color:var(--text-secondary);">${escapeHtml(state.tab === "fav" ? (state.lang === "en" ? "No favorites yet" : "មិនទាន់មានមុខចូលចិត្តទេ") : s.emptyTitle)}</h3>
-          </div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = list.map((r) => {
-        const isFav = favorites.has(r.id);
-        const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
-        const cupStyle = defaultVar?.cupStyle || r.category || "iced-glass";
-        const displayTitle = state.lang === "en" ? (r.nameEn || r.nameKm) : r.nameKm;
-        const subEnglish = state.lang === "km" && r.nameEn ? r.nameEn : "";
-        const bullets = getGuideBullets(r, defaultVar);
-        const customBadge = r.isCustom ? `<span class="custom-mini-tag">${escapeHtml(s.customBadge)}</span>` : "";
-
-        return `
-          <article class="guide-item" data-id="${r.id}">
-            <div class="guide-cup-visual">
-              ${getCupIllustrationSvg(cupStyle)}
-            </div>
-            <div class="guide-text-col">
-              <div class="guide-title-row">
-                <h3 class="guide-drink-title">${escapeHtml(displayTitle)}</h3>
-                ${customBadge}
-              </div>
-              ${subEnglish ? `<div style="font-size:0.74rem; font-weight:700; letter-spacing:0.06em; color:var(--text-muted); margin:-3px 0 5px;">${escapeHtml(subEnglish)}</div>` : ""}
-              <ul class="guide-ingredient-bullets">
-                ${bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}
-              </ul>
-            </div>
-            <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="${escapeHtml(s.favBtnSave)}" aria-label="${escapeHtml(s.favBtnSave)}">
-              <svg class="ui-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-            </button>
-          </article>
-        `;
-      }).join("");
-
-      grid.querySelectorAll(".guide-item").forEach((card) => {
-        card.addEventListener("click", (e) => {
-          if (e.target.closest(".fav-toggle-btn")) return;
-          const recipe = getAllRecipes().find((x) => x.id === card.dataset.id);
-          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "hot");
-        });
-      });
-
-      grid.querySelectorAll(".fav-toggle-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          toggleFavorite(btn.dataset.favId);
-        });
-      });
-    }
-
-    function toggleFavorite(id) {
-      const s = t();
-      if (favorites.has(id)) {
-        favorites.delete(id);
-        showToast(s.toastRemovedFav);
-      } else {
-        favorites.add(id);
-        showToast(s.toastAddedFav);
-      }
-      saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
-      renderMenu();
-    }
-
     function switchTab(tabName) {
       state.tab = tabName;
       document.querySelectorAll(".nav-item").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.tab === tabName);
       });
-
-      const isCalc = tabName === "calc";
-      document.getElementById("menuView").style.display = isCalc ? "none" : "block";
-      document.getElementById("calculatorView").style.display = isCalc ? "block" : "none";
-
-      if (!isCalc) {
-        renderMenu();
-      } else {
-        calculateBeanYield();
-      }
+      document.getElementById("calculatorView").style.display = "block";
+      calculateBeanYield();
     }
 
     function formatScaledAmount(baseAmt, unit) {
@@ -1464,7 +1044,7 @@
       });
 
       const isHot = mode === "hot";
-      document.getElementById("modalArtBox").innerHTML = getCupIllustrationSvg(variant.cupStyle || recipe.category);
+      document.getElementById("modalArtBox").innerHTML = "";
 
       const tempTag = document.getElementById("modalTempTag");
       tempTag.textContent = isHot ? s.hotFull : s.iceFull;
@@ -1538,7 +1118,7 @@
       saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
       saveJson(STORAGE_KEYS.FAVORITES, [...favorites]);
       document.getElementById("recipeModal").classList.remove("open");
-      renderMenu();
+      applyStaticTranslations();
       showToast(s.toastDeletedRecipe);
     }
 
@@ -1626,7 +1206,6 @@
     }
 
     applyStaticTranslations();
-    renderMenu();
     calculateBeanYield();
     initEvents();
   </script>
