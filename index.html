@@ -419,11 +419,17 @@
 
     .order-quick-add {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-direction: column;
+      gap: 10px;
       margin-bottom: 16px;
       padding-bottom: 14px;
       border-bottom: 1px solid rgba(74, 44, 24, 0.1);
+    }
+
+    .order-quick-row-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .order-list {
@@ -860,12 +866,10 @@
 
     .controls-bar {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      flex-direction: column;
+      gap: 12px;
       background: rgba(255, 255, 255, 0.82);
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: var(--radius-md);
       border: 1px solid var(--glass-border);
       margin: 12px 0;
@@ -873,10 +877,17 @@
 
     .seg-group {
       display: inline-flex;
+      flex-wrap: wrap;
       background: rgba(118, 118, 128, 0.14);
       padding: 3px;
-      border-radius: 11px;
-      gap: 2px;
+      border-radius: 12px;
+      gap: 3px;
+    }
+
+    .seg-group.table-seg-group {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
     }
 
     .seg-btn {
@@ -884,37 +895,35 @@
       background: transparent;
       padding: 7px 12px;
       min-height: 36px;
-      border-radius: 8px;
+      border-radius: 9px;
       font-family: inherit;
       font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+
+    .seg-btn:active {
+      transform: scale(0.95);
+    }
+
+    .table-seg-group .seg-btn {
+      min-width: 36px;
+      padding: 7px 10px;
+      text-align: center;
+      flex: 0 0 auto;
     }
 
     .seg-btn.active {
       background: #FFFFFF;
       color: var(--text-primary);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .table-select-control {
-      min-height: 42px;
-      padding: 8px 12px;
-      border-radius: 11px;
-      border: 1px solid rgba(74, 44, 24, 0.18);
-      background: #FFFFFF;
-      font-family: inherit;
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      outline: none;
-      min-width: 135px;
-      cursor: pointer;
-    }
-
-    .table-select-control:focus {
-      border-color: var(--accent-caramel);
+    .table-seg-group .seg-btn.active {
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
+      color: #FFFFFF;
     }
 
     .section-heading {
@@ -1241,21 +1250,26 @@
         </div>
 
         <div class="order-quick-add" id="cartQuickAddRow">
-          <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 150px;"></select>
-          <select id="quickOrderTableSelect" class="field-select" style="width: auto; min-width: 105px;"></select>
-          <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 110px;">
-            <option value="ice" id="optQuickIce">ត្រជាក់ (Ice)</option>
-            <option value="hot" id="optQuickHot">ក្តៅ (Hot)</option>
-          </select>
-          <select id="quickOrderSugarSelect" class="field-select" style="width: auto; min-width: 100px;">
-            <option value="0">ស្ករ 0%</option>
-            <option value="25">ស្ករ 25%</option>
-            <option value="50">ស្ករ 50%</option>
-            <option value="75">ស្ករ 75%</option>
-            <option value="100" selected>ស្ករ 100%</option>
-            <option value="125">ស្ករ 125%</option>
-          </select>
-          <button class="icon-btn primary" id="quickAddOrderBtn">+ បញ្ចូលកន្ត្រក</button>
+          <div class="order-quick-row-top">
+            <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 150px;"></select>
+            <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 110px;">
+              <option value="ice" id="optQuickIce">ត្រជាក់ (Ice)</option>
+              <option value="hot" id="optQuickHot">ក្តៅ (Hot)</option>
+            </select>
+            <select id="quickOrderSugarSelect" class="field-select" style="width: auto; min-width: 100px;">
+              <option value="0">ស្ករ 0%</option>
+              <option value="25">ស្ករ 25%</option>
+              <option value="50">ស្ករ 50%</option>
+              <option value="75">ស្ករ 75%</option>
+              <option value="100" selected>ស្ករ 100%</option>
+              <option value="125">ស្ករ 125%</option>
+            </select>
+            <button class="icon-btn primary" id="quickAddOrderBtn">+ បញ្ចូលកន្ត្រក</button>
+          </div>
+          <div>
+            <div id="quickTableLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">លេខរៀងតុ (Table No.)</div>
+            <div class="seg-group table-seg-group" id="quickTableGroup" role="group" aria-label="លេខរៀងតុ"></div>
+          </div>
         </div>
 
         <div class="order-list" id="cartList"></div>
@@ -1388,19 +1402,19 @@
 
       <p id="modalDesc" style="margin: 12px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;"></p>
 
-      <!-- Cup Size & Table Number -->
+      <!-- Cup Size & Table Number Segmented Buttons -->
       <div class="controls-bar">
         <div>
-          <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ទំហំកែវ (Cup Size)</div>
+          <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">ទំហំកែវ (Cup Size)</div>
           <div class="seg-group" id="cupSizeGroup">
-            <button class="seg-btn" data-size="12oz">12oz</button>
-            <button class="seg-btn active" data-size="16oz">16oz</button>
-            <button class="seg-btn" data-size="22oz">22oz</button>
+            <button type="button" class="seg-btn" data-size="12oz">12oz</button>
+            <button type="button" class="seg-btn active" data-size="16oz">16oz</button>
+            <button type="button" class="seg-btn" data-size="22oz">22oz</button>
           </div>
         </div>
         <div>
-          <label for="tableNumberSelect" id="tableNumberLabel" style="display:block; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">លេខរៀងតុ (Table No.)</label>
-          <select id="tableNumberSelect" class="table-select-control" aria-label="លេខរៀងតុ"></select>
+          <div id="tableNumberLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">លេខរៀងតុ (Table No.)</div>
+          <div class="seg-group table-seg-group" id="tableNumberGroup" role="group" aria-label="លេខរៀងតុ"></div>
         </div>
       </div>
 
@@ -1578,6 +1592,10 @@
         orderDoneSummary: (done, total) => `ធ្វើរួច៖ ${done} / ${total} មុខ`,
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         tableNumberLabel: "លេខរៀងតុ (Table No.)",
+        tableChipLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "ខ្ចប់";
+          return `${tNum}`;
+        },
         tableOptionLabel: (tNum) => {
           if (!tNum || tNum === "takeaway") return "ខ្ចប់ (Takeaway)";
           return `តុលេខ ${tNum}`;
@@ -1684,6 +1702,10 @@
         orderDoneSummary: (done, total) => `Completed: ${done} / ${total} items`,
         cupSizeLabel: "Cup Size",
         tableNumberLabel: "Table No.",
+        tableChipLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "Takeaway";
+          return `${tNum}`;
+        },
         tableOptionLabel: (tNum) => {
           if (!tNum || tNum === "takeaway") return "Takeaway";
           return `Table ${tNum}`;
@@ -2248,7 +2270,7 @@
             ],
             stepsKm: [
               "លាយទឹកកាហ្វេ ទឹកស្ករ និងទឹកធម្មតាចូលគ្នា។",
-              "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្ញៀវ។",
+              "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្្ញៀវ។",
               "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយកាហ្វេចូល។"
             ],
             stepsEn: [
@@ -2406,23 +2428,45 @@
       return orders.reduce((sum, item) => sum + (item.qty || 1), 0);
     }
 
-    function populateTableSelects() {
+    function renderTablePillGroups() {
       const s = t();
-      const modalSel = document.getElementById("tableNumberSelect");
-      const quickSel = document.getElementById("quickOrderTableSelect");
-      const optionsHtml = TABLE_OPTIONS.map(
-        (num) => `<option value="${num}">${escapeHtml(s.tableOptionLabel(num))}</option>`
+      const activeTable = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
+      state.tableNo = activeTable;
+
+      const buttonsHtml = TABLE_OPTIONS.map(
+        (num) =>
+          `<button type="button" class="seg-btn ${num === activeTable ? "active" : ""}" data-table="${num}">${escapeHtml(s.tableChipLabel(num))}</button>`
       ).join("");
 
-      if (modalSel) {
-        modalSel.innerHTML = optionsHtml;
-        modalSel.value = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
+      const modalGroup = document.getElementById("tableNumberGroup");
+      const quickGroup = document.getElementById("quickTableGroup");
+
+      if (modalGroup) {
+        modalGroup.innerHTML = buttonsHtml;
+        modalGroup.querySelectorAll(".seg-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.tableNo = btn.dataset.table || "1";
+            syncTableSelectionUI();
+          });
+        });
       }
-      if (quickSel) {
-        const prev = quickSel.value;
-        quickSel.innerHTML = optionsHtml;
-        quickSel.value = TABLE_OPTIONS.includes(prev) ? prev : "1";
+
+      if (quickGroup) {
+        quickGroup.innerHTML = buttonsHtml;
+        quickGroup.querySelectorAll(".seg-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.tableNo = btn.dataset.table || "1";
+            syncTableSelectionUI();
+          });
+        });
       }
+    }
+
+    function syncTableSelectionUI() {
+      const activeTable = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
+      document.querySelectorAll("#tableNumberGroup .seg-btn, #quickTableGroup .seg-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.table === activeTable);
+      });
     }
 
     function updateSugarSliderUI() {
@@ -2466,6 +2510,7 @@
       document.getElementById("optQuickIce").textContent = s.iceFull;
       document.getElementById("optQuickHot").textContent = s.hotFull;
       document.getElementById("quickAddOrderBtn").textContent = s.quickAddOrderBtn;
+      document.getElementById("quickTableLabel").textContent = s.tableNumberLabel;
 
       document.getElementById("orderTitle").textContent = s.orderTitle;
       document.getElementById("orderSubtitle").textContent = s.orderSubtitle;
@@ -2480,7 +2525,7 @@
         });
       }
 
-      populateTableSelects();
+      renderTablePillGroups();
 
       document.getElementById("modeHotBtn").textContent = s.hotFull;
       document.getElementById("modeIceBtn").textContent = s.iceFull;
@@ -2750,6 +2795,7 @@
       const s = t();
       updateCatalogCounts();
       populateQuickOrderSelect();
+      syncTableSelectionUI();
 
       const listEl = document.getElementById("cartList");
       const allRecipes = getAllRecipes();
@@ -2975,11 +3021,7 @@
         b.classList.toggle("active", b.dataset.size === "16oz");
       });
 
-      const tableSel = document.getElementById("tableNumberSelect");
-      if (tableSel) {
-        tableSel.value = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
-      }
-
+      syncTableSelectionUI();
       updateSugarSliderUI();
 
       const hotBtn = document.getElementById("modeHotBtn");
@@ -3291,7 +3333,7 @@
       document.getElementById("quickOrderSelect").addEventListener("change", syncQuickOrderModes);
       document.getElementById("quickAddOrderBtn").addEventListener("click", () => {
         const recipeId = document.getElementById("quickOrderSelect").value;
-        const tableNo = document.getElementById("quickOrderTableSelect").value || "1";
+        const tableNo = state.tableNo || "1";
         const mode = document.getElementById("quickOrderModeSelect").value;
         const sugarPct = parseInt(document.getElementById("quickOrderSugarSelect").value, 10) || 0;
         addToCart(recipeId, mode, "16oz", 1, sugarPct, tableNo);
@@ -3346,10 +3388,6 @@
           const variant = getActiveVariant(recipe, state.activeMode);
           if (variant) renderModalIngredients(variant);
         });
-      });
-
-      document.getElementById("tableNumberSelect").addEventListener("change", (e) => {
-        state.tableNo = e.target.value || "1";
       });
 
       document.getElementById("sugarRangeInput").addEventListener("input", (e) => {
