@@ -321,6 +321,11 @@
       color: #8A4D14;
     }
 
+    .drink-tag.table-tag {
+      background: rgba(58, 32, 16, 0.12);
+      color: #3A2010;
+    }
+
     .drink-tag.custom {
       background: rgba(27, 128, 69, 0.14);
       color: var(--accent-success);
@@ -887,6 +892,25 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
+    .table-select-control {
+      min-height: 42px;
+      padding: 8px 12px;
+      border-radius: 11px;
+      border: 1px solid rgba(74, 44, 24, 0.18);
+      background: #FFFFFF;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      outline: none;
+      min-width: 135px;
+      cursor: pointer;
+    }
+
+    .table-select-control:focus {
+      border-color: var(--accent-caramel);
+    }
+
     .section-heading {
       font-size: 0.92rem;
       font-weight: 700;
@@ -1014,14 +1038,12 @@
       background: rgba(255, 255, 255, 0.88);
       border: 1px solid var(--glass-border);
       border-radius: 14px;
-      padding: 11px 12px;
+      padding: 12px 14px;
       min-height: 46px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      cursor: pointer;
-      transition: opacity 0.18s ease;
     }
 
     .ing-item.is-sweetener {
@@ -1029,16 +1051,12 @@
       background: rgba(255, 250, 242, 0.95);
     }
 
-    .ing-item.checked {
-      opacity: 0.55;
-      text-decoration: line-through;
-    }
-
     .ing-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
+      font-weight: 500;
     }
 
     .ing-sugar-pill {
@@ -1048,13 +1066,6 @@
       border-radius: 999px;
       background: rgba(198, 125, 59, 0.18);
       color: #8A4D14;
-    }
-
-    .ing-check {
-      width: 19px;
-      height: 19px;
-      accent-color: var(--accent-espresso);
-      cursor: pointer;
     }
 
     .ing-amount {
@@ -1224,12 +1235,13 @@
         </div>
 
         <div class="order-quick-add" id="orderQuickAddRow">
-          <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 170px;"></select>
-          <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 115px;">
+          <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 150px;"></select>
+          <select id="quickOrderTableSelect" class="field-select" style="width: auto; min-width: 105px;"></select>
+          <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 110px;">
             <option value="ice" id="optQuickIce">ត្រជាក់ (Ice)</option>
             <option value="hot" id="optQuickHot">ក្តៅ (Hot)</option>
           </select>
-          <select id="quickOrderSugarSelect" class="field-select" style="width: auto; min-width: 105px;">
+          <select id="quickOrderSugarSelect" class="field-select" style="width: auto; min-width: 100px;">
             <option value="0">ស្ករ 0%</option>
             <option value="25">ស្ករ 25%</option>
             <option value="50">ស្ករ 50%</option>
@@ -1346,7 +1358,7 @@
 
       <p id="modalDesc" style="margin: 12px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;"></p>
 
-      <!-- Cup Size & Batch Multiplier -->
+      <!-- Cup Size & Table Number -->
       <div class="controls-bar">
         <div>
           <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ទំហំកែវ (Cup Size)</div>
@@ -1357,17 +1369,12 @@
           </div>
         </div>
         <div>
-          <div id="batchLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">ចំនួនកែវឆុង (Batch)</div>
-          <div class="seg-group" id="batchGroup">
-            <button class="seg-btn active" data-batch="1">1x</button>
-            <button class="seg-btn" data-batch="2">2x</button>
-            <button class="seg-btn" data-batch="3">3x</button>
-            <button class="seg-btn" data-batch="5">5x</button>
-          </div>
+          <label for="tableNumberSelect" id="tableNumberLabel" style="display:block; font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px;">លេខរៀងតុ (Table No.)</label>
+          <select id="tableNumberSelect" class="table-select-control" aria-label="លេខរៀងតុ"></select>
         </div>
       </div>
 
-      <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)</div>
+      <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ</div>
 
       <!-- Sugar Level Percentage Slider -->
       <div class="sugar-slider-card" id="sugarSliderCard">
@@ -1531,8 +1538,12 @@
         orderTotalCups: (cups) => `សរុបការកុម្ម៉ង់៖ ${cups} កែវ`,
         orderDoneSummary: (done, total) => `ធ្វើរួច៖ ${done} / ${total} មុខ`,
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
-        batchLabel: "ចំនួនកែវឆុង (Batch)",
-        ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
+        tableNumberLabel: "លេខរៀងតុ (Table No.)",
+        tableOptionLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "ខ្ចប់ (Takeaway)";
+          return `តុលេខ ${tNum}`;
+        },
+        ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ",
         sugarSliderTitle: "កម្រិតផ្អែម / ស្ករ (Sugar %)",
         sugarBadgeText: (pct) => {
           if (pct === 0) return "0% (អត់ស្ករ)";
@@ -1621,8 +1632,12 @@
         orderTotalCups: (cups) => `Total Order: ${cups} cups`,
         orderDoneSummary: (done, total) => `Completed: ${done} / ${total} items`,
         cupSizeLabel: "Cup Size",
-        batchLabel: "Batch Multiplier",
-        ingHeading: "Ingredients & Standard Measurements (Tap to check)",
+        tableNumberLabel: "Table No.",
+        tableOptionLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "Takeaway";
+          return `Table ${tNum}`;
+        },
+        ingHeading: "Ingredients & Standard Measurements",
         sugarSliderTitle: "Sweetness / Sugar Level (%)",
         sugarBadgeText: (pct) => {
           if (pct === 0) return "0% (No Sugar)";
@@ -1676,6 +1691,8 @@
         toastLangSwitched: "Switched to English"
       }
     };
+
+    const TABLE_OPTIONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "takeaway"];
 
     const DEFAULT_RECIPES = [
       {
@@ -2208,7 +2225,7 @@
       activeRecipeId: null,
       activeMode: "ice",
       cupSize: "16oz",
-      batch: 1,
+      tableNo: "1",
       sugarPct: 100
     };
 
@@ -2333,6 +2350,25 @@
       return orders.reduce((sum, item) => sum + (item.qty || 1), 0);
     }
 
+    function populateTableSelects() {
+      const s = t();
+      const modalSel = document.getElementById("tableNumberSelect");
+      const quickSel = document.getElementById("quickOrderTableSelect");
+      const optionsHtml = TABLE_OPTIONS.map(
+        (num) => `<option value="${num}">${escapeHtml(s.tableOptionLabel(num))}</option>`
+      ).join("");
+
+      if (modalSel) {
+        modalSel.innerHTML = optionsHtml;
+        modalSel.value = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
+      }
+      if (quickSel) {
+        const prev = quickSel.value;
+        quickSel.innerHTML = optionsHtml;
+        quickSel.value = TABLE_OPTIONS.includes(prev) ? prev : "1";
+      }
+    }
+
     function updateSugarSliderUI() {
       const s = t();
       const pct = state.sugarPct;
@@ -2381,12 +2417,14 @@
         });
       }
 
+      populateTableSelects();
+
       document.getElementById("modeHotBtn").textContent = s.hotFull;
       document.getElementById("modeIceBtn").textContent = s.iceFull;
       document.getElementById("modalAddOrderBtn").textContent = s.addOrderBtnLabel;
 
       document.getElementById("cupSizeLabel").textContent = s.cupSizeLabel;
-      document.getElementById("batchLabel").textContent = s.batchLabel;
+      document.getElementById("tableNumberLabel").textContent = s.tableNumberLabel;
       document.getElementById("ingSectionHeading").textContent = s.ingHeading;
       document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
       document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
@@ -2465,18 +2503,20 @@
         .reduce((acc, o) => acc + (o.qty || 1), 0);
     }
 
-    function addToOrder(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sugarPct = 100) {
+    function addToOrder(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sugarPct = 100, tableNo = "1") {
       const s = t();
       const recipe = getAllRecipes().find((r) => r.id === recipeId);
       if (!recipe) return;
 
       const resolvedMode = supportsTemp(recipe, mode) ? mode : getDefaultVariantKey(recipe);
+      const resolvedTable = tableNo || "1";
       const existing = orders.find(
         (o) =>
           o.recipeId === recipeId &&
           o.mode === resolvedMode &&
           o.cupSize === cupSize &&
           (o.sugarPct ?? 100) === sugarPct &&
+          (o.tableNo || "1") === resolvedTable &&
           !o.done
       );
 
@@ -2489,6 +2529,7 @@
           mode: resolvedMode,
           cupSize,
           sugarPct,
+          tableNo: resolvedTable,
           qty: qtyToAdd,
           done: false,
           createdAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -2500,7 +2541,8 @@
       if (state.tab === "all") renderMenu();
       if (state.tab === "order") renderOrders();
       const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
-      showToast(s.toastAddedOrder(`${getRecipeNamePrimary(recipe)} (${modeLabel}, ${s.sugarOrderBadge(sugarPct)})`));
+      const tableLabel = s.tableOptionLabel(resolvedTable);
+      showToast(s.toastAddedOrder(`${getRecipeNamePrimary(recipe)} (${tableLabel}, ${modeLabel}, ${s.sugarOrderBadge(sugarPct)})`));
     }
 
     function renderMenu() {
@@ -2563,7 +2605,7 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const recipe = getAllRecipes().find((x) => x.id === btn.dataset.orderId);
-          addToOrder(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100);
+          addToOrder(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100, state.tableNo || "1");
         });
       });
     }
@@ -2617,6 +2659,7 @@
           const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
           const modeLabel = ord.mode === "hot" ? s.hotFull : s.iceFull;
           const sugarPct = ord.sugarPct ?? 100;
+          const tableLabel = s.tableOptionLabel(ord.tableNo || "1");
           const statusCls = ord.done ? "done" : "pending";
           const statusText = ord.done ? s.orderStatusDone : s.orderStatusPending;
           const toggleLabel = ord.done ? s.orderMarkPending : s.orderMarkDone;
@@ -2625,6 +2668,7 @@
             <div class="order-row-card ${ord.done ? "done" : ""}" data-order-id="${ord.id}">
               <div class="order-row-main">
                 <h3 class="order-row-title">
+                  <span class="drink-tag table-tag">${escapeHtml(tableLabel)}</span>
                   <span class="order-row-name">${escapeHtml(name)}</span>
                   <span class="drink-tag ${ord.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
                   <span class="drink-tag">${escapeHtml(ord.cupSize || "16oz")}</span>
@@ -2717,7 +2761,7 @@
     function formatScaledAmount(baseAmt, unit, isSugar = false) {
       if (typeof baseAmt !== "number" || isNaN(baseAmt)) return "";
       const sugarFactor = isSugar ? (state.sugarPct / 100) : 1;
-      const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * state.batch * sugarFactor;
+      const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * sugarFactor;
       const val = baseAmt * mult;
       const rounded = val >= 50 ? Math.round(val) : Math.round(val * 10) / 10;
       const unitDisp = state.lang === "en" && unit === "ចំណិត" ? "slice" : (unit || "");
@@ -2732,15 +2776,16 @@
       const targetMode = supportsTemp(recipe, preferredMode) ? preferredMode : getDefaultVariantKey(recipe);
       state.activeMode = targetMode;
       state.cupSize = "16oz";
-      state.batch = 1;
       state.sugarPct = typeof preserveSugarPct === "number" ? preserveSugarPct : 100;
 
       document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => {
         b.classList.toggle("active", b.dataset.size === "16oz");
       });
-      document.querySelectorAll("#batchGroup .seg-btn").forEach((b) => {
-        b.classList.toggle("active", b.dataset.batch === "1");
-      });
+
+      const tableSel = document.getElementById("tableNumberSelect");
+      if (tableSel) {
+        tableSel.value = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
+      }
 
       updateSugarSliderUI();
 
@@ -2802,7 +2847,6 @@
         return `
           <li class="ing-item ${sweetener ? "is-sweetener" : ""}" data-idx="${idx}">
             <div class="ing-left">
-              <input type="checkbox" class="ing-check" aria-label="${escapeHtml(ingName)}" />
               <span>${escapeHtml(ingName)}</span>
               ${sugarTagHtml}
             </div>
@@ -2819,7 +2863,6 @@
           `
           <li class="ing-item is-sweetener" data-idx="extra-sugar">
             <div class="ing-left">
-              <input type="checkbox" class="ing-check" aria-label="${escapeHtml(extraLabel)}" />
               <span>${escapeHtml(extraLabel)}</span>
               <span class="ing-sugar-pill">${escapeHtml(s.sugarPillLabel(state.sugarPct))}</span>
             </div>
@@ -2828,17 +2871,6 @@
         `
         );
       }
-
-      ul.querySelectorAll(".ing-item").forEach((item) => {
-        const cb = item.querySelector(".ing-check");
-        item.addEventListener("click", (e) => {
-          if (e.target !== cb) cb.checked = !cb.checked;
-          item.classList.toggle("checked", cb.checked);
-        });
-        cb.addEventListener("change", () => {
-          item.classList.toggle("checked", cb.checked);
-        });
-      });
     }
 
     function calculateBeanYield() {
@@ -3060,9 +3092,10 @@
       document.getElementById("quickOrderSelect").addEventListener("change", syncQuickOrderModes);
       document.getElementById("quickAddOrderBtn").addEventListener("click", () => {
         const recipeId = document.getElementById("quickOrderSelect").value;
+        const tableNo = document.getElementById("quickOrderTableSelect").value || "1";
         const mode = document.getElementById("quickOrderModeSelect").value;
         const sugarPct = parseInt(document.getElementById("quickOrderSugarSelect").value, 10) || 0;
-        addToOrder(recipeId, mode, "16oz", 1, sugarPct);
+        addToOrder(recipeId, mode, "16oz", 1, sugarPct, tableNo);
       });
 
       document.getElementById("clearDoneOrdersBtn").addEventListener("click", () => {
@@ -3081,7 +3114,7 @@
 
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
         if (!state.activeRecipeId) return;
-        addToOrder(state.activeRecipeId, state.activeMode, state.cupSize, state.batch, state.sugarPct);
+        addToOrder(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sugarPct, state.tableNo);
       });
 
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
@@ -3104,14 +3137,8 @@
         });
       });
 
-      document.querySelectorAll("#batchGroup .seg-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.batch = parseInt(btn.dataset.batch, 10) || 1;
-          document.querySelectorAll("#batchGroup .seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          const variant = getActiveVariant(recipe, state.activeMode);
-          if (variant) renderModalIngredients(variant);
-        });
+      document.getElementById("tableNumberSelect").addEventListener("change", (e) => {
+        state.tableNo = e.target.value || "1";
       });
 
       document.getElementById("sugarRangeInput").addEventListener("input", (e) => {
