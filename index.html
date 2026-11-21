@@ -184,16 +184,16 @@
       background: rgba(255, 255, 255, 0.85);
       color: var(--text-primary);
       border-radius: 14px;
-      padding: 10px 14px;
-      min-height: 42px;
+      padding: 9px 12px;
+      min-height: 40px;
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       transition: transform 0.14s ease, background 0.18s ease, color 0.18s ease;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
       white-space: nowrap;
@@ -228,6 +228,13 @@
       min-height: 36px;
       font-size: 0.78rem;
       border-radius: 12px;
+    }
+
+    .icon-btn.small-action-btn {
+      padding: 7px 11px;
+      min-height: 36px;
+      font-size: 0.78rem;
+      border-radius: 11px;
     }
 
     .lang-toggle-btn {
@@ -426,17 +433,6 @@
     body.dark-mode .drink-tag.table-tag {
       background: rgba(255, 255, 255, 0.14);
       color: #F6EFE8;
-    }
-
-    .drink-tag.qty-badge {
-      background: rgba(198, 125, 59, 0.18);
-      color: #7D4616;
-      font-weight: 800;
-    }
-
-    body.dark-mode .drink-tag.qty-badge {
-      background: rgba(224, 148, 77, 0.22);
-      color: #F6C594;
     }
 
     .drink-tag.custom {
@@ -1467,8 +1463,7 @@
         <div class="order-list" id="orderList"></div>
 
         <div class="order-summary-bar" id="orderSummaryBar">
-          <span id="orderTotalCupsText">សរុប All Order៖ 0 កែវ</span>
-          <span id="orderDoneCountText">សរុប៖ 0 មុខ</span>
+          <span id="orderDoneCountText">ធ្វើរួច៖ 0/0 មុខ</span>
         </div>
       </div>
     </section>
@@ -1645,9 +1640,9 @@
         langBadge: "EN",
         themeDark: "Dark",
         themeLight: "Light",
-        filterCoffee: (n) => `Coffee (${n})`,
-        filterDrinks: (n) => `ភេសជ្ជៈ (${n})`,
-        filterCart: (n) => n > 0 ? `កន្ត្រក (${n})` : "កន្ត្រក",
+        filterCoffee: () => "Coffee",
+        filterDrinks: () => "ភេសជ្ជៈ",
+        filterCart: () => "កន្ត្រក",
         showingPrefix: "កំពុងបង្ហាញ៖",
         showingMid: "មុខ (សរុប",
         showingSuffix: "មុខ)",
@@ -1655,8 +1650,8 @@
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
         bothFull: "",
-        navMenu: (n) => `ម៉ឺនុយ (${n})`,
-        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
+        navMenu: () => "ម៉ឺនុយ",
+        navOrder: () => "All Order",
         navCalc: "គណនាគ្រាប់",
         emptyTitle: "រកមិនឃើញមុខទំនិញ",
         emptyDesc: "សាកល្បងប្តូរផ្ទាំង Coffee / ភេសជ្ជៈ។",
@@ -1664,7 +1659,7 @@
         cartSubtitle: "ពិនិត្យមុខទំនិញក្នុងកន្ត្រក រួចចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order ពិតប្រាកដ",
         confirmCartBtn: "បញ្ជាក់ Order → All Order",
         cartEmptyTitle: "កន្ត្រកនៅទំនេរ",
-        cartEmptyDesc: "ចុចលើតម្លៃ ($) ឬមុខកាហ្វេ/ភេសជ្ជៈក្នុងម៉ឺនុយ ដើម្បីដាក់ចូលកន្ត្រកជាមុនសិន។",
+        cartEmptyDesc: "ចុចលើតម្លៃ ($) ឬមុខកាហ្វេ/ភេសជ្ជៈក្នុងម៉ឺនុយ ដើម្បីមើលរូបមន្ត និងបញ្ចូលកន្ត្រក។",
         cartTotalCups: (cups, totalPrice) => `ក្នុងកន្ត្រក៖ ${cups} កែវ — $${totalPrice.toFixed(2)}`,
         orderTitle: "All Order",
         orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់",
@@ -1678,9 +1673,8 @@
         confirmDoneDesc: "តើអ្នកពិតជាចង់បញ្ជាក់ថាការកុម្ម៉ង់នេះបានធ្វើរួចរាល់មែនទេ?",
         cancelDoneBtn: "បោះបង់",
         acceptDoneBtn: "បញ្ជាក់ធ្វើរួច",
+        orderEditBtn: "កែ",
         orderRemoveBtn: "លុប",
-        orderQtyBadge: (q) => `x${q}`,
-        orderTotalCups: (cups, totalPrice) => `សរុប All Order៖ ${cups} កែវ ($${totalPrice.toFixed(2)})`,
         orderDoneSummary: (doneCount, totalCount) => `ធ្វើរួច៖ ${doneCount}/${totalCount} មុខ`,
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         tableNumberLabel: "លេខរៀងតុ (Table No.)",
@@ -1737,9 +1731,9 @@
         langBadge: "ខ្មែរ",
         themeDark: "Dark",
         themeLight: "Light",
-        filterCoffee: (n) => `Coffee (${n})`,
-        filterDrinks: (n) => `Drinks (${n})`,
-        filterCart: (n) => n > 0 ? `Cart (${n})` : "Cart",
+        filterCoffee: () => "Coffee",
+        filterDrinks: () => "Drinks",
+        filterCart: () => "Cart",
         showingPrefix: "Showing",
         showingMid: "of",
         showingSuffix: "items",
@@ -1747,8 +1741,8 @@
         hotFull: "Hot",
         iceFull: "Ice",
         bothFull: "",
-        navMenu: (n) => `Menu (${n})`,
-        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
+        navMenu: () => "Menu",
+        navOrder: () => "All Order",
         navCalc: "Bean Calc",
         emptyTitle: "No items found",
         emptyDesc: "Try switching Coffee / Drinks tabs.",
@@ -1756,7 +1750,7 @@
         cartSubtitle: "Review items in cart, then tap «Confirm Order» to send to All Order",
         confirmCartBtn: "Confirm Order → All Order",
         cartEmptyTitle: "Cart is empty",
-        cartEmptyDesc: "Tap the price ($) or any coffee/drink card in Menu to add items to your cart first.",
+        cartEmptyDesc: "Tap the price ($) or any coffee/drink card in Menu to view the recipe and add to cart.",
         cartTotalCups: (cups, totalPrice) => `In Cart: ${cups} cups — $${totalPrice.toFixed(2)}`,
         orderTitle: "All Order",
         orderSubtitle: "Confirmed orders list",
@@ -1770,9 +1764,8 @@
         confirmDoneDesc: "Are you sure you want to confirm this order item is completed?",
         cancelDoneBtn: "Cancel",
         acceptDoneBtn: "Confirm Done",
+        orderEditBtn: "Edit",
         orderRemoveBtn: "Remove",
-        orderQtyBadge: (q) => `x${q}`,
-        orderTotalCups: (cups, totalPrice) => `All Order Total: ${cups} cups ($${totalPrice.toFixed(2)})`,
         orderDoneSummary: (doneCount, totalCount) => `Done: ${doneCount}/${totalCount} items`,
         cupSizeLabel: "Cup Size",
         tableNumberLabel: "Table No.",
@@ -1844,7 +1837,7 @@
             ingredients: [
               { nameKm: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", nameEn: "Ground Coffee (Double Shot)", amount: 18, unit: "g" },
               { nameKm: "ទឹកក្តៅចម្រាញ់ (~93°C)", nameEn: "Extracted Hot Water (~93°C)", amount: 36, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 10, unit: "ml", isSweet: true }
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 10, unit: "ml", isSweet: true }
             ],
             stepsKm: [
               "កំដៅពែងដោយទឹកក្តៅជាមុន រួចចាក់ទឹកចោល។",
@@ -1865,7 +1858,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 50, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
@@ -1899,17 +1892,17 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកក្តៅ (~85–90°C)", nameEn: "Hot Water (~85–90°C)", amount: 180, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 15, unit: "ml", isSweet: true }
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 15, unit: "ml", isSweet: true }
             ],
             stepsKm: [
               "ចាក់ទឹកក្តៅ (~85–90°C) 180 ml ចូលក្នុងពែង។",
               "ចម្រាញ់ Double Espresso 36 ml ស្រោចពីលើទឹកក្តៅ។",
-              "បម្រើក្តៅៗ ដោយអាចដាក់នៅចំហៀងតាមចិត្ត។"
+              "បម្រើក្តៅៗ ដោយអាចកែសម្រួលកម្រិតផ្អែមតាមចិត្ត។"
             ],
             stepsEn: [
               "Pour 180 ml of hot water (~85–90°C) into the cup.",
               "Extract 36 ml double espresso on top of the hot water.",
-              "Serve hot with sweetener on the side if preferred."
+              "Serve hot with sweetness adjusted to preference."
             ],
             tipKm: "ចាក់ Espresso ពីលើទឹកក្តៅ នឹងរក្សា Crema ពណ៌មាសបានស្អាតជាង។",
             tipEn: "Pouring espresso over hot water preserves the crema better than pouring water over espresso."
@@ -1920,7 +1913,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 150, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
@@ -1954,7 +1947,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 200, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 15, unit: "ml", isSweet: true }
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 15, unit: "ml", isSweet: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Double Espresso ដាក់ក្នុងពែងធំ។",
@@ -1975,16 +1968,16 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
-              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកផ្អែមចូលគ្នា។",
+              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងកម្រិតផ្អែមចូលគ្នា។",
               "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
               "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។"
             ],
             stepsEn: [
-              "Stir chilled milk with sweetener.",
+              "Stir chilled milk with sweetness.",
               "Add ice to the glass and pour in the milk.",
               "Pour double espresso on top for clean layering."
             ],
@@ -2009,7 +2002,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ + ពពុះក្តៅក្រាស់ (~62°C)", nameEn: "Fresh Milk + Thick Hot Foam (~62°C)", amount: 170, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 15, unit: "ml", isSweet: true }
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 15, unit: "ml", isSweet: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Double Espresso ដាក់ពែង។",
@@ -2030,7 +2023,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ពពុះទឹកដោះគោត្រជាក់ (Cold Foam)", nameEn: "Chilled Milk Foam (Cold Foam)", amount: 40, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
@@ -2065,7 +2058,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ (ពពុះស្តើង ~62°C)", nameEn: "Fresh Milk (Thin Microfoam ~62°C)", amount: 150, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 10, unit: "ml", isSweet: true }
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 10, unit: "ml", isSweet: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Double Espresso ដាក់ពែងទំហំមធ្យម។",
@@ -2086,7 +2079,7 @@
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 115, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 10, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 10, unit: "ml", isSweet: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
@@ -2119,7 +2112,7 @@
             descEn: "Double espresso melted with chocolate and steamed milk for a warm cocoa-coffee cup.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "សូកូឡា (រសជាតិផ្អែម)", nameEn: "Chocolate (Sweet)", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "សូកូឡា (កម្រិតផ្អែម)", nameEn: "Chocolate (Sweetness)", amount: 25, unit: "ml", isSweet: true },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" }
             ],
             stepsKm: [
@@ -2140,7 +2133,7 @@
             descEn: "Double espresso with chocolate, chilled fresh milk, and ice.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
-              { nameKm: "សូកូឡា (រសជាតិផ្អែម)", nameEn: "Chocolate (Sweet)", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "សូកូឡា (កម្រិតផ្អែម)", nameEn: "Chocolate (Sweetness)", amount: 25, unit: "ml", isSweet: true },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 145, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
@@ -2232,7 +2225,7 @@
             ingredients: [
               { nameKm: "Single/Double Espresso", nameEn: "Single/Double Espresso", amount: 30, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~60°C)", nameEn: "Fresh Milk (Steamed ~60°C)", amount: 50, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 8, unit: "ml", isSweet: true }
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 8, unit: "ml", isSweet: true }
             ],
             stepsKm: [
               "ចម្រាញ់ Espresso ដាក់កែវក្តៅតូច។",
@@ -2253,7 +2246,7 @@
             ingredients: [
               { nameKm: "Single/Double Espresso", nameEn: "Single/Double Espresso", amount: 30, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 45, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetener (Optional)", amount: 8, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម (តាមចំណូលចិត្ត)", nameEn: "Sweetness Level (Optional)", amount: 8, unit: "ml", isSweet: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 80, unit: "g" }
             ],
             stepsKm: [
@@ -2341,12 +2334,12 @@
             descEn: "Chilled black coffee lightly sweetened over ice.",
             ingredients: [
               { nameKm: "ម្សៅកាហ្វេ / Espresso", nameEn: "Brewed Coffee / Espresso", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 25, unit: "ml", isSweet: true },
               { nameKm: "ទឹកធម្មតា", nameEn: "Water", amount: 60, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "លាយទឹកកាហ្វេ ទឹកផ្អែម និងទឹកធម្មតាចូលគ្នា។",
+              "លាយទឹកកាហ្វេ កម្រិតផ្អែម និងទឹកធម្មតាចូលគ្នា។",
               "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្ញៀវ។",
               "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយកាហ្វេចូល។"
             ],
@@ -2377,13 +2370,13 @@
             descEn: "Strawberry fruit mix with a splash of lime and chilled sparkling soda over ice.",
             ingredients: [
               { nameKm: "Strawberry Puree / Syrup", nameEn: "Strawberry Puree / Syrup", amount: 35, unit: "ml", isSweet: true },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
               { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "ចាក់ Strawberry Puree ទឹកផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
+              "ចាក់ Strawberry Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
               "ដាក់ទឹកកកពេញកែវ។",
               "ចាក់ទឹកសូដាត្រជាក់យឺតៗពីលើ រួចតុបតែងដោយផ្លែស្ត្របឺរី ឬជីអង្កាម។"
             ],
@@ -2412,13 +2405,13 @@
             descEn: "Vibrant purple blueberry mix topped with cold soda water and a bright lime twist.",
             ingredients: [
               { nameKm: "Blueberry Puree / Syrup", nameEn: "Blueberry Puree / Syrup", amount: 35, unit: "ml", isSweet: true },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
               { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "លាយ Blueberry Puree ទឹកផ្អែម និងទឹកក្រូចឆ្មារនៅបាតកែវ។",
+              "លាយ Blueberry Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារនៅបាតកែវ។",
               "បន្ថែមទឹកកកឱ្យពេញកែវ។",
               "ចាក់ទឹកសូដាត្រជាក់ស្រោចពីលើបង្កើតជាពណ៌ស្រទាប់ស្អាត។"
             ],
@@ -2447,13 +2440,13 @@
             descEn: "Tropical ripe mango flavor lifted by crisp sparkling soda and lime.",
             ingredients: [
               { nameKm: "Mango Puree / Syrup", nameEn: "Mango Puree / Syrup", amount: 40, unit: "ml", isSweet: true },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 10, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 10, unit: "ml", isSweet: true },
               { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 12, unit: "ml" },
               { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "ចាក់ Mango Puree ទឹកផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរឱ្យសព្វ។",
+              "ចាក់ Mango Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរឱ្យសព្វ។",
               "ដាក់ទឹកកកពេញកែវ។",
               "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចដាក់ក្រូចឆ្មារ ១ ចំណិតតុបតែង។"
             ],
@@ -2482,13 +2475,13 @@
             descEn: "Refreshing sweet-tangy kiwi topped with crisp soda water over ice.",
             ingredients: [
               { nameKm: "Kiwi Puree / Syrup", nameEn: "Kiwi Puree / Syrup", amount: 35, unit: "ml", isSweet: true },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
               { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "ចាក់ Kiwi Puree ទឹកផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
+              "ចាក់ Kiwi Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
               "ដាក់ទឹកកកពេញកែវ។",
               "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចបម្រើជាមួយបំពង់បឺត។"
             ],
@@ -2517,13 +2510,13 @@
             descEn: "Fresh passion fruit pulp balanced with sweetener and chilled soda water.",
             ingredients: [
               { nameKm: "ទឹកផ្លែផាសិនស្រស់ (Passion Pulp)", nameEn: "Fresh Passion Fruit Pulp", amount: 40, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 25, unit: "ml", isSweet: true },
               { nameKm: "អំបិលម៉ត់ (បន្តិចបំផុត)", nameEn: "Pinch of Salt", amount: 1, unit: "g" },
               { nameKm: "ទឹកសូដាត្រជាក់ (Soda Water)", nameEn: "Chilled Soda Water", amount: 145, unit: "ml" },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
             ],
             stepsKm: [
-              "លាយទឹកផ្លែផាសិន ទឹកផ្អែម និងអំបិលបន្តិចចូលគ្នាឱ្យរលាយសព្វ។",
+              "លាយទឹកផ្លែផាសិន កម្រិតផ្អែម និងអំបិលបន្តិចចូលគ្នាឱ្យរលាយសព្វ។",
               "ដាក់ទឹកកកពេញកែវ រួចចាក់ល្បាយផាសិនចូល។",
               "ចាក់ទឹកសូដាត្រជាក់ស្រោចពីលើ រួចបម្រើភ្លាម។"
             ],
@@ -2582,16 +2575,16 @@
         descEn: "Blended ice-smooth passion fruit frappe with bright tropical sweetness.",
         variants: {
           ice: {
-            descKm: "ផាសិនស្រស់ក្រឡុកម៉ត់ជាមួយទឹកផ្អែម និងទឹកដោះគោខាប់បន្តិចឱ្យសាច់រលោងខាប់។",
+            descKm: "ផាសិនស្រស់ក្រឡុកម៉ត់ជាមួយកម្រិតផ្អែម និងទឹកដោះគោខាប់បន្តិចឱ្យសាច់រលោងខាប់។",
             descEn: "Smoothly blended passion fruit with sweetener and a touch of condensed milk for body.",
             ingredients: [
               { nameKm: "ទឹកផ្លែផាសិនស្រស់", nameEn: "Fresh Passion Fruit Pulp", amount: 50, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 30, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 30, unit: "ml", isSweet: true },
               { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 15, unit: "ml", isSweet: true },
               { nameKm: "ទឹកកកដុំតូច", nameEn: "Ice Cubes", amount: 220, unit: "g" }
             ],
             stepsKm: [
-              "ដាក់ផាសិន ទឹកផ្អែម ទឹកដោះគោខាប់ និងទឹកកកចូលម៉ាស៊ីនក្រឡុក។",
+              "ដាក់ផាសិន កម្រិតផ្អែម ទឹកដោះគោខាប់ និងទឹកកកចូលម៉ាស៊ីនក្រឡុក។",
               "ក្រឡុកល្បឿនលឿនប្រហែល 20–25 វិនាទី រហូតម៉ត់រលោងគ្មានដុំទឹកកក។",
               "ចាក់ដាក់កែវ រួចស្រោចគ្រាប់ផាសិនបន្តិចពីលើដើម្បីតុបតែង។"
             ],
@@ -2622,11 +2615,11 @@
               { nameKm: "ម្សៅតែបៃតង Matcha", nameEn: "Matcha Green Tea Powder", amount: 4, unit: "g" },
               { nameKm: "ទឹកក្តៅ (~75°C) សម្រាប់វាយតែ", nameEn: "Warm Water (~75°C) for Whisking", amount: 40, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 15, unit: "ml", isSweet: true }
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true }
             ],
             stepsKm: [
               "រែងម្សៅ Matcha 4g ចូលកូនចាន ដាក់ទឹកក្តៅ (~75°C) 40ml រួចវាយឱ្យរលាយម៉ត់គ្មានដុំ។",
-              "ចាក់ទឹក Matcha និងទឹកផ្អែមចូលពែង។",
+              "ចាក់ទឹក Matcha និងកម្រិតផ្អែមចូលពែង។",
               "ចាក់ទឹកដោះគោចំហុយក្តៅចូល រួចបម្រើក្តៅៗ។"
             ],
             stepsEn: [
@@ -2644,12 +2637,12 @@
               { nameKm: "ម្សៅតែបៃតង Matcha", nameEn: "Matcha Green Tea Powder", amount: 4, unit: "g" },
               { nameKm: "ទឹកក្តៅឧណ្ហៗ (~75°C)", nameEn: "Warm Water (~75°C)", amount: 40, unit: "ml" },
               { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
-              { nameKm: "ទឹកផ្អែម", nameEn: "Sweetener", amount: 20, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 20, unit: "ml", isSweet: true },
               { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
             ],
             stepsKm: [
               "វាយម្សៅ Matcha ជាមួយទឹកក្តៅឧណ្ហៗ 40ml រហូតម៉ត់រលោង។",
-              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងទឹកផ្អែមចាក់ចូលកែវទឹកកក។",
+              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងកម្រិតផ្អែមចាក់ចូលកែវទឹកកក។",
               "ចាក់ទឹក Matcha ស្រោចពីលើបង្កើតជា ២ ស្រទាប់ពណ៌ស និងបៃតង។"
             ],
             stepsEn: [
@@ -2683,6 +2676,7 @@
       tab: "all",
       filter: "coffee",
       activeRecipeId: null,
+      editingCartItemId: null,
       activeMode: "ice",
       cupSize: "16oz",
       tableNo: "1",
@@ -2724,7 +2718,7 @@
 
     function formatPrice(amount) {
       const num = Number(amount) || 0;
-      return `$${num % 1 === 0 ? num.toFixed(2) : num.toFixed(2)}`;
+      return `$${num.toFixed(2)}`;
     }
 
     function isSweetenerIngredient(ing) {
@@ -2833,10 +2827,6 @@
       }, 0);
     }
 
-    function getTotalOrderCups() {
-      return orders.reduce((sum, item) => sum + (item.qty || 1), 0);
-    }
-
     function getTotalOrderPrice() {
       const all = getAllRecipes();
       return orders.reduce((sum, item) => {
@@ -2929,8 +2919,15 @@
       document.getElementById("langBadgeText").textContent = s.langBadge;
       applyThemeUI();
 
-      document.getElementById("navOrderLabel").textContent = s.navOrder(getTotalOrderCups());
+      document.getElementById("navAllLabel").textContent = s.navMenu();
+      document.getElementById("navOrderLabel").textContent = s.navOrder();
       document.getElementById("navCalcLabel").textContent = s.navCalc;
+
+      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
+        if (btn.dataset.filter === "coffee") btn.textContent = s.filterCoffee();
+        if (btn.dataset.filter === "drinks") btn.textContent = s.filterDrinks();
+        if (btn.dataset.filter === "cart") btn.textContent = s.filterCart();
+      });
 
       document.getElementById("cartTitle").textContent = s.cartTitle;
       document.getElementById("cartSubtitle").textContent = s.cartSubtitle;
@@ -2980,28 +2977,9 @@
       else if (state.tab === "calc") calculateBeanYield();
       else renderMenu();
       if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
-        openRecipeModal(state.activeRecipeId, state.activeMode, state.sweetPct);
+        openRecipeModal(state.activeRecipeId, state.activeMode, state.sweetPct, state.cupSize, state.tableNo, state.editingCartItemId);
       }
       showToast(t().toastLangSwitched);
-    }
-
-    function updateCatalogCounts() {
-      const s = t();
-      const all = getAllRecipes();
-      const total = all.length;
-      const coffeeCount = all.filter((r) => getRecipeSection(r) === "coffee").length;
-      const drinksCount = all.filter((r) => getRecipeSection(r) === "drinks").length;
-      const cartCount = getTotalCartCups();
-      const orderCount = getTotalOrderCups();
-
-      document.getElementById("navAllLabel").textContent = s.navMenu(total);
-      document.getElementById("navOrderLabel").textContent = s.navOrder(orderCount);
-
-      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        if (btn.dataset.filter === "coffee") btn.textContent = s.filterCoffee(coffeeCount);
-        if (btn.dataset.filter === "drinks") btn.textContent = s.filterDrinks(drinksCount);
-        if (btn.dataset.filter === "cart") btn.textContent = s.filterCart(cartCount);
-      });
     }
 
     function getFilteredRecipes() {
@@ -3012,13 +2990,18 @@
       });
     }
 
-    function addToCart(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sweetPct = 100, tableNo = "1") {
+    function addToCart(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sweetPct = 100, tableNo = "1", replaceCartItemId = null) {
       const s = t();
       const recipe = getAllRecipes().find((r) => r.id === recipeId);
       if (!recipe) return;
 
       const resolvedMode = supportsTemp(recipe, mode) ? mode : getDefaultVariantKey(recipe);
       const resolvedTable = normalizeTableNo(tableNo);
+
+      if (replaceCartItemId) {
+        cartItems = cartItems.filter((item) => item.id !== replaceCartItemId);
+      }
+
       const existing = cartItems.find(
         (o) =>
           o.recipeId === recipeId &&
@@ -3044,7 +3027,6 @@
       }
 
       saveJson(STORAGE_KEYS.CART, cartItems);
-      updateCatalogCounts();
       if (state.tab === "cart") renderCart();
       const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
       const tableLabel = s.tableOptionLabel(resolvedTable);
@@ -3093,7 +3075,6 @@
       cartItems = [];
       saveJson(STORAGE_KEYS.CART, cartItems);
       saveJson(STORAGE_KEYS.ORDERS, orders);
-      updateCatalogCounts();
       showToast(s.toastConfirmedOrder(addedCups));
       switchTab("order");
     }
@@ -3105,9 +3086,8 @@
       const recipe = getAllRecipes().find((r) => r.id === ord.recipeId);
       const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
       const tableLabel = s.tableOptionLabel(normalizeTableNo(ord.tableNo));
-      const qty = ord.qty || 1;
       pendingDoneOrderId = orderId;
-      document.getElementById("confirmDoneItemText").textContent = `${tableLabel} • ${name} (x${qty})`;
+      document.getElementById("confirmDoneItemText").textContent = `${tableLabel} • ${name}`;
       document.getElementById("confirmDoneModal").classList.add("open");
     }
 
@@ -3132,7 +3112,6 @@
 
     function renderMenu() {
       const s = t();
-      updateCatalogCounts();
       const grid = document.getElementById("menuGrid");
       const list = getFilteredRecipes();
       const sectionTotal = getAllRecipes().filter((r) => getRecipeSection(r) === state.filter).length;
@@ -3171,7 +3150,7 @@
               <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
             </div>
-            <button class="price-pill-btn" data-price-id="${r.id}" title="${escapeHtml(s.addOrderBtnLabel)}" aria-label="${escapeHtml(priceText)}">
+            <button type="button" class="price-pill-btn" data-price-id="${r.id}" title="${escapeHtml(primaryName)}" aria-label="${escapeHtml(priceText)}">
               <span>${escapeHtml(priceText)}</span>
             </button>
           </article>
@@ -3179,8 +3158,7 @@
       }).join("");
 
       grid.querySelectorAll(".drink-card").forEach((card) => {
-        card.addEventListener("click", (e) => {
-          if (e.target.closest(".price-pill-btn")) return;
+        card.addEventListener("click", () => {
           const recipe = getAllRecipes().find((x) => x.id === card.dataset.id);
           openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice", 100);
         });
@@ -3190,15 +3168,13 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const recipe = getAllRecipes().find((x) => x.id === btn.dataset.priceId);
-          addToCart(btn.dataset.priceId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100, normalizeTableNo(state.tableNo));
+          openRecipeModal(btn.dataset.priceId, recipe ? getDefaultVariantKey(recipe) : "ice", 100);
         });
       });
     }
 
     function renderCart() {
       const s = t();
-      updateCatalogCounts();
-
       const listEl = document.getElementById("cartList");
       const allRecipes = getAllRecipes();
 
@@ -3226,7 +3202,6 @@
                 <h3 class="order-row-title">
                   <span class="drink-tag table-tag">${escapeHtml(tableLabel)}</span>
                   <span class="order-row-name">${escapeHtml(name)}</span>
-                  <span class="drink-tag qty-badge">${escapeHtml(s.orderQtyBadge(qty))}</span>
                   <span class="drink-tag sweet-tag">${escapeHtml(lineTotal)}</span>
                   <span class="drink-tag ${item.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
                   <span class="drink-tag">${escapeHtml(item.cupSize || "16oz")}</span>
@@ -3234,7 +3209,8 @@
                 </h3>
               </div>
               <div class="order-row-actions">
-                <button class="icon-btn" data-action="remove" style="color:#B81D37;">${escapeHtml(s.orderRemoveBtn)}</button>
+                <button type="button" class="icon-btn small-action-btn" data-action="edit">${escapeHtml(s.orderEditBtn)}</button>
+                <button type="button" class="icon-btn small-action-btn" data-action="remove" style="color:#B81D37;">${escapeHtml(s.orderRemoveBtn)}</button>
               </div>
             </div>
           `;
@@ -3242,6 +3218,18 @@
 
         listEl.querySelectorAll(".order-row-card").forEach((row) => {
           const cId = row.dataset.cartId;
+          row.querySelector('[data-action="edit"]').addEventListener("click", () => {
+            const target = cartItems.find((o) => o.id === cId);
+            if (!target) return;
+            openRecipeModal(
+              target.recipeId,
+              target.mode || "ice",
+              target.sweetPct ?? target.sugarPct ?? 100,
+              target.cupSize || "16oz",
+              normalizeTableNo(target.tableNo),
+              target.id
+            );
+          });
           row.querySelector('[data-action="remove"]').addEventListener("click", () => {
             cartItems = cartItems.filter((o) => o.id !== cId);
             saveJson(STORAGE_KEYS.CART, cartItems);
@@ -3255,8 +3243,6 @@
 
     function renderOrders() {
       const s = t();
-      updateCatalogCounts();
-
       const listEl = document.getElementById("orderList");
       const allRecipes = getAllRecipes();
 
@@ -3300,7 +3286,6 @@
                 <h3 class="order-row-title">${escapeHtml(name)}</h3>
                 <div class="order-card-right-meta">
                   <span class="drink-tag sweet-tag">${escapeHtml(lineTotal)}</span>
-                  <span class="drink-tag qty-badge">${escapeHtml(s.orderQtyBadge(qty))}</span>
                   ${doneBtnHtml}
                 </div>
               </div>
@@ -3319,10 +3304,7 @@
         });
       }
 
-      const totalCups = getTotalOrderCups();
-      const totalPrice = getTotalOrderPrice();
       const doneCount = orders.filter((o) => o.done).length;
-      document.getElementById("orderTotalCupsText").textContent = s.orderTotalCups(totalCups, totalPrice);
       document.getElementById("orderDoneCountText").textContent = s.orderDoneSummary(doneCount, orders.length);
     }
 
@@ -3375,19 +3357,20 @@
       return `${rounded} ${unitDisp}`.trim();
     }
 
-    function openRecipeModal(id, preferredMode, preserveSweetPct) {
+    function openRecipeModal(id, preferredMode, preserveSweetPct, cupSize = "16oz", tableNo = null, editingCartItemId = null) {
       const recipe = getAllRecipes().find((r) => r.id === id);
       if (!recipe) return;
 
       state.activeRecipeId = id;
+      state.editingCartItemId = editingCartItemId;
       const targetMode = supportsTemp(recipe, preferredMode) ? preferredMode : getDefaultVariantKey(recipe);
       state.activeMode = targetMode;
-      state.cupSize = "16oz";
-      state.tableNo = normalizeTableNo(state.tableNo);
+      state.cupSize = ["12oz", "16oz", "22oz"].includes(cupSize) ? cupSize : "16oz";
+      state.tableNo = normalizeTableNo(tableNo !== null ? tableNo : state.tableNo);
       state.sweetPct = typeof preserveSweetPct === "number" ? preserveSweetPct : 100;
 
       document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => {
-        b.classList.toggle("active", b.dataset.size === "16oz");
+        b.classList.toggle("active", b.dataset.size === state.cupSize);
       });
 
       syncTableSelectionUI();
@@ -3462,7 +3445,7 @@
 
       if (!hasSweetener && state.sweetPct > 0) {
         const extraSweetAmt = formatScaledAmount(15, "ml", true);
-        const extraLabel = state.lang === "en" ? "Sweetener (Added)" : "ទឹកផ្អែម (បន្ថែមតាម %)";
+        const extraLabel = state.lang === "en" ? "Sweetness Level (Added)" : "កម្រិតផ្អែម (បន្ថែមតាម %)";
         ul.insertAdjacentHTML(
           "beforeend",
           `
@@ -3560,7 +3543,18 @@
 
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
         if (!state.activeRecipeId) return;
-        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sweetPct, normalizeTableNo(state.tableNo));
+        const editingId = state.editingCartItemId;
+        addToCart(
+          state.activeRecipeId,
+          state.activeMode,
+          state.cupSize,
+          1,
+          state.sweetPct,
+          normalizeTableNo(state.tableNo),
+          editingId
+        );
+        state.editingCartItemId = null;
+        document.getElementById("recipeModal").classList.remove("open");
       });
 
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
@@ -3602,10 +3596,14 @@
       });
 
       document.getElementById("closeRecipeModal").addEventListener("click", () => {
+        state.editingCartItemId = null;
         document.getElementById("recipeModal").classList.remove("open");
       });
       document.getElementById("recipeModal").addEventListener("click", (e) => {
-        if (e.target.id === "recipeModal") e.target.classList.remove("open");
+        if (e.target.id === "recipeModal") {
+          state.editingCartItemId = null;
+          e.target.classList.remove("open");
+        }
       });
 
       document.getElementById("deleteCustomBtn").addEventListener("click", deleteActiveCustomRecipe);
@@ -3638,3 +3636,4 @@
   </script>
 </body>
 </html>
+
