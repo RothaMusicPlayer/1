@@ -305,12 +305,13 @@
     }
 
     .drink-tag {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 2.5px 9px;
+      padding: 3px 9px;
       border-radius: 999px;
       background: rgba(74, 44, 24, 0.09);
       color: var(--accent-espresso);
+      white-space: nowrap;
     }
 
     .drink-tag.temp-hot {
@@ -336,6 +337,12 @@
     .drink-tag.table-tag {
       background: rgba(58, 32, 16, 0.12);
       color: #3A2010;
+    }
+
+    .drink-tag.qty-badge {
+      background: rgba(198, 125, 59, 0.18);
+      color: #7D4616;
+      font-weight: 800;
     }
 
     .drink-tag.custom {
@@ -399,7 +406,7 @@
       background: var(--glass-surface-strong);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
-      padding: 20px;
+      padding: 18px;
       box-shadow: var(--shadow-glass);
     }
 
@@ -445,20 +452,50 @@
     }
 
     .order-row-card {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
-      padding: 13px 14px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      box-shadow: 0 2px 8px rgba(34, 19, 10, 0.04);
+    }
+
+    .order-row-card.clean-order-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .order-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .order-row-card.done {
-      opacity: 0.65;
-      background: rgba(235, 247, 239, 0.85);
+    .order-card-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .order-card-time {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .order-card-title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .order-row-main {
@@ -468,7 +505,7 @@
 
     .order-row-title {
       margin: 0;
-      font-size: 0.98rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--text-primary);
       display: flex;
@@ -477,25 +514,12 @@
       flex-wrap: wrap;
     }
 
-    .order-row-card.done .order-row-name {
-      text-decoration: line-through;
-    }
-
-    .order-row-meta {
-      margin-top: 4px;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
     .order-status-badge {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 2px 8px;
+      padding: 3px 9px;
       border-radius: 999px;
+      white-space: nowrap;
     }
 
     .order-status-badge.pending {
@@ -915,8 +939,8 @@
     }
 
     .table-seg-group .seg-btn {
-      min-width: 36px;
-      padding: 7px 10px;
+      min-width: 38px;
+      padding: 7px 11px;
       text-align: center;
       flex: 0 0 auto;
     }
@@ -1293,20 +1317,16 @@
         <div class="order-header-row">
           <div>
             <h2 id="orderTitle">All Order</h2>
-            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់ — ធីករួចរាល់ ឬសម្អាតបញ្ជី</p>
+            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់</p>
           </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button class="icon-btn" id="backToCartBtn">← កន្ត្រក</button>
-            <button class="icon-btn" id="clearDoneOrdersBtn">សម្អាតមុខរួច</button>
-            <button class="icon-btn" id="clearAllOrdersBtn" style="color:#B81D37;">សម្អាតទាំងអស់</button>
-          </div>
+          <button class="icon-btn" id="backToCartBtn">← កន្ត្រក</button>
         </div>
 
         <div class="order-list" id="orderList"></div>
 
         <div class="order-summary-bar" id="orderSummaryBar">
           <span id="orderTotalCupsText">សរុប All Order៖ 0 កែវ</span>
-          <span id="orderDoneCountText">ធ្វើរួច៖ 0 / 0 មុខ</span>
+          <span id="orderDoneCountText">សរុប៖ 0 មុខ</span>
         </div>
       </div>
     </section>
@@ -1582,19 +1602,16 @@
         cartEmptyDesc: "ចុច + លើមុខកាហ្វេ ឬភេសជ្ជៈក្នុងម៉ឺនុយ ដើម្បីដាក់ចូលកន្ត្រកជាមុនសិន។",
         cartTotalCups: (cups) => `ក្នុងកន្ត្រក៖ ${cups} កែវ`,
         orderTitle: "All Order",
-        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់ — ធីករួចរាល់ ឬសម្អាតបញ្ជី",
+        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់",
         backToCartBtn: "← កន្ត្រក",
-        clearDoneOrdersBtn: "សម្អាតមុខរួច",
-        clearAllOrdersBtn: "សម្អាតទាំងអស់",
         orderEmptyTitle: "មិនទាន់មាន All Order ទេ",
         orderEmptyDesc: "បញ្ចូលមុខទំនិញទៅក្នុងកន្ត្រក ហើយចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order។",
         orderStatusPending: "កំពុងធ្វើ",
         orderStatusDone: "រួចរាល់",
-        orderMarkDone: "រួចរាល់",
-        orderMarkPending: "ដាក់កំពុងធ្វើ",
         orderRemoveBtn: "លុប",
+        orderQtyBadge: (q) => `x${q}`,
         orderTotalCups: (cups) => `សរុប All Order៖ ${cups} កែវ`,
-        orderDoneSummary: (done, total) => `ធ្វើរួច៖ ${done} / ${total} មុខ`,
+        orderDoneSummary: (total) => `សរុប៖ ${total} មុខ`,
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         tableNumberLabel: "លេខរៀងតុ (Table No.)",
         tableChipLabel: (tNum) => {
@@ -1655,8 +1672,6 @@
         toastCartEmpty: "កន្ត្រកនៅទំនេរ — សូមជ្រើសរើសមុខទំនិញជាមុន",
         toastConfirmedOrder: (cups) => `បានបញ្ជាក់ ${cups} កែវ ទៅ All Order រួចរាល់`,
         toastClearedCart: "បានសម្អាតកន្ត្រករួចរាល់",
-        toastClearedDone: "បានសម្អាតមុខដែលធ្វើរួចរាល់",
-        toastClearedAll: "បានសម្អាត All Order ទាំងអស់",
         toastAddedRecipe: "បានបន្ថែមមុខថ្មីរួចរាល់",
         toastDeletedRecipe: "បានលុបមុខផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
@@ -1693,19 +1708,16 @@
         cartEmptyDesc: "Tap + on any coffee or drink card in Menu to add items to your cart first.",
         cartTotalCups: (cups) => `In Cart: ${cups} cups`,
         orderTitle: "All Order",
-        orderSubtitle: "Confirmed orders — mark served or clear completed items",
+        orderSubtitle: "Confirmed orders list",
         backToCartBtn: "← Cart",
-        clearDoneOrdersBtn: "Clear Done",
-        clearAllOrdersBtn: "Clear All",
         orderEmptyTitle: "No confirmed orders yet",
         orderEmptyDesc: "Add items to Cart and tap «Confirm Order» to send them to All Order.",
         orderStatusPending: "Pending",
         orderStatusDone: "Served",
-        orderMarkDone: "Mark Done",
-        orderMarkPending: "Reopen",
         orderRemoveBtn: "Remove",
+        orderQtyBadge: (q) => `x${q}`,
         orderTotalCups: (cups) => `All Order Total: ${cups} cups`,
-        orderDoneSummary: (done, total) => `Completed: ${done} / ${total} items`,
+        orderDoneSummary: (total) => `Total: ${total} items`,
         cupSizeLabel: "Cup Size",
         tableNumberLabel: "Table No.",
         tableChipLabel: (tNum) => {
@@ -1766,15 +1778,13 @@
         toastCartEmpty: "Cart is empty — add an item first",
         toastConfirmedOrder: (cups) => `Confirmed ${cups} cups into All Order`,
         toastClearedCart: "Cleared Cart",
-        toastClearedDone: "Cleared completed orders",
-        toastClearedAll: "Cleared all items in All Order",
         toastAddedRecipe: "New custom item added",
         toastDeletedRecipe: "Custom item deleted",
         toastLangSwitched: "Switched to English"
       }
     };
 
-    const TABLE_OPTIONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "takeaway"];
+    const TABLE_OPTIONS = ["1", "2", "3", "4", "5", "takeaway"];
 
     const DEFAULT_RECIPES = [
       {
@@ -2641,6 +2651,10 @@
       "honey"
     ];
 
+    function normalizeTableNo(val) {
+      return TABLE_OPTIONS.includes(String(val)) ? String(val) : "1";
+    }
+
     function isSweetenerIngredient(ing) {
       if (!ing) return false;
       if (ing.isSugar === true) return true;
@@ -2745,7 +2759,7 @@
 
     function renderTablePillGroups() {
       const s = t();
-      const activeTable = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
+      const activeTable = normalizeTableNo(state.tableNo);
       state.tableNo = activeTable;
 
       const buttonsHtml = TABLE_OPTIONS.map(
@@ -2760,7 +2774,7 @@
         modalGroup.innerHTML = buttonsHtml;
         modalGroup.querySelectorAll(".seg-btn").forEach((btn) => {
           btn.addEventListener("click", () => {
-            state.tableNo = btn.dataset.table || "1";
+            state.tableNo = normalizeTableNo(btn.dataset.table);
             syncTableSelectionUI();
           });
         });
@@ -2770,7 +2784,7 @@
         quickGroup.innerHTML = buttonsHtml;
         quickGroup.querySelectorAll(".seg-btn").forEach((btn) => {
           btn.addEventListener("click", () => {
-            state.tableNo = btn.dataset.table || "1";
+            state.tableNo = normalizeTableNo(btn.dataset.table);
             syncTableSelectionUI();
           });
         });
@@ -2778,7 +2792,7 @@
     }
 
     function syncTableSelectionUI() {
-      const activeTable = TABLE_OPTIONS.includes(state.tableNo) ? state.tableNo : "1";
+      const activeTable = normalizeTableNo(state.tableNo);
       document.querySelectorAll("#tableNumberGroup .seg-btn, #quickTableGroup .seg-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.table === activeTable);
       });
@@ -2830,8 +2844,6 @@
       document.getElementById("orderTitle").textContent = s.orderTitle;
       document.getElementById("orderSubtitle").textContent = s.orderSubtitle;
       document.getElementById("backToCartBtn").textContent = s.backToCartBtn;
-      document.getElementById("clearDoneOrdersBtn").textContent = s.clearDoneOrdersBtn;
-      document.getElementById("clearAllOrdersBtn").textContent = s.clearAllOrdersBtn;
 
       const quickSugarSel = document.getElementById("quickOrderSugarSelect");
       if (quickSugarSel) {
@@ -2935,14 +2947,14 @@
       if (!recipe) return;
 
       const resolvedMode = supportsTemp(recipe, mode) ? mode : getDefaultVariantKey(recipe);
-      const resolvedTable = tableNo || "1";
+      const resolvedTable = normalizeTableNo(tableNo);
       const existing = cartItems.find(
         (o) =>
           o.recipeId === recipeId &&
           o.mode === resolvedMode &&
           o.cupSize === cupSize &&
           (o.sugarPct ?? 100) === sugarPct &&
-          (o.tableNo || "1") === resolvedTable
+          normalizeTableNo(o.tableNo) === resolvedTable
       );
 
       if (existing) {
@@ -2980,13 +2992,14 @@
       const nowTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
       cartItems.forEach((cItem) => {
+        const cTable = normalizeTableNo(cItem.tableNo);
         const match = orders.find(
           (o) =>
             o.recipeId === cItem.recipeId &&
             o.mode === cItem.mode &&
             o.cupSize === cItem.cupSize &&
             (o.sugarPct ?? 100) === (cItem.sugarPct ?? 100) &&
-            (o.tableNo || "1") === (cItem.tableNo || "1") &&
+            normalizeTableNo(o.tableNo) === cTable &&
             !o.done
         );
         if (match) {
@@ -2998,7 +3011,7 @@
             mode: cItem.mode,
             cupSize: cItem.cupSize,
             sugarPct: cItem.sugarPct ?? 100,
-            tableNo: cItem.tableNo || "1",
+            tableNo: cTable,
             qty: cItem.qty || 1,
             done: false,
             createdAt: nowTime
@@ -3074,7 +3087,7 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const recipe = getAllRecipes().find((x) => x.id === btn.dataset.orderId);
-          addToCart(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100, state.tableNo || "1");
+          addToCart(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100, normalizeTableNo(state.tableNo));
         });
       });
     }
@@ -3129,7 +3142,7 @@
           const name = recipe ? getRecipeNamePrimary(recipe) : item.recipeId;
           const modeLabel = item.mode === "hot" ? s.hotFull : s.iceFull;
           const sugarPct = item.sugarPct ?? 100;
-          const tableLabel = s.tableOptionLabel(item.tableNo || "1");
+          const tableLabel = s.tableOptionLabel(normalizeTableNo(item.tableNo));
 
           return `
             <div class="order-row-card" data-cart-id="${item.id}">
@@ -3141,9 +3154,6 @@
                   <span class="drink-tag">${escapeHtml(item.cupSize || "16oz")}</span>
                   <span class="drink-tag sugar-tag">${escapeHtml(s.sugarOrderBadge(sugarPct))}</span>
                 </h3>
-                <div class="order-row-meta">
-                  <span>${escapeHtml(item.createdAt || "")}</span>
-                </div>
               </div>
               <div class="order-row-actions">
                 <div class="qty-stepper">
@@ -3210,81 +3220,35 @@
           const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
           const modeLabel = ord.mode === "hot" ? s.hotFull : s.iceFull;
           const sugarPct = ord.sugarPct ?? 100;
-          const tableLabel = s.tableOptionLabel(ord.tableNo || "1");
+          const tableLabel = s.tableOptionLabel(normalizeTableNo(ord.tableNo));
           const statusCls = ord.done ? "done" : "pending";
           const statusText = ord.done ? s.orderStatusDone : s.orderStatusPending;
-          const toggleLabel = ord.done ? s.orderMarkPending : s.orderMarkDone;
+          const qty = ord.qty || 1;
 
           return `
-            <div class="order-row-card ${ord.done ? "done" : ""}" data-order-id="${ord.id}">
-              <div class="order-row-main">
-                <h3 class="order-row-title">
+            <div class="order-row-card clean-order-card ${ord.done ? "done" : ""}" data-order-id="${ord.id}">
+              <div class="order-card-top">
+                <div class="order-card-badges">
                   <span class="drink-tag table-tag">${escapeHtml(tableLabel)}</span>
-                  <span class="order-row-name">${escapeHtml(name)}</span>
                   <span class="drink-tag ${ord.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
                   <span class="drink-tag">${escapeHtml(ord.cupSize || "16oz")}</span>
                   <span class="drink-tag sugar-tag">${escapeHtml(s.sugarOrderBadge(sugarPct))}</span>
                   <span class="order-status-badge ${statusCls}">${escapeHtml(statusText)}</span>
-                </h3>
-                <div class="order-row-meta">
-                  <span>${escapeHtml(ord.createdAt || "")}</span>
                 </div>
+                <span class="order-card-time">${escapeHtml(ord.createdAt || "")}</span>
               </div>
-              <div class="order-row-actions">
-                <div class="qty-stepper">
-                  <button class="qty-btn" data-action="dec" aria-label="Decrease">-</button>
-                  <span class="qty-val">${ord.qty || 1}</span>
-                  <button class="qty-btn" data-action="inc" aria-label="Increase">+</button>
-                </div>
-                <button class="icon-btn" data-action="toggle-done">${escapeHtml(toggleLabel)}</button>
-                <button class="icon-btn" data-action="remove" style="color:#B81D37;">${escapeHtml(s.orderRemoveBtn)}</button>
+              <div class="order-card-title-row">
+                <h3 class="order-row-title">${escapeHtml(name)}</h3>
+                <span class="drink-tag qty-badge">${escapeHtml(s.orderQtyBadge(qty))}</span>
               </div>
             </div>
           `;
         }).join("");
-
-        listEl.querySelectorAll(".order-row-card").forEach((row) => {
-          const ordId = row.dataset.orderId;
-          row.querySelector('[data-action="dec"]').addEventListener("click", () => {
-            const target = orders.find((o) => o.id === ordId);
-            if (!target) return;
-            if ((target.qty || 1) > 1) {
-              target.qty -= 1;
-            } else {
-              orders = orders.filter((o) => o.id !== ordId);
-            }
-            saveJson(STORAGE_KEYS.ORDERS, orders);
-            renderOrders();
-          });
-
-          row.querySelector('[data-action="inc"]').addEventListener("click", () => {
-            const target = orders.find((o) => o.id === ordId);
-            if (!target) return;
-            target.qty = (target.qty || 1) + 1;
-            saveJson(STORAGE_KEYS.ORDERS, orders);
-            renderOrders();
-          });
-
-          row.querySelector('[data-action="toggle-done"]').addEventListener("click", () => {
-            const target = orders.find((o) => o.id === ordId);
-            if (!target) return;
-            target.done = !target.done;
-            saveJson(STORAGE_KEYS.ORDERS, orders);
-            renderOrders();
-          });
-
-          row.querySelector('[data-action="remove"]').addEventListener("click", () => {
-            orders = orders.filter((o) => o.id !== ordId);
-            saveJson(STORAGE_KEYS.ORDERS, orders);
-            renderOrders();
-          });
-        });
       }
 
       const totalCups = getTotalOrderCups();
-      const doneItems = orders.filter((o) => o.done).length;
       document.getElementById("orderTotalCupsText").textContent = s.orderTotalCups(totalCups);
-      document.getElementById("orderDoneCountText").textContent = s.orderDoneSummary(doneItems, orders.length);
+      document.getElementById("orderDoneCountText").textContent = s.orderDoneSummary(orders.length);
     }
 
     function syncTopFilterPills() {
@@ -3344,6 +3308,7 @@
       const targetMode = supportsTemp(recipe, preferredMode) ? preferredMode : getDefaultVariantKey(recipe);
       state.activeMode = targetMode;
       state.cupSize = "16oz";
+      state.tableNo = normalizeTableNo(state.tableNo);
       state.sugarPct = typeof preserveSugarPct === "number" ? preserveSugarPct : 100;
 
       document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => {
@@ -3659,7 +3624,7 @@
       document.getElementById("quickOrderSelect").addEventListener("change", syncQuickOrderModes);
       document.getElementById("quickAddOrderBtn").addEventListener("click", () => {
         const recipeId = document.getElementById("quickOrderSelect").value;
-        const tableNo = state.tableNo || "1";
+        const tableNo = normalizeTableNo(state.tableNo);
         const mode = document.getElementById("quickOrderModeSelect").value;
         const sugarPct = parseInt(document.getElementById("quickOrderSugarSelect").value, 10) || 0;
         addToCart(recipeId, mode, "16oz", 1, sugarPct, tableNo);
@@ -3677,23 +3642,9 @@
 
       document.getElementById("backToCartBtn").addEventListener("click", () => switchTab("cart"));
 
-      document.getElementById("clearDoneOrdersBtn").addEventListener("click", () => {
-        orders = orders.filter((o) => !o.done);
-        saveJson(STORAGE_KEYS.ORDERS, orders);
-        renderOrders();
-        showToast(t().toastClearedDone);
-      });
-
-      document.getElementById("clearAllOrdersBtn").addEventListener("click", () => {
-        orders = [];
-        saveJson(STORAGE_KEYS.ORDERS, orders);
-        renderOrders();
-        showToast(t().toastClearedAll);
-      });
-
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
         if (!state.activeRecipeId) return;
-        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sugarPct, state.tableNo);
+        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sugarPct, normalizeTableNo(state.tableNo));
       });
 
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
