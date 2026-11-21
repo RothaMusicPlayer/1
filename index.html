@@ -170,13 +170,19 @@
       border-color: rgba(255, 255, 255, 0.25);
     }
 
+    .icon-btn.confirm-btn {
+      background: linear-gradient(180deg, #219653 0%, #166B3A 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
     .lang-toggle-btn {
       border-color: rgba(198, 125, 59, 0.45);
       background: rgba(255, 248, 238, 0.92);
       color: #7D4616;
     }
 
-    /* Temperature Filter Row */
+    /* Filter / Cart Trigger Row */
     .filter-controls-row {
       display: flex;
       align-items: center;
@@ -220,7 +226,7 @@
     }
 
     .temp-pill[data-temp="ice"].active {
-      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
+      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
       color: #FFFFFF;
     }
 
@@ -382,7 +388,7 @@
       transform: scale(0.9);
     }
 
-    /* Cart / Order View */
+    /* Cart & All Order Views */
     .order-panel {
       background: var(--glass-surface-strong);
       border: 1px solid var(--glass-border);
@@ -538,7 +544,7 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       font-size: 0.88rem;
       font-weight: 700;
     }
@@ -809,7 +815,7 @@
       transform: scale(0.92);
     }
 
-    /* Hot vs Ice/Cart Mode Switcher inside Modal */
+    /* Hot vs Ice Mode Switcher inside Modal */
     .mode-switch-bar {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1202,10 +1208,10 @@
       </div>
 
       <div class="filter-controls-row">
-        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ កន្ត្រក">
+        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="តម្រងម៉ឺនុយ និងបើកកន្ត្រក">
           <button class="temp-pill active" data-temp="all">ទាំងអស់</button>
-          <button class="temp-pill" data-temp="hot">ក្តៅ (Hot)</button>
-          <button class="temp-pill" data-temp="ice" id="filterIcePill">កន្ត្រក</button>
+          <button class="temp-pill" data-temp="hot">ក្តៅ Hot</button>
+          <button class="temp-pill" data-temp="ice" id="filterCartPill">កន្ត្រក</button>
         </div>
       </div>
     </header>
@@ -1220,25 +1226,25 @@
       <div class="menu-grid" id="menuGrid"></div>
     </main>
 
-    <!-- Cart / Order View -->
-    <section id="orderView" style="display: none;">
+    <!-- Cart View (Staging before confirming to All Order) -->
+    <section id="cartView" style="display: none;">
       <div class="order-panel">
         <div class="order-header-row">
           <div>
-            <h2 id="orderTitle">កន្ត្រក</h2>
-            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ទាំងអស់ក្នុងកន្ត្រក — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី</p>
+            <h2 id="cartTitle">កន្ត្រក (Cart)</h2>
+            <p class="subtitle" id="cartSubtitle">ពិនិត្យ និងកែចំនួនមុខកាហ្វេ រួចចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order ពិតប្រាកដ</p>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button class="icon-btn" id="clearDoneOrdersBtn">សម្អាតមុខរួច</button>
-            <button class="icon-btn" id="clearAllOrdersBtn" style="color:#B81D37;">សម្អាតទាំងអស់</button>
+            <button class="icon-btn" id="clearCartBtn" style="color:#B81D37;">សម្អាតកន្ត្រក</button>
+            <button class="icon-btn confirm-btn" id="confirmCartToOrderBtn">បញ្ជាក់ Order → All Order</button>
           </div>
         </div>
 
-        <div class="order-quick-add" id="orderQuickAddRow">
+        <div class="order-quick-add" id="cartQuickAddRow">
           <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 150px;"></select>
           <select id="quickOrderTableSelect" class="field-select" style="width: auto; min-width: 105px;"></select>
           <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 110px;">
-            <option value="ice" id="optQuickIce">កន្ត្រក</option>
+            <option value="ice" id="optQuickIce">ត្រជាក់ (Ice)</option>
             <option value="hot" id="optQuickHot">ក្តៅ (Hot)</option>
           </select>
           <select id="quickOrderSugarSelect" class="field-select" style="width: auto; min-width: 100px;">
@@ -1252,10 +1258,34 @@
           <button class="icon-btn primary" id="quickAddOrderBtn">+ បញ្ចូលកន្ត្រក</button>
         </div>
 
+        <div class="order-list" id="cartList"></div>
+
+        <div class="order-summary-bar" id="cartSummaryBar">
+          <span id="cartTotalCupsText">ក្នុងកន្ត្រក៖ 0 កែវ</span>
+          <button class="icon-btn confirm-btn" id="confirmCartToOrderBtnBottom">បញ្ជាក់ Order ទៅ All Order</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Order View (Confirmed orders) -->
+    <section id="orderView" style="display: none;">
+      <div class="order-panel">
+        <div class="order-header-row">
+          <div>
+            <h2 id="orderTitle">All Order</h2>
+            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់ — ធីករួចរាល់ ឬសម្អាតបញ្ជី</p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="icon-btn" id="backToCartBtn">← កន្ត្រក</button>
+            <button class="icon-btn" id="clearDoneOrdersBtn">សម្អាតមុខរួច</button>
+            <button class="icon-btn" id="clearAllOrdersBtn" style="color:#B81D37;">សម្អាតទាំងអស់</button>
+          </div>
+        </div>
+
         <div class="order-list" id="orderList"></div>
 
         <div class="order-summary-bar" id="orderSummaryBar">
-          <span id="orderTotalCupsText">សរុបការកុម្ម៉ង់៖ 0 កែវ</span>
+          <span id="orderTotalCupsText">សរុប All Order៖ 0 កែវ</span>
           <span id="orderDoneCountText">ធ្វើរួច៖ 0 / 0 មុខ</span>
         </div>
       </div>
@@ -1327,8 +1357,8 @@
       <span id="navAllLabel">ម៉ឺនុយ</span>
     </button>
     <button class="nav-item" id="navOrder" data-tab="order">
-      <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-      <span id="navOrderLabel">កន្ត្រក</span>
+      <svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="15" y2="16"></line></svg>
+      <span id="navOrderLabel">All Order</span>
     </button>
     <button class="nav-item" id="navCalc" data-tab="calc">
       <svg class="ui-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="10" y2="10"></line><line x1="14" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="10" y2="14"></line><line x1="14" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
@@ -1350,10 +1380,10 @@
         <button class="close-modal-btn" id="closeRecipeModal" aria-label="បិទ">X</button>
       </div>
 
-      <!-- Hot / Cart Mode Switcher -->
-      <div class="mode-switch-bar" id="modalModeSwitchBar" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ កន្ត្រក">
+      <!-- Hot / Ice Mode Switcher -->
+      <div class="mode-switch-bar" id="modalModeSwitchBar" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ ត្រជាក់">
         <button type="button" class="mode-option-btn" data-mode="hot" id="modeHotBtn">ក្តៅ (Hot)</button>
-        <button type="button" class="mode-option-btn" data-mode="ice" id="modeIceBtn">កន្ត្រក</button>
+        <button type="button" class="mode-option-btn" data-mode="ice" id="modeIceBtn">ត្រជាក់ (Ice)</button>
       </div>
 
       <p id="modalDesc" style="margin: 12px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;"></p>
@@ -1433,10 +1463,10 @@
 
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="newTemp" id="lblNewTemp">ជម្រើសក្តៅ / កន្ត្រក</label>
+            <label for="newTemp" id="lblNewTemp">ជម្រើសក្តៅ / ត្រជាក់</label>
             <select id="newTemp" class="field-select">
-              <option value="both">ក្តៅ និង កន្ត្រក (Hot & Cart)</option>
-              <option value="ice">កន្ត្រកតែមួយ (Cart only)</option>
+              <option value="both">ទាំងក្តៅ និងត្រជាក់ (Hot & Ice)</option>
+              <option value="ice">ត្រជាក់តែមួយ (Ice only)</option>
               <option value="hot">ក្តៅតែមួយ (Hot only)</option>
             </select>
           </div>
@@ -1510,32 +1540,41 @@
         addBtn: "បន្ថែមមុខ",
         filterAll: (n) => `ទាំងអស់ (${n})`,
         filterHot: (n) => `ក្តៅ Hot (${n})`,
-        filterIce: (n) => `កន្ត្រក (${n})`,
+        filterCart: (n) => n > 0 ? `កន្ត្រក (${n})` : "កន្ត្រក",
         showingPrefix: "កំពុងបង្ហាញ៖",
         showingMid: "មុខ (សរុប",
         showingSuffix: "មុខ)",
         customBadge: "ផ្ទាល់ខ្លួន",
         hotFull: "ក្តៅ (Hot)",
-        iceFull: "កន្ត្រក",
+        iceFull: "ត្រជាក់ (Ice)",
         bothFull: "",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
-        navOrder: (n) => n > 0 ? `កន្ត្រក (${n})` : "កន្ត្រក",
+        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
         navCalc: "គណនាគ្រាប់",
         emptyTitle: "រកមិនឃើញមុខកាហ្វេ",
-        emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / កន្ត្រក ឬផ្ទាំងផ្សេង។",
-        orderTitle: "កន្ត្រក",
-        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ទាំងអស់ក្នុងកន្ត្រក — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី",
+        emptyDesc: "សាកល្បងប្តូរតម្រង ក្តៅ (Hot) / ទាំងអស់ ឬផ្ទាំងផ្សេង។",
+        cartTitle: "កន្ត្រក (Cart)",
+        cartSubtitle: "ពិនិត្យ និងកែចំនួនមុខកាហ្វេ រួចចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order ពិតប្រាកដ",
+        clearCartBtn: "សម្អាតកន្ត្រក",
+        confirmCartBtn: "បញ្ជាក់ Order → All Order",
+        confirmCartBottomBtn: "បញ្ជាក់ Order ទៅ All Order",
+        quickAddOrderBtn: "+ បញ្ចូលកន្ត្រក",
+        cartEmptyTitle: "កន្ត្រកនៅទំនេរ",
+        cartEmptyDesc: "ចុច + លើមុខកាហ្វេក្នុងម៉ឺនុយ ដើម្បីដាក់ចូលកន្ត្រកជាមុនសិន។",
+        cartTotalCups: (cups) => `ក្នុងកន្ត្រក៖ ${cups} កែវ`,
+        orderTitle: "All Order",
+        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់ — ធីករួចរាល់ ឬសម្អាតបញ្ជី",
+        backToCartBtn: "← កន្ត្រក",
         clearDoneOrdersBtn: "សម្អាតមុខរួច",
         clearAllOrdersBtn: "សម្អាតទាំងអស់",
-        quickAddOrderBtn: "+ បញ្ចូលកន្ត្រក",
-        orderEmptyTitle: "កន្ត្រកនៅទំនេរ",
-        orderEmptyDesc: "ចុច + លើមុខកាហ្វេក្នុងម៉ឺនុយ ឬជ្រើសរើសខាងលើដើម្បីបញ្ចូលកន្ត្រក។",
+        orderEmptyTitle: "មិនទាន់មាន All Order ទេ",
+        orderEmptyDesc: "បញ្ចូលមុខកាហ្វេទៅក្នុងកន្ត្រក ហើយចុច «បញ្ជាក់ Order» ដើម្បីដាក់ទៅ All Order។",
         orderStatusPending: "កំពុងធ្វើ",
         orderStatusDone: "រួចរាល់",
         orderMarkDone: "រួចរាល់",
         orderMarkPending: "ដាក់កំពុងធ្វើ",
         orderRemoveBtn: "លុប",
-        orderTotalCups: (cups) => `សរុបការកុម្ម៉ង់៖ ${cups} កែវ`,
+        orderTotalCups: (cups) => `សរុប All Order៖ ${cups} កែវ`,
         orderDoneSummary: (done, total) => `ធ្វើរួច៖ ${done} / ${total} មុខ`,
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         tableNumberLabel: "លេខរៀងតុ (Table No.)",
@@ -1563,7 +1602,7 @@
         addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
         lblNewNameKm: "ឈ្មោះកាហ្វេ (ខ្មែរ) *",
         lblNewNameEn: "ឈ្មោះភាសាអង់គ្លេស",
-        lblNewTemp: "ជម្រើសក្តៅ / កន្ត្រក",
+        lblNewTemp: "ជម្រើសក្តៅ / ត្រជាក់",
         lblNewCategory: "ប្រភេទកាហ្វេ",
         lblNewDesc: "ការពិពណ៌នាសង្ខេប",
         lblNewIngredients: "គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)",
@@ -1589,9 +1628,12 @@
         resUsableGrams: (g) => `ប្រើបាន៖ ${g} g`,
         resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន / កញ្ចប់",
         resCostPerCup: (d) => `ម្សៅ/កែវ៖ ${d}g`,
-        toastAddedOrder: (name) => `បានបញ្ចូល "${name}" ទៅក្នុងកន្ត្រក`,
+        toastAddedToCart: (name) => `បានដាក់ "${name}" ចូលកន្ត្រក`,
+        toastCartEmpty: "កន្ត្រកនៅទំនេរ — សូមជ្រើសរើសមុខកាហ្វេជាមុន",
+        toastConfirmedOrder: (cups) => `បានបញ្ជាក់ ${cups} កែវ ទៅ All Order រួចរាល់`,
+        toastClearedCart: "បានសម្អាតកន្ត្រករួចរាល់",
         toastClearedDone: "បានសម្អាតមុខដែលធ្វើរួចរាល់",
-        toastClearedAll: "បានសម្អាតកន្ត្រកទាំងអស់",
+        toastClearedAll: "បានសម្អាត All Order ទាំងអស់",
         toastAddedRecipe: "បានបន្ថែមមុខកាហ្វេថ្មីរួចរាល់",
         toastDeletedRecipe: "បានលុបមុខកាហ្វេផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
@@ -1604,32 +1646,41 @@
         addBtn: "Add Coffee",
         filterAll: (n) => `All (${n})`,
         filterHot: (n) => `Hot (${n})`,
-        filterIce: (n) => `Cart (${n})`,
+        filterCart: (n) => n > 0 ? `Cart (${n})` : "Cart",
         showingPrefix: "Showing",
         showingMid: "of",
         showingSuffix: "coffees",
         customBadge: "Custom",
         hotFull: "Hot",
-        iceFull: "Cart",
+        iceFull: "Ice",
         bothFull: "",
         navMenu: (n) => `Menu (${n})`,
-        navOrder: (n) => n > 0 ? `Cart (${n})` : "Cart",
+        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
         navCalc: "Bean Calc",
         emptyTitle: "No coffee found",
-        emptyDesc: "Try switching Hot / Cart filters or another tab.",
-        orderTitle: "Cart",
-        orderSubtitle: "All selected orders in cart — adjust quantity, mark served, or clear",
+        emptyDesc: "Try switching Hot / All filters or another tab.",
+        cartTitle: "Cart",
+        cartSubtitle: "Review or edit items in cart, then tap «Confirm Order» to send to All Order",
+        clearCartBtn: "Clear Cart",
+        confirmCartBtn: "Confirm Order → All Order",
+        confirmCartBottomBtn: "Confirm Order to All Order",
+        quickAddOrderBtn: "+ Add to Cart",
+        cartEmptyTitle: "Cart is empty",
+        cartEmptyDesc: "Tap + on any coffee card in Menu to add items to your cart first.",
+        cartTotalCups: (cups) => `In Cart: ${cups} cups`,
+        orderTitle: "All Order",
+        orderSubtitle: "Confirmed orders — mark served or clear completed items",
+        backToCartBtn: "← Cart",
         clearDoneOrdersBtn: "Clear Done",
         clearAllOrdersBtn: "Clear All",
-        quickAddOrderBtn: "+ Add to Cart",
-        orderEmptyTitle: "Cart is empty",
-        orderEmptyDesc: "Tap + on any coffee card or select a drink above to add to cart.",
+        orderEmptyTitle: "No confirmed orders yet",
+        orderEmptyDesc: "Add items to Cart and tap «Confirm Order» to send them to All Order.",
         orderStatusPending: "Pending",
         orderStatusDone: "Served",
         orderMarkDone: "Mark Done",
         orderMarkPending: "Reopen",
         orderRemoveBtn: "Remove",
-        orderTotalCups: (cups) => `Total Order: ${cups} cups`,
+        orderTotalCups: (cups) => `All Order Total: ${cups} cups`,
         orderDoneSummary: (done, total) => `Completed: ${done} / ${total} items`,
         cupSizeLabel: "Cup Size",
         tableNumberLabel: "Table No.",
@@ -1657,7 +1708,7 @@
         addModalSub: "Automatically saved on your device",
         lblNewNameKm: "Coffee Name (Khmer) *",
         lblNewNameEn: "Coffee Name (English)",
-        lblNewTemp: "Hot / Cart Availability",
+        lblNewTemp: "Hot / Ice Availability",
         lblNewCategory: "Coffee Category",
         lblNewDesc: "Short Description",
         lblNewIngredients: "Ingredients (1 line = Name | Amount | Unit)",
@@ -1683,9 +1734,12 @@
         resUsableGrams: (g) => `Usable: ${g} g`,
         resEstRevenueLabel: "Est. Revenue / Bag",
         resCostPerCup: (d) => `Dose/cup: ${d}g`,
-        toastAddedOrder: (name) => `Added "${name}" to Cart`,
+        toastAddedToCart: (name) => `Added "${name}" to Cart`,
+        toastCartEmpty: "Cart is empty — add a coffee first",
+        toastConfirmedOrder: (cups) => `Confirmed ${cups} cups into All Order`,
+        toastClearedCart: "Cleared Cart",
         toastClearedDone: "Cleared completed orders",
-        toastClearedAll: "Cleared all items in Cart",
+        toastClearedAll: "Cleared all items in All Order",
         toastAddedRecipe: "New custom coffee added",
         toastDeletedRecipe: "Custom coffee deleted",
         toastLangSwitched: "Switched to English"
@@ -1700,8 +1754,8 @@
         category: "espresso",
         nameKm: "អេស្ព្រេសសូ",
         nameEn: "Espresso",
-        descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ (Hot) ឬកន្ត្រក ដើម្បីមើលរូបមន្ត។",
-        descEn: "Pure pressurized espresso shot — switch between Hot and Cart to view recipes.",
+        descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ (Hot) ឬត្រជាក់ (Ice) ដើម្បីមើលរូបមន្ត។",
+        descEn: "Pure pressurized espresso shot — switch between Hot and Ice to view recipes.",
         variants: {
           hot: {
             descKm: "ចម្រាញ់ក្តៅៗដាក់ពែងក្តៅឧណ្ហៗ រសជាតិដិតខាប់ និងរក្សាពពុះ Crema ពណ៌មាសពេញលេញ។",
@@ -1753,8 +1807,8 @@
         category: "espresso",
         nameKm: "អាមេរិកាណូ",
         nameEn: "Americano",
-        descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ កន្ត្រកប្រើទឹកត្រជាក់ និងទឹកកក។",
-        descEn: "Double espresso with water — hot uses hot water, cart uses cold water and ice.",
+        descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ ត្រជាក់ប្រើទឹកត្រជាក់ និងទឹកកក។",
+        descEn: "Double espresso with water — hot uses hot water, iced uses cold water and ice.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកក្តៅ (~85–90°C) ផ្តល់ភាពក្តៅស្រស់ស្រាយ និងមាន Crema នៅពីលើ។",
@@ -1806,8 +1860,8 @@
         category: "espresso",
         nameKm: "ឡាតេ",
         nameEn: "Latte",
-        descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ កន្ត្រកប្រើទឹកដោះគោត្រជាក់។",
-        descEn: "Double espresso with fresh milk — hot uses steamed milk, cart uses chilled milk over ice.",
+        descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់។",
+        descEn: "Double espresso with fresh milk — hot uses steamed milk, iced uses chilled milk over ice.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកដោះគោស្រស់ចំហុយក្តៅ (~62°C) មានពពុះ Microfoam ស្តើងរលោង។",
@@ -1859,8 +1913,8 @@
         category: "espresso",
         nameKm: "កាពូឈីណូ",
         nameEn: "Cappuccino",
-        descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ កន្ត្រកវាយពពុះត្រជាក់ (Cold Foam)។",
-        descEn: "Foam-topped coffee — hot uses steamed foam, cart uses chilled cold foam on top.",
+        descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ ត្រជាក់វាយពពុះត្រជាក់ (Cold Foam)។",
+        descEn: "Foam-topped coffee — hot uses steamed foam, iced uses chilled cold foam on top.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងមានពពុះក្តៅក្រាស់ទន់នៅផ្នែកខាងលើ។",
@@ -1913,8 +1967,8 @@
         category: "espresso",
         nameKm: "ហ្វ្លាត វ៉ាយ",
         nameEn: "Flat White",
-        descKm: "រសជាតិកាហ្វេដិតជាង Latte — ក្តៅប្រើពពុះក្តៅស្តើង កន្ត្រកប្រើទឹកដោះគោត្រជាក់តិចជាង Latte។",
-        descEn: "More coffee-forward than a latte — hot uses thin microfoam, cart uses less chilled milk.",
+        descKm: "រសជាតិកាហ្វេដិតជាង Latte — ក្តៅប្រើពពុះក្តៅស្តើង ត្រជាក់ប្រើទឹកដោះគោត្រជាក់តិចជាង Latte។",
+        descEn: "More coffee-forward than a latte — hot uses thin microfoam, iced uses less chilled milk.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត (~62°C) ធ្វើឱ្យក្លិនកាហ្វេដិតច្បាស់។",
@@ -1966,8 +2020,8 @@
         category: "espresso",
         nameKm: "ម៉ូកា",
         nameEn: "Mocha",
-        descKm: "កាហ្វេផ្សំជាមួយសូកូឡា — ក្តៅជាមួយទឹកដោះគោចំហុយ កន្ត្រកជាមួយទឹកដោះគោត្រជាក់ និងទឹកកក។",
-        descEn: "Chocolate and coffee — hot with steamed milk, cart with chilled milk over ice.",
+        descKm: "កាហ្វេផ្សំជាមួយសូកូឡា — ក្តៅជាមួយទឹកដោះគោចំហុយ ត្រជាក់ជាមួយទឹកដោះគោត្រជាក់ និងទឹកកក។",
+        descEn: "Chocolate and coffee — hot with steamed milk, iced with chilled milk over ice.",
         variants: {
           hot: {
             descKm: "Double Espresso រំលាយជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
@@ -2019,8 +2073,8 @@
         category: "espresso",
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ",
         nameEn: "Caramel Macchiato",
-        descKm: "Vanilla + ទឹកដោះគោ + Espresso + Caramel Sauce — ក្តៅចំហុយទឹកដោះគោ កន្ត្រកដាក់ទឹកកក។",
-        descEn: "Vanilla, milk, espresso, and caramel drizzle — hot with steamed milk, cart over ice.",
+        descKm: "Vanilla + ទឹកដោះគោ + Espresso + Caramel Sauce — ក្តៅចំហុយទឹកដោះគោ ត្រជាក់ដាក់ទឹកកក។",
+        descEn: "Vanilla, milk, espresso, and caramel drizzle — hot with steamed milk, iced over ice.",
         variants: {
           hot: {
             descKm: "ទឹកដោះគោចំហុយក្តៅលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
@@ -2074,8 +2128,8 @@
         category: "espresso",
         nameKm: "ភីកូឡូ / ខូតាដូ",
         nameEn: "Piccolo / Cortado",
-        descKm: "កាហ្វេទឹកដោះគោតិច រសជាតិដិតមុត — ក្តៅចំហុយក្តៅ កន្ត្រកប្រើទឹកដោះគោត្រជាក់ និងទឹកកក។",
-        descEn: "Small, punchy milk coffee — hot with steamed milk, cart with chilled milk and ice.",
+        descKm: "កាហ្វេទឹកដោះគោតិច រសជាតិដិតមុត — ក្តៅចំហុយក្តៅ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់ និងទឹកកក។",
+        descEn: "Small, punchy milk coffee — hot with steamed milk, iced with chilled milk and ice.",
         variants: {
           hot: {
             descKm: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោចំហុយតិច។",
@@ -2127,8 +2181,8 @@
         category: "local",
         nameKm: "កាហ្វេទឹកដោះគោ",
         nameEn: "Condensed Milk Coffee",
-        descKm: "កាហ្វេផ្អែមឈ្ងុយទឹកដោះគោខាប់ — ក្តៅលាយទឹកក្តៅ កន្ត្រកលាយទឹកកក។",
-        descEn: "Classic sweet condensed milk coffee — hot with hot water, cart over ice.",
+        descKm: "កាហ្វេផ្អែមឈ្ងុយទឹកដោះគោខាប់ — ក្តៅលាយទឹកក្តៅ ត្រជាក់លាយទឹកកក។",
+        descEn: "Classic sweet condensed milk coffee — hot with hot water, iced over ice.",
         variants: {
           hot: {
             descKm: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
@@ -2211,11 +2265,13 @@
 
     const STORAGE_KEYS = {
       CUSTOM_RECIPES: "cafe_app_paired_custom_v1",
+      CART: "cafe_app_paired_cart_v1",
       ORDERS: "cafe_app_paired_orders_v1",
       LANG: "cafe_app_paired_lang_v1"
     };
 
     let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
+    let cartItems = loadJson(STORAGE_KEYS.CART, []);
     let orders = loadJson(STORAGE_KEYS.ORDERS, []);
 
     let state = {
@@ -2288,7 +2344,6 @@
 
     function getDefaultVariantKey(recipe) {
       if (state.temp === "hot" && supportsTemp(recipe, "hot")) return "hot";
-      if (state.temp === "ice" && supportsTemp(recipe, "ice")) return "ice";
       if (supportsTemp(recipe, "ice")) return "ice";
       return "hot";
     }
@@ -2303,9 +2358,6 @@
       const hasIce = supportsTemp(recipe, "ice");
       if (state.temp === "hot" && hasHot) {
         return { cls: "temp-hot", label: t().hotFull };
-      }
-      if (state.temp === "ice" && hasIce) {
-        return { cls: "temp-ice", label: t().iceFull };
       }
       if (hasHot && hasIce) {
         return { cls: "temp-both", label: t().bothFull };
@@ -2344,6 +2396,10 @@
 
     function getIngredientName(ing) {
       return state.lang === "en" ? (ing.nameEn || ing.nameKm || ing.name || "") : (ing.nameKm || ing.nameEn || ing.name || "");
+    }
+
+    function getTotalCartCups() {
+      return cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
     }
 
     function getTotalOrderCups() {
@@ -2402,13 +2458,20 @@
       document.getElementById("navOrderLabel").textContent = s.navOrder(getTotalOrderCups());
       document.getElementById("navCalcLabel").textContent = s.navCalc;
 
-      document.getElementById("orderTitle").textContent = s.orderTitle;
-      document.getElementById("orderSubtitle").textContent = s.orderSubtitle;
-      document.getElementById("clearDoneOrdersBtn").textContent = s.clearDoneOrdersBtn;
-      document.getElementById("clearAllOrdersBtn").textContent = s.clearAllOrdersBtn;
+      document.getElementById("cartTitle").textContent = s.cartTitle;
+      document.getElementById("cartSubtitle").textContent = s.cartSubtitle;
+      document.getElementById("clearCartBtn").textContent = s.clearCartBtn;
+      document.getElementById("confirmCartToOrderBtn").textContent = s.confirmCartBtn;
+      document.getElementById("confirmCartToOrderBtnBottom").textContent = s.confirmCartBottomBtn;
       document.getElementById("optQuickIce").textContent = s.iceFull;
       document.getElementById("optQuickHot").textContent = s.hotFull;
       document.getElementById("quickAddOrderBtn").textContent = s.quickAddOrderBtn;
+
+      document.getElementById("orderTitle").textContent = s.orderTitle;
+      document.getElementById("orderSubtitle").textContent = s.orderSubtitle;
+      document.getElementById("backToCartBtn").textContent = s.backToCartBtn;
+      document.getElementById("clearDoneOrdersBtn").textContent = s.clearDoneOrdersBtn;
+      document.getElementById("clearAllOrdersBtn").textContent = s.clearAllOrdersBtn;
 
       const quickSugarSel = document.getElementById("quickOrderSugarSelect");
       if (quickSugarSel) {
@@ -2463,7 +2526,8 @@
       state.lang = state.lang === "km" ? "en" : "km";
       saveJson(STORAGE_KEYS.LANG, state.lang);
       applyStaticTranslations();
-      if (state.tab === "order") renderOrders();
+      if (state.tab === "cart") renderCart();
+      else if (state.tab === "order") renderOrders();
       else if (state.tab === "calc") calculateBeanYield();
       else renderMenu();
       if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
@@ -2477,15 +2541,16 @@
       const all = getAllRecipes();
       const total = all.length;
       const hotCount = all.filter((r) => supportsTemp(r, "hot")).length;
-      const cartCount = getTotalOrderCups();
+      const cartCount = getTotalCartCups();
+      const orderCount = getTotalOrderCups();
 
       document.getElementById("navAllLabel").textContent = s.navMenu(total);
-      document.getElementById("navOrderLabel").textContent = s.navOrder(cartCount);
+      document.getElementById("navOrderLabel").textContent = s.navOrder(orderCount);
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         if (btn.dataset.temp === "all") btn.textContent = s.filterAll(total);
         if (btn.dataset.temp === "hot") btn.textContent = s.filterHot(hotCount);
-        if (btn.dataset.temp === "ice") btn.textContent = s.filterIce(cartCount);
+        if (btn.dataset.temp === "ice") btn.textContent = s.filterCart(cartCount);
       });
     }
 
@@ -2497,52 +2562,95 @@
       });
     }
 
-    function getOrderQtyForRecipe(recipeId, mode) {
-      return orders
+    function getCartQtyForRecipe(recipeId, mode) {
+      return cartItems
         .filter((o) => o.recipeId === recipeId && (!mode || o.mode === mode))
         .reduce((acc, o) => acc + (o.qty || 1), 0);
     }
 
-    function addToOrder(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sugarPct = 100, tableNo = "1") {
+    function addToCart(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sugarPct = 100, tableNo = "1") {
       const s = t();
       const recipe = getAllRecipes().find((r) => r.id === recipeId);
       if (!recipe) return;
 
       const resolvedMode = supportsTemp(recipe, mode) ? mode : getDefaultVariantKey(recipe);
       const resolvedTable = tableNo || "1";
-      const existing = orders.find(
+      const existing = cartItems.find(
         (o) =>
           o.recipeId === recipeId &&
           o.mode === resolvedMode &&
           o.cupSize === cupSize &&
           (o.sugarPct ?? 100) === sugarPct &&
-          (o.tableNo || "1") === resolvedTable &&
-          !o.done
+          (o.tableNo || "1") === resolvedTable
       );
 
       if (existing) {
         existing.qty = (existing.qty || 1) + qtyToAdd;
       } else {
-        orders.unshift({
-          id: "ord_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+        cartItems.unshift({
+          id: "cart_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
           recipeId,
           mode: resolvedMode,
           cupSize,
           sugarPct,
           tableNo: resolvedTable,
           qty: qtyToAdd,
-          done: false,
           createdAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
         });
       }
 
-      saveJson(STORAGE_KEYS.ORDERS, orders);
+      saveJson(STORAGE_KEYS.CART, cartItems);
       updateCatalogCounts();
       if (state.tab === "all") renderMenu();
-      if (state.tab === "order") renderOrders();
+      if (state.tab === "cart") renderCart();
       const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
       const tableLabel = s.tableOptionLabel(resolvedTable);
-      showToast(s.toastAddedOrder(`${getRecipeNamePrimary(recipe)} (${tableLabel}, ${modeLabel}, ${s.sugarOrderBadge(sugarPct)})`));
+      showToast(s.toastAddedToCart(`${getRecipeNamePrimary(recipe)} (${tableLabel}, ${modeLabel}, ${s.sugarOrderBadge(sugarPct)})`));
+    }
+
+    function confirmCartToOrder() {
+      const s = t();
+      if (cartItems.length === 0) {
+        showToast(s.toastCartEmpty);
+        return;
+      }
+
+      const addedCups = getTotalCartCups();
+      const nowTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+      cartItems.forEach((cItem) => {
+        const match = orders.find(
+          (o) =>
+            o.recipeId === cItem.recipeId &&
+            o.mode === cItem.mode &&
+            o.cupSize === cItem.cupSize &&
+            (o.sugarPct ?? 100) === (cItem.sugarPct ?? 100) &&
+            (o.tableNo || "1") === (cItem.tableNo || "1") &&
+            !o.done
+        );
+        if (match) {
+          match.qty = (match.qty || 1) + (cItem.qty || 1);
+        } else {
+          orders.unshift({
+            id: "ord_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+            recipeId: cItem.recipeId,
+            mode: cItem.mode,
+            cupSize: cItem.cupSize,
+            sugarPct: cItem.sugarPct ?? 100,
+            tableNo: cItem.tableNo || "1",
+            qty: cItem.qty || 1,
+            done: false,
+            createdAt: nowTime
+          });
+        }
+      });
+
+      cartItems = [];
+      saveJson(STORAGE_KEYS.CART, cartItems);
+      saveJson(STORAGE_KEYS.ORDERS, orders);
+      updateCatalogCounts();
+      showToast(s.toastConfirmedOrder(addedCups));
+      switchTab("order");
     }
 
     function renderMenu() {
@@ -2567,7 +2675,7 @@
 
       grid.innerHTML = list.map((r) => {
         const defaultMode = getDefaultVariantKey(r);
-        const qtyInOrder = getOrderQtyForRecipe(r.id, state.temp === "hot" ? "hot" : null);
+        const qtyInCart = getCartQtyForRecipe(r.id, state.temp === "hot" ? "hot" : null);
         const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, defaultMode);
         const primaryName = getRecipeNamePrimary(r);
@@ -2586,8 +2694,8 @@
               <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
             </div>
-            <button class="order-add-btn ${qtyInOrder > 0 ? "has-qty" : ""}" data-order-id="${r.id}" title="${escapeHtml(s.addOrderBtnLabel)}" aria-label="${escapeHtml(s.addOrderBtnLabel)}">
-              <span>${qtyInOrder > 0 ? `+${qtyInOrder}` : "+"}</span>
+            <button class="order-add-btn ${qtyInCart > 0 ? "has-qty" : ""}" data-order-id="${r.id}" title="${escapeHtml(s.addOrderBtnLabel)}" aria-label="${escapeHtml(s.addOrderBtnLabel)}">
+              <span>${qtyInCart > 0 ? `+${qtyInCart}` : "+"}</span>
             </button>
           </article>
         `;
@@ -2605,7 +2713,7 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const recipe = getAllRecipes().find((x) => x.id === btn.dataset.orderId);
-          addToOrder(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100, state.tableNo || "1");
+          addToCart(btn.dataset.orderId, recipe ? getDefaultVariantKey(recipe) : "ice", "16oz", 1, 100, state.tableNo || "1");
         });
       });
     }
@@ -2638,10 +2746,91 @@
       else if (!hasHot && hasIce) modeSel.value = "ice";
     }
 
-    function renderOrders() {
+    function renderCart() {
       const s = t();
       updateCatalogCounts();
       populateQuickOrderSelect();
+
+      const listEl = document.getElementById("cartList");
+      const allRecipes = getAllRecipes();
+
+      if (cartItems.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin:0 0 6px;">${escapeHtml(s.cartEmptyTitle)}</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(s.cartEmptyDesc)}</p>
+          </div>
+        `;
+      } else {
+        listEl.innerHTML = cartItems.map((item) => {
+          const recipe = allRecipes.find((r) => r.id === item.recipeId);
+          const name = recipe ? getRecipeNamePrimary(recipe) : item.recipeId;
+          const modeLabel = item.mode === "hot" ? s.hotFull : s.iceFull;
+          const sugarPct = item.sugarPct ?? 100;
+          const tableLabel = s.tableOptionLabel(item.tableNo || "1");
+
+          return `
+            <div class="order-row-card" data-cart-id="${item.id}">
+              <div class="order-row-main">
+                <h3 class="order-row-title">
+                  <span class="drink-tag table-tag">${escapeHtml(tableLabel)}</span>
+                  <span class="order-row-name">${escapeHtml(name)}</span>
+                  <span class="drink-tag ${item.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
+                  <span class="drink-tag">${escapeHtml(item.cupSize || "16oz")}</span>
+                  <span class="drink-tag sugar-tag">${escapeHtml(s.sugarOrderBadge(sugarPct))}</span>
+                </h3>
+                <div class="order-row-meta">
+                  <span>${escapeHtml(item.createdAt || "")}</span>
+                </div>
+              </div>
+              <div class="order-row-actions">
+                <div class="qty-stepper">
+                  <button class="qty-btn" data-action="dec" aria-label="Decrease">-</button>
+                  <span class="qty-val">${item.qty || 1}</span>
+                  <button class="qty-btn" data-action="inc" aria-label="Increase">+</button>
+                </div>
+                <button class="icon-btn" data-action="remove" style="color:#B81D37;">${escapeHtml(s.orderRemoveBtn)}</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        listEl.querySelectorAll(".order-row-card").forEach((row) => {
+          const cId = row.dataset.cartId;
+          row.querySelector('[data-action="dec"]').addEventListener("click", () => {
+            const target = cartItems.find((o) => o.id === cId);
+            if (!target) return;
+            if ((target.qty || 1) > 1) {
+              target.qty -= 1;
+            } else {
+              cartItems = cartItems.filter((o) => o.id !== cId);
+            }
+            saveJson(STORAGE_KEYS.CART, cartItems);
+            renderCart();
+          });
+
+          row.querySelector('[data-action="inc"]').addEventListener("click", () => {
+            const target = cartItems.find((o) => o.id === cId);
+            if (!target) return;
+            target.qty = (target.qty || 1) + 1;
+            saveJson(STORAGE_KEYS.CART, cartItems);
+            renderCart();
+          });
+
+          row.querySelector('[data-action="remove"]').addEventListener("click", () => {
+            cartItems = cartItems.filter((o) => o.id !== cId);
+            saveJson(STORAGE_KEYS.CART, cartItems);
+            renderCart();
+          });
+        });
+      }
+
+      document.getElementById("cartTotalCupsText").textContent = s.cartTotalCups(getTotalCartCups());
+    }
+
+    function renderOrders() {
+      const s = t();
+      updateCatalogCounts();
 
       const listEl = document.getElementById("orderList");
       const allRecipes = getAllRecipes();
@@ -2742,14 +2931,18 @@
         btn.classList.toggle("active", btn.dataset.tab === tabName);
       });
 
+      const isCart = tabName === "cart";
       const isOrder = tabName === "order";
       const isCalc = tabName === "calc";
-      document.getElementById("menuView").style.display = (!isOrder && !isCalc) ? "block" : "none";
+      document.getElementById("menuView").style.display = (!isCart && !isOrder && !isCalc) ? "block" : "none";
+      document.getElementById("cartView").style.display = isCart ? "block" : "none";
       document.getElementById("orderView").style.display = isOrder ? "block" : "none";
       document.getElementById("calculatorView").style.display = isCalc ? "block" : "none";
-      document.getElementById("summaryStrip").style.display = (!isOrder && !isCalc) ? "flex" : "none";
+      document.getElementById("summaryStrip").style.display = (!isCart && !isOrder && !isCalc) ? "flex" : "none";
 
-      if (isOrder) {
+      if (isCart) {
+        renderCart();
+      } else if (isOrder) {
         renderOrders();
       } else if (isCalc) {
         calculateBeanYield();
@@ -3016,8 +3209,8 @@
       if (tempOpt === "both" || tempOpt === "ice") {
         variants.ice = {
           ...baseVariant,
-          descKm: `${desc} (កន្ត្រក / Cart)`,
-          descEn: `${desc} (Cart)`
+          descKm: `${desc} (ត្រជាក់ / Ice)`,
+          descEn: `${desc} (Ice)`
         };
       }
 
@@ -3046,8 +3239,10 @@
       const s = t();
       if (!state.activeRecipeId) return;
       customRecipes = customRecipes.filter((r) => r.id !== state.activeRecipeId);
+      cartItems = cartItems.filter((o) => o.recipeId !== state.activeRecipeId);
       orders = orders.filter((o) => o.recipeId !== state.activeRecipeId);
       saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
+      saveJson(STORAGE_KEYS.CART, cartItems);
       saveJson(STORAGE_KEYS.ORDERS, orders);
       document.getElementById("recipeModal").classList.remove("open");
       renderMenu();
@@ -3077,14 +3272,14 @@
         btn.addEventListener("click", () => {
           const tempVal = btn.dataset.temp;
           if (tempVal === "ice") {
-            switchTab("order");
+            switchTab("cart");
             return;
           }
           state.temp = tempVal;
           document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((b) => {
             b.classList.toggle("active", b === btn);
           });
-          if (state.tab === "calc" || state.tab === "order") switchTab("all");
+          if (state.tab !== "all") switchTab("all");
           else renderMenu();
         });
       });
@@ -3099,8 +3294,20 @@
         const tableNo = document.getElementById("quickOrderTableSelect").value || "1";
         const mode = document.getElementById("quickOrderModeSelect").value;
         const sugarPct = parseInt(document.getElementById("quickOrderSugarSelect").value, 10) || 0;
-        addToOrder(recipeId, mode, "16oz", 1, sugarPct, tableNo);
+        addToCart(recipeId, mode, "16oz", 1, sugarPct, tableNo);
       });
+
+      document.getElementById("clearCartBtn").addEventListener("click", () => {
+        cartItems = [];
+        saveJson(STORAGE_KEYS.CART, cartItems);
+        renderCart();
+        showToast(t().toastClearedCart);
+      });
+
+      document.getElementById("confirmCartToOrderBtn").addEventListener("click", confirmCartToOrder);
+      document.getElementById("confirmCartToOrderBtnBottom").addEventListener("click", confirmCartToOrder);
+
+      document.getElementById("backToCartBtn").addEventListener("click", () => switchTab("cart"));
 
       document.getElementById("clearDoneOrdersBtn").addEventListener("click", () => {
         orders = orders.filter((o) => !o.done);
@@ -3118,7 +3325,7 @@
 
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
         if (!state.activeRecipeId) return;
-        addToOrder(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sugarPct, state.tableNo);
+        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sugarPct, state.tableNo);
       });
 
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
