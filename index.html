@@ -92,7 +92,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 9px;
     }
 
     .brand-mini {
@@ -160,115 +159,6 @@
       background: var(--blush-banner);
       border-color: rgba(44, 30, 22, 0.18);
       color: var(--text-primary);
-    }
-
-    /* Search & Temperature Filter Row */
-    .filter-controls-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    @media (max-width: 640px) {
-      .filter-controls-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .header-actions .btn-label {
-        display: none;
-      }
-    }
-
-    .search-box {
-      position: relative;
-      display: flex;
-      align-items: center;
-      flex: 1;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      color: var(--text-muted);
-      pointer-events: none;
-      display: flex;
-    }
-
-    .search-input {
-      width: 100%;
-      min-height: 38px;
-      padding: 8px 36px 8px 34px;
-      border-radius: 12px;
-      border: 1px solid var(--border-hairline);
-      background: #FFFFFF;
-      font-family: inherit;
-      font-size: 0.88rem;
-      color: var(--text-primary);
-      outline: none;
-    }
-
-    .search-input:focus {
-      border-color: var(--accent-caramel);
-    }
-
-    .clear-search-btn {
-      position: absolute;
-      right: 7px;
-      border: none;
-      background: rgba(44, 30, 22, 0.12);
-      color: var(--text-secondary);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      font-size: 0.7rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: none;
-      place-items: center;
-    }
-
-    .clear-search-btn.visible {
-      display: grid;
-    }
-
-    .temp-filter-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      background: #EAE2D6;
-      padding: 3px;
-      border-radius: 12px;
-      gap: 3px;
-      flex-shrink: 0;
-    }
-
-    .temp-pill {
-      border: none;
-      background: transparent;
-      color: var(--text-secondary);
-      padding: 7px 12px;
-      min-height: 34px;
-      border-radius: 9px;
-      font-family: inherit;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .temp-pill.active {
-      background: #FFFFFF;
-      color: var(--text-primary);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    }
-
-    .temp-pill[data-temp="hot"].active {
-      background: var(--accent-hot);
-      color: #FFFFFF;
-    }
-
-    .temp-pill[data-temp="ice"].active {
-      background: var(--accent-ice);
-      color: #FFFFFF;
     }
 
     /* ============================================================
@@ -397,29 +287,6 @@
       filter: drop-shadow(0 6px 8px rgba(35, 24, 18, 0.13));
     }
 
-    .cup-mode-pill {
-      position: absolute;
-      bottom: 2px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.6rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      padding: 1.5px 7px;
-      border-radius: 999px;
-      color: #FFF;
-      text-transform: uppercase;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.18);
-    }
-
-    .cup-mode-pill.hot {
-      background: var(--accent-hot);
-    }
-
-    .cup-mode-pill.ice {
-      background: var(--accent-ice);
-    }
-
     .guide-text-col {
       flex: 1;
       min-width: 0;
@@ -498,30 +365,6 @@
     .fav-toggle-btn.saved svg {
       fill: #C92A42;
       stroke: #C92A42;
-    }
-
-    .poster-footer-banner {
-      margin-top: 20px;
-      background: var(--blush-banner);
-      border-radius: 8px;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.74rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      text-align: center;
-    }
-
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 46px 16px;
-      color: var(--text-secondary);
     }
 
     /* Batch & Yield Calculator View */
@@ -943,37 +786,6 @@
       display: none !important;
     }
 
-    /* Barista Prep Timer Box */
-    .timer-widget {
-      background: #FFFFFF;
-      border: 1px solid var(--border-hairline);
-      border-radius: 16px;
-      padding: 16px;
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .timer-digits {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--accent-espresso);
-      margin: 6px 0;
-    }
-
-    .timer-status {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-    }
-
-    .timer-controls {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -1020,36 +832,6 @@
             <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             <span id="langBadgeText">EN</span>
           </button>
-          <button class="icon-btn" id="openTimerBtn" title="ម៉ោងកំណត់ពេល">
-            <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <span class="btn-label" id="timerBtnLabel">ម៉ោងកំណត់</span>
-          </button>
-          <button class="icon-btn primary" id="openAddRecipeBtn" title="បន្ថែមមុខថ្មី">
-            <svg class="ui-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span class="btn-label" id="addBtnLabel">បន្ថែមមុខ</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="filter-controls-row">
-        <div class="search-box">
-          <span class="search-icon" aria-hidden="true">
-            <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          </span>
-          <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="ស្វែងរកឈ្មោះមុខ (ខ្មែរ / English) ឬគ្រឿងផ្សំ..."
-            autocomplete="off"
-          />
-          <button class="clear-search-btn" id="clearSearchBtn" aria-label="សម្អាត">X</button>
-        </div>
-
-        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ ត្រជាក់">
-          <button class="temp-pill active" data-temp="all">ទាំងអស់</button>
-          <button class="temp-pill" data-temp="hot">ក្តៅ (Hot)</button>
-          <button class="temp-pill" data-temp="ice">ត្រជាក់ (Ice)</button>
         </div>
       </div>
     </header>
@@ -1071,16 +853,6 @@
 
         <!-- 2-Column Menu Grid -->
         <div class="coffee-guide-grid" id="menuGrid"></div>
-
-        <!-- Bottom Poster Note -->
-        <div class="poster-footer-banner" id="posterFooterBanner">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18h6"></path>
-            <path d="M10 22h4"></path>
-            <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"></path>
-          </svg>
-          <span id="posterFooterText">ចុច «បន្ថែមមុខ» ដើម្បីបង្កើតមុខថ្មីចូលក្នុងម៉ឺនុយ</span>
-        </div>
       </div>
     </main>
 
@@ -1219,97 +991,6 @@
     </div>
   </div>
 
-  <!-- Add Custom Recipe Modal -->
-  <div class="modal-backdrop" id="addRecipeModal" role="dialog" aria-modal="true">
-    <div class="modal-sheet">
-      <div class="drag-handle"></div>
-      <div class="modal-header">
-        <div>
-          <h2 id="addModalTitle" style="margin: 0; font-size: 1.15rem;">បន្ថែមមុខថ្មីផ្ទាល់ខ្លួន</h2>
-          <p id="addModalSub" style="margin: 3px 0 0; font-size: 0.8rem; color: var(--text-secondary);">រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ</p>
-        </div>
-        <button class="close-modal-btn" id="closeAddModal" aria-label="បិទ">X</button>
-      </div>
-
-      <form id="addRecipeForm" style="margin-top: 14px;">
-        <div class="form-grid-2">
-          <div class="field-group">
-            <label for="newNameKm" id="lblNewNameKm">ឈ្មោះមុខ (ខ្មែរ) *</label>
-            <input type="text" id="newNameKm" class="field-input" placeholder="ឧទាហរណ៍៖ តែទឹកឃ្មុំក្រូចឆ្មារ" required />
-          </div>
-          <div class="field-group">
-            <label for="newNameEn" id="lblNewNameEn">ឈ្មោះភាសាអង់គ្លេស</label>
-            <input type="text" id="newNameEn" class="field-input" placeholder="e.g. Honey Lemon Tea" />
-          </div>
-        </div>
-
-        <div class="form-grid-2">
-          <div class="field-group">
-            <label for="newTemp" id="lblNewTemp">ជម្រើសក្តៅ / ត្រជាក់</label>
-            <select id="newTemp" class="field-select">
-              <option value="both">ទាំងក្តៅ និងត្រជាក់ (Hot & Ice)</option>
-              <option value="ice">ត្រជាក់តែមួយ (Ice only)</option>
-              <option value="hot">ក្តៅតែមួយ (Hot only)</option>
-            </select>
-          </div>
-          <div class="field-group">
-            <label for="newCategory" id="lblNewCategory">រូបកែវគំរូ</label>
-            <select id="newCategory" class="field-select">
-              <option value="hot-cup">Hot Cup</option>
-              <option value="hot-milk">Hot Milk / Foam Cup</option>
-              <option value="latte-art">Latte Art Cup</option>
-              <option value="layered">Layered Glass</option>
-              <option value="iced-glass">Iced Glass</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field-group" style="margin-bottom: 12px;">
-          <label for="newDesc" id="lblNewDesc">ការពិពណ៌នាសង្ខេប</label>
-          <input type="text" id="newDesc" class="field-input" placeholder="ផ្សំជាមួយទឹកឃ្មុំ និងទឹកក្រូចឆ្មារស្រស់..." />
-        </div>
-
-        <div class="field-group" style="margin-bottom: 12px;">
-          <label for="newIngredients" id="lblNewIngredients">គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)</label>
-          <textarea id="newIngredients" class="field-textarea" rows="4" placeholder="ទឹកតែ ឬទឹកផ្លែឈើ | 150 | ml&#10;ទឹកឃ្មុំ | 25 | ml&#10;ទឹកកក | 150 | g"></textarea>
-        </div>
-
-        <div class="field-group" style="margin-bottom: 14px;">
-          <label for="newSteps" id="lblNewSteps">របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)</label>
-          <textarea id="newSteps" class="field-textarea" rows="3" placeholder="លាយគ្រឿងផ្សំរសជាតិឱ្យរលាយចូលគ្នា&#10;ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយចូល&#10;តុបតែងពីលើ រួចបម្រើភ្លាម"></textarea>
-        </div>
-
-        <button type="submit" class="icon-btn primary" id="saveNewRecipeBtn" style="width: 100%; justify-content: center; padding: 12px;">
-          រក្សាទុកមុខថ្មី
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Live Prep Timer Modal -->
-  <div class="modal-backdrop" id="timerModal" role="dialog" aria-modal="true">
-    <div class="modal-sheet" style="max-width: 420px;">
-      <div class="drag-handle"></div>
-      <div class="modal-header">
-        <div>
-          <h2 id="timerModalTitle" style="margin: 0; font-size: 1.1rem;">ម៉ោងកំណត់ពេលធ្វើ (Prep Timer)</h2>
-          <p id="timerModalSub" style="margin: 2px 0 0; font-size: 0.78rem; color: var(--text-secondary);">គោលដៅកំណត់ពេល៖ 25–30 វិនាទី</p>
-        </div>
-        <button class="close-modal-btn" id="closeTimerModal" aria-label="បិទ">X</button>
-      </div>
-
-      <div class="timer-widget">
-        <div class="timer-digits" id="timerDigits">00.0s</div>
-        <div class="timer-status" id="timerStatus">ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម</div>
-        <div class="timer-controls">
-          <button class="icon-btn primary" id="timerStartBtn">Start</button>
-          <button class="icon-btn" id="timerPauseBtn">Pause</button>
-          <button class="icon-btn" id="timerResetBtn">Reset</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
@@ -1320,24 +1001,14 @@
         headerTitle: "EMinor Menu",
         posterTitle: "MENU GUIDE",
         posterSubtitle: "• មគ្គុទ្ទេសក៍ម៉ឺនុយ និងគ្រឿងផ្សំ •",
-        posterFooter: "ចុច «បន្ថែមមុខ» ដើម្បីបង្កើតមុខថ្មីចូលក្នុងម៉ឺនុយ",
         langBadge: "EN",
-        timerBtn: "ម៉ោងកំណត់",
-        addBtn: "បន្ថែមមុខ",
-        searchPlaceholder: "ស្វែងរកឈ្មោះមុខ (ខ្មែរ / English) ឬគ្រឿងផ្សំ...",
-        filterAll: (n) => `ទាំងអស់ (${n})`,
-        filterHot: (n) => `ក្តៅ Hot (${n})`,
-        filterIce: (n) => `ត្រជាក់ Ice (${n})`,
         customBadge: "ផ្ទាល់ខ្លួន",
-        hotBadge: "HOT",
-        iceBadge: "ICE",
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
         navFav: "ចូលចិត្ត",
         navCalc: "គណនារង្វាស់",
         emptyTitle: "ម៉ឺនុយមិនទាន់មានមុខណាមួយទេ",
-        emptyDesc: "ចុចប៊ូតុង «បន្ថែមមុខ» នៅខាងលើ ដើម្បីបង្កើតមុខថ្មីដោយខ្លួនឯង។",
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         batchLabel: "ចំនួនកែវធ្វើ (Batch)",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
@@ -1346,22 +1017,6 @@
         defaultTip: "វាស់គ្រឿងផ្សំឱ្យច្បាស់លាស់ ដើម្បីរក្សារសជាតិថេរ។",
         favBtnSave: "រក្សាទុកចូលចិត្ត",
         deleteCustomBtn: "លុបមុខនេះ",
-        addModalTitle: "បន្ថែមមុខថ្មីផ្ទាល់ខ្លួន",
-        addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
-        lblNewNameKm: "ឈ្មោះមុខ (ខ្មែរ) *",
-        lblNewNameEn: "ឈ្មោះភាសាអង់គ្លេស",
-        lblNewTemp: "ជម្រើសក្តៅ / ត្រជាក់",
-        lblNewCategory: "រូបកែវគំរូ",
-        lblNewDesc: "ការពិពណ៌នាសង្ខេប",
-        lblNewIngredients: "គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)",
-        lblNewSteps: "របៀបធ្វើ (១ បន្ទាត់ = ១ ជំហាន)",
-        saveNewRecipeBtn: "រក្សាទុកមុខថ្មី",
-        timerModalTitle: "ម៉ោងកំណត់ពេលធ្វើ (Prep Timer)",
-        timerModalSub: "គោលដៅកំណត់ពេល៖ 25–30 វិនាទី",
-        timerReady: "ត្រៀមរួចរាល់ — ចុច Start ដើម្បីចាប់ផ្តើម",
-        timerRunning: "កំពុងដំណើរការ... (គោលដៅ 25–30s)",
-        timerIdeal: "ស្ថិតក្នុងកម្រិតស្តង់ដារល្អបំផុត (25–30s)",
-        timerOver: "លើស 30s — ពិនិត្យពេលវេលា",
         calcTitle: "ឧបករណ៍គណនាចំនួនកែវតាមទម្ងន់គ្រឿងផ្សំ",
         calcSubtitle: "គណនាចំនួនកែវពិតប្រាកដតាមទម្ងន់សរុប បរិមាណសម្រាប់ ១ កែវ និងភាគរយខាតបង់ (Waste %)",
         lblBagGrams: "ទម្ងន់សរុប (ក្រាម)",
@@ -1378,7 +1033,6 @@
         resCostPerCup: (d) => `រង្វាស់/កែវ៖ ${d}g`,
         toastAddedFav: "បានរក្សាទុកក្នុងបញ្ជីចូលចិត្ត",
         toastRemovedFav: "បានដកចេញពីបញ្ជីចូលចិត្ត",
-        toastAddedRecipe: "បានបន្ថែមមុខថ្មីរួចរាល់",
         toastDeletedRecipe: "បានលុបមុខចេញពីម៉ឺនុយ",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
       },
@@ -1387,24 +1041,14 @@
         headerTitle: "EMinor Menu",
         posterTitle: "MENU GUIDE",
         posterSubtitle: "• A SIMPLE MENU & INGREDIENT GUIDE •",
-        posterFooter: "TAP “ADD ITEM” TO CREATE YOUR OWN MENU ITEMS",
         langBadge: "ខ្មែរ",
-        timerBtn: "Timer",
-        addBtn: "Add Item",
-        searchPlaceholder: "Search item name (Khmer / English) or ingredients...",
-        filterAll: (n) => `All (${n})`,
-        filterHot: (n) => `Hot (${n})`,
-        filterIce: (n) => `Ice (${n})`,
         customBadge: "Custom",
-        hotBadge: "HOT",
-        iceBadge: "ICE",
         hotFull: "Hot",
         iceFull: "Ice",
         navMenu: (n) => `Menu (${n})`,
         navFav: "Favorites",
         navCalc: "Yield Calc",
         emptyTitle: "No items in the menu yet",
-        emptyDesc: "Tap “Add Item” above to create your own items.",
         cupSizeLabel: "Cup Size",
         batchLabel: "Batch Multiplier",
         ingHeading: "Ingredients & Standard Measurements (Tap to check)",
@@ -1413,22 +1057,6 @@
         defaultTip: "Measure ingredients accurately for consistent flavor every time.",
         favBtnSave: "Save to Favorites",
         deleteCustomBtn: "Delete Item",
-        addModalTitle: "Add Custom Menu Item",
-        addModalSub: "Automatically saved on your device",
-        lblNewNameKm: "Item Name (Khmer) *",
-        lblNewNameEn: "Item Name (English)",
-        lblNewTemp: "Hot / Ice Availability",
-        lblNewCategory: "Cup Illustration Style",
-        lblNewDesc: "Short Description",
-        lblNewIngredients: "Ingredients (1 line = Name | Amount | Unit)",
-        lblNewSteps: "Steps (1 line = 1 step)",
-        saveNewRecipeBtn: "Save New Item",
-        timerModalTitle: "Preparation Timer",
-        timerModalSub: "Target Window: 25–30 seconds",
-        timerReady: "Ready — Press Start to begin timing",
-        timerRunning: "Running... (Target 25–30s)",
-        timerIdeal: "Ideal target window (25–30s)",
-        timerOver: "Over 30s — Check timing",
         calcTitle: "Ingredient Batch Yield Calculator",
         calcSubtitle: "Estimate cup yield by total weight, portion per cup, and waste percentage",
         lblBagGrams: "Total Weight (grams)",
@@ -1445,7 +1073,6 @@
         resCostPerCup: (d) => `Portion/cup: ${d}g`,
         toastAddedFav: "Saved to Favorites",
         toastRemovedFav: "Removed from Favorites",
-        toastAddedRecipe: "New custom item added",
         toastDeletedRecipe: "Item removed from menu",
         toastLangSwitched: "Switched to English"
       }
@@ -1540,8 +1167,8 @@
     }
 
     const STORAGE_KEYS = {
-      CUSTOM_RECIPES: "eminor_menu_custom_empty_v1",
-      FAVORITES: "eminor_menu_fav_empty_v1",
+      CUSTOM_RECIPES: "eminor_menu_custom_clean_v1",
+      FAVORITES: "eminor_menu_fav_clean_v1",
       LANG: "eminor_menu_lang_v1"
     };
 
@@ -1551,8 +1178,6 @@
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
       tab: "all",
-      temp: "all",
-      search: "",
       activeRecipeId: null,
       activeMode: "hot",
       cupSize: "16oz",
@@ -1593,8 +1218,6 @@
     }
 
     function getDefaultVariantKey(recipe) {
-      if (state.temp === "hot" && supportsTemp(recipe, "hot")) return "hot";
-      if (state.temp === "ice" && supportsTemp(recipe, "ice")) return "ice";
       if (supportsTemp(recipe, "hot")) return "hot";
       return "ice";
     }
@@ -1612,7 +1235,7 @@
     }
 
     function getGuideBullets(r, variant) {
-      if (state.temp === "all" && Array.isArray(r.guideBulletsKm)) {
+      if (Array.isArray(r.guideBulletsKm)) {
         return state.lang === "en" ? (r.guideBulletsEn || r.guideBulletsKm) : r.guideBulletsKm;
       }
       if (variant && Array.isArray(variant.ingredients)) {
@@ -1646,11 +1269,7 @@
       document.getElementById("mainHeaderTitle").textContent = s.headerTitle;
       document.getElementById("posterMainTitle").textContent = s.posterTitle;
       document.getElementById("posterSubtitle").textContent = s.posterSubtitle;
-      document.getElementById("posterFooterText").textContent = s.posterFooter;
       document.getElementById("langBadgeText").textContent = s.langBadge;
-      document.getElementById("timerBtnLabel").textContent = s.timerBtn;
-      document.getElementById("addBtnLabel").textContent = s.addBtn;
-      document.getElementById("searchInput").placeholder = s.searchPlaceholder;
       document.getElementById("navFavLabel").textContent = s.navFav;
       document.getElementById("navCalcLabel").textContent = s.navCalc;
 
@@ -1663,20 +1282,6 @@
       document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
       document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
 
-      document.getElementById("addModalTitle").textContent = s.addModalTitle;
-      document.getElementById("addModalSub").textContent = s.addModalSub;
-      document.getElementById("lblNewNameKm").textContent = s.lblNewNameKm;
-      document.getElementById("lblNewNameEn").textContent = s.lblNewNameEn;
-      document.getElementById("lblNewTemp").textContent = s.lblNewTemp;
-      document.getElementById("lblNewCategory").textContent = s.lblNewCategory;
-      document.getElementById("lblNewDesc").textContent = s.lblNewDesc;
-      document.getElementById("lblNewIngredients").textContent = s.lblNewIngredients;
-      document.getElementById("lblNewSteps").textContent = s.lblNewSteps;
-      document.getElementById("saveNewRecipeBtn").textContent = s.saveNewRecipeBtn;
-
-      document.getElementById("timerModalTitle").textContent = s.timerModalTitle;
-      document.getElementById("timerModalSub").textContent = s.timerModalSub;
-
       document.getElementById("calcTitle").textContent = s.calcTitle;
       document.getElementById("calcSubtitle").textContent = s.calcSubtitle;
       document.getElementById("lblBagGrams").textContent = s.lblBagGrams;
@@ -1687,8 +1292,6 @@
       document.getElementById("resNetCupsLabel").textContent = s.resNetCupsLabel;
       document.getElementById("resWasteGramsLabel").textContent = s.resWasteGramsLabel;
       document.getElementById("resEstRevenueLabel").textContent = s.resEstRevenueLabel;
-
-      updateTimerUi();
     }
 
     function toggleLanguage() {
@@ -1705,41 +1308,15 @@
 
     function updateCatalogCounts() {
       const s = t();
-      const all = getAllRecipes();
-      const total = all.length;
-      const hotCount = all.filter((r) => supportsTemp(r, "hot")).length;
-      const iceCount = all.filter((r) => supportsTemp(r, "ice")).length;
-
+      const total = getAllRecipes().length;
       document.getElementById("navAllLabel").textContent = s.navMenu(total);
-
-      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        if (btn.dataset.temp === "all") btn.textContent = s.filterAll(total);
-        if (btn.dataset.temp === "hot") btn.textContent = s.filterHot(hotCount);
-        if (btn.dataset.temp === "ice") btn.textContent = s.filterIce(iceCount);
-      });
     }
 
     function getFilteredRecipes() {
       const all = getAllRecipes();
-      const q = state.search.trim().toLowerCase();
-
       return all.filter((r) => {
         if (state.tab === "fav" && !favorites.has(r.id)) return false;
-        if (state.temp !== "all" && !supportsTemp(r, state.temp)) return false;
-        if (!q) return true;
-
-        const inNameKm = (r.nameKm || "").toLowerCase().includes(q);
-        const inNameEn = (r.nameEn || "").toLowerCase().includes(q);
-        const inBullets = [...(r.guideBulletsKm || []), ...(r.guideBulletsEn || [])]
-          .some((b) => b.toLowerCase().includes(q));
-        const allIngs = [
-          ...(r.variants?.hot?.ingredients || []),
-          ...(r.variants?.ice?.ingredients || [])
-        ];
-        const inIng = allIngs.some((i) =>
-          ((i.nameKm || "") + " " + (i.nameEn || "") + " " + (i.name || "")).toLowerCase().includes(q)
-        );
-        return inNameKm || inNameEn || inBullets || inIng;
+        return true;
       });
     }
 
@@ -1750,11 +1327,9 @@
       const list = getFilteredRecipes();
 
       if (list.length === 0) {
-        const hasActiveFilter = state.search.trim().length > 0 || state.temp !== "all" || state.tab === "fav";
         grid.innerHTML = `
           <div class="empty-state">
-            <h3 style="margin:0 0 6px;">${escapeHtml(hasActiveFilter ? (state.lang === "en" ? "No items found" : "រកមិនឃើញមុខក្នុងម៉ឺនុយ") : s.emptyTitle)}</h3>
-            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(hasActiveFilter ? (state.lang === "en" ? "Try clearing your search or switching filters." : "សាកល្បងលុបពាក្យស្វែងរក ឬប្តូរតម្រង។") : s.emptyDesc)}</p>
+            <h3 style="margin:0; font-size:1rem; font-weight:600; color:var(--text-secondary);">${escapeHtml(state.tab === "fav" ? (state.lang === "en" ? "No favorites yet" : "មិនទាន់មានមុខចូលចិត្តទេ") : s.emptyTitle)}</h3>
           </div>
         `;
         return;
@@ -1769,18 +1344,10 @@
         const bullets = getGuideBullets(r, defaultVar);
         const customBadge = r.isCustom ? `<span class="custom-mini-tag">${escapeHtml(s.customBadge)}</span>` : "";
 
-        let modePillHtml = "";
-        if (state.temp === "hot") {
-          modePillHtml = `<span class="cup-mode-pill hot">${escapeHtml(s.hotBadge)}</span>`;
-        } else if (state.temp === "ice") {
-          modePillHtml = `<span class="cup-mode-pill ice">${escapeHtml(s.iceBadge)}</span>`;
-        }
-
         return `
           <article class="guide-item" data-id="${r.id}">
             <div class="guide-cup-visual">
               ${getCupIllustrationSvg(cupStyle)}
-              ${modePillHtml}
             </div>
             <div class="guide-text-col">
               <div class="guide-title-row">
@@ -1881,7 +1448,7 @@
       iceBtn.classList.toggle("disabled-mode", !hasIce);
 
       document.getElementById("modalTitleMain").textContent = getRecipeDisplayTitle(recipe);
-      document.getElementById("deleteCustomBtn").style.display = "inline-flex";
+      document.getElementById("deleteCustomBtn").style.display = recipe.isCustom ? "inline-flex" : "none";
 
       renderModalVariantContent(recipe, targetMode);
       document.getElementById("recipeModal").classList.add("open");
@@ -1963,156 +1530,6 @@
       document.getElementById("resCostPerCup").textContent = s.resCostPerCup(dose);
     }
 
-    let timerInterval = null;
-    let elapsedMs = 0;
-
-    function formatTimer(ms) {
-      const sec = (ms / 1000).toFixed(1).padStart(4, "0");
-      return `${sec}s`;
-    }
-
-    function updateTimerUi() {
-      const s = t();
-      const sec = elapsedMs / 1000;
-      document.getElementById("timerDigits").textContent = formatTimer(elapsedMs);
-      const statusEl = document.getElementById("timerStatus");
-
-      if (sec < 25) {
-        statusEl.textContent = sec === 0 ? s.timerReady : s.timerRunning;
-        statusEl.style.color = "#58463B";
-      } else if (sec <= 30) {
-        statusEl.textContent = s.timerIdeal;
-        statusEl.style.color = "#1D7A43";
-      } else {
-        statusEl.textContent = s.timerOver;
-        statusEl.style.color = "#B87235";
-      }
-    }
-
-    function playTimerBeep() {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        const ctx = new AudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.value = 880;
-        gain.gain.value = 0.12;
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        setTimeout(() => {
-          osc.stop();
-          ctx.close();
-        }, 220);
-      } catch {}
-    }
-
-    function startTimer() {
-      if (timerInterval) return;
-      let alerted25 = elapsedMs >= 25000;
-      const startTime = performance.now() - elapsedMs;
-      timerInterval = setInterval(() => {
-        elapsedMs = performance.now() - startTime;
-        updateTimerUi();
-        if (!alerted25 && elapsedMs >= 25000) {
-          alerted25 = true;
-          playTimerBeep();
-        }
-      }, 50);
-    }
-
-    function pauseTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-
-    function resetTimer() {
-      pauseTimer();
-      elapsedMs = 0;
-      updateTimerUi();
-    }
-
-    function handleAddRecipeSubmit(e) {
-      e.preventDefault();
-      const s = t();
-      const nameKm = document.getElementById("newNameKm").value.trim() || document.getElementById("newNameEn").value.trim();
-      const nameEn = (document.getElementById("newNameEn").value.trim() || nameKm).toUpperCase();
-      if (!nameKm && !nameEn) return;
-
-      const tempOpt = document.getElementById("newTemp").value;
-      const category = document.getElementById("newCategory").value;
-      const desc = document.getElementById("newDesc").value.trim() || (state.lang === "en" ? "Custom menu item." : "មុខបង្កើតផ្ទាល់ខ្លួនក្នុងកម្មវិធី។");
-
-      const rawIngs = document.getElementById("newIngredients").value.split("\n").map((l) => l.trim()).filter(Boolean);
-      const ingredients = rawIngs.length
-        ? rawIngs.map((line) => {
-            const parts = line.split("|").map((p) => p.trim());
-            const amt = parseFloat(parts[1]);
-            const label = parts[0] || line;
-            return {
-              nameKm: label,
-              nameEn: label,
-              amount: isNaN(amt) ? 0 : amt,
-              unit: parts[2] || ""
-            };
-          })
-        : [{ nameKm: "គ្រឿងផ្សំតាមចំណូលចិត្ត", nameEn: "Ingredients to taste", amount: 100, unit: "ml" }];
-
-      const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
-      const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine ingredients and serve." : "លាយគ្រឿងផ្សំចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
-
-      const baseVariant = {
-        cupStyle: category,
-        descKm: desc,
-        descEn: desc,
-        ingredients,
-        stepsKm: stepsList,
-        stepsEn: stepsList,
-        tipKm: "មុខផ្ទាល់ខ្លួនរបស់អ្នក — កែសម្រួលបរិមាណតាមរសជាតិ។",
-        tipEn: "Your custom item — adjust measurements to suit your taste."
-      };
-
-      const variants = {};
-      if (tempOpt === "both" || tempOpt === "hot") {
-        variants.hot = {
-          ...baseVariant,
-          descKm: `${desc} (ក្តៅ / Hot)`,
-          descEn: `${desc} (Hot)`
-        };
-      }
-      if (tempOpt === "both" || tempOpt === "ice") {
-        variants.ice = {
-          ...baseVariant,
-          cupStyle: "iced-glass",
-          descKm: `${desc} (ត្រជាក់ / Ice)`,
-          descEn: `${desc} (Ice)`
-        };
-      }
-
-      const bulletLabels = ingredients.slice(0, 3).map((i) => i.nameKm);
-
-      const newItem = {
-        id: "custom_" + Date.now(),
-        category,
-        nameKm: nameKm || nameEn,
-        nameEn,
-        guideBulletsKm: bulletLabels,
-        guideBulletsEn: bulletLabels,
-        variants,
-        isCustom: true
-      };
-
-      customRecipes.push(newItem);
-      saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
-
-      document.getElementById("addRecipeForm").reset();
-      document.getElementById("addRecipeModal").classList.remove("open");
-      switchTab("all");
-      renderMenu();
-      showToast(s.toastAddedRecipe);
-    }
-
     function deleteActiveCustomRecipe() {
       const s = t();
       if (!state.activeRecipeId) return;
@@ -2143,34 +1560,6 @@
 
     function initEvents() {
       document.getElementById("langToggleBtn").addEventListener("click", toggleLanguage);
-
-      const searchInput = document.getElementById("searchInput");
-      const clearBtn = document.getElementById("clearSearchBtn");
-
-      searchInput.addEventListener("input", () => {
-        state.search = searchInput.value;
-        clearBtn.classList.toggle("visible", state.search.length > 0);
-        if (state.tab === "calc") switchTab("all");
-        else renderMenu();
-      });
-
-      clearBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        state.search = "";
-        clearBtn.classList.remove("visible");
-        renderMenu();
-      });
-
-      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.temp = btn.dataset.temp;
-          document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((b) => {
-            b.classList.toggle("active", b === btn);
-          });
-          if (state.tab === "calc") switchTab("all");
-          else renderMenu();
-        });
-      });
 
       document.getElementById("navAll").addEventListener("click", () => switchTab("all"));
       document.getElementById("navFav").addEventListener("click", () => switchTab("fav"));
@@ -2214,29 +1603,6 @@
       });
 
       document.getElementById("deleteCustomBtn").addEventListener("click", deleteActiveCustomRecipe);
-
-      document.getElementById("openAddRecipeBtn").addEventListener("click", () => {
-        document.getElementById("addRecipeModal").classList.add("open");
-      });
-      document.getElementById("closeAddModal").addEventListener("click", () => {
-        document.getElementById("addRecipeModal").classList.remove("open");
-      });
-      document.getElementById("addRecipeModal").addEventListener("click", (e) => {
-        if (e.target.id === "addRecipeModal") e.target.classList.remove("open");
-      });
-      document.getElementById("addRecipeForm").addEventListener("submit", handleAddRecipeSubmit);
-
-      const openTimer = () => document.getElementById("timerModal").classList.add("open");
-      document.getElementById("openTimerBtn").addEventListener("click", openTimer);
-      document.getElementById("closeTimerModal").addEventListener("click", () => {
-        document.getElementById("timerModal").classList.remove("open");
-      });
-      document.getElementById("timerModal").addEventListener("click", (e) => {
-        if (e.target.id === "timerModal") e.target.classList.remove("open");
-      });
-      document.getElementById("timerStartBtn").addEventListener("click", startTimer);
-      document.getElementById("timerPauseBtn").addEventListener("click", pauseTimer);
-      document.getElementById("timerResetBtn").addEventListener("click", resetTimer);
 
       document.querySelectorAll("#bagPresets .preset-chip").forEach((chip) => {
         chip.addEventListener("click", () => {
