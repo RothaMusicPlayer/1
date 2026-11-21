@@ -101,8 +101,8 @@
     }
 
     .brand-logo-wrap {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 12px;
       background: #FFFFFF;
       border: 1px solid var(--border-hairline);
@@ -120,11 +120,7 @@
     }
 
     .brand-mini-title {
-      font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', sans-serif;
-      font-size: 1.12rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      color: var(--text-primary);
+      display: none;
     }
 
     .header-actions {
@@ -494,22 +490,30 @@
 </head>
 <body>
   <div class="app-container" id="appContainer">
-    <!-- Top Header Controls with EMinor Coffee Logo -->
+    <!-- Top Header Controls with Exact EMinor Coffee Logo -->
     <header class="top-header">
       <div class="header-top-row">
         <div class="brand-mini">
-          <div class="brand-logo-wrap" aria-hidden="true">
+          <div class="brand-logo-wrap" aria-label="EMinor Coffee">
             <svg class="brand-logo-svg" viewBox="0 0 120 120" fill="#18120F" xmlns="http://www.w3.org/2000/svg">
-              <!-- Steam wisps -->
-              <path d="M58 46 C50 38, 52 24, 62 14 C58 24, 61 32, 67 39 C71 44, 67 51, 58 46 Z" />
-              <path d="M68 48 C65 38, 70 27, 77 20 C75 28, 77 35, 81 41 C84 46, 77 52, 68 48 Z" />
-              <!-- Cup rim & handle -->
-              <path d="M63 49 C79 48, 93 52, 95 58 L91 63 C85 58, 75 56, 63 56 Z" />
-              <path d="M93 60 C108 58, 114 67, 109 78 C105 87, 94 92, 81 94 L83 87 C92 85, 99 81, 101 75 C103 69, 99 65, 91 66 Z" />
-              <!-- Cup body & integrated Em -->
-              <path d="M36 53 L66 53 L66 61 L45 61 L45 68 L62 68 L62 76 L45 76 L45 83 L66 83 L66 91 L36 91 Z" />
-              <path d="M70 67 L78 67 L78 71 C80 68, 84 66, 88 66 C92 66, 95 68, 96 71 L96 91 L88 91 L88 75 C88 73, 86 72, 84 72 C81 72, 79 74, 79 77 L79 91 L70 91 Z" />
-              <path d="M36 53 C36 78, 46 98, 66 98 C79 98, 89 93, 95 85 L99 89 C92 98, 80 105, 65 105 C42 105, 30 83, 30 53 Z" />
+              <!-- Curved steam plumes -->
+              <path d="M56.5 46.5 C46.5 38.5, 49.5 23, 62 12 C56.5 23, 59.5 31.5, 66.5 39.5 C71 44.5, 66 51.5, 56.5 46.5 Z" />
+              <path d="M67.5 48 C63.5 37.5, 69.5 25.5, 78 18.5 C75 27, 77.5 34.5, 82.5 41.5 C85.5 46, 77 52, 67.5 48 Z" />
+
+              <!-- Upper-right cup lip -->
+              <path d="M63 49.5 C79.5 48.5, 93.5 52.5, 95 58.5 L90.5 63.5 C84.5 58, 74.5 56, 63 56.5 Z" />
+
+              <!-- Cup handle on right -->
+              <path d="M93.5 59.5 C109.5 58, 115 68, 109.5 79.5 C105 88.5, 93 93.5, 80.5 95 L82.5 88 C92 86.5, 99.5 81.5, 102 74.5 C104 68.5, 99.5 64.5, 91.5 65.5 Z" />
+
+              <!-- Bold "E" inside cup -->
+              <path d="M36 53.5 L66.5 53.5 L66.5 61.5 L45 61.5 L45 68.5 L62.5 68.5 L62.5 76 L45 76 L45 83.5 L66.5 83.5 L66.5 91.5 L36 91.5 Z" />
+
+              <!-- Bold "m" beside "E" -->
+              <path d="M69.5 67.5 L77.5 67.5 L77.5 71.5 C80 68.2, 84 66.5, 88 66.5 C92.5 66.5, 95.5 68.5, 96.5 72 L96.5 91.5 L88.5 91.5 L88.5 75.5 C88.5 73.2, 86.8 72, 84.5 72 C81.5 72, 79.5 74, 79.5 77.5 L79.5 91.5 L69.5 91.5 Z" />
+
+              <!-- Rounded cup base wrapping under E and m -->
+              <path d="M36 53.5 C36 78.5, 46.5 98, 66.5 98 C79.5 98, 89.5 93, 95.5 85 L99.5 89.5 C92.5 98.5, 80.5 105.5, 65.5 105.5 C42 105.5, 30 83.5, 30 53.5 Z" />
             </svg>
           </div>
           <span class="brand-mini-title" id="mainHeaderTitle">EMinor Coffee</span>
