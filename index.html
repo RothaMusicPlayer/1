@@ -323,9 +323,10 @@
       background: var(--glass-surface);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 12px;
+      padding: 16px 18px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 14px;
       box-shadow: var(--shadow-glass);
       cursor: pointer;
@@ -341,50 +342,6 @@
       background: rgba(255, 255, 255, 0.92);
     }
 
-    .drink-photo-box {
-      width: 96px;
-      height: 106px;
-      border-radius: 17px;
-      background: #DED2C5;
-      flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.92);
-      box-shadow: 0 5px 14px rgba(34, 18, 9, 0.12);
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-    }
-
-    .drink-photo-box img.drink-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-
-    .photo-temp-badge {
-      position: absolute;
-      bottom: 6px;
-      left: 6px;
-      font-size: 0.58rem;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 8px;
-      color: #FFF;
-      letter-spacing: 0.04em;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    }
-
-    .photo-temp-badge.hot {
-      background: rgba(196, 56, 30, 0.92);
-    }
-
-    .photo-temp-badge.ice {
-      background: rgba(21, 106, 148, 0.92);
-    }
-
     .drink-info {
       flex: 1;
       min-width: 0;
@@ -395,7 +352,7 @@
       align-items: center;
       gap: 6px;
       flex-wrap: wrap;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .drink-top-meta:empty {
@@ -429,7 +386,7 @@
 
     .drink-name-main {
       margin: 0;
-      font-size: 1.04rem;
+      font-size: 1.06rem;
       font-weight: 700;
       color: var(--text-primary);
       line-height: 1.35;
@@ -438,13 +395,13 @@
 
     .drink-desc {
       margin: 4px 0 0;
-      font-size: 0.81rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      line-height: 1.42;
+      line-height: 1.45;
     }
 
     .fav-toggle-btn {
@@ -1123,14 +1080,11 @@
     <div class="modal-sheet" id="recipeSheet">
       <div class="drag-handle"></div>
       <div class="modal-header">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div id="modalArtBox" class="drink-photo-box" style="width: 88px; height: 98px;"></div>
-          <div>
-            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-              <span class="drink-tag" id="modalTempTag"></span>
-            </div>
-            <h2 id="modalTitleMain" style="margin: 4px 0 2px; font-size: 1.2rem;"></h2>
+        <div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+            <span class="drink-tag" id="modalTempTag"></span>
           </div>
+          <h2 id="modalTitleMain" style="margin: 6px 0 2px; font-size: 1.24rem;"></h2>
         </div>
         <button class="close-modal-btn" id="closeRecipeModal" aria-label="បិទ">X</button>
       </div>
@@ -1287,9 +1241,6 @@
         showingMid: "មុខ (សរុប",
         showingSuffix: "មុខ)",
         customBadge: "ផ្ទាល់ខ្លួន",
-        hotBadge: "HOT",
-        iceBadge: "ICE",
-        bothBadge: "",
         hotFull: "ក្តៅ (Hot)",
         iceFull: "ត្រជាក់ (Ice)",
         bothFull: "",
@@ -1356,9 +1307,6 @@
         showingMid: "of",
         showingSuffix: "coffees",
         customBadge: "Custom",
-        hotBadge: "HOT",
-        iceBadge: "ICE",
-        bothBadge: "",
         hotFull: "Hot",
         iceFull: "Ice",
         bothFull: "",
@@ -1413,58 +1361,16 @@
       }
     };
 
-    // Distinct Unsplash coffee photography for All (overview), Hot, and Iced variants
-    const DRINK_PHOTOS = {
-      // ALL (OVERVIEW) DRINKS
-      "all-espresso":     "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80",
-      "all-americano":    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
-      "all-latte":        "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=400&q=80",
-      "all-cappuccino":   "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80",
-      "all-flat-white":   "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80",
-      "all-mocha":        "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=400&q=80",
-      "all-caramel":      "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=400&q=80",
-      "all-piccolo":      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80",
-      "all-khmer-milk":   "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=400&q=80",
-      "all-black-coffee": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=400&q=80",
-
-      // HOT DRINKS
-      "hot-espresso":     "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=400&q=80",
-      "hot-americano":    "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=400&q=80",
-      "hot-latte":        "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=400&q=80",
-      "hot-cappuccino":   "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80",
-      "hot-flat-white":   "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=400&q=80",
-      "hot-mocha":        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=400&q=80",
-      "hot-caramel":      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80",
-      "hot-piccolo":      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80",
-      "hot-khmer-milk":   "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
-
-      // ICED DRINKS
-      "ice-espresso":     "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80",
-      "ice-americano":    "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80",
-      "ice-latte":        "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=400&q=80",
-      "ice-cappuccino":   "https://images.unsplash.com/photo-1592663527359-cf6642f54cff?auto=format&fit=crop&w=400&q=80",
-      "ice-flat-white":   "https://images.unsplash.com/photo-1525480122447-64809d765ec4?auto=format&fit=crop&w=400&q=80",
-      "ice-mocha":        "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80",
-      "ice-caramel":      "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=400&q=80",
-      "ice-piccolo":      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80",
-      "ice-khmer-milk":   "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=400&q=80",
-      "ice-black-coffee": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80"
-    };
-
-    const FALLBACK_COFFEE_PHOTO = "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80";
-
     const DEFAULT_RECIPES = [
       {
         id: "espresso-pair",
         category: "espresso",
-        allPhoto: "all-espresso",
         nameKm: "អេស្ព្រេសសូ",
         nameEn: "Espresso",
         descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ (Hot) ឬត្រជាក់ (Ice) ដើម្បីមើលរូបមន្តខុសគ្នា។",
         descEn: "Pure pressurized espresso shot — switch between Hot and Ice to compare recipes.",
         variants: {
           hot: {
-            photo: "hot-espresso",
             descKm: "ចម្រាញ់ក្តៅៗដាក់ពែងក្តៅឧណ្ហៗ រសជាតិដិតខាប់ និងរក្សាពពុះ Crema ពណ៌មាសពេញលេញ។",
             descEn: "Pulled hot into a preheated cup with a rich body and full golden crema.",
             ingredients: [
@@ -1485,7 +1391,6 @@
             tipEn: "Hot espresso expresses its strongest aromatics within the first 30 seconds after extraction."
           },
           ice: {
-            photo: "ice-espresso",
             descKm: "ចម្រាញ់ Double Espresso ស្រោចលើទឹកកកត្រជាក់ និងទឹកត្រជាក់បន្តិច ដើម្បីឱ្យត្រជាក់ភ្លាមៗដោយមិនបាត់រសជាតិ។",
             descEn: "Double espresso pulled over cold water and ice to chill rapidly while keeping bold depth.",
             ingredients: [
@@ -1511,14 +1416,12 @@
       {
         id: "americano-pair",
         category: "espresso",
-        allPhoto: "all-americano",
         nameKm: "អាមេរិកាណូ",
         nameEn: "Americano",
         descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ ត្រជាក់ប្រើទឹកត្រជាក់ និងទឹកកក។",
         descEn: "Double espresso with water — hot uses hot water, iced uses cold water and ice.",
         variants: {
           hot: {
-            photo: "hot-americano",
             descKm: "Double Espresso លាយទឹកក្តៅ (~85–90°C) ផ្តល់ភាពក្តៅស្រស់ស្រាយ និងមាន Crema នៅពីលើ។",
             descEn: "Double espresso over hot water (~85–90°C) for a warm, clean cup with crema on top.",
             ingredients: [
@@ -1539,7 +1442,6 @@
             tipEn: "Pouring espresso over hot water preserves the crema better than pouring water over espresso."
           },
           ice: {
-            photo: "ice-americano",
             descKm: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រឡះ ដិតកាហ្វេ។",
             descEn: "Double espresso poured over cold water and ice for a crisp, refreshing iced coffee.",
             ingredients: [
@@ -1565,14 +1467,12 @@
       {
         id: "latte-pair",
         category: "espresso",
-        allPhoto: "all-latte",
         nameKm: "ឡាតេ",
         nameEn: "Latte",
         descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់។",
         descEn: "Double espresso with fresh milk — hot uses steamed milk, iced uses chilled milk over ice.",
         variants: {
           hot: {
-            photo: "hot-latte",
             descKm: "Double Espresso លាយទឹកដោះគោស្រស់ចំហុយក្តៅ (~62°C) មានពពុះ Microfoam ស្តើងរលោង។",
             descEn: "Double espresso with steamed fresh milk (~62°C) and a thin, glossy microfoam layer.",
             ingredients: [
@@ -1593,7 +1493,6 @@
             tipEn: "Keep steaming below 70°C to preserve milk's natural sweetness."
           },
           ice: {
-            photo: "ice-latte",
             descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រទន់។",
             descEn: "Double espresso over chilled fresh milk and ice for a smooth, cold latte.",
             ingredients: [
@@ -1620,14 +1519,12 @@
       {
         id: "cappuccino-pair",
         category: "espresso",
-        allPhoto: "all-cappuccino",
         nameKm: "កាពូឈីណូ",
         nameEn: "Cappuccino",
         descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ ត្រជាក់វាយពពុះត្រជាក់ (Cold Foam)។",
         descEn: "Foam-topped coffee — hot uses steamed foam, iced uses chilled cold foam on top.",
         variants: {
           hot: {
-            photo: "hot-cappuccino",
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងមានពពុះក្តៅក្រាស់ទន់នៅផ្នែកខាងលើ។",
             descEn: "Double espresso with steamed milk and a thick, plush hot foam cap.",
             ingredients: [
@@ -1648,7 +1545,6 @@
             tipEn: "Tap and swirl the pitcher before pouring for smooth foam."
           },
           ice: {
-            photo: "ice-cappuccino",
             descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់ពីលើ។",
             descEn: "Iced espresso and chilled milk topped with thick, creamy cold milk foam.",
             ingredients: [
@@ -1675,14 +1571,12 @@
       {
         id: "flat-white-pair",
         category: "espresso",
-        allPhoto: "all-flat-white",
         nameKm: "ហ្វ្លាត វ៉ាយ",
         nameEn: "Flat White",
         descKm: "រសជាតិកាហ្វេដិតជាង Latte — ក្តៅប្រើពពុះក្តៅស្តើង ត្រជាក់ប្រើទឹកដោះគោត្រជាក់តិចជាង Latte។",
         descEn: "More coffee-forward than a latte — hot uses thin microfoam, iced uses less chilled milk.",
         variants: {
           hot: {
-            photo: "hot-flat-white",
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត (~62°C) ធ្វើឱ្យក្លិនកាហ្វេដិតច្បាស់។",
             descEn: "Double espresso with very thin microfoam (~62°C) for a stronger espresso flavor.",
             ingredients: [
@@ -1703,7 +1597,6 @@
             tipEn: "Using less milk than a latte keeps the espresso character prominent."
           },
           ice: {
-            photo: "ice-flat-white",
             descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់បរិមាណសមល្មម និងទឹកកក ផ្តល់រសជាតិកាហ្វេដិតជាង Iced Latte។",
             descEn: "Double espresso with a balanced splash of chilled milk over ice for a stronger coffee taste.",
             ingredients: [
@@ -1729,14 +1622,12 @@
       {
         id: "mocha-pair",
         category: "espresso",
-        allPhoto: "all-mocha",
         nameKm: "ម៉ូកា",
         nameEn: "Mocha",
         descKm: "កាហ្វេផ្សំជាមួយសូកូឡា — ក្តៅជាមួយទឹកដោះគោចំហុយ ត្រជាក់ជាមួយទឹកដោះគោត្រជាក់ និងទឹកកក។",
         descEn: "Chocolate and coffee — hot with steamed milk, iced with chilled milk over ice.",
         variants: {
           hot: {
-            photo: "hot-mocha",
             descKm: "Double Espresso រំលាយជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
             descEn: "Double espresso melted with chocolate and steamed milk for a warm cocoa-coffee cup.",
             ingredients: [
@@ -1758,7 +1649,6 @@
             tipEn: "Dissolving chocolate in the hot espresso shot first prevents lumps."
           },
           ice: {
-            photo: "ice-mocha",
             descKm: "Double Espresso លាយសូកូឡា ទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ត្រជាក់ឈ្ងុយសូកូឡា។",
             descEn: "Double espresso with chocolate, chilled fresh milk, and ice.",
             ingredients: [
@@ -1785,14 +1675,12 @@
       {
         id: "caramel-macchiato-pair",
         category: "espresso",
-        allPhoto: "all-caramel",
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ",
         nameEn: "Caramel Macchiato",
         descKm: "Vanilla + ទឹកដោះគោ + Espresso + Caramel Sauce — ក្តៅចំហុយទឹកដោះគោ ត្រជាក់ដាក់ទឹកកក។",
         descEn: "Vanilla, milk, espresso, and caramel drizzle — hot with steamed milk, iced over ice.",
         variants: {
           hot: {
-            photo: "hot-caramel",
             descKm: "ទឹកដោះគោចំហុយក្តៅលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
             descEn: "Hot vanilla-steamed milk topped with espresso and a caramel sauce drizzle.",
             ingredients: [
@@ -1815,7 +1703,6 @@
             tipEn: "Pour espresso slowly at the center for clean layering."
           },
           ice: {
-            photo: "ice-caramel",
             descKm: "ទឹកដោះគោស្រស់ត្រជាក់លាយ Vanilla ដាក់ទឹកកក ស្រោច Espresso ពីលើ និងបន្ថែម Caramel Sauce។",
             descEn: "Chilled vanilla milk over ice topped with espresso and a caramel drizzle.",
             ingredients: [
@@ -1843,14 +1730,12 @@
       {
         id: "piccolo-pair",
         category: "espresso",
-        allPhoto: "all-piccolo",
         nameKm: "ភីកូឡូ / ខូតាដូ",
         nameEn: "Piccolo / Cortado",
         descKm: "កាហ្វេទឹកដោះគោតិច រសជាតិដិតមុត — ក្តៅចំហុយក្តៅ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់ និងទឹកកក។",
         descEn: "Small, punchy milk coffee — hot with steamed milk, iced with chilled milk and ice.",
         variants: {
           hot: {
-            photo: "hot-piccolo",
             descKm: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោចំហុយតិច។",
             descEn: "Small hot glass balancing bold espresso with a modest amount of steamed milk.",
             ingredients: [
@@ -1871,7 +1756,6 @@
             tipEn: "Great for tasting espresso character softened just slightly by milk."
           },
           ice: {
-            photo: "ice-piccolo",
             descKm: "Espresso លាយទឹកដោះគោស្រស់ត្រជាក់តិច និងទឹកកកតូចៗ រសជាតិកាហ្វេដិតត្រជាក់ស្រស់។",
             descEn: "Espresso with a small splash of chilled milk and ice for a bold, chilled mini cup.",
             ingredients: [
@@ -1897,14 +1781,12 @@
       {
         id: "khmer-milk-coffee-pair",
         category: "local",
-        allPhoto: "all-khmer-milk",
         nameKm: "កាហ្វេទឹកដោះគោ",
         nameEn: "Condensed Milk Coffee",
         descKm: "កាហ្វេផ្អែមឈ្ងុយទឹកដោះគោខាប់ — ក្តៅលាយទឹកក្តៅ ត្រជាក់លាយទឹកកក។",
         descEn: "Classic sweet condensed milk coffee — hot with hot water, iced over ice.",
         variants: {
           hot: {
-            photo: "hot-khmer-milk",
             descKm: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
             descEn: "Hot coffee mixed with sweet condensed milk for a classic bold and sweet cup.",
             ingredients: [
@@ -1926,7 +1808,6 @@
             tipEn: "Adjust condensed milk to match your customer's sweetness preference."
           },
           ice: {
-            photo: "ice-khmer-milk",
             descKm: "កាហ្វេលាយទឹកដោះគោខាប់ផ្អែម ទឹកដោះគោខាប់មិនផ្អែម និងទឹកកក ត្រជាក់ដិតមុតពេញនិយម។",
             descEn: "Bold coffee blended with sweetened condensed milk, evaporated milk, and ice.",
             ingredients: [
@@ -1953,13 +1834,11 @@
       {
         id: "ice-black-coffee",
         category: "local",
-        allPhoto: "all-black-coffee",
         nameKm: "កាហ្វេខ្មៅ ទឹកកក",
         nameEn: "Iced Black Coffee",
         descKm: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
         variants: {
           ice: {
-            photo: "ice-black-coffee",
             descKm: "កាហ្វេខ្មៅលាយជាមួយទឹកស្ករសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
             descEn: "Chilled black coffee lightly sweetened with simple syrup over ice.",
             ingredients: [
@@ -2050,29 +1929,22 @@
       return recipe.variants[mode] || recipe.variants.ice || recipe.variants.hot;
     }
 
-    function getCardPhotoKey(recipe, variant) {
-      if (state.temp === "all" && recipe.allPhoto) {
-        return recipe.allPhoto;
-      }
-      return variant?.photo || recipe.allPhoto || "ice-latte";
-    }
-
     function getCardBadgeInfo(recipe) {
       const hasHot = supportsTemp(recipe, "hot");
       const hasIce = supportsTemp(recipe, "ice");
       if (state.temp === "hot" && hasHot) {
-        return { cls: "temp-hot", photoCls: "hot", label: t().hotFull, badge: t().hotBadge };
+        return { cls: "temp-hot", label: t().hotFull };
       }
       if (state.temp === "ice" && hasIce) {
-        return { cls: "temp-ice", photoCls: "ice", label: t().iceFull, badge: t().iceBadge };
+        return { cls: "temp-ice", label: t().iceFull };
       }
       if (hasHot && hasIce) {
-        return { cls: "temp-both", photoCls: "both", label: t().bothFull, badge: t().bothBadge };
+        return { cls: "temp-both", label: t().bothFull };
       }
       if (hasHot) {
-        return { cls: "temp-hot", photoCls: "hot", label: t().hotFull, badge: t().hotBadge };
+        return { cls: "temp-hot", label: t().hotFull };
       }
-      return { cls: "temp-ice", photoCls: "ice", label: t().iceFull, badge: t().iceBadge };
+      return { cls: "temp-ice", label: t().iceFull };
     }
 
     function getRecipeNamePrimary(r) {
@@ -2182,14 +2054,6 @@
       });
     }
 
-    function renderDrinkPhoto(photoKey, badgeText, badgeCls, altText = "") {
-      const url = (photoKey && DRINK_PHOTOS[photoKey]) ? DRINK_PHOTOS[photoKey] : FALLBACK_COFFEE_PHOTO;
-      const badgeHtml = badgeText
-        ? `<span class="photo-temp-badge ${badgeCls}">${escapeHtml(badgeText)}</span>`
-        : "";
-      return `<img class="drink-photo" src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_COFFEE_PHOTO}';" />${badgeHtml}`;
-    }
-
     function getFilteredRecipes() {
       const all = getAllRecipes();
       const q = state.search.trim().toLowerCase();
@@ -2237,7 +2101,6 @@
         const isFav = favorites.has(r.id);
         const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
-        const photoKey = getCardPhotoKey(r, defaultVar);
         const primaryName = getRecipeNamePrimary(r);
         const modeTagHtml = badgeInfo.label
           ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
@@ -2246,7 +2109,6 @@
 
         return `
           <article class="drink-card" data-id="${r.id}">
-            <div class="drink-photo-box">${renderDrinkPhoto(photoKey, badgeInfo.badge, badgeInfo.photoCls, primaryName)}</div>
             <div class="drink-info">
               <div class="drink-top-meta">
                 ${modeTagHtml}
@@ -2362,13 +2224,6 @@
       });
 
       const isHot = mode === "hot";
-      document.getElementById("modalArtBox").innerHTML = renderDrinkPhoto(
-        variant.photo,
-        isHot ? s.hotBadge : s.iceBadge,
-        isHot ? "hot" : "ice",
-        getRecipeNamePrimary(recipe)
-      );
-
       const tempTag = document.getElementById("modalTempTag");
       tempTag.textContent = isHot ? s.hotFull : s.iceFull;
       tempTag.className = "drink-tag " + (isHot ? "temp-hot" : "temp-ice");
@@ -2532,25 +2387,6 @@
       const rawSteps = document.getElementById("newSteps").value.split("\n").map((l) => l.trim()).filter(Boolean);
       const stepsList = rawSteps.length ? rawSteps : [state.lang === "en" ? "Combine coffee ingredients and serve." : "ឆុង និងលាយគ្រឿងផ្សំកាហ្វេចូលគ្នាឱ្យសព្វ រួចបម្រើភ្លាម។"];
 
-      const allPhotoByCat = {
-        espresso: "all-latte",
-        local: "all-khmer-milk",
-        frappe: "all-mocha",
-        other: "all-americano"
-      };
-      const icePhotoByCat = {
-        espresso: "ice-latte",
-        local: "ice-khmer-milk",
-        frappe: "ice-mocha",
-        other: "ice-americano"
-      };
-      const hotPhotoByCat = {
-        espresso: "hot-latte",
-        local: "hot-khmer-milk",
-        frappe: "hot-mocha",
-        other: "hot-americano"
-      };
-
       const baseVariant = {
         descKm: desc,
         descEn: desc,
@@ -2565,7 +2401,6 @@
       if (tempOpt === "both" || tempOpt === "hot") {
         variants.hot = {
           ...baseVariant,
-          photo: hotPhotoByCat[category] || "hot-latte",
           descKm: `${desc} (ក្តៅ / Hot)`,
           descEn: `${desc} (Hot)`
         };
@@ -2573,7 +2408,6 @@
       if (tempOpt === "both" || tempOpt === "ice") {
         variants.ice = {
           ...baseVariant,
-          photo: icePhotoByCat[category] || "ice-latte",
           descKm: `${desc} (ត្រជាក់ / Ice)`,
           descEn: `${desc} (Ice)`
         };
@@ -2582,7 +2416,6 @@
       const newItem = {
         id: "custom_" + Date.now(),
         category,
-        allPhoto: allPhotoByCat[category] || "all-latte",
         nameKm: nameKm || nameEn,
         nameEn: nameEn || nameKm,
         descKm: desc,
