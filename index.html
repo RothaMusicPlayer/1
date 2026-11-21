@@ -382,7 +382,7 @@
       transform: scale(0.9);
     }
 
-    /* All Order View */
+    /* Cart / Order View */
     .order-panel {
       background: var(--glass-surface-strong);
       border: 1px solid var(--glass-border);
@@ -809,7 +809,7 @@
       transform: scale(0.92);
     }
 
-    /* Hot vs Ice Mode Switcher inside Modal */
+    /* Hot vs Ice/Cart Mode Switcher inside Modal */
     .mode-switch-bar {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1202,10 +1202,10 @@
       </div>
 
       <div class="filter-controls-row">
-        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ ត្រជាក់">
+        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ កន្ត្រក">
           <button class="temp-pill active" data-temp="all">ទាំងអស់</button>
           <button class="temp-pill" data-temp="hot">ក្តៅ (Hot)</button>
-          <button class="temp-pill" data-temp="ice">ត្រជាក់ (Ice)</button>
+          <button class="temp-pill" data-temp="ice" id="filterIcePill">កន្ត្រក</button>
         </div>
       </div>
     </header>
@@ -1220,13 +1220,13 @@
       <div class="menu-grid" id="menuGrid"></div>
     </main>
 
-    <!-- All Order View -->
+    <!-- Cart / Order View -->
     <section id="orderView" style="display: none;">
       <div class="order-panel">
         <div class="order-header-row">
           <div>
-            <h2 id="orderTitle">All Order</h2>
-            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ទាំងអស់ — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី</p>
+            <h2 id="orderTitle">កន្ត្រក</h2>
+            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ទាំងអស់ក្នុងកន្ត្រក — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី</p>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button class="icon-btn" id="clearDoneOrdersBtn">សម្អាតមុខរួច</button>
@@ -1238,7 +1238,7 @@
           <select id="quickOrderSelect" class="field-select" style="flex: 1; min-width: 150px;"></select>
           <select id="quickOrderTableSelect" class="field-select" style="width: auto; min-width: 105px;"></select>
           <select id="quickOrderModeSelect" class="field-select" style="width: auto; min-width: 110px;">
-            <option value="ice" id="optQuickIce">ត្រជាក់ (Ice)</option>
+            <option value="ice" id="optQuickIce">កន្ត្រក</option>
             <option value="hot" id="optQuickHot">ក្តៅ (Hot)</option>
           </select>
           <select id="quickOrderSugarSelect" class="field-select" style="width: auto; min-width: 100px;">
@@ -1249,7 +1249,7 @@
             <option value="100" selected>ស្ករ 100%</option>
             <option value="125">ស្ករ 125%</option>
           </select>
-          <button class="icon-btn primary" id="quickAddOrderBtn">+ Order</button>
+          <button class="icon-btn primary" id="quickAddOrderBtn">+ បញ្ចូលកន្ត្រក</button>
         </div>
 
         <div class="order-list" id="orderList"></div>
@@ -1327,8 +1327,8 @@
       <span id="navAllLabel">ម៉ឺនុយ</span>
     </button>
     <button class="nav-item" id="navOrder" data-tab="order">
-      <svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="13" y2="16"></line></svg>
-      <span id="navOrderLabel">All Order</span>
+      <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      <span id="navOrderLabel">កន្ត្រក</span>
     </button>
     <button class="nav-item" id="navCalc" data-tab="calc">
       <svg class="ui-icon" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="10" y2="10"></line><line x1="14" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="10" y2="14"></line><line x1="14" y1="14" x2="16" y2="14"></line><line x1="8" y1="18" x2="16" y2="18"></line></svg>
@@ -1350,10 +1350,10 @@
         <button class="close-modal-btn" id="closeRecipeModal" aria-label="បិទ">X</button>
       </div>
 
-      <!-- Hot / Ice Mode Switcher -->
-      <div class="mode-switch-bar" id="modalModeSwitchBar" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ ត្រជាក់">
+      <!-- Hot / Cart Mode Switcher -->
+      <div class="mode-switch-bar" id="modalModeSwitchBar" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ កន្ត្រក">
         <button type="button" class="mode-option-btn" data-mode="hot" id="modeHotBtn">ក្តៅ (Hot)</button>
-        <button type="button" class="mode-option-btn" data-mode="ice" id="modeIceBtn">ត្រជាក់ (Ice)</button>
+        <button type="button" class="mode-option-btn" data-mode="ice" id="modeIceBtn">កន្ត្រក</button>
       </div>
 
       <p id="modalDesc" style="margin: 12px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;"></p>
@@ -1401,7 +1401,7 @@
       <div class="tip-box" id="modalTip"></div>
 
       <div class="modal-footer-actions" id="modalFooterActions">
-        <button class="icon-btn primary" id="modalAddOrderBtn">+ Add to All Order</button>
+        <button class="icon-btn primary" id="modalAddOrderBtn">+ បញ្ចូលកន្ត្រក</button>
         <button class="icon-btn" id="deleteCustomBtn" style="display:none; color:#B81D37;">លុបមុខនេះ</button>
       </div>
     </div>
@@ -1433,10 +1433,10 @@
 
         <div class="form-grid-2">
           <div class="field-group">
-            <label for="newTemp" id="lblNewTemp">ជម្រើសក្តៅ / ត្រជាក់</label>
+            <label for="newTemp" id="lblNewTemp">ជម្រើសក្តៅ / កន្ត្រក</label>
             <select id="newTemp" class="field-select">
-              <option value="both">ទាំងក្តៅ និងត្រជាក់ (Hot & Ice)</option>
-              <option value="ice">ត្រជាក់តែមួយ (Ice only)</option>
+              <option value="both">ក្តៅ និង កន្ត្រក (Hot & Cart)</option>
+              <option value="ice">កន្ត្រកតែមួយ (Cart only)</option>
               <option value="hot">ក្តៅតែមួយ (Hot only)</option>
             </select>
           </div>
@@ -1510,26 +1510,26 @@
         addBtn: "បន្ថែមមុខ",
         filterAll: (n) => `ទាំងអស់ (${n})`,
         filterHot: (n) => `ក្តៅ Hot (${n})`,
-        filterIce: (n) => `ត្រជាក់ Ice (${n})`,
+        filterIce: (n) => `កន្ត្រក (${n})`,
         showingPrefix: "កំពុងបង្ហាញ៖",
         showingMid: "មុខ (សរុប",
         showingSuffix: "មុខ)",
         customBadge: "ផ្ទាល់ខ្លួន",
         hotFull: "ក្តៅ (Hot)",
-        iceFull: "ត្រជាក់ (Ice)",
+        iceFull: "កន្ត្រក",
         bothFull: "",
         navMenu: (n) => `ម៉ឺនុយ (${n})`,
-        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
+        navOrder: (n) => n > 0 ? `កន្ត្រក (${n})` : "កន្ត្រក",
         navCalc: "គណនាគ្រាប់",
         emptyTitle: "រកមិនឃើញមុខកាហ្វេ",
-        emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬផ្ទាំងផ្សេង។",
-        orderTitle: "All Order",
-        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ទាំងអស់ — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី",
+        emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / កន្ត្រក ឬផ្ទាំងផ្សេង។",
+        orderTitle: "កន្ត្រក",
+        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ទាំងអស់ក្នុងកន្ត្រក — កែចំនួន ធីករួចរាល់ ឬសម្អាតបញ្ជី",
         clearDoneOrdersBtn: "សម្អាតមុខរួច",
         clearAllOrdersBtn: "សម្អាតទាំងអស់",
-        quickAddOrderBtn: "+ Order",
-        orderEmptyTitle: "មិនទាន់មានការកុម្ម៉ង់នៅឡើយ",
-        orderEmptyDesc: "ចុច + លើមុខកាហ្វេក្នុងម៉ឺនុយ ឬជ្រើសរើសខាងលើដើម្បីបន្ថែម Order។",
+        quickAddOrderBtn: "+ បញ្ចូលកន្ត្រក",
+        orderEmptyTitle: "កន្ត្រកនៅទំនេរ",
+        orderEmptyDesc: "ចុច + លើមុខកាហ្វេក្នុងម៉ឺនុយ ឬជ្រើសរើសខាងលើដើម្បីបញ្ចូលកន្ត្រក។",
         orderStatusPending: "កំពុងធ្វើ",
         orderStatusDone: "រួចរាល់",
         orderMarkDone: "រួចរាល់",
@@ -1557,13 +1557,13 @@
         stepsHeading: "របៀបធ្វើតាមជំហាន",
         tipPrefix: "គន្លឹះ Barista៖",
         defaultTip: "ឆុងឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
-        addOrderBtnLabel: "+ បញ្ចូល All Order",
+        addOrderBtnLabel: "+ បញ្ចូលកន្ត្រក",
         deleteCustomBtn: "លុបមុខនេះ",
         addModalTitle: "បន្ថែមមុខកាហ្វេថ្មីផ្ទាល់ខ្លួន",
         addModalSub: "រក្សាទុកក្នុងឧបករណ៍របស់អ្នកដោយស្វ័យប្រវត្តិ",
         lblNewNameKm: "ឈ្មោះកាហ្វេ (ខ្មែរ) *",
         lblNewNameEn: "ឈ្មោះភាសាអង់គ្លេស",
-        lblNewTemp: "ជម្រើសក្តៅ / ត្រជាក់",
+        lblNewTemp: "ជម្រើសក្តៅ / កន្ត្រក",
         lblNewCategory: "ប្រភេទកាហ្វេ",
         lblNewDesc: "ការពិពណ៌នាសង្ខេប",
         lblNewIngredients: "គ្រឿងផ្សំ (១ បន្ទាត់ = ឈ្មោះ | បរិមាណ | ឯកតា)",
@@ -1589,9 +1589,9 @@
         resUsableGrams: (g) => `ប្រើបាន៖ ${g} g`,
         resEstRevenueLabel: "ចំណូលប៉ាន់ស្មាន / កញ្ចប់",
         resCostPerCup: (d) => `ម្សៅ/កែវ៖ ${d}g`,
-        toastAddedOrder: (name) => `បានបន្ថែម "${name}" ចូល All Order`,
+        toastAddedOrder: (name) => `បានបញ្ចូល "${name}" ទៅក្នុងកន្ត្រក`,
         toastClearedDone: "បានសម្អាតមុខដែលធ្វើរួចរាល់",
-        toastClearedAll: "បានសម្អាតបញ្ជី All Order ទាំងអស់",
+        toastClearedAll: "បានសម្អាតកន្ត្រកទាំងអស់",
         toastAddedRecipe: "បានបន្ថែមមុខកាហ្វេថ្មីរួចរាល់",
         toastDeletedRecipe: "បានលុបមុខកាហ្វេផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ"
@@ -1604,26 +1604,26 @@
         addBtn: "Add Coffee",
         filterAll: (n) => `All (${n})`,
         filterHot: (n) => `Hot (${n})`,
-        filterIce: (n) => `Ice (${n})`,
+        filterIce: (n) => `Cart (${n})`,
         showingPrefix: "Showing",
         showingMid: "of",
         showingSuffix: "coffees",
         customBadge: "Custom",
         hotFull: "Hot",
-        iceFull: "Ice",
+        iceFull: "Cart",
         bothFull: "",
         navMenu: (n) => `Menu (${n})`,
-        navOrder: (n) => n > 0 ? `All Order (${n})` : "All Order",
+        navOrder: (n) => n > 0 ? `Cart (${n})` : "Cart",
         navCalc: "Bean Calc",
         emptyTitle: "No coffee found",
-        emptyDesc: "Try switching Hot / Ice filters or another tab.",
-        orderTitle: "All Order",
-        orderSubtitle: "All active and completed orders — adjust quantity, mark served, or clear",
+        emptyDesc: "Try switching Hot / Cart filters or another tab.",
+        orderTitle: "Cart",
+        orderSubtitle: "All selected orders in cart — adjust quantity, mark served, or clear",
         clearDoneOrdersBtn: "Clear Done",
         clearAllOrdersBtn: "Clear All",
-        quickAddOrderBtn: "+ Order",
-        orderEmptyTitle: "No orders yet",
-        orderEmptyDesc: "Tap + on any coffee card or select a drink above to add to All Order.",
+        quickAddOrderBtn: "+ Add to Cart",
+        orderEmptyTitle: "Cart is empty",
+        orderEmptyDesc: "Tap + on any coffee card or select a drink above to add to cart.",
         orderStatusPending: "Pending",
         orderStatusDone: "Served",
         orderMarkDone: "Mark Done",
@@ -1651,13 +1651,13 @@
         stepsHeading: "Step-by-Step Instructions",
         tipPrefix: "Barista Tip:",
         defaultTip: "Measure consistently to keep coffee quality and flavor balanced.",
-        addOrderBtnLabel: "+ Add to All Order",
+        addOrderBtnLabel: "+ Add to Cart",
         deleteCustomBtn: "Delete Custom",
         addModalTitle: "Add Custom Coffee Recipe",
         addModalSub: "Automatically saved on your device",
         lblNewNameKm: "Coffee Name (Khmer) *",
         lblNewNameEn: "Coffee Name (English)",
-        lblNewTemp: "Hot / Ice Availability",
+        lblNewTemp: "Hot / Cart Availability",
         lblNewCategory: "Coffee Category",
         lblNewDesc: "Short Description",
         lblNewIngredients: "Ingredients (1 line = Name | Amount | Unit)",
@@ -1683,9 +1683,9 @@
         resUsableGrams: (g) => `Usable: ${g} g`,
         resEstRevenueLabel: "Est. Revenue / Bag",
         resCostPerCup: (d) => `Dose/cup: ${d}g`,
-        toastAddedOrder: (name) => `Added "${name}" to All Order`,
+        toastAddedOrder: (name) => `Added "${name}" to Cart`,
         toastClearedDone: "Cleared completed orders",
-        toastClearedAll: "Cleared all orders",
+        toastClearedAll: "Cleared all items in Cart",
         toastAddedRecipe: "New custom coffee added",
         toastDeletedRecipe: "Custom coffee deleted",
         toastLangSwitched: "Switched to English"
@@ -1700,8 +1700,8 @@
         category: "espresso",
         nameKm: "អេស្ព្រេសសូ",
         nameEn: "Espresso",
-        descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ (Hot) ឬត្រជាក់ (Ice) ដើម្បីមើលរូបមន្តខុសគ្នា។",
-        descEn: "Pure pressurized espresso shot — switch between Hot and Ice to compare recipes.",
+        descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ (Hot) ឬកន្ត្រក ដើម្បីមើលរូបមន្ត។",
+        descEn: "Pure pressurized espresso shot — switch between Hot and Cart to view recipes.",
         variants: {
           hot: {
             descKm: "ចម្រាញ់ក្តៅៗដាក់ពែងក្តៅឧណ្ហៗ រសជាតិដិតខាប់ និងរក្សាពពុះ Crema ពណ៌មាសពេញលេញ។",
@@ -1753,8 +1753,8 @@
         category: "espresso",
         nameKm: "អាមេរិកាណូ",
         nameEn: "Americano",
-        descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ ត្រជាក់ប្រើទឹកត្រជាក់ និងទឹកកក។",
-        descEn: "Double espresso with water — hot uses hot water, iced uses cold water and ice.",
+        descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ កន្ត្រកប្រើទឹកត្រជាក់ និងទឹកកក។",
+        descEn: "Double espresso with water — hot uses hot water, cart uses cold water and ice.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកក្តៅ (~85–90°C) ផ្តល់ភាពក្តៅស្រស់ស្រាយ និងមាន Crema នៅពីលើ។",
@@ -1806,8 +1806,8 @@
         category: "espresso",
         nameKm: "ឡាតេ",
         nameEn: "Latte",
-        descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់។",
-        descEn: "Double espresso with fresh milk — hot uses steamed milk, iced uses chilled milk over ice.",
+        descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ កន្ត្រកប្រើទឹកដោះគោត្រជាក់។",
+        descEn: "Double espresso with fresh milk — hot uses steamed milk, cart uses chilled milk over ice.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកដោះគោស្រស់ចំហុយក្តៅ (~62°C) មានពពុះ Microfoam ស្តើងរលោង។",
@@ -1859,8 +1859,8 @@
         category: "espresso",
         nameKm: "កាពូឈីណូ",
         nameEn: "Cappuccino",
-        descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ ត្រជាក់វាយពពុះត្រជាក់ (Cold Foam)។",
-        descEn: "Foam-topped coffee — hot uses steamed foam, iced uses chilled cold foam on top.",
+        descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ កន្ត្រកវាយពពុះត្រជាក់ (Cold Foam)។",
+        descEn: "Foam-topped coffee — hot uses steamed foam, cart uses chilled cold foam on top.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងមានពពុះក្តៅក្រាស់ទន់នៅផ្នែកខាងលើ។",
@@ -1913,8 +1913,8 @@
         category: "espresso",
         nameKm: "ហ្វ្លាត វ៉ាយ",
         nameEn: "Flat White",
-        descKm: "រសជាតិកាហ្វេដិតជាង Latte — ក្តៅប្រើពពុះក្តៅស្តើង ត្រជាក់ប្រើទឹកដោះគោត្រជាក់តិចជាង Latte។",
-        descEn: "More coffee-forward than a latte — hot uses thin microfoam, iced uses less chilled milk.",
+        descKm: "រសជាតិកាហ្វេដិតជាង Latte — ក្តៅប្រើពពុះក្តៅស្តើង កន្ត្រកប្រើទឹកដោះគោត្រជាក់តិចជាង Latte។",
+        descEn: "More coffee-forward than a latte — hot uses thin microfoam, cart uses less chilled milk.",
         variants: {
           hot: {
             descKm: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត (~62°C) ធ្វើឱ្យក្លិនកាហ្វេដិតច្បាស់។",
@@ -1938,7 +1938,7 @@
             tipEn: "Using less milk than a latte keeps the espresso character prominent."
           },
           ice: {
-            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់បរិមាណសមល្មម និងទឹកកក ផ្តល់រសជាតិកាហ្វេដិតជាង Iced Latte។",
+            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់បរិមាណសមល្មម និងទឹកកក ផ្តល់រសជាតិកាហ្វេដិតជាង Latte។",
             descEn: "Double espresso with a balanced splash of chilled milk over ice for a stronger coffee taste.",
             ingredients: [
               { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
@@ -1966,8 +1966,8 @@
         category: "espresso",
         nameKm: "ម៉ូកា",
         nameEn: "Mocha",
-        descKm: "កាហ្វេផ្សំជាមួយសូកូឡា — ក្តៅជាមួយទឹកដោះគោចំហុយ ត្រជាក់ជាមួយទឹកដោះគោត្រជាក់ និងទឹកកក។",
-        descEn: "Chocolate and coffee — hot with steamed milk, iced with chilled milk over ice.",
+        descKm: "កាហ្វេផ្សំជាមួយសូកូឡា — ក្តៅជាមួយទឹកដោះគោចំហុយ កន្ត្រកជាមួយទឹកដោះគោត្រជាក់ និងទឹកកក។",
+        descEn: "Chocolate and coffee — hot with steamed milk, cart with chilled milk over ice.",
         variants: {
           hot: {
             descKm: "Double Espresso រំលាយជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
@@ -2019,8 +2019,8 @@
         category: "espresso",
         nameKm: "ការ៉ាមែល ម៉ាគីអាតូ",
         nameEn: "Caramel Macchiato",
-        descKm: "Vanilla + ទឹកដោះគោ + Espresso + Caramel Sauce — ក្តៅចំហុយទឹកដោះគោ ត្រជាក់ដាក់ទឹកកក។",
-        descEn: "Vanilla, milk, espresso, and caramel drizzle — hot with steamed milk, iced over ice.",
+        descKm: "Vanilla + ទឹកដោះគោ + Espresso + Caramel Sauce — ក្តៅចំហុយទឹកដោះគោ កន្ត្រកដាក់ទឹកកក។",
+        descEn: "Vanilla, milk, espresso, and caramel drizzle — hot with steamed milk, cart over ice.",
         variants: {
           hot: {
             descKm: "ទឹកដោះគោចំហុយក្តៅលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel Sauce។",
@@ -2074,8 +2074,8 @@
         category: "espresso",
         nameKm: "ភីកូឡូ / ខូតាដូ",
         nameEn: "Piccolo / Cortado",
-        descKm: "កាហ្វេទឹកដោះគោតិច រសជាតិដិតមុត — ក្តៅចំហុយក្តៅ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់ និងទឹកកក។",
-        descEn: "Small, punchy milk coffee — hot with steamed milk, iced with chilled milk and ice.",
+        descKm: "កាហ្វេទឹកដោះគោតិច រសជាតិដិតមុត — ក្តៅចំហុយក្តៅ កន្ត្រកប្រើទឹកដោះគោត្រជាក់ និងទឹកកក។",
+        descEn: "Small, punchy milk coffee — hot with steamed milk, cart with chilled milk and ice.",
         variants: {
           hot: {
             descKm: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោចំហុយតិច។",
@@ -2127,8 +2127,8 @@
         category: "local",
         nameKm: "កាហ្វេទឹកដោះគោ",
         nameEn: "Condensed Milk Coffee",
-        descKm: "កាហ្វេផ្អែមឈ្ងុយទឹកដោះគោខាប់ — ក្តៅលាយទឹកក្តៅ ត្រជាក់លាយទឹកកក។",
-        descEn: "Classic sweet condensed milk coffee — hot with hot water, iced over ice.",
+        descKm: "កាហ្វេផ្អែមឈ្ងុយទឹកដោះគោខាប់ — ក្តៅលាយទឹកក្តៅ កន្ត្រកលាយទឹកកក។",
+        descEn: "Classic sweet condensed milk coffee — hot with hot water, cart over ice.",
         variants: {
           hot: {
             descKm: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
@@ -2477,22 +2477,22 @@
       const all = getAllRecipes();
       const total = all.length;
       const hotCount = all.filter((r) => supportsTemp(r, "hot")).length;
-      const iceCount = all.filter((r) => supportsTemp(r, "ice")).length;
+      const cartCount = getTotalOrderCups();
 
       document.getElementById("navAllLabel").textContent = s.navMenu(total);
-      document.getElementById("navOrderLabel").textContent = s.navOrder(getTotalOrderCups());
+      document.getElementById("navOrderLabel").textContent = s.navOrder(cartCount);
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         if (btn.dataset.temp === "all") btn.textContent = s.filterAll(total);
         if (btn.dataset.temp === "hot") btn.textContent = s.filterHot(hotCount);
-        if (btn.dataset.temp === "ice") btn.textContent = s.filterIce(iceCount);
+        if (btn.dataset.temp === "ice") btn.textContent = s.filterIce(cartCount);
       });
     }
 
     function getFilteredRecipes() {
       const all = getAllRecipes();
       return all.filter((r) => {
-        if (state.temp !== "all" && !supportsTemp(r, state.temp)) return false;
+        if (state.temp === "hot") return supportsTemp(r, "hot");
         return true;
       });
     }
@@ -2567,7 +2567,7 @@
 
       grid.innerHTML = list.map((r) => {
         const defaultMode = getDefaultVariantKey(r);
-        const qtyInOrder = getOrderQtyForRecipe(r.id, state.temp === "all" ? null : defaultMode);
+        const qtyInOrder = getOrderQtyForRecipe(r.id, state.temp === "hot" ? "hot" : null);
         const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, defaultMode);
         const primaryName = getRecipeNamePrimary(r);
@@ -3016,8 +3016,8 @@
       if (tempOpt === "both" || tempOpt === "ice") {
         variants.ice = {
           ...baseVariant,
-          descKm: `${desc} (ត្រជាក់ / Ice)`,
-          descEn: `${desc} (Ice)`
+          descKm: `${desc} (កន្ត្រក / Cart)`,
+          descEn: `${desc} (Cart)`
         };
       }
 
@@ -3075,12 +3075,16 @@
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state.temp = btn.dataset.temp;
+          const tempVal = btn.dataset.temp;
+          if (tempVal === "ice") {
+            switchTab("order");
+            return;
+          }
+          state.temp = tempVal;
           document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((b) => {
             b.classList.toggle("active", b === btn);
           });
-          if (state.tab === "calc") switchTab("all");
-          else if (state.tab === "order") renderOrders();
+          if (state.tab === "calc" || state.tab === "order") switchTab("all");
           else renderMenu();
         });
       });
