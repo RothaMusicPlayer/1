@@ -176,73 +176,10 @@
       color: #7D4616;
     }
 
-    /* Search & Temperature Filter Row */
+    /* Temperature Filter Row */
     .filter-controls-row {
       display: flex;
-      gap: 8px;
       align-items: center;
-    }
-
-    @media (max-width: 640px) {
-      .filter-controls-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
-
-    .search-box {
-      position: relative;
-      display: flex;
-      align-items: center;
-      flex: 1;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 13px;
-      color: var(--text-muted);
-      pointer-events: none;
-      display: flex;
-    }
-
-    .search-input {
-      width: 100%;
-      min-height: 42px;
-      padding: 10px 40px 10px 38px;
-      border-radius: 15px;
-      border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.85);
-      font-family: inherit;
-      font-size: 0.92rem;
-      color: var(--text-primary);
-      outline: none;
-      transition: border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .search-input:focus {
-      background: #FFFFFF;
-      border-color: var(--accent-caramel);
-      box-shadow: 0 0 0 3px rgba(198, 125, 59, 0.18);
-    }
-
-    .clear-search-btn {
-      position: absolute;
-      right: 8px;
-      border: none;
-      background: rgba(120, 120, 128, 0.18);
-      color: var(--text-secondary);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      font-size: 0.74rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: none;
-      place-items: center;
-    }
-
-    .clear-search-btn.visible {
-      display: grid;
     }
 
     .temp-filter-group {
@@ -253,7 +190,7 @@
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.55);
       gap: 3px;
-      flex-shrink: 0;
+      width: 100%;
     }
 
     .temp-pill {
@@ -968,20 +905,6 @@
       </div>
 
       <div class="filter-controls-row">
-        <div class="search-box">
-          <span class="search-icon" aria-hidden="true">
-            <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          </span>
-          <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="ស្វែងរកឈ្មោះកាហ្វេ (ខ្មែរ / English) ឬគ្រឿងផ្សំ..."
-            autocomplete="off"
-          />
-          <button class="clear-search-btn" id="clearSearchBtn" aria-label="សម្អាត">X</button>
-        </div>
-
         <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="ជ្រើសរើសក្តៅ ឬ ត្រជាក់">
           <button class="temp-pill active" data-temp="all">ទាំងអស់</button>
           <button class="temp-pill" data-temp="hot">ក្តៅ (Hot)</button>
@@ -1233,7 +1156,6 @@
         langBadge: "EN",
         timerBtn: "ម៉ោងឆុង",
         addBtn: "បន្ថែមមុខ",
-        searchPlaceholder: "ស្វែងរកឈ្មោះកាហ្វេ (ខ្មែរ / English) ឬគ្រឿងផ្សំ...",
         filterAll: (n) => `ទាំងអស់ (${n})`,
         filterHot: (n) => `ក្តៅ Hot (${n})`,
         filterIce: (n) => `ត្រជាក់ Ice (${n})`,
@@ -1248,7 +1170,7 @@
         navFav: "ចូលចិត្ត",
         navCalc: "គណនាគ្រាប់",
         emptyTitle: "រកមិនឃើញមុខកាហ្វេ",
-        emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬពាក្យស្វែងរកផ្សេង។",
+        emptyDesc: "សាកល្បងប្តូរ ក្តៅ (Hot) / ត្រជាក់ (Ice) ឬផ្ទាំងផ្សេង។",
         cupSizeLabel: "ទំហំកែវ (Cup Size)",
         batchLabel: "ចំនួនកែវឆុង (Batch)",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់ស្តង់ដារ (ចុចដើម្បីធីក)",
@@ -1299,7 +1221,6 @@
         langBadge: "ខ្មែរ",
         timerBtn: "Timer",
         addBtn: "Add Coffee",
-        searchPlaceholder: "Search coffee name (Khmer / English) or ingredients...",
         filterAll: (n) => `All (${n})`,
         filterHot: (n) => `Hot (${n})`,
         filterIce: (n) => `Ice (${n})`,
@@ -1314,7 +1235,7 @@
         navFav: "Favorites",
         navCalc: "Bean Calc",
         emptyTitle: "No coffee found",
-        emptyDesc: "Try switching Hot / Ice filters or another search keyword.",
+        emptyDesc: "Try switching Hot / Ice filters or another tab.",
         cupSizeLabel: "Cup Size",
         batchLabel: "Batch Multiplier",
         ingHeading: "Ingredients & Standard Measurements (Tap to check)",
@@ -1877,7 +1798,6 @@
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
       tab: "all",
       temp: "all",
-      search: "",
       activeRecipeId: null,
       activeMode: "ice",
       cupSize: "16oz",
@@ -1985,7 +1905,6 @@
       document.getElementById("langBadgeText").textContent = s.langBadge;
       document.getElementById("timerBtnLabel").textContent = s.timerBtn;
       document.getElementById("addBtnLabel").textContent = s.addBtn;
-      document.getElementById("searchInput").placeholder = s.searchPlaceholder;
       document.getElementById("navFavLabel").textContent = s.navFav;
       document.getElementById("navCalcLabel").textContent = s.navCalc;
 
@@ -2056,24 +1975,10 @@
 
     function getFilteredRecipes() {
       const all = getAllRecipes();
-      const q = state.search.trim().toLowerCase();
-
       return all.filter((r) => {
         if (state.tab === "fav" && !favorites.has(r.id)) return false;
         if (state.temp !== "all" && !supportsTemp(r, state.temp)) return false;
-        if (!q) return true;
-
-        const inNameKm = (r.nameKm || "").toLowerCase().includes(q);
-        const inNameEn = (r.nameEn || "").toLowerCase().includes(q);
-        const inDesc = ((r.descKm || "") + " " + (r.descEn || "")).toLowerCase().includes(q);
-        const allIngs = [
-          ...(r.variants?.hot?.ingredients || []),
-          ...(r.variants?.ice?.ingredients || [])
-        ];
-        const inIng = allIngs.some((i) =>
-          ((i.nameKm || "") + " " + (i.nameEn || "") + " " + (i.name || "")).toLowerCase().includes(q)
-        );
-        return inNameKm || inNameEn || inDesc || inIng;
+        return true;
       });
     }
 
@@ -2464,23 +2369,6 @@
 
     function initEvents() {
       document.getElementById("langToggleBtn").addEventListener("click", toggleLanguage);
-
-      const searchInput = document.getElementById("searchInput");
-      const clearBtn = document.getElementById("clearSearchBtn");
-
-      searchInput.addEventListener("input", () => {
-        state.search = searchInput.value;
-        clearBtn.classList.toggle("visible", state.search.length > 0);
-        if (state.tab === "calc") switchTab("all");
-        else renderMenu();
-      });
-
-      clearBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        state.search = "";
-        clearBtn.classList.remove("visible");
-        renderMenu();
-      });
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
