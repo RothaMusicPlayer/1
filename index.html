@@ -9,25 +9,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-canvas: #F5F1EC;
-      --bg-card: rgba(255, 255, 255, 0.94);
-      --bg-pill: rgba(120, 120, 128, 0.12);
-      --text-primary: #1C1410;
-      --text-secondary: #6E5D53;
-      --text-muted: #9A8A80;
-      --accent-espresso: #4A2C18;
+      --bg-canvas: #EBE4DC;
+      --glass-surface: rgba(255, 255, 255, 0.58);
+      --glass-surface-strong: rgba(255, 255, 255, 0.76);
+      --glass-pill: rgba(255, 255, 255, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.85);
+      --glass-border-inner: rgba(255, 255, 255, 0.45);
+      --text-primary: #1A120E;
+      --text-secondary: #5C4B41;
+      --text-muted: #8B796E;
+      --accent-espresso: #3A2010;
       --accent-caramel: #C67D3B;
-      --accent-hot: #B84225;
-      --accent-ice: #1D6E96;
-      --accent-both: #6B4423;
-      --accent-success: #1F8A4C;
-      --border-subtle: rgba(74, 44, 24, 0.11);
-      --shadow-soft: 0 10px 30px -10px rgba(45, 25, 12, 0.12);
-      --shadow-float: 0 18px 40px -12px rgba(28, 20, 16, 0.25);
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --nav-height: 74px;
+      --accent-hot: #C93B20;
+      --accent-ice: #156A94;
+      --accent-success: #1B8045;
+      --shadow-glass: 0 12px 32px -8px rgba(34, 19, 10, 0.14), inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+      --shadow-float: 0 20px 44px -10px rgba(24, 14, 8, 0.28), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --nav-height: 76px;
     }
 
     * {
@@ -38,12 +39,14 @@
     html, body {
       margin: 0;
       padding: 0;
-      font-family: 'Kantumruy Pro', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-canvas);
       background-image:
-        radial-gradient(circle at 12% 8%, rgba(198, 125, 59, 0.14), transparent 42%),
-        radial-gradient(circle at 88% 15%, rgba(29, 110, 150, 0.09), transparent 40%),
-        radial-gradient(circle at 50% 90%, rgba(74, 44, 24, 0.08), transparent 50%);
+        radial-gradient(at 10% 6%, rgba(217, 138, 60, 0.28) 0px, transparent 48%),
+        radial-gradient(at 90% 10%, rgba(45, 138, 184, 0.22) 0px, transparent 46%),
+        radial-gradient(at 80% 65%, rgba(168, 92, 46, 0.20) 0px, transparent 52%),
+        radial-gradient(at 15% 88%, rgba(86, 130, 163, 0.18) 0px, transparent 50%);
+      background-attachment: fixed;
       color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
@@ -53,7 +56,7 @@
     .app-container {
       max-width: 1040px;
       margin: 0 auto;
-      padding: 16px 16px calc(var(--nav-height) + 36px);
+      padding: 14px 16px calc(var(--nav-height) + 40px);
     }
 
     .ui-icon {
@@ -61,7 +64,7 @@
       height: 16px;
       stroke: currentColor;
       fill: none;
-      stroke-width: 2;
+      stroke-width: 2.1;
       stroke-linecap: round;
       stroke-linejoin: round;
       flex-shrink: 0;
@@ -72,18 +75,18 @@
       height: 22px;
     }
 
-    /* Top Header */
+    /* iOS Frosted Glass Top Header */
     .top-header {
       position: sticky;
-      top: 8px;
+      top: 10px;
       z-index: 30;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(22px) saturate(165%);
-      -webkit-backdrop-filter: blur(22px) saturate(165%);
-      border: 1px solid rgba(255, 255, 255, 0.8);
+      background: var(--glass-surface-strong);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
       padding: 14px 16px;
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--shadow-glass);
       margin-bottom: 14px;
     }
 
@@ -92,7 +95,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 11px;
     }
 
     .brand-title {
@@ -105,12 +108,12 @@
     .brand-badge {
       width: 44px;
       height: 44px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #4A2C18 0%, #8C5327 60%, #C67D3B 100%);
+      border-radius: 15px;
+      background: linear-gradient(145deg, #4A2C18 0%, #8C5327 55%, #C67D3B 100%);
       color: #FFF;
       display: grid;
       place-items: center;
-      box-shadow: 0 8px 18px rgba(74, 44, 24, 0.25);
+      box-shadow: 0 8px 20px rgba(74, 44, 24, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.45);
       flex-shrink: 0;
     }
 
@@ -118,7 +121,7 @@
       margin: 0;
       font-size: 1.12rem;
       font-weight: 700;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.015em;
       line-height: 1.3;
     }
 
@@ -130,11 +133,13 @@
     }
 
     .icon-btn {
-      border: 1px solid var(--border-subtle);
-      background: #FFFFFF;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.68);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       color: var(--text-primary);
-      border-radius: 13px;
-      padding: 9px 11px;
+      border-radius: 14px;
+      padding: 9px 12px;
       min-height: 38px;
       font-family: inherit;
       font-size: 0.8rem;
@@ -144,33 +149,30 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      transition: transform 0.14s ease, background 0.2s ease, border-color 0.2s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
       touch-action: manipulation;
       white-space: nowrap;
     }
 
     .icon-btn:hover {
-      background: #FAF6F2;
+      background: rgba(255, 255, 255, 0.9);
     }
 
     .icon-btn:active {
-      transform: scale(0.95);
+      transform: scale(0.94);
     }
 
     .icon-btn.primary {
-      background: var(--accent-espresso);
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
       color: #FFFFFF;
-      border-color: transparent;
-    }
-
-    .icon-btn.primary:hover {
-      background: #361F10;
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 16px rgba(51, 29, 15, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.28);
     }
 
     .lang-toggle-btn {
-      border-color: rgba(198, 125, 59, 0.35);
-      background: #FFF9F2;
+      border-color: rgba(198, 125, 59, 0.45);
+      background: rgba(255, 248, 238, 0.78);
       color: #7D4616;
     }
 
@@ -179,7 +181,6 @@
       display: flex;
       gap: 8px;
       align-items: center;
-      margin-bottom: 0;
     }
 
     @media (max-width: 640px) {
@@ -207,31 +208,35 @@
     .search-input {
       width: 100%;
       padding: 10px 36px 10px 38px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      background: rgba(255, 255, 255, 0.96);
+      border-radius: 15px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       font-family: inherit;
       font-size: 0.9rem;
       color: var(--text-primary);
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
 
     .search-input:focus {
+      background: rgba(255, 255, 255, 0.92);
       border-color: var(--accent-caramel);
-      box-shadow: 0 0 0 3px rgba(198, 125, 59, 0.16);
+      box-shadow: 0 0 0 3.5px rgba(198, 125, 59, 0.18);
     }
 
     .clear-search-btn {
       position: absolute;
       right: 9px;
       border: none;
-      background: var(--bg-pill);
+      background: rgba(120, 120, 128, 0.18);
       color: var(--text-secondary);
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
       display: none;
@@ -245,9 +250,12 @@
     .temp-filter-group {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      background: var(--bg-pill);
+      background: rgba(118, 118, 128, 0.14);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 3px;
-      border-radius: 13px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
       gap: 3px;
       flex-shrink: 0;
     }
@@ -258,29 +266,29 @@
       color: var(--text-secondary);
       padding: 7px 14px;
       min-height: 36px;
-      border-radius: 10px;
+      border-radius: 11px;
       font-family: inherit;
       font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.18s ease;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
       white-space: nowrap;
       touch-action: manipulation;
     }
 
     .temp-pill.active {
-      background: #FFFFFF;
+      background: rgba(255, 255, 255, 0.92);
       color: var(--text-primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
 
     .temp-pill[data-temp="hot"].active {
-      background: var(--accent-hot);
+      background: linear-gradient(180deg, #D4472B 0%, #B33319 100%);
       color: #FFFFFF;
     }
 
     .temp-pill[data-temp="ice"].active {
-      background: var(--accent-ice);
+      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
       color: #FFFFFF;
     }
 
@@ -291,7 +299,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
-      margin: 6px 4px 14px;
+      margin: 6px 6px 14px;
       font-size: 0.84rem;
       color: var(--text-secondary);
     }
@@ -300,7 +308,7 @@
       color: var(--text-primary);
     }
 
-    /* Menu Grid */
+    /* Menu Grid - iOS Frosted Glass Cards */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -317,18 +325,18 @@
     }
 
     .drink-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: var(--glass-surface);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 12px;
+      padding: 11px;
       display: flex;
       align-items: center;
       gap: 13px;
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--shadow-glass);
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, box-shadow 0.2s ease;
       position: relative;
       touch-action: manipulation;
       user-select: none;
@@ -336,61 +344,63 @@
 
     .drink-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 28px -10px rgba(45, 25, 12, 0.18);
-      border-color: rgba(198, 125, 59, 0.35);
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 16px 34px -8px rgba(38, 20, 10, 0.18), inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
     }
 
     .drink-card:active {
-      transform: scale(0.985);
+      transform: scale(0.98);
     }
 
     .drink-photo-box {
-      width: 94px;
-      height: 104px;
-      border-radius: 16px;
-      background: #EFE7DC;
+      width: 96px;
+      height: 108px;
+      border-radius: 17px;
+      background: linear-gradient(145deg, #DFD3C6, #CFC0B0);
       flex-shrink: 0;
-      border: 1px solid rgba(74, 44, 24, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 6px 16px rgba(34, 18, 9, 0.14);
       position: relative;
       overflow: hidden;
       display: grid;
       place-items: center;
     }
 
-    .drink-photo-box svg.model-svg {
+    .drink-photo-box img.drink-photo {
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      object-position: center;
       display: block;
-      transition: transform 0.25s ease;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
     }
 
-    .drink-card:hover .drink-photo-box svg.model-svg {
-      transform: scale(1.06);
+    .drink-card:hover .drink-photo-box img.drink-photo {
+      transform: scale(1.07);
     }
 
     .photo-temp-badge {
       position: absolute;
-      bottom: 5px;
-      left: 5px;
+      bottom: 6px;
+      left: 6px;
       font-size: 0.58rem;
       font-weight: 800;
-      padding: 1.5px 6px;
-      border-radius: 6px;
+      padding: 2px 7px;
+      border-radius: 8px;
       color: #FFF;
-      letter-spacing: 0.03em;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     }
 
     .photo-temp-badge.hot {
-      background: rgba(184, 66, 37, 0.94);
+      background: rgba(196, 56, 30, 0.86);
     }
 
     .photo-temp-badge.ice {
-      background: rgba(29, 110, 150, 0.94);
-    }
-
-    .photo-temp-badge.both {
-      background: linear-gradient(90deg, rgba(184, 66, 37, 0.95), rgba(29, 110, 150, 0.95));
+      background: rgba(21, 106, 148, 0.86);
     }
 
     .drink-info {
@@ -414,38 +424,35 @@
     .drink-tag {
       font-size: 0.7rem;
       font-weight: 700;
-      padding: 2px 8px;
+      padding: 2.5px 9px;
       border-radius: 999px;
-      background: rgba(74, 44, 24, 0.08);
+      background: rgba(74, 44, 24, 0.09);
       color: var(--accent-espresso);
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
 
     .drink-tag.temp-hot {
-      background: rgba(184, 66, 37, 0.12);
+      background: rgba(201, 59, 32, 0.14);
       color: var(--accent-hot);
     }
 
     .drink-tag.temp-ice {
-      background: rgba(29, 110, 150, 0.12);
+      background: rgba(21, 106, 148, 0.14);
       color: var(--accent-ice);
     }
 
-    .drink-tag.temp-both {
-      background: linear-gradient(90deg, rgba(184, 66, 37, 0.12), rgba(29, 110, 150, 0.12));
-      color: #3D2719;
-    }
-
     .drink-tag.custom {
-      background: rgba(31, 138, 76, 0.12);
+      background: rgba(27, 128, 69, 0.14);
       color: var(--accent-success);
     }
 
     .drink-name-main {
       margin: 0;
-      font-size: 1rem;
+      font-size: 1.02rem;
       font-weight: 700;
       color: var(--text-primary);
       line-height: 1.35;
+      letter-spacing: -0.01em;
     }
 
     .drink-desc {
@@ -456,12 +463,14 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      line-height: 1.4;
+      line-height: 1.42;
     }
 
     .fav-toggle-btn {
-      border: 1px solid var(--border-subtle);
-      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: var(--text-muted);
       width: 38px;
       height: 38px;
@@ -469,25 +478,25 @@
       display: grid;
       place-items: center;
       cursor: pointer;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
       flex-shrink: 0;
-      transition: transform 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease;
       touch-action: manipulation;
     }
 
     .fav-toggle-btn.saved {
-      color: #C93045;
-      border-color: rgba(201, 48, 69, 0.35);
-      background: #FFF6F7;
+      color: #D62D47;
+      border-color: rgba(214, 45, 71, 0.38);
+      background: rgba(255, 240, 243, 0.88);
     }
 
     .fav-toggle-btn.saved svg {
-      fill: #C93045;
-      stroke: #C93045;
+      fill: #D62D47;
+      stroke: #D62D47;
     }
 
     .fav-toggle-btn:active {
-      transform: scale(0.86);
+      transform: scale(0.85);
     }
 
     /* Empty State */
@@ -495,19 +504,23 @@
       grid-column: 1 / -1;
       text-align: center;
       padding: 48px 20px;
-      background: var(--bg-card);
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: var(--radius-xl);
-      border: 1px dashed var(--border-subtle);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glass);
     }
 
-    /* Bean Calculator View */
+    /* Bean Calculator View - iOS Frosted Glass */
     .calc-panel {
-      background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.85);
+      background: var(--glass-surface-strong);
+      backdrop-filter: blur(26px) saturate(180%);
+      -webkit-backdrop-filter: blur(26px) saturate(180%);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius-xl);
       padding: 20px;
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--shadow-glass);
     }
 
     .calc-panel h2 {
@@ -529,24 +542,25 @@
     }
 
     .preset-chip {
-      border: 1px solid var(--border-subtle);
-      background: #FFFFFF;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.68);
       color: var(--text-primary);
       padding: 8px 14px;
       min-height: 38px;
-      border-radius: 12px;
+      border-radius: 13px;
       font-family: inherit;
       font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.16s ease;
       touch-action: manipulation;
     }
 
     .preset-chip.active {
-      background: var(--accent-caramel);
+      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
       color: #FFFFFF;
-      border-color: var(--accent-caramel);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 12px rgba(181, 110, 45, 0.28);
     }
 
     .form-grid-2 {
@@ -573,9 +587,9 @@
     .field-input, .field-select, .field-textarea {
       width: 100%;
       padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      background: #FFFFFF;
+      border-radius: 13px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.72);
       font-family: inherit;
       font-size: 0.92rem;
       color: var(--text-primary);
@@ -583,6 +597,7 @@
     }
 
     .field-input:focus, .field-select:focus, .field-textarea:focus {
+      background: rgba(255, 255, 255, 0.95);
       border-color: var(--accent-caramel);
     }
 
@@ -600,11 +615,14 @@
     }
 
     .result-box {
-      background: linear-gradient(160deg, #FFFFFF 0%, #FAF4EC 100%);
-      border: 1px solid rgba(198, 125, 59, 0.22);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
       padding: 14px;
       text-align: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
     }
 
     .result-box .res-label {
@@ -625,18 +643,18 @@
       margin-top: 2px;
     }
 
-    /* Bottom Navigation */
+    /* iOS Floating Dock Bottom Navigation */
     .bottom-nav {
       position: fixed;
-      bottom: 12px;
+      bottom: 14px;
       left: 50%;
       transform: translateX(-50%);
-      width: min(470px, calc(100% - 24px));
+      width: min(470px, calc(100% - 28px));
       height: 62px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.9);
       border-radius: 999px;
       box-shadow: var(--shadow-float);
       display: grid;
@@ -658,22 +676,23 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
       touch-action: manipulation;
     }
 
     .nav-item.active {
-      background: var(--accent-espresso);
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
       color: #FFFFFF;
-      box-shadow: 0 6px 16px rgba(74, 44, 24, 0.25);
+      box-shadow: 0 6px 16px rgba(51, 29, 15, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
 
-    /* Modal / Bottom Sheet */
+    /* iOS Frosted Modal / Bottom Sheet */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(20, 12, 7, 0.54);
-      backdrop-filter: blur(6px);
+      background: rgba(20, 12, 7, 0.42);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 60;
       display: none;
       align-items: flex-end;
@@ -697,26 +716,29 @@
       max-height: 90vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      background: #FCF9F5;
-      border-radius: 26px;
+      background: rgba(252, 248, 243, 0.84);
+      backdrop-filter: blur(32px) saturate(195%);
+      -webkit-backdrop-filter: blur(32px) saturate(195%);
+      border: 1px solid rgba(255, 255, 255, 0.92);
+      border-radius: 30px;
       padding: 20px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
-      animation: slideUp 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      animation: slideUp 0.26s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
 
     .drag-handle {
-      width: 42px;
+      width: 40px;
       height: 5px;
       border-radius: 999px;
-      background: rgba(74, 44, 24, 0.18);
+      background: rgba(60, 40, 28, 0.22);
       margin: -4px auto 12px;
     }
 
     @keyframes slideUp {
       from {
         opacity: 0;
-        transform: translateY(24px) scale(0.98);
+        transform: translateY(28px) scale(0.97);
       }
       to {
         opacity: 1;
@@ -730,17 +752,17 @@
       justify-content: space-between;
       gap: 12px;
       padding-bottom: 14px;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid rgba(74, 44, 24, 0.1);
     }
 
     .close-modal-btn {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: none;
-      background: var(--bg-pill);
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.72);
       color: var(--text-primary);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       flex-shrink: 0;
@@ -753,17 +775,18 @@
     .mode-switch-bar {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      background: #EFE8DF;
-      padding: 5px;
-      border-radius: 15px;
+      gap: 6px;
+      background: rgba(118, 118, 128, 0.14);
+      padding: 4px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
       margin-top: 12px;
     }
 
     .mode-option-btn {
       border: none;
       background: transparent;
-      border-radius: 11px;
+      border-radius: 12px;
       padding: 9px 12px;
       min-height: 40px;
       font-family: inherit;
@@ -771,24 +794,24 @@
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.18s ease;
+      transition: all 0.2s ease;
       touch-action: manipulation;
     }
 
     .mode-option-btn.active[data-mode="hot"] {
-      background: var(--accent-hot);
+      background: linear-gradient(180deg, #D4472B 0%, #B33319 100%);
       color: #FFFFFF;
-      box-shadow: 0 4px 12px rgba(184, 66, 37, 0.28);
+      box-shadow: 0 4px 14px rgba(184, 66, 37, 0.3);
     }
 
     .mode-option-btn.active[data-mode="ice"] {
-      background: var(--accent-ice);
+      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
       color: #FFFFFF;
-      box-shadow: 0 4px 12px rgba(29, 110, 150, 0.28);
+      box-shadow: 0 4px 14px rgba(29, 110, 150, 0.3);
     }
 
     .mode-option-btn.disabled-mode {
-      opacity: 0.38;
+      opacity: 0.36;
       cursor: not-allowed;
     }
 
@@ -798,18 +821,18 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      background: #FFFFFF;
+      background: rgba(255, 255, 255, 0.65);
       padding: 10px 12px;
       border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--glass-border);
       margin: 12px 0;
     }
 
     .seg-group {
       display: inline-flex;
-      background: var(--bg-pill);
+      background: rgba(118, 118, 128, 0.14);
       padding: 3px;
-      border-radius: 10px;
+      border-radius: 11px;
       gap: 2px;
     }
 
@@ -828,7 +851,7 @@
     }
 
     .seg-btn.active {
-      background: #FFFFFF;
+      background: rgba(255, 255, 255, 0.94);
       color: var(--text-primary);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
@@ -853,9 +876,9 @@
     }
 
     .ing-item {
-      background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
       padding: 11px 12px;
       min-height: 44px;
       display: flex;
@@ -863,7 +886,7 @@
       justify-content: space-between;
       gap: 10px;
       cursor: pointer;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.2s ease, background 0.2s ease;
       touch-action: manipulation;
     }
 
@@ -904,10 +927,11 @@
 
     .tip-box {
       margin-top: 14px;
-      background: #FFF6E9;
+      background: rgba(255, 245, 228, 0.78);
+      border: 1px solid rgba(198, 125, 59, 0.28);
       border-left: 4px solid var(--accent-caramel);
       padding: 12px 14px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-size: 0.84rem;
       color: #5A3716;
     }
@@ -918,13 +942,13 @@
       gap: 8px;
       margin-top: 18px;
       padding-top: 14px;
-      border-top: 1px solid var(--border-subtle);
+      border-top: 1px solid rgba(74, 44, 24, 0.1);
     }
 
     /* Barista Shot Timer Box */
     .timer-widget {
-      background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
       padding: 16px;
       text-align: center;
@@ -932,7 +956,7 @@
     }
 
     .timer-digits {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Plus Jakarta Sans', sans-serif;
       font-size: 2.6rem;
       font-weight: 700;
       color: var(--accent-espresso);
@@ -956,10 +980,13 @@
     /* Toast Notification */
     .toast {
       position: fixed;
-      bottom: 86px;
+      bottom: 88px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: #1C1410;
+      background: rgba(28, 18, 13, 0.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       color: #FFFFFF;
       padding: 10px 18px;
       border-radius: 999px;
@@ -969,7 +996,7 @@
       pointer-events: none;
       transition: all 0.25s ease;
       z-index: 90;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
     }
 
     .toast.show {
@@ -1127,7 +1154,7 @@
       <div class="drag-handle"></div>
       <div class="modal-header">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <div id="modalArtBox" class="drink-photo-box" style="width: 84px; height: 94px;"></div>
+          <div id="modalArtBox" class="drink-photo-box" style="width: 88px; height: 98px;"></div>
           <div>
             <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
               <span class="drink-tag" id="modalTempTag"></span>
@@ -1278,18 +1305,6 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // Auto-refresh ម្តងនៅពេលបើក tab តាមរយៈ sessionStorage (ការពារ loop)
-    (function () {
-      try {
-        const key = "auto_refreshed_once_" + window.location.pathname;
-        if (!sessionStorage.getItem(key)) {
-          sessionStorage.setItem(key, "1");
-          window.location.reload();
-          return;
-        }
-      } catch {}
-    })();
-
     const UI_STRINGS = {
       km: {
         docTitle: "ម៉ឺនុយ និង រូបមន្តឆុងកាហ្វេ",
@@ -1441,59 +1456,27 @@
       }
     };
 
-    const DRINK_VISUALS = {
-      "hot-espresso":       { style: "hot-cup", bg: "#EFE4D8", cup: "#FFFFFF", liquid: "#2B150A", foam: "#C48843", garnish: "crema" },
-      "hot-americano":      { style: "hot-cup", bg: "#ECE2D8", cup: "#FFFFFF", liquid: "#1C0D06", foam: "#8E582B", garnish: "crema" },
-      "hot-latte":          { style: "hot-art", bg: "#F3E8DC", cup: "#FFFFFF", liquid: "#8D5834", foam: "#FFFDF9", garnish: "heart" },
-      "hot-cappuccino":     { style: "hot-art", bg: "#EFE3D5", cup: "#FFFFFF", liquid: "#7A4A29", foam: "#FFF8EE", garnish: "foam-ring" },
-      "hot-flat-white":     { style: "hot-art", bg: "#EDE2D6", cup: "#F8F3EC", liquid: "#744424", foam: "#FFFDF9", garnish: "heart" },
-      "hot-mocha":          { style: "hot-art", bg: "#EFE0D6", cup: "#FFFFFF", liquid: "#4B2414", foam: "#F7ECE3", garnish: "cocoa" },
-      "hot-caramel":        { style: "hot-art", bg: "#F7E9D7", cup: "#FFFFFF", liquid: "#9C6132", foam: "#FFF9F0", garnish: "caramel" },
-      "hot-piccolo":        { style: "hot-cup", bg: "#EFE3D5", cup: "#FFFFFF", liquid: "#693B1E", foam: "#F8EFE3", garnish: "crema" },
-      "hot-khmer-milk":     { style: "hot-cup", bg: "#F4E5D2", cup: "#FFFFFF", liquid: "#6B3B1D", foam: "#EED2AE", garnish: "milk" },
-      "ice-americano":      { style: "iced-plain", bg: "#E3EFF5", liquid: "#221008", top: "#3B1E10", straw: "#4A2C18", garnish: "none" },
-      "ice-latte":          { style: "iced-layered", bg: "#E8EFF4", liquid: "#F2E4D1", top: "#6A3C1E", straw: "#8C5327", garnish: "none" },
-      "ice-cappuccino":     { style: "iced-layered", bg: "#EAEFF3", liquid: "#BA8658", top: "#FFFFFF", straw: "#6E4224", garnish: "foam" },
-      "ice-mocha":          { style: "iced-layered", bg: "#ECE6E2", liquid: "#542916", top: "#C99F7E", straw: "#3B1B0D", garnish: "none" },
-      "ice-caramel":        { style: "iced-layered", bg: "#F5ECE0", liquid: "#EBD5B7", top: "#734222", straw: "#D48324", garnish: "caramel" },
-      "ice-khmer-milk":     { style: "iced-plain", bg: "#F3E7D8", liquid: "#774423", top: "#E6C7A1", straw: "#4A2C18", garnish: "none" },
-      "ice-black-coffee":   { style: "iced-plain", bg: "#E4ECEF", liquid: "#190C05", top: "#422212", straw: "#2B150A", garnish: "none" }
+    // Real high-resolution photography mapped accurately to each hot & iced drink
+    const DRINK_PHOTOS = {
+      "hot-espresso":     "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=400&q=80",
+      "hot-americano":    "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=400&q=80",
+      "hot-latte":        "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=400&q=80",
+      "hot-cappuccino":   "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80",
+      "hot-flat-white":   "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=400&q=80",
+      "hot-mocha":        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=400&q=80",
+      "hot-caramel":      "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=400&q=80",
+      "hot-piccolo":      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80",
+      "hot-khmer-milk":   "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=400&q=80",
+      "ice-americano":    "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80",
+      "ice-latte":        "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80",
+      "ice-cappuccino":   "https://images.unsplash.com/photo-1592663527359-cf6642f54cff?auto=format&fit=crop&w=400&q=80",
+      "ice-mocha":        "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=400&q=80",
+      "ice-caramel":      "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=400&q=80",
+      "ice-khmer-milk":   "https://images.unsplash.com/photo-1582152629442-4a864303fb96?auto=format&fit=crop&w=400&q=80",
+      "ice-black-coffee": "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=400&q=80"
     };
 
-    function renderModelSvg(photoKey) {
-      const v = DRINK_VISUALS[photoKey] || DRINK_VISUALS["ice-latte"];
-      let inner = "";
-
-      if (v.style === "hot-cup" || v.style === "hot-art") {
-        const artShape = v.garnish === "heart"
-          ? `<path d="M80 51 C74 47 68 53 80 61 C92 53 86 47 80 51 Z" fill="${v.liquid}"/>`
-          : `<ellipse cx="80" cy="56" rx="20" ry="4.5" fill="${v.foam}" opacity="0.6"/>`;
-
-        inner = `
-          <path d="M62 33 Q58 25 62 17 M80 29 Q76 21 80 13 M98 33 Q94 25 98 17" stroke="#9C8778" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-          <ellipse cx="80" cy="144" rx="50" ry="7.5" fill="#DFD4C8"/>
-          <path d="M118 66 H128 A14 14 0 0 1 128 104 H118" stroke="${v.cup}" stroke-width="8" fill="none"/>
-          <path d="M42 54 H118 L112 114 A24 24 0 0 1 88 135 H72 A24 24 0 0 1 48 114 Z" fill="${v.cup}" stroke="#D8CEC2" stroke-width="1.5"/>
-          <ellipse cx="80" cy="56" rx="35" ry="9" fill="${v.style === "hot-art" ? v.foam : v.liquid}"/>
-          ${v.style === "hot-art" ? artShape : `<ellipse cx="80" cy="55" rx="26" ry="4" fill="${v.foam}" opacity="0.45"/>`}
-        `;
-      } else {
-        const topLayer = v.style === "iced-layered"
-          ? `<path d="M45 48 H115 L112 84 H48 Z" fill="${v.top}"/>`
-          : `<path d="M45 48 H115 L114 62 H46 Z" fill="${v.top}" opacity="0.45"/>`;
-
-        inner = `
-          <line x1="96" y1="16" x2="84" y2="62" stroke="${v.straw}" stroke-width="5" stroke-linecap="round"/>
-          <path d="M44 48 H116 L106 152 A10 10 0 0 1 96 160 H64 A10 10 0 0 1 54 152 Z" fill="${v.liquid}"/>
-          ${topLayer}
-          <rect x="55" y="56" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-10 55 56)"/>
-          <rect x="81" y="60" width="19" height="19" rx="5" fill="#FFFFFF" opacity="0.55" transform="rotate(12 81 60)"/>
-          <rect x="40" y="42" width="80" height="7" rx="3.5" fill="#FFFFFF" opacity="0.9"/>
-        `;
-      }
-
-      return `<svg class="model-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg"><rect width="160" height="180" fill="${v.bg}"/>${inner}</svg>`;
-    }
+    const FALLBACK_COFFEE_PHOTO = "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80";
 
     const DEFAULT_RECIPES = [
       // ==================== HOT & ICE PAIRED COFFEES ====================
@@ -2209,11 +2192,12 @@
       });
     }
 
-    function renderDrinkPhoto(photoKey, badgeText, badgeCls) {
+    function renderDrinkPhoto(photoKey, badgeText, badgeCls, altText = "") {
+      const url = (photoKey && DRINK_PHOTOS[photoKey]) ? DRINK_PHOTOS[photoKey] : FALLBACK_COFFEE_PHOTO;
       const badgeHtml = badgeText
         ? `<span class="photo-temp-badge ${badgeCls}">${escapeHtml(badgeText)}</span>`
         : "";
-      return `${renderModelSvg(photoKey)}${badgeHtml}`;
+      return `<img class="drink-photo" src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_COFFEE_PHOTO}';" />${badgeHtml}`;
     }
 
     function getFilteredRecipes() {
@@ -2263,6 +2247,7 @@
         const isFav = favorites.has(r.id);
         const badgeInfo = getCardBadgeInfo(r);
         const defaultVar = getActiveVariant(r, getDefaultVariantKey(r));
+        const primaryName = getRecipeNamePrimary(r);
         const modeTagHtml = badgeInfo.label
           ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
           : "";
@@ -2270,13 +2255,13 @@
 
         return `
           <article class="drink-card" data-id="${r.id}">
-            <div class="drink-photo-box">${renderDrinkPhoto(defaultVar?.photo, badgeInfo.badge, badgeInfo.photoCls)}</div>
+            <div class="drink-photo-box">${renderDrinkPhoto(defaultVar?.photo, badgeInfo.badge, badgeInfo.photoCls, primaryName)}</div>
             <div class="drink-info">
               <div class="drink-top-meta">
                 ${modeTagHtml}
                 ${customBadge}
               </div>
-              <h3 class="drink-name-main">${escapeHtml(getRecipeNamePrimary(r))}</h3>
+              <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
             </div>
             <button class="fav-toggle-btn ${isFav ? "saved" : ""}" data-fav-id="${r.id}" title="${escapeHtml(s.favBtnSave)}" aria-label="${escapeHtml(s.favBtnSave)}">
@@ -2394,7 +2379,8 @@
       document.getElementById("modalArtBox").innerHTML = renderDrinkPhoto(
         variant.photo,
         isHot ? s.hotBadge : s.iceBadge,
-        isHot ? "hot" : "ice"
+        isHot ? "hot" : "ice",
+        getRecipeNamePrimary(recipe)
       );
 
       const tempTag = document.getElementById("modalTempTag");
@@ -2504,10 +2490,10 @@
 
       if (sec < 25) {
         statusEl.textContent = sec === 0 ? s.timerReady : s.timerRunning;
-        statusEl.style.color = "#6E5D53";
+        statusEl.style.color = "#5C4B41";
       } else if (sec <= 30) {
         statusEl.textContent = s.timerIdeal;
-        statusEl.style.color = "#1F8A4C";
+        statusEl.style.color = "#1B8045";
       } else {
         statusEl.textContent = s.timerOver;
         statusEl.style.color = "#C67D3B";
