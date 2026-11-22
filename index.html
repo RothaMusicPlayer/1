@@ -809,22 +809,16 @@
 
     .calc-results {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
       gap: 12px;
       margin: 14px 0 18px;
-    }
-
-    @media (max-width: 560px) {
-      .calc-results {
-        grid-template-columns: 1fr;
-      }
     }
 
     .result-box {
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
-      padding: 14px;
+      padding: 16px 14px;
       text-align: center;
     }
 
@@ -833,21 +827,16 @@
     }
 
     .result-box .res-label {
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
       margin-bottom: 4px;
+      font-weight: 600;
     }
 
     .result-box .res-val {
-      font-size: 1.45rem;
-      font-weight: 700;
+      font-size: 1.65rem;
+      font-weight: 800;
       color: var(--accent-espresso);
-    }
-
-    .result-box .res-sub {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      margin-top: 2px;
     }
 
     .chart-card {
@@ -1901,7 +1890,7 @@
         </div>
       </div>
 
-      <!-- Table Bills / Receipts Summary -->
+      <!-- Table Bills / Receipts Section -->
       <div class="order-panel">
         <div class="order-header-row" style="margin-bottom: 12px;">
           <div>
@@ -1928,12 +1917,6 @@
           <div class="result-box">
             <div class="res-label" id="resTodayCupsLabel">ចំនួនកែវថ្ងៃនេះ</div>
             <div class="res-val" id="resTodayCups">0 កែវ</div>
-            <div class="res-sub" id="resTodayRevenue">$0.00</div>
-          </div>
-          <div class="result-box">
-            <div class="res-label" id="resWeekCupsLabel">សរុប ៧ ថ្ងៃចុងក្រោយ</div>
-            <div class="res-val" id="resWeekCups">0 កែវ</div>
-            <div class="res-sub" id="resWeekRevenue">$0.00</div>
           </div>
         </div>
 
@@ -2042,7 +2025,7 @@
     <div class="modal-sheet confirm-sheet centered">
       <div class="drag-handle"></div>
       <h2 id="confirmDoneTitle" style="margin: 0 0 6px; font-size: 1.14rem;">បញ្ជាក់ថាធ្វើរួច?</h2>
-      <p id="confirmDoneDesc" style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">ទិន្នន័យនឹងត្រូវបញ្ចូលទៅក្នុងក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ។</p>
+      <p id="confirmDoneDesc" style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">ចំនួនកែវនឹងត្រូវបញ្ចូលទៅក្នុងក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ។</p>
       <div class="confirm-item-preview" id="confirmDoneItemText"></div>
       <div class="confirm-actions-row">
         <button type="button" class="icon-btn" id="cancelDoneBtn">បោះបង់</button>
@@ -2236,7 +2219,7 @@
         orderStatusDone: "ធ្វើរួច",
         markDoneBtn: "ធ្វើរួច",
         confirmDoneTitle: "បញ្ជាក់ថាធ្វើរួច?",
-        confirmDoneDesc: "ចំនួនកែវ និងតម្លៃនឹងត្រូវបញ្ចូលទៅក្នុងក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ។",
+        confirmDoneDesc: "ចំនួនកែវនឹងត្រូវបញ្ចូលទៅក្នុងក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ។",
         cancelDoneBtn: "បោះបង់",
         acceptDoneBtn: "បញ្ជាក់",
         orderEditBtn: "កែ",
@@ -2282,7 +2265,6 @@
         chartPanelSubtitle: "កត់ត្រាចំនួនកែវដែលបានចុចធ្វើរួចពី All Order ដោយស្វ័យប្រវត្តិ",
         resetChartBtn: "សម្អាតក្រាហ្វ",
         resTodayCupsLabel: "ចំនួនកែវថ្ងៃនេះ",
-        resWeekCupsLabel: "សរុប ៧ ថ្ងៃចុងក្រោយ",
         cupUnit: "កែវ",
         chartWdShort: ["អាទិត្យ", "ចន្ទ", "អង្គារ", "ពុធ", "ព្រហ", "សុក្រ", "សៅរ៍"],
         settingsModalTitle: "All Settings • ការកំណត់ទាំងអស់",
@@ -2364,7 +2346,7 @@
         orderStatusDone: "Done",
         markDoneBtn: "Done",
         confirmDoneTitle: "Confirm Done?",
-        confirmDoneDesc: "Cups and revenue will be recorded into the Daily Cups Chart.",
+        confirmDoneDesc: "Cups will be recorded into the Daily Cups Chart.",
         cancelDoneBtn: "Cancel",
         acceptDoneBtn: "Confirm",
         orderEditBtn: "Edit",
@@ -2410,7 +2392,6 @@
         chartPanelSubtitle: "Automatically records cups marked Done in All Order",
         resetChartBtn: "Clear Chart",
         resTodayCupsLabel: "Today Cups",
-        resWeekCupsLabel: "Last 7 Days Total",
         cupUnit: "cups",
         chartWdShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         settingsModalTitle: "All Settings",
@@ -3420,12 +3401,11 @@
       };
     }
 
-    function recordDoneOrderToChart(cups, revenue) {
+    function recordDoneOrderToChart(cups) {
       const key = getLocalDateKey();
-      const current = dailyChartLog[key] || { cups: 0, revenue: 0 };
+      const current = dailyChartLog[key] || { cups: 0 };
       dailyChartLog[key] = {
-        cups: (current.cups || 0) + (cups || 1),
-        revenue: Number(((current.revenue || 0) + (revenue || 0)).toFixed(2))
+        cups: (current.cups || 0) + (cups || 1)
       };
       saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
     }
@@ -3698,7 +3678,6 @@
       document.getElementById("chartPanelSubtitle").textContent = s.chartPanelSubtitle;
       document.getElementById("resetChartBtn").textContent = s.resetChartBtn;
       document.getElementById("resTodayCupsLabel").textContent = s.resTodayCupsLabel;
-      document.getElementById("resWeekCupsLabel").textContent = s.resWeekCupsLabel;
 
       // Settings Modal Labels
       document.getElementById("settingsModalTitle").textContent = s.settingsModalTitle;
@@ -3881,10 +3860,9 @@
         ord.done = true;
         const qty = ord.qty || 1;
         const recipe = getAllRecipes().find((r) => r.id === ord.recipeId);
-        const unitPrice = recipe ? getRecipePrice(recipe) : 1.75;
         const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
 
-        recordDoneOrderToChart(qty, unitPrice * qty);
+        recordDoneOrderToChart(qty);
         saveJson(STORAGE_KEYS.ORDERS, orders);
         renderOrders();
         showToast(t().toastMarkedDoneAndChart(name, qty));
@@ -4220,25 +4198,18 @@
         const dt = new Date();
         dt.setDate(dt.getDate() - i);
         const key = getLocalDateKey(dt);
-        const entry = dailyChartLog[key] || { cups: 0, revenue: 0 };
+        const entry = dailyChartLog[key] || { cups: 0 };
         const dayParts = formatChartDayParts(dt);
         days.push({
           key,
           wd: dayParts.wd,
           dt: dayParts.dt,
-          cups: entry.cups || 0,
-          revenue: entry.revenue || 0
+          cups: entry.cups || 0
         });
       }
 
-      const todayEntry = dailyChartLog[todayKey] || { cups: 0, revenue: 0 };
-      const weekCups = days.reduce((acc, d) => acc + d.cups, 0);
-      const weekRevenue = days.reduce((acc, d) => acc + d.revenue, 0);
-
+      const todayEntry = dailyChartLog[todayKey] || { cups: 0 };
       document.getElementById("resTodayCups").textContent = `${todayEntry.cups} ${s.cupUnit}`;
-      document.getElementById("resTodayRevenue").textContent = formatPrice(todayEntry.revenue);
-      document.getElementById("resWeekCups").textContent = `${weekCups} ${s.cupUnit}`;
-      document.getElementById("resWeekRevenue").textContent = formatPrice(weekRevenue);
 
       const maxCups = Math.max(1, ...days.map((d) => d.cups));
       const barsWrap = document.getElementById("dailyChartBars");
@@ -4605,7 +4576,6 @@
       document.getElementById("langToggleBtn").addEventListener("click", toggleLanguage);
       document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
 
-      // Quick toggle lock state directly from the single switch in Settings
       document.getElementById("setLockModeToggle").addEventListener("change", (e) => {
         appSettings.lockMenuAndData = e.target.checked;
         saveJson(STORAGE_KEYS.SETTINGS, appSettings);
@@ -4620,7 +4590,6 @@
         showToast(t().toastModeUnlocked);
       });
 
-      // Settings Modal Events
       document.getElementById("openSettingsBtn").addEventListener("click", openSettingsModal);
       document.getElementById("closeSettingsModal").addEventListener("click", closeSettingsModal);
       document.getElementById("settingsModal").addEventListener("click", (e) => {
