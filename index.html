@@ -443,11 +443,6 @@
       color: #F6EFE8;
     }
 
-    .drink-tag.custom {
-      background: rgba(27, 128, 69, 0.14);
-      color: var(--accent-success);
-    }
-
     .drink-name-main {
       margin: 0;
       font-size: 1.06rem;
@@ -1397,8 +1392,7 @@
       margin-top: 14px;
     }
 
-    .modal-footer-actions:empty,
-    #deleteCustomBtn[style*="display: none"] {
+    .modal-footer-actions:empty {
       display: none !important;
     }
 
@@ -1488,7 +1482,7 @@
       margin-top: 12px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     body.dark-mode .settings-group {
@@ -1496,12 +1490,13 @@
     }
 
     .settings-group-title {
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       font-weight: 800;
       color: var(--accent-espresso);
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: space-between;
+      gap: 8px;
       margin: 0;
     }
 
@@ -1510,7 +1505,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding-top: 10px;
+      padding-top: 9px;
       border-top: 1px solid rgba(92, 75, 65, 0.12);
     }
 
@@ -1526,7 +1521,7 @@
     .setting-row-stack {
       flex-direction: column;
       align-items: stretch;
-      gap: 7px;
+      gap: 6px;
     }
 
     .setting-label-wrap {
@@ -1542,7 +1537,7 @@
     }
 
     .setting-sub {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
       display: block;
       margin-top: 2px;
@@ -1555,7 +1550,7 @@
       background: rgba(255, 255, 255, 0.95);
       color: var(--text-primary);
       border-radius: 12px;
-      padding: 9px 12px;
+      padding: 8px 11px;
       font-family: inherit;
       font-size: 0.86rem;
       font-weight: 600;
@@ -1572,15 +1567,61 @@
       border-color: var(--accent-caramel);
     }
 
+    .item-price-input {
+      width: 86px;
+      text-align: right;
+      padding: 7px 10px;
+      border-radius: 11px;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .item-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-top: 1px solid rgba(92, 75, 65, 0.1);
+    }
+
+    body.dark-mode .item-toggle-row {
+      border-top-color: rgba(255, 255, 255, 0.07);
+    }
+
+    .item-toggle-row:first-child {
+      border-top: none;
+      padding-top: 2px;
+    }
+
+    .item-toggle-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .item-status-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .item-status-pill.on {
+      background: rgba(27, 128, 69, 0.14);
+      color: var(--accent-success);
+    }
+
+    .item-status-pill.off {
+      background: rgba(184, 29, 55, 0.14);
+      color: #B81D37;
+    }
+
     .settings-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .settings-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
 
@@ -1880,7 +1921,6 @@
 
       <div class="modal-footer-actions" id="modalFooterActions">
         <button class="icon-btn primary" id="modalAddOrderBtn">+ ដាក់ចូលកន្ត្រក</button>
-        <button class="icon-btn" id="deleteCustomBtn" style="display:none; color:#B81D37;">លុបមុខនេះ</button>
       </div>
     </div>
   </div>
@@ -1927,30 +1967,43 @@
       <div class="modal-header">
         <div>
           <h2 id="settingsModalTitle" style="margin: 0; font-size: 1.22rem;">All Settings • ការកំណត់ទាំងអស់</h2>
-          <p id="settingsModalSub" style="margin: 3px 0 0; font-size: 0.82rem; color: var(--text-secondary);">កំណត់ហាង តុ តម្លៃ រូបមន្ត និងមុខទំនិញផ្ទាល់ខ្លួន</p>
+          <p id="settingsModalSub" style="margin: 3px 0 0; font-size: 0.82rem; color: var(--text-secondary);">កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ និងហាង</p>
         </div>
         <button class="close-modal-btn" id="closeSettingsModal" aria-label="Close">X</button>
       </div>
 
-      <!-- 1. Shop & Currency Settings -->
+      <!-- 1. Set Price Per Coffee & Drink -->
       <div class="settings-group">
-        <h3 class="settings-group-title" id="setSecShopTitle">១. ព័ត៌មានហាង និងរូបិយប័ណ្ណ</h3>
+        <h3 class="settings-group-title" id="setSecPricesTitle">១. ការកំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)</h3>
+        <span class="setting-sub" id="setPricesSub">កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក</span>
+        <div id="itemPricesContainer"></div>
+      </div>
+
+      <!-- 2. Enable / Disable Individual Items (e.g. Turn Espresso Off & On) -->
+      <div class="settings-group">
+        <h3 class="settings-group-title" id="setSecToggleItemsTitle">២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)</h3>
+        <span class="setting-sub" id="setToggleItemsSub">បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល</span>
+        <div id="itemAvailabilityContainer"></div>
+      </div>
+
+      <!-- 3. Shop & Currency Settings -->
+      <div class="settings-group">
+        <h3 class="settings-group-title" id="setSecShopTitle">៣. ព័ត៌មានហាង និងរូបិយប័ណ្ណ</h3>
         <div class="setting-row setting-row-stack">
           <div class="setting-label-wrap">
-            <span class="setting-label" id="setShopNameLbl">ឈ្មោះហាង (បង្ហាញលើ Header និងវិក័យប័ត្រ)</span>
+            <span class="setting-label" id="setShopNameLbl">ឈ្មោះហាង</span>
           </div>
           <input type="text" id="setShopNameInput" class="ios-input" placeholder="Coffee & Drinks" />
         </div>
         <div class="setting-row setting-row-stack">
           <div class="setting-label-wrap">
-            <span class="setting-label" id="setReceiptNoteLbl">ពាក្យបាតវិក័យប័ត្រ (Receipt Footer)</span>
+            <span class="setting-label" id="setReceiptNoteLbl">ពាក្យបាតវិក័យប័ត្រ</span>
           </div>
           <input type="text" id="setReceiptNoteInput" class="ios-input" placeholder="សូមអរគុណ! Thank you!" />
         </div>
         <div class="setting-row">
           <div class="setting-label-wrap">
             <span class="setting-label" id="setCurrencyLbl">រូបិយប័ណ្ណ (Currency)</span>
-            <span class="setting-sub" id="setCurrencySub">បង្ហាញតម្លៃជាដុល្លារ ($) ឬប្រាក់រៀល (៛)</span>
           </div>
           <select id="setCurrencySelect" class="ios-select" style="width: auto; min-width: 120px;">
             <option value="USD">USD ($)</option>
@@ -1965,120 +2018,24 @@
         </div>
       </div>
 
-      <!-- 2. Table Management Settings -->
+      <!-- 4. Table Management Settings -->
       <div class="settings-group">
-        <h3 class="settings-group-title" id="setSecTableTitle">២. ការកំណត់តុ (Tables)</h3>
+        <h3 class="settings-group-title" id="setSecTableTitle">៤. ការកំណត់តុ (Tables)</h3>
         <div class="setting-row">
           <div class="setting-label-wrap">
-            <span class="setting-label" id="setTableCountLbl">ចំនួនតុសរុប</span>
-            <span class="setting-sub" id="setTableCountSub">ជ្រើសរើសពី 1 ដល់ 15 តុ</span>
+            <span class="setting-label" id="setTableCountLbl">ចំនួនតុសរុប (1–15)</span>
           </div>
           <input type="number" id="setTableCountInput" class="ios-input" style="width: 90px; text-align: center;" min="1" max="15" value="5" />
         </div>
         <div class="setting-row">
           <div class="setting-label-wrap">
             <span class="setting-label" id="setTakeawayLbl">បើកជម្រើស «ខ្ចប់» (Takeaway)</span>
-            <span class="setting-sub" id="setTakeawaySub">បង្ហាញប៊ូតុងខ្ចប់ក្នុងជម្រើសតុ</span>
           </div>
           <label class="ios-switch">
             <input type="checkbox" id="setTakeawayToggle" checked />
             <span class="ios-slider"></span>
           </label>
         </div>
-      </div>
-
-      <!-- 3. Order & Recipe Defaults -->
-      <div class="settings-group">
-        <h3 class="settings-group-title" id="setSecDefaultsTitle">៣. លំនាំដើមនៃការកុម្ម៉ង់ និងរង្វាស់កែវ</h3>
-        <div class="setting-row">
-          <div class="setting-label-wrap">
-            <span class="setting-label" id="setDefCupLbl">ទំហំកែវលំនាំដើម</span>
-          </div>
-          <select id="setDefCupSelect" class="ios-select" style="width: auto; min-width: 105px;">
-            <option value="12oz">12oz</option>
-            <option value="16oz" selected>16oz</option>
-            <option value="22oz">22oz</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <div class="setting-label-wrap">
-            <span class="setting-label" id="setDefSweetLbl">កម្រិតផ្អែមលំនាំដើម (%)</span>
-          </div>
-          <select id="setDefSweetSelect" class="ios-select" style="width: auto; min-width: 105px;">
-            <option value="0">0%</option>
-            <option value="25">25%</option>
-            <option value="50">50%</option>
-            <option value="75">75%</option>
-            <option value="100" selected>100%</option>
-            <option value="125">125%</option>
-          </select>
-        </div>
-        <div class="setting-row setting-row-stack">
-          <div class="setting-label-wrap">
-            <span class="setting-label" id="setCupMultLbl">មេគុណរង្វាស់តាមទំហំកែវ (12oz / 16oz / 22oz)</span>
-          </div>
-          <div class="settings-grid-3">
-            <div>
-              <span class="setting-sub" style="margin-bottom:3px;">12oz</span>
-              <input type="number" id="setMult12Input" class="ios-input" step="0.05" min="0.4" max="2" value="0.8" />
-            </div>
-            <div>
-              <span class="setting-sub" style="margin-bottom:3px;">16oz</span>
-              <input type="number" id="setMult16Input" class="ios-input" step="0.05" min="0.5" max="2.5" value="1.0" />
-            </div>
-            <div>
-              <span class="setting-sub" style="margin-bottom:3px;">22oz</span>
-              <input type="number" id="setMult22Input" class="ios-input" step="0.05" min="0.6" max="3" value="1.3" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Add Custom Drink / Coffee -->
-      <div class="settings-group">
-        <h3 class="settings-group-title" id="setSecAddDrinkTitle">៤. បន្ថែមមុខកាហ្វេ ឬភេសជ្ជៈថ្មី</h3>
-        <div class="settings-grid-2">
-          <div>
-            <span class="setting-sub" id="setNewSectionLbl" style="margin-bottom:3px;">ប្រភេទ</span>
-            <select id="newDrinkSection" class="ios-select">
-              <option value="coffee">Coffee</option>
-              <option value="drinks">ភេសជ្ជៈ (Drinks)</option>
-            </select>
-          </div>
-          <div>
-            <span class="setting-sub" id="setNewPriceLbl" style="margin-bottom:3px;">តម្លៃ ($)</span>
-            <input type="number" id="newDrinkPrice" class="ios-input" step="0.25" min="0.25" value="2.00" />
-          </div>
-        </div>
-        <div class="settings-grid-2">
-          <div>
-            <span class="setting-sub" id="setNewNameKmLbl" style="margin-bottom:3px;">ឈ្មោះភាសាខ្មែរ</span>
-            <input type="text" id="newDrinkNameKm" class="ios-input" placeholder="ឧ. កាហ្វេដូង" />
-          </div>
-          <div>
-            <span class="setting-sub" id="setNewNameEnLbl" style="margin-bottom:3px;">ឈ្មោះអង់គ្លេស</span>
-            <input type="text" id="newDrinkNameEn" class="ios-input" placeholder="e.g. Coconut Coffee" />
-          </div>
-        </div>
-        <div class="settings-grid-2">
-          <div>
-            <span class="setting-sub" id="setNewTempLbl" style="margin-bottom:3px;">សីតុណ្ហភាព</span>
-            <select id="newDrinkTemp" class="ios-select">
-              <option value="both">ក្តៅ &amp; ត្រជាក់ (Both)</option>
-              <option value="ice">ត្រជាក់ (Ice Only)</option>
-              <option value="hot">ក្តៅ (Hot Only)</option>
-            </select>
-          </div>
-          <div>
-            <span class="setting-sub" id="setNewBaseIngLbl" style="margin-bottom:3px;">រង្វាស់មូលដ្ឋាន (ml)</span>
-            <input type="number" id="newDrinkBaseMl" class="ios-input" min="10" max="500" value="160" />
-          </div>
-        </div>
-        <div>
-          <span class="setting-sub" id="setNewDescLbl" style="margin-bottom:3px;">ការពិពណ៌នាខ្លី</span>
-          <input type="text" id="newDrinkDesc" class="ios-input" placeholder="រសជាតិឈ្ងុយឆ្ងាញ់..." />
-        </div>
-        <button type="button" class="icon-btn primary" id="addCustomDrinkBtn" style="width: 100%;">+ បន្ថែមទៅម៉ឺនុយ</button>
       </div>
 
       <!-- 5. Appearance, Backup & Reset -->
@@ -2132,7 +2089,6 @@
         showingPrefix: "កំពុងបង្ហាញ៖",
         showingMid: "មុខ ក្នុងចំណោម",
         showingSuffix: "មុខ",
-        customBadge: "ផ្ទាល់ខ្លួន",
         hotFull: "ក្តៅ",
         iceFull: "ត្រជាក់",
         bothFull: "",
@@ -2140,9 +2096,9 @@
         navOrder: () => "All Order",
         navCalc: "ក្រាហ្វប្រចាំថ្ងៃ",
         emptyTitle: "រកមិនឃើញមុខទំនិញ",
-        emptyDesc: "សាកល្បងប្តូរផ្ទាំង Coffee ឬ ភេសជ្ជៈ។",
+        emptyDesc: "សាកល្បងប្តូរផ្ទាំង Coffee ឬ ភេសជ្ជៈ ឬបើកមុខទំនិញក្នុងការកំណត់។",
         cartTitle: "កន្ត្រក",
-        cartSubtitle: "ពិនិត្យមុខទំនិញក្នុងកន្ត្រក រួចចុចបញ្ជាក់ ដើម្បីដាក់ទៅ All Order",
+        cartSubtitle: "ពិនិត្យមុខទំនិញក្នុងកន្ត្រក រួចចុចបញ្ជាក់ការកុម្ម៉ង់ ដើម្បីបញ្ជូនទៅ All Order",
         confirmCartBtn: "បញ្ជាក់ការកុម្ម៉ង់",
         cartEmptyTitle: "កន្ត្រកនៅទំនេរ",
         cartEmptyDesc: "ចុចលើតម្លៃ ឬមុខកាហ្វេ/ភេសជ្ជៈក្នុងម៉ឺនុយ ដើម្បីមើលរូបមន្ត និងដាក់ចូលកន្ត្រក។",
@@ -2197,7 +2153,6 @@
         tipPrefix: "គន្លឹះ៖",
         defaultTip: "ឆុង ឬលាយឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
         addOrderBtnLabel: "+ ដាក់ចូលកន្ត្រក",
-        deleteCustomBtn: "លុបមុខនេះ",
         chartPanelTitle: "ក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ",
         chartPanelSubtitle: "កត់ត្រាចំនួនកែវដែលបានចុចធ្វើរួចពី All Order ដោយស្វ័យប្រវត្តិ",
         resetChartBtn: "សម្អាតក្រាហ្វ",
@@ -2205,31 +2160,21 @@
         resWeekCupsLabel: "សរុប ៧ ថ្ងៃចុងក្រោយ",
         cupUnit: "កែវ",
         settingsModalTitle: "All Settings • ការកំណត់ទាំងអស់",
-        settingsModalSub: "កំណត់ហាង តុ តម្លៃ រូបមន្ត និងមុខទំនិញផ្ទាល់ខ្លួន",
-        setSecShopTitle: "១. ព័ត៌មានហាង និងរូបិយប័ណ្ណ",
-        setShopNameLbl: "ឈ្មោះហាង (បង្ហាញលើ Header និងវិក័យប័ត្រ)",
-        setReceiptNoteLbl: "ពាក្យបាតវិក័យប័ត្រ (Receipt Footer)",
+        settingsModalSub: "កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ និងហាង",
+        setSecPricesTitle: "១. កំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)",
+        setPricesSub: "កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក",
+        setSecToggleItemsTitle: "២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)",
+        setToggleItemsSub: "បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល",
+        statusOn: "បើក",
+        statusOff: "បិទ",
+        setSecShopTitle: "៣. ព័ត៌មានហាង និងរូបិយប័ណ្ណ",
+        setShopNameLbl: "ឈ្មោះហាង",
+        setReceiptNoteLbl: "ពាក្យបាតវិក័យប័ត្រ",
         setCurrencyLbl: "រូបិយប័ណ្ណ (Currency)",
-        setCurrencySub: "បង្ហាញតម្លៃជាដុល្លារ ($) ឬប្រាក់រៀល (៛)",
         setKhrRateLbl: "អត្រាប្តូរប្រាក់ (1$ = ? ៛)",
-        setSecTableTitle: "២. ការកំណត់តុ (Tables)",
-        setTableCountLbl: "ចំនួនតុសរុប",
-        setTableCountSub: "ជ្រើសរើសពី 1 ដល់ 15 តុ",
+        setSecTableTitle: "៤. ការកំណត់តុ (Tables)",
+        setTableCountLbl: "ចំនួនតុសរុប (1–15)",
         setTakeawayLbl: "បើកជម្រើស «ខ្ចប់» (Takeaway)",
-        setTakeawaySub: "បង្ហាញប៊ូតុងខ្ចប់ក្នុងជម្រើសតុ",
-        setSecDefaultsTitle: "៣. លំនាំដើមនៃការកុម្ម៉ង់ និងរង្វាស់កែវ",
-        setDefCupLbl: "ទំហំកែវលំនាំដើម",
-        setDefSweetLbl: "កម្រិតផ្អែមលំនាំដើម (%)",
-        setCupMultLbl: "មេគុណរង្វាស់តាមទំហំកែវ (12oz / 16oz / 22oz)",
-        setSecAddDrinkTitle: "៤. បន្ថែមមុខកាហ្វេ ឬភេសជ្ជៈថ្មី",
-        setNewSectionLbl: "ប្រភេទ",
-        setNewPriceLbl: "តម្លៃ ($)",
-        setNewNameKmLbl: "ឈ្មោះភាសាខ្មែរ",
-        setNewNameEnLbl: "ឈ្មោះអង់គ្លេស",
-        setNewTempLbl: "សីតុណ្ហភាព",
-        setNewBaseIngLbl: "រង្វាស់មូលដ្ឋាន (ml)",
-        setNewDescLbl: "ការពិពណ៌នាខ្លី",
-        addCustomDrinkBtn: "+ បន្ថែមទៅម៉ឺនុយ",
         setSecSystemTitle: "៥. រូបរាង និងគ្រប់គ្រងទិន្នន័យ",
         setDarkModeLbl: "មុខងារងងឹត (Dark Mode)",
         setLangLbl: "ភាសាកម្មវិធី (Language)",
@@ -2237,8 +2182,6 @@
         resetAllDataBtn: "កំណត់ឡើងវិញ (Reset)",
         saveSettingsBtn: "រក្សាទុកការកំណត់ទាំងអស់",
         toastSettingsSaved: "បានរក្សាទុកការកំណត់រួចរាល់",
-        toastCustomAdded: (n) => `បានបន្ថែម "${n}" ទៅម៉ឺនុយ`,
-        toastEnterDrinkName: "សូមបញ្ចូលឈ្មោះមុខទំនិញជាមុន",
         toastBackupExported: "បានទាញយកឯកសារ Backup រួចរាល់",
         toastResetConfirm: "តើអ្នកពិតជាចង់សម្អាតការកំណត់ កន្ត្រក និងការកុម្ម៉ង់ទាំងអស់មែនទេ?",
         toastResetDone: "បានកំណត់កម្មវិធីឡើងវិញរួចរាល់",
@@ -2248,7 +2191,6 @@
         toastMarkedDoneAndChart: (name, cups) => `បានបញ្ជាក់ «${name}» ធ្វើរួច (+${cups} កែវ ក្នុងក្រាហ្វ)`,
         toastChartCleared: "បានសម្អាតទិន្នន័យក្រាហ្វរួចរាល់",
         toastTableCleared: (label) => `បានគិតលុយ និងសម្អាតវិក័យប័ត្រ ${label}`,
-        toastDeletedRecipe: "បានលុបមុខផ្ទាល់ខ្លួន",
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ",
         toastThemeDark: "បានប្តូរទៅមុខងារងងឹត",
         toastThemeLight: "បានប្តូរទៅមុខងារភ្លឺ"
@@ -2266,7 +2208,6 @@
         showingPrefix: "Showing",
         showingMid: "of",
         showingSuffix: "items",
-        customBadge: "Custom",
         hotFull: "Hot",
         iceFull: "Ice",
         bothFull: "",
@@ -2274,7 +2215,7 @@
         navOrder: () => "All Order",
         navCalc: "Daily Chart",
         emptyTitle: "No items found",
-        emptyDesc: "Try switching between Coffee and Drinks.",
+        emptyDesc: "Try switching tabs or re-enable items in Settings.",
         cartTitle: "Cart",
         cartSubtitle: "Review items in your cart, then tap confirm to send to All Order",
         confirmCartBtn: "Confirm Order",
@@ -2331,7 +2272,6 @@
         tipPrefix: "Tip:",
         defaultTip: "Measure consistently to keep balanced flavor in every cup.",
         addOrderBtnLabel: "+ Add to Cart",
-        deleteCustomBtn: "Delete Custom",
         chartPanelTitle: "Daily Cups Chart",
         chartPanelSubtitle: "Automatically records cups marked Done in All Order",
         resetChartBtn: "Clear Chart",
@@ -2339,31 +2279,21 @@
         resWeekCupsLabel: "Last 7 Days Total",
         cupUnit: "cups",
         settingsModalTitle: "All Settings",
-        settingsModalSub: "Configure shop info, tables, currency, cup multipliers & custom items",
-        setSecShopTitle: "1. Shop Info & Currency",
-        setShopNameLbl: "Shop Name (Header & Receipt)",
+        settingsModalSub: "Set per-item prices, enable/disable items (e.g. Espresso), tables & shop",
+        setSecPricesTitle: "1. Price Per Coffee & Drink ($)",
+        setPricesSub: "Edit individual item prices and tap Save All Settings",
+        setSecToggleItemsTitle: "2. Enable / Disable Items (e.g. Turn Espresso Off & On)",
+        setToggleItemsSub: "Turn off any item to hide it from Menu immediately; turn back on anytime",
+        statusOn: "ON",
+        statusOff: "OFF",
+        setSecShopTitle: "3. Shop Info & Currency",
+        setShopNameLbl: "Shop Name",
         setReceiptNoteLbl: "Receipt Footer Message",
         setCurrencyLbl: "Display Currency",
-        setCurrencySub: "Show prices in USD ($) or Cambodian Riel (៛)",
         setKhrRateLbl: "Exchange Rate (1$ = ? ៛)",
-        setSecTableTitle: "2. Table Setup",
-        setTableCountLbl: "Total Number of Tables",
-        setTableCountSub: "Choose from 1 to 15 tables",
+        setSecTableTitle: "4. Table Setup",
+        setTableCountLbl: "Total Number of Tables (1–15)",
         setTakeawayLbl: "Enable Takeaway Option",
-        setTakeawaySub: "Show Takeaway pill in table selector",
-        setSecDefaultsTitle: "3. Order Defaults & Cup Multipliers",
-        setDefCupLbl: "Default Cup Size",
-        setDefSweetLbl: "Default Sweetness (%)",
-        setCupMultLbl: "Recipe Scaling Multipliers (12oz / 16oz / 22oz)",
-        setSecAddDrinkTitle: "4. Add New Coffee / Drink",
-        setNewSectionLbl: "Category",
-        setNewPriceLbl: "Price ($)",
-        setNewNameKmLbl: "Khmer Name",
-        setNewNameEnLbl: "English Name",
-        setNewTempLbl: "Temperature",
-        setNewBaseIngLbl: "Base Volume (ml)",
-        setNewDescLbl: "Short Description",
-        addCustomDrinkBtn: "+ Add to Menu",
         setSecSystemTitle: "5. Appearance & Data Management",
         setDarkModeLbl: "Dark Mode",
         setLangLbl: "App Language",
@@ -2371,8 +2301,6 @@
         resetAllDataBtn: "Factory Reset",
         saveSettingsBtn: "Save All Settings",
         toastSettingsSaved: "All settings saved",
-        toastCustomAdded: (n) => `Added "${n}" to Menu`,
-        toastEnterDrinkName: "Please enter a drink name first",
         toastBackupExported: "Backup JSON exported",
         toastResetConfirm: "Reset all settings, cart, and orders to default?",
         toastResetDone: "App reset to default settings",
@@ -2382,7 +2310,6 @@
         toastMarkedDoneAndChart: (name, cups) => `Marked "${name}" Done (+${cups} cups in chart)`,
         toastChartCleared: "Daily chart data cleared",
         toastTableCleared: (label) => `Settled and cleared bill for ${label}`,
-        toastDeletedRecipe: "Custom item deleted",
         toastLangSwitched: "Switched to English",
         toastThemeDark: "Switched to Dark Mode",
         toastThemeLight: "Switched to Light Mode"
@@ -2396,13 +2323,8 @@
       khrRate: 4000,
       tableCount: 5,
       enableTakeaway: true,
-      defaultCupSize: "16oz",
-      defaultSweetPct: 100,
-      cupMultipliers: {
-        "12oz": 0.8,
-        "16oz": 1.0,
-        "22oz": 1.3
-      }
+      priceOverrides: {},
+      disabledItems: {}
     };
 
     const DEFAULT_RECIPES = [
@@ -3243,8 +3165,7 @@
     ];
 
     const STORAGE_KEYS = {
-      SETTINGS: "cafe_app_paired_settings_v1",
-      CUSTOM_RECIPES: "cafe_app_paired_custom_v1",
+      SETTINGS: "cafe_app_paired_settings_v2",
       CART: "cafe_app_paired_cart_v1",
       ORDERS: "cafe_app_paired_orders_v1",
       DAILY_CHART: "cafe_app_paired_daily_chart_v1",
@@ -3253,9 +3174,9 @@
     };
 
     let appSettings = Object.assign({}, DEFAULT_SETTINGS, loadJson(STORAGE_KEYS.SETTINGS, {}));
-    appSettings.cupMultipliers = Object.assign({}, DEFAULT_SETTINGS.cupMultipliers, appSettings.cupMultipliers || {});
+    appSettings.priceOverrides = Object.assign({}, DEFAULT_SETTINGS.priceOverrides, appSettings.priceOverrides || {});
+    appSettings.disabledItems = Object.assign({}, DEFAULT_SETTINGS.disabledItems, appSettings.disabledItems || {});
 
-    let customRecipes = loadJson(STORAGE_KEYS.CUSTOM_RECIPES, []);
     let cartItems = loadJson(STORAGE_KEYS.CART, []);
     let orders = loadJson(STORAGE_KEYS.ORDERS, []);
     let dailyChartLog = loadJson(STORAGE_KEYS.DAILY_CHART, {});
@@ -3270,9 +3191,15 @@
       activeRecipeId: null,
       editingCartItemId: null,
       activeMode: "ice",
-      cupSize: appSettings.defaultCupSize || "16oz",
+      cupSize: "16oz",
       tableNo: "1",
-      sweetPct: typeof appSettings.defaultSweetPct === "number" ? appSettings.defaultSweetPct : 100
+      sweetPct: 100
+    };
+
+    const CUP_SIZE_MULTIPLIER = {
+      "12oz": 0.8,
+      "16oz": 1.0,
+      "22oz": 1.3
     };
 
     const SWEETENER_KEYWORDS = [
@@ -3340,8 +3267,16 @@
       return opts[0] || "1";
     }
 
+    function isItemDisabled(recipeId) {
+      return Boolean(appSettings.disabledItems && appSettings.disabledItems[recipeId] === true);
+    }
+
     function getRecipePrice(r) {
-      const p = r && typeof r.price === "number" && !isNaN(r.price) ? r.price : 1.75;
+      if (!r) return 1.75;
+      if (appSettings.priceOverrides && typeof appSettings.priceOverrides[r.id] === "number" && !isNaN(appSettings.priceOverrides[r.id])) {
+        return Math.max(0, appSettings.priceOverrides[r.id]);
+      }
+      const p = typeof r.price === "number" && !isNaN(r.price) ? r.price : 1.75;
       return Math.max(0, p);
     }
 
@@ -3391,7 +3326,7 @@
     }
 
     function getAllRecipes() {
-      return [...DEFAULT_RECIPES, ...customRecipes];
+      return DEFAULT_RECIPES;
     }
 
     function supportsTemp(recipe, temp) {
@@ -3586,7 +3521,6 @@
       document.getElementById("tableNumberLabel").textContent = s.tableNumberLabel;
       document.getElementById("ingSectionHeading").textContent = s.ingHeading;
       document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
-      document.getElementById("deleteCustomBtn").textContent = s.deleteCustomBtn;
 
       updateSweetSliderUI();
 
@@ -3599,30 +3533,18 @@
       // Settings Modal Labels
       document.getElementById("settingsModalTitle").textContent = s.settingsModalTitle;
       document.getElementById("settingsModalSub").textContent = s.settingsModalSub;
+      document.getElementById("setSecPricesTitle").textContent = s.setSecPricesTitle;
+      document.getElementById("setPricesSub").textContent = s.setPricesSub;
+      document.getElementById("setSecToggleItemsTitle").textContent = s.setSecToggleItemsTitle;
+      document.getElementById("setToggleItemsSub").textContent = s.setToggleItemsSub;
       document.getElementById("setSecShopTitle").textContent = s.setSecShopTitle;
       document.getElementById("setShopNameLbl").textContent = s.setShopNameLbl;
       document.getElementById("setReceiptNoteLbl").textContent = s.setReceiptNoteLbl;
       document.getElementById("setCurrencyLbl").textContent = s.setCurrencyLbl;
-      document.getElementById("setCurrencySub").textContent = s.setCurrencySub;
       document.getElementById("setKhrRateLbl").textContent = s.setKhrRateLbl;
       document.getElementById("setSecTableTitle").textContent = s.setSecTableTitle;
       document.getElementById("setTableCountLbl").textContent = s.setTableCountLbl;
-      document.getElementById("setTableCountSub").textContent = s.setTableCountSub;
       document.getElementById("setTakeawayLbl").textContent = s.setTakeawayLbl;
-      document.getElementById("setTakeawaySub").textContent = s.setTakeawaySub;
-      document.getElementById("setSecDefaultsTitle").textContent = s.setSecDefaultsTitle;
-      document.getElementById("setDefCupLbl").textContent = s.setDefCupLbl;
-      document.getElementById("setDefSweetLbl").textContent = s.setDefSweetLbl;
-      document.getElementById("setCupMultLbl").textContent = s.setCupMultLbl;
-      document.getElementById("setSecAddDrinkTitle").textContent = s.setSecAddDrinkTitle;
-      document.getElementById("setNewSectionLbl").textContent = s.setNewSectionLbl;
-      document.getElementById("setNewPriceLbl").textContent = s.setNewPriceLbl;
-      document.getElementById("setNewNameKmLbl").textContent = s.setNewNameKmLbl;
-      document.getElementById("setNewNameEnLbl").textContent = s.setNewNameEnLbl;
-      document.getElementById("setNewTempLbl").textContent = s.setNewTempLbl;
-      document.getElementById("setNewBaseIngLbl").textContent = s.setNewBaseIngLbl;
-      document.getElementById("setNewDescLbl").textContent = s.setNewDescLbl;
-      document.getElementById("addCustomDrinkBtn").textContent = s.addCustomDrinkBtn;
       document.getElementById("setSecSystemTitle").textContent = s.setSecSystemTitle;
       document.getElementById("setDarkModeLbl").textContent = s.setDarkModeLbl;
       document.getElementById("setLangLbl").textContent = s.setLangLbl;
@@ -3642,6 +3564,9 @@
       if (activeReceiptTableNo && document.getElementById("receiptModal").classList.contains("open")) {
         openReceiptModal(activeReceiptTableNo);
       }
+      if (document.getElementById("settingsModal").classList.contains("open")) {
+        renderSettingsItemLists();
+      }
       showToast(t().toastLangSwitched);
     }
 
@@ -3655,12 +3580,13 @@
     function getFilteredRecipes() {
       const all = getAllRecipes();
       return all.filter((r) => {
+        if (isItemDisabled(r.id)) return false;
         if (state.filter === "drinks") return getRecipeSection(r) === "drinks";
         return getRecipeSection(r) === "coffee";
       });
     }
 
-    function addToCart(recipeId, mode, cupSize = appSettings.defaultCupSize || "16oz", qtyToAdd = 1, sweetPct = appSettings.defaultSweetPct ?? 100, tableNo = "1", replaceCartItemId = null) {
+    function addToCart(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sweetPct = 100, tableNo = "1", replaceCartItemId = null) {
       const s = t();
       const recipe = getAllRecipes().find((r) => r.id === recipeId);
       if (!recipe) return;
@@ -3788,9 +3714,7 @@
       const s = t();
       const grid = document.getElementById("menuGrid");
       const list = getFilteredRecipes();
-      const sectionTotal = getAllRecipes().filter((r) => getRecipeSection(r) === state.filter).length;
-      const defCup = appSettings.defaultCupSize || "16oz";
-      const defSweet = typeof appSettings.defaultSweetPct === "number" ? appSettings.defaultSweetPct : 100;
+      const sectionTotal = getAllRecipes().filter((r) => getRecipeSection(r) === state.filter && !isItemDisabled(r.id)).length;
 
       document.getElementById("summaryCountText").innerHTML =
         `${s.showingPrefix} <strong>${list.length}</strong> ${s.showingMid} <span>${sectionTotal}</span> ${s.showingSuffix}`;
@@ -3814,14 +3738,12 @@
         const modeTagHtml = badgeInfo.label
           ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
           : "";
-        const customBadge = r.isCustom ? `<span class="drink-tag custom">${escapeHtml(s.customBadge)}</span>` : "";
 
         return `
           <article class="drink-card" data-id="${r.id}">
             <div class="drink-info">
               <div class="drink-top-meta">
                 ${modeTagHtml}
-                ${customBadge}
               </div>
               <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
@@ -3836,7 +3758,7 @@
       grid.querySelectorAll(".drink-card").forEach((card) => {
         card.addEventListener("click", () => {
           const recipe = getAllRecipes().find((x) => x.id === card.dataset.id);
-          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice", defSweet, defCup);
+          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice", 100);
         });
       });
 
@@ -3844,7 +3766,7 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const recipe = getAllRecipes().find((x) => x.id === btn.dataset.priceId);
-          openRecipeModal(btn.dataset.priceId, recipe ? getDefaultVariantKey(recipe) : "ice", defSweet, defCup);
+          openRecipeModal(btn.dataset.priceId, recipe ? getDefaultVariantKey(recipe) : "ice", 100);
         });
       });
     }
@@ -4184,15 +4106,14 @@
     function formatScaledAmount(baseAmt, unit, isSweet = false) {
       if (typeof baseAmt !== "number" || isNaN(baseAmt)) return "";
       const sweetFactor = isSweet ? (state.sweetPct / 100) : 1;
-      const sizeMult = (appSettings.cupMultipliers && appSettings.cupMultipliers[state.cupSize]) || 1.0;
-      const mult = sizeMult * sweetFactor;
+      const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * sweetFactor;
       const val = baseAmt * mult;
       const rounded = val >= 50 ? Math.round(val) : Math.round(val * 10) / 10;
       const unitDisp = state.lang === "en" && unit === "ចំណិត" ? "slice" : (unit || "");
       return `${rounded} ${unitDisp}`.trim();
     }
 
-    function openRecipeModal(id, preferredMode, preserveSweetPct, cupSize = appSettings.defaultCupSize || "16oz", tableNo = null, editingCartItemId = null) {
+    function openRecipeModal(id, preferredMode, preserveSweetPct, cupSize = "16oz", tableNo = null, editingCartItemId = null) {
       const recipe = getAllRecipes().find((r) => r.id === id);
       if (!recipe) return;
 
@@ -4200,9 +4121,9 @@
       state.editingCartItemId = editingCartItemId;
       const targetMode = supportsTemp(recipe, preferredMode) ? preferredMode : getDefaultVariantKey(recipe);
       state.activeMode = targetMode;
-      state.cupSize = ["12oz", "16oz", "22oz"].includes(cupSize) ? cupSize : (appSettings.defaultCupSize || "16oz");
+      state.cupSize = ["12oz", "16oz", "22oz"].includes(cupSize) ? cupSize : "16oz";
       state.tableNo = normalizeTableNo(tableNo !== null ? tableNo : state.tableNo);
-      state.sweetPct = typeof preserveSweetPct === "number" ? preserveSweetPct : (appSettings.defaultSweetPct ?? 100);
+      state.sweetPct = typeof preserveSweetPct === "number" ? preserveSweetPct : 100;
 
       document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => {
         b.classList.toggle("active", b.dataset.size === state.cupSize);
@@ -4223,7 +4144,6 @@
 
       document.getElementById("modalTitleMain").textContent = getRecipeNamePrimary(recipe);
       document.getElementById("modalPriceTag").textContent = formatPrice(getRecipePrice(recipe));
-      document.getElementById("deleteCustomBtn").style.display = recipe.isCustom ? "inline-flex" : "none";
 
       renderModalVariantContent(recipe, targetMode);
       document.getElementById("recipeModal").classList.add("open");
@@ -4296,21 +4216,63 @@
       }
     }
 
-    function deleteActiveCustomRecipe() {
+    /* ================= ALL SETTINGS LOGIC ================= */
+    function renderSettingsItemLists() {
       const s = t();
-      if (!state.activeRecipeId) return;
-      customRecipes = customRecipes.filter((r) => r.id !== state.activeRecipeId);
-      cartItems = cartItems.filter((o) => o.recipeId !== state.activeRecipeId);
-      orders = orders.filter((o) => o.recipeId !== state.activeRecipeId);
-      saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
-      saveJson(STORAGE_KEYS.CART, cartItems);
-      saveJson(STORAGE_KEYS.ORDERS, orders);
-      document.getElementById("recipeModal").classList.remove("open");
-      renderMenu();
-      showToast(s.toastDeletedRecipe);
+      const all = getAllRecipes();
+
+      // 1. Per-item price inputs
+      const pricesContainer = document.getElementById("itemPricesContainer");
+      pricesContainer.innerHTML = all.map((r) => {
+        const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
+        const currentPrice = getRecipePrice(r).toFixed(2);
+        return `
+          <div class="item-toggle-row">
+            <div class="item-toggle-meta">
+              <span class="drink-tag">${escapeHtml(secLabel)}</span>
+              <span class="setting-label" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(getRecipeNamePrimary(r))}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:5px; flex-shrink:0;">
+              <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">$</span>
+              <input type="number" class="ios-input item-price-input" data-price-id="${r.id}" step="0.25" min="0" value="${currentPrice}" />
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // 2. Per-item On/Off switches (e.g. turn Espresso off and on)
+      const availContainer = document.getElementById("itemAvailabilityContainer");
+      availContainer.innerHTML = all.map((r) => {
+        const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
+        const isEnabled = !isItemDisabled(r.id);
+        return `
+          <div class="item-toggle-row">
+            <div class="item-toggle-meta">
+              <span class="drink-tag">${escapeHtml(secLabel)}</span>
+              <span class="setting-label" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(getRecipeNamePrimary(r))}</span>
+              <span class="item-status-pill ${isEnabled ? "on" : "off"}" data-status-pill="${r.id}">${isEnabled ? s.statusOn : s.statusOff}</span>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" class="item-avail-checkbox" data-avail-id="${r.id}" ${isEnabled ? "checked" : ""} />
+              <span class="ios-slider"></span>
+            </label>
+          </div>
+        `;
+      }).join("");
+
+      availContainer.querySelectorAll(".item-avail-checkbox").forEach((cb) => {
+        cb.addEventListener("change", () => {
+          const id = cb.dataset.availId;
+          const pill = availContainer.querySelector(`[data-status-pill="${id}"]`);
+          if (pill) {
+            pill.textContent = cb.checked ? s.statusOn : s.statusOff;
+            pill.classList.toggle("on", cb.checked);
+            pill.classList.toggle("off", !cb.checked);
+          }
+        });
+      });
     }
 
-    /* ================= ALL SETTINGS LOGIC ================= */
     function openSettingsModal() {
       document.getElementById("setShopNameInput").value = appSettings.shopName || "Coffee & Drinks";
       document.getElementById("setReceiptNoteInput").value = appSettings.receiptFooter || "";
@@ -4321,15 +4283,10 @@
       document.getElementById("setTableCountInput").value = appSettings.tableCount || 5;
       document.getElementById("setTakeawayToggle").checked = appSettings.enableTakeaway !== false;
 
-      document.getElementById("setDefCupSelect").value = appSettings.defaultCupSize || "16oz";
-      document.getElementById("setDefSweetSelect").value = String(appSettings.defaultSweetPct ?? 100);
-      document.getElementById("setMult12Input").value = appSettings.cupMultipliers["12oz"] ?? 0.8;
-      document.getElementById("setMult16Input").value = appSettings.cupMultipliers["16oz"] ?? 1.0;
-      document.getElementById("setMult22Input").value = appSettings.cupMultipliers["22oz"] ?? 1.3;
-
       document.getElementById("setDarkModeToggle").checked = state.theme === "dark";
       document.getElementById("setLangSelect").value = state.lang;
 
+      renderSettingsItemLists();
       document.getElementById("settingsModal").classList.add("open");
     }
 
@@ -4346,11 +4303,22 @@
       const tableCount = Math.min(15, Math.max(1, parseInt(document.getElementById("setTableCountInput").value, 10) || 5));
       const enableTakeaway = document.getElementById("setTakeawayToggle").checked;
 
-      const defaultCupSize = document.getElementById("setDefCupSelect").value || "16oz";
-      const defaultSweetPct = parseInt(document.getElementById("setDefSweetSelect").value, 10);
-      const m12 = Math.max(0.3, parseFloat(document.getElementById("setMult12Input").value) || 0.8);
-      const m16 = Math.max(0.5, parseFloat(document.getElementById("setMult16Input").value) || 1.0);
-      const m22 = Math.max(0.6, parseFloat(document.getElementById("setMult22Input").value) || 1.3);
+      const priceOverrides = {};
+      document.querySelectorAll("#itemPricesContainer .item-price-input").forEach((inp) => {
+        const id = inp.dataset.priceId;
+        const val = parseFloat(inp.value);
+        if (id && !isNaN(val) && val >= 0) {
+          priceOverrides[id] = Number(val.toFixed(2));
+        }
+      });
+
+      const disabledItems = {};
+      document.querySelectorAll("#itemAvailabilityContainer .item-avail-checkbox").forEach((cb) => {
+        const id = cb.dataset.availId;
+        if (id && !cb.checked) {
+          disabledItems[id] = true;
+        }
+      });
 
       const newTheme = document.getElementById("setDarkModeToggle").checked ? "dark" : "light";
       const newLang = document.getElementById("setLangSelect").value === "en" ? "en" : "km";
@@ -4362,19 +4330,12 @@
         khrRate,
         tableCount,
         enableTakeaway,
-        defaultCupSize,
-        defaultSweetPct: isNaN(defaultSweetPct) ? 100 : defaultSweetPct,
-        cupMultipliers: {
-          "12oz": m12,
-          "16oz": m16,
-          "22oz": m22
-        }
+        priceOverrides,
+        disabledItems
       };
 
       state.theme = newTheme;
       state.lang = newLang;
-      state.cupSize = appSettings.defaultCupSize;
-      state.sweetPct = appSettings.defaultSweetPct;
 
       saveJson(STORAGE_KEYS.SETTINGS, appSettings);
       saveJson(STORAGE_KEYS.THEME, state.theme);
@@ -4386,101 +4347,10 @@
       showToast(t().toastSettingsSaved);
     }
 
-    function addCustomDrinkFromSettings() {
-      const s = t();
-      const section = document.getElementById("newDrinkSection").value === "drinks" ? "drinks" : "coffee";
-      const price = Math.max(0.1, parseFloat(document.getElementById("newDrinkPrice").value) || 2.0);
-      const nameKm = document.getElementById("newDrinkNameKm").value.trim();
-      const nameEn = document.getElementById("newDrinkNameEn").value.trim();
-      const tempMode = document.getElementById("newDrinkTemp").value;
-      const baseMl = Math.max(10, parseInt(document.getElementById("newDrinkBaseMl").value, 10) || 160);
-      const desc = document.getElementById("newDrinkDesc").value.trim();
-
-      if (!nameKm && !nameEn) {
-        showToast(s.toastEnterDrinkName);
-        return;
-      }
-
-      const finalKm = nameKm || nameEn;
-      const finalEn = nameEn || nameKm;
-      const finalDescKm = desc || (section === "coffee" ? "រូបមន្តកាហ្វេពិសេសប្រចាំហាង" : "ភេសជ្ជៈស្រស់ស្រាយពិសេសប្រចាំហាង");
-      const finalDescEn = desc || (section === "coffee" ? "Custom house specialty coffee" : "Custom house refreshing drink");
-
-      const hotVariant = {
-        descKm: finalDescKm,
-        descEn: finalDescEn,
-        ingredients: [
-          { nameKm: section === "coffee" ? "Double Espresso Shot" : "ម្សៅ / ទឹកផ្លែឈើមូលដ្ឋាន", nameEn: section === "coffee" ? "Double Espresso Shot" : "Base Concentrate", amount: 36, unit: "ml" },
-          { nameKm: "ទឹកដោះគោស្រស់ / ទឹកក្តៅ", nameEn: "Steamed Milk / Hot Water", amount: baseMl, unit: "ml" },
-          { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true }
-        ],
-        stepsKm: [
-          "រៀបចំគ្រឿងផ្សំតាមរង្វាស់ខាងលើ។",
-          "លាយ និងចាក់ចូលពែងក្តៅ រួចបម្រើភ្លាមៗ។"
-        ],
-        stepsEn: [
-          "Prepare ingredients according to the measurements above.",
-          "Combine into a warm cup and serve immediately."
-        ],
-        tipKm: "កែសម្រួលកម្រិតផ្អែមតាមចំណូលចិត្តភ្ញៀវ។",
-        tipEn: "Adjust sweetness level to customer preference."
-      };
-
-      const iceVariant = {
-        descKm: finalDescKm,
-        descEn: finalDescEn,
-        ingredients: [
-          { nameKm: section === "coffee" ? "Double Espresso Shot" : "ទឹកផ្លែឈើ / សេរ៉ូមូលដ្ឋាន", nameEn: section === "coffee" ? "Double Espresso Shot" : "Fruit Base / Syrup", amount: 36, unit: "ml" },
-          { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់ / ទឹកសូដា", nameEn: "Chilled Milk / Soda Water", amount: baseMl, unit: "ml" },
-          { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
-          { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
-        ],
-        stepsKm: [
-          "ដាក់ទឹកកក 150g ចូលកែវ។",
-          "ចាក់គ្រឿងផ្សំរាវ និងកម្រិតផ្អែមចូល រួចកូរស្រាលៗមុនបម្រើ។"
-        ],
-        stepsEn: [
-          "Fill the glass with 150g ice cubes.",
-          "Pour in liquid base, sweetener, and stir lightly before serving."
-        ],
-        tipKm: "ប្រើទឹកកកពេញកែវល្មម ដើម្បីរក្សារសជាតិដិតល្អ។",
-        tipEn: "Use full ice to keep the drink cold without fast dilution."
-      };
-
-      const variants = {};
-      if (tempMode === "hot" || tempMode === "both") variants.hot = hotVariant;
-      if (tempMode === "ice" || tempMode === "both") variants.ice = iceVariant;
-
-      const newRecipe = {
-        id: "custom_" + Date.now(),
-        section,
-        category: section === "coffee" ? "espresso" : "custom",
-        price,
-        nameKm: finalKm,
-        nameEn: finalEn,
-        descKm: finalDescKm,
-        descEn: finalDescEn,
-        isCustom: true,
-        variants
-      };
-
-      customRecipes.unshift(newRecipe);
-      saveJson(STORAGE_KEYS.CUSTOM_RECIPES, customRecipes);
-
-      document.getElementById("newDrinkNameKm").value = "";
-      document.getElementById("newDrinkNameEn").value = "";
-      document.getElementById("newDrinkDesc").value = "";
-
-      state.filter = section;
-      switchTab("all");
-      showToast(s.toastCustomAdded(state.lang === "en" ? finalEn : finalKm));
-    }
-
     function exportBackupJson() {
       const payload = {
         exportedAt: new Date().toISOString(),
         settings: appSettings,
-        customRecipes,
         orders,
         dailyChartLog
       };
@@ -4500,9 +4370,9 @@
       const s = t();
       if (!confirm(s.toastResetConfirm)) return;
       appSettings = Object.assign({}, DEFAULT_SETTINGS, {
-        cupMultipliers: Object.assign({}, DEFAULT_SETTINGS.cupMultipliers)
+        priceOverrides: {},
+        disabledItems: {}
       });
-      customRecipes = [];
       cartItems = [];
       orders = [];
       dailyChartLog = {};
@@ -4552,7 +4422,6 @@
         document.getElementById("khrRateRow").style.display = e.target.value === "KHR" ? "flex" : "none";
       });
       document.getElementById("saveSettingsBtn").addEventListener("click", saveAllSettings);
-      document.getElementById("addCustomDrinkBtn").addEventListener("click", addCustomDrinkFromSettings);
       document.getElementById("exportDataBtn").addEventListener("click", exportBackupJson);
       document.getElementById("resetAllDataBtn").addEventListener("click", resetAllAppData);
 
@@ -4659,8 +4528,6 @@
           e.target.classList.remove("open");
         }
       });
-
-      document.getElementById("deleteCustomBtn").addEventListener("click", deleteActiveCustomRecipe);
     }
 
     applyStaticTranslations();
