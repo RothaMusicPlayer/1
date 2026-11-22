@@ -10,9 +10,9 @@
   <style>
     :root {
       --bg-canvas: #EBE4DC;
-      --glass-surface: rgba(255, 255, 255, 0.72);
-      --glass-surface-strong: rgba(255, 255, 255, 0.88);
-      --glass-border: rgba(255, 255, 255, 0.9);
+      --glass-surface: rgba(255, 255, 255, 0.74);
+      --glass-surface-strong: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(255, 255, 255, 0.92);
       --text-primary: #1A120E;
       --text-secondary: #5C4B41;
       --text-muted: #8B796E;
@@ -22,7 +22,8 @@
       --accent-ice: #156A94;
       --accent-drink: #1F7A8C;
       --accent-success: #1B8045;
-      --shadow-glass: 0 8px 24px -6px rgba(34, 19, 10, 0.12), inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+      --accent-danger: #C92A3E;
+      --shadow-glass: 0 10px 26px -8px rgba(34, 19, 10, 0.12), inset 0 1px 0 0 rgba(255, 255, 255, 0.88);
       --shadow-float: 0 16px 36px -8px rgba(24, 14, 8, 0.24), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
       --radius-xl: 28px;
       --radius-lg: 22px;
@@ -32,8 +33,8 @@
 
     body.dark-mode {
       --bg-canvas: #14100E;
-      --glass-surface: rgba(34, 27, 23, 0.76);
-      --glass-surface-strong: rgba(30, 24, 20, 0.9);
+      --glass-surface: rgba(34, 27, 23, 0.78);
+      --glass-surface-strong: rgba(30, 24, 20, 0.92);
       --glass-border: rgba(255, 255, 255, 0.12);
       --text-primary: #F6EFE8;
       --text-secondary: #C8B7A8;
@@ -43,7 +44,8 @@
       --accent-hot: #FF6E52;
       --accent-ice: #5BC0EB;
       --accent-success: #4CD986;
-      --shadow-glass: 0 8px 24px -6px rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      --accent-danger: #FF6B7B;
+      --shadow-glass: 0 10px 26px -8px rgba(0, 0, 0, 0.48), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
       --shadow-float: 0 16px 36px -8px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
     }
 
@@ -101,7 +103,7 @@
     .app-container {
       max-width: 1040px;
       margin: 0 auto;
-      padding: 14px 16px calc(var(--nav-height) + 40px);
+      padding: 14px 16px calc(var(--nav-height) + 42px);
     }
 
     .ui-icon {
@@ -118,6 +120,31 @@
     .ui-icon-lg {
       width: 22px;
       height: 22px;
+    }
+
+    /* Locked Mode Banner */
+    .lock-banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      border-radius: 18px;
+      background: rgba(201, 42, 62, 0.12);
+      border: 1px solid rgba(201, 42, 62, 0.28);
+      color: var(--accent-danger);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    body.dark-mode .lock-banner {
+      background: rgba(255, 107, 123, 0.14);
+      border-color: rgba(255, 107, 123, 0.3);
+    }
+
+    body.menu-locked .lock-banner {
+      display: flex;
     }
 
     /* iOS Frosted Glass Top Header */
@@ -184,7 +211,7 @@
 
     .icon-btn {
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.86);
       color: var(--text-primary);
       border-radius: 14px;
       padding: 9px 11px;
@@ -197,7 +224,7 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      transition: transform 0.14s ease, background 0.18s ease, color 0.18s ease;
+      transition: transform 0.14s ease, background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
       white-space: nowrap;
     }
@@ -209,6 +236,12 @@
 
     .icon-btn:active {
       transform: scale(0.95);
+    }
+
+    .icon-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
     }
 
     .icon-btn.primary {
@@ -302,7 +335,7 @@
       font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.18s ease, color 0.18s ease;
+      transition: background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
       white-space: nowrap;
     }
 
@@ -325,6 +358,11 @@
     .temp-pill[data-filter="cart"].active {
       background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
       color: #FFFFFF;
+    }
+
+    body.menu-locked .temp-pill[data-filter="cart"] {
+      opacity: 0.35;
+      pointer-events: none;
     }
 
     /* Summary Strip */
@@ -813,24 +851,30 @@
     }
 
     .chart-card {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 16px;
+      padding: 16px 12px;
+      box-shadow: 0 4px 16px rgba(34, 19, 10, 0.05);
     }
 
     body.dark-mode .chart-card {
-      background: rgba(42, 33, 28, 0.9);
+      background: rgba(42, 33, 28, 0.92);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
     }
 
     .chart-bars-wrap {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 8px;
+      gap: 6px;
       align-items: end;
-      height: 210px;
-      padding: 24px 6px 8px;
+      height: 215px;
+      padding: 22px 2px 10px;
       border-bottom: 1px solid rgba(92, 75, 65, 0.22);
+    }
+
+    body.dark-mode .chart-bars-wrap {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
     }
 
     .chart-col {
@@ -840,10 +884,11 @@
       justify-content: flex-end;
       height: 100%;
       gap: 6px;
+      min-width: 0;
     }
 
     .chart-val-label {
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       font-weight: 800;
       color: var(--text-primary);
       white-space: nowrap;
@@ -851,14 +896,18 @@
 
     .chart-bar-track {
       width: 100%;
-      max-width: 42px;
-      height: 135px;
+      max-width: 38px;
+      height: 132px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      background: rgba(118, 118, 128, 0.1);
+      background: rgba(118, 118, 128, 0.11);
       border-radius: 12px 12px 6px 6px;
       padding: 3px;
+    }
+
+    body.dark-mode .chart-bar-track {
+      background: rgba(255, 255, 255, 0.07);
     }
 
     .chart-bar-fill {
@@ -874,10 +923,29 @@
     }
 
     .chart-day-label {
-      font-size: 0.72rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.25;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .chart-day-wd {
+      font-size: 0.68rem;
       font-weight: 700;
       color: var(--text-secondary);
-      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .chart-day-dt {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--text-muted);
       white-space: nowrap;
     }
 
@@ -919,7 +987,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background 0.18s ease, color 0.18s ease;
+      transition: background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
     }
 
     .nav-item.active {
@@ -931,6 +999,11 @@
     body.dark-mode .nav-item.active {
       background: linear-gradient(180deg, #E0944D 0%, #B86E2C 100%);
       color: #1A110B;
+    }
+
+    body.menu-locked .nav-item[data-tab="order"],
+    body.menu-locked .nav-item[data-tab="calc"] {
+      opacity: 0.36;
     }
 
     /* iOS Frosted Modal / Bottom Sheet */
@@ -964,7 +1037,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
-      background: rgba(252, 248, 243, 0.96);
+      background: rgba(252, 248, 243, 0.97);
       color: var(--text-primary);
       border: 1px solid rgba(255, 255, 255, 0.95);
       border-radius: 30px;
@@ -976,7 +1049,7 @@
     }
 
     body.dark-mode .modal-sheet {
-      background: rgba(32, 25, 21, 0.97);
+      background: rgba(32, 25, 21, 0.98);
       border-color: rgba(255, 255, 255, 0.14);
     }
 
@@ -1093,7 +1166,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.84);
       padding: 12px 14px;
       border-radius: var(--radius-md);
       border: 1px solid var(--glass-border);
@@ -1167,6 +1240,27 @@
     body.dark-mode .table-seg-group .seg-btn.active {
       background: linear-gradient(180deg, #E0944D 0%, #B86E2C 100%);
       color: #1A110B;
+    }
+
+    .recipe-details-block.locked-hidden {
+      display: none !important;
+    }
+
+    .locked-notice-box {
+      display: none;
+      margin: 14px 0;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(201, 42, 62, 0.1);
+      border: 1px solid rgba(201, 42, 62, 0.25);
+      color: var(--accent-danger);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    body.menu-locked .locked-notice-box {
+      display: block;
     }
 
     .section-heading {
@@ -1475,7 +1569,7 @@
 
     /* ================= ALL SETTINGS MODAL STYLES ================= */
     .settings-group {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
       padding: 14px 16px;
@@ -1666,6 +1760,10 @@
       background-color: var(--accent-success);
     }
 
+    .ios-switch input:checked + .ios-slider.danger-active {
+      background-color: var(--accent-danger);
+    }
+
     .ios-switch input:checked + .ios-slider:before {
       transform: translateX(20px);
     }
@@ -1693,6 +1791,8 @@
       transition: all 0.22s ease;
       z-index: 90;
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+      max-width: calc(100% - 28px);
+      text-align: center;
     }
 
     .toast.show {
@@ -1747,6 +1847,12 @@
         </div>
       </div>
     </header>
+
+    <!-- Lock Status Banner -->
+    <div class="lock-banner" id="lockBanner">
+      <span id="lockBannerText">កំពុងបិទការកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders</span>
+      <button type="button" class="icon-btn small-action-btn" id="unlockFromBannerBtn">បើកវិញ</button>
+    </div>
 
     <!-- Summary Strip -->
     <div class="summary-strip" id="summaryStrip">
@@ -1877,50 +1983,56 @@
 
       <p id="modalDesc" style="margin: 12px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;"></p>
 
-      <!-- Cup Size & Table Number Segmented Buttons -->
-      <div class="controls-bar">
-        <div>
-          <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">ទំហំកែវ</div>
-          <div class="seg-group" id="cupSizeGroup">
-            <button type="button" class="seg-btn" data-size="12oz">12oz</button>
-            <button type="button" class="seg-btn active" data-size="16oz">16oz</button>
-            <button type="button" class="seg-btn" data-size="22oz">22oz</button>
+      <div class="locked-notice-box" id="recipeLockedNotice">
+        មុខងារកុម្ម៉ង់ និងមើលគ្រឿងផ្សំត្រូវបានបិទ។ ចូលទៅក្នុង ការកំណត់ → រូបរាង និងគ្រប់គ្រងទិន្នន័យ ដើម្បីបើកវិញ។
+      </div>
+
+      <div class="recipe-details-block" id="recipeDetailsBlock">
+        <!-- Cup Size & Table Number Segmented Buttons -->
+        <div class="controls-bar">
+          <div>
+            <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">ទំហំកែវ</div>
+            <div class="seg-group" id="cupSizeGroup">
+              <button type="button" class="seg-btn" data-size="12oz">12oz</button>
+              <button type="button" class="seg-btn active" data-size="16oz">16oz</button>
+              <button type="button" class="seg-btn" data-size="22oz">22oz</button>
+            </div>
+          </div>
+          <div>
+            <div id="tableNumberLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">លេខតុ</div>
+            <div class="seg-group table-seg-group" id="tableNumberGroup" role="group" aria-label="Table"></div>
           </div>
         </div>
-        <div>
-          <div id="tableNumberLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">លេខតុ</div>
-          <div class="seg-group table-seg-group" id="tableNumberGroup" role="group" aria-label="Table"></div>
+
+        <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់</div>
+
+        <!-- Sweetness Level Percentage Slider -->
+        <div class="sweet-slider-card" id="sweetSliderCard">
+          <div class="sweet-slider-header">
+            <span class="sweet-slider-title" id="sweetSliderTitle">កម្រិតផ្អែម</span>
+            <span class="sweet-pct-badge" id="sweetPctBadge">100%</span>
+          </div>
+          <input type="range" id="sweetRangeInput" class="sweet-range-input" min="0" max="150" step="5" value="100" aria-label="Sweetness" />
+          <div class="sweet-presets-row" id="sweetPresetsRow">
+            <button type="button" class="sweet-preset-btn" data-sweet="0">0%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="25">25%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="50">50%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="75">75%</button>
+            <button type="button" class="sweet-preset-btn active" data-sweet="100">100%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="125">125%</button>
+          </div>
         </div>
-      </div>
 
-      <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់</div>
+        <ul class="ingredients-list" id="modalIngredients"></ul>
 
-      <!-- Sweetness Level Percentage Slider -->
-      <div class="sweet-slider-card" id="sweetSliderCard">
-        <div class="sweet-slider-header">
-          <span class="sweet-slider-title" id="sweetSliderTitle">កម្រិតផ្អែម</span>
-          <span class="sweet-pct-badge" id="sweetPctBadge">100%</span>
+        <div class="section-heading" id="stepsSectionHeading">របៀបធ្វើ</div>
+        <ol class="steps-list" id="modalSteps"></ol>
+
+        <div class="tip-box" id="modalTip"></div>
+
+        <div class="modal-footer-actions" id="modalFooterActions">
+          <button class="icon-btn primary" id="modalAddOrderBtn">+ ដាក់ចូលកន្ត្រក</button>
         </div>
-        <input type="range" id="sweetRangeInput" class="sweet-range-input" min="0" max="150" step="5" value="100" aria-label="Sweetness" />
-        <div class="sweet-presets-row" id="sweetPresetsRow">
-          <button type="button" class="sweet-preset-btn" data-sweet="0">0%</button>
-          <button type="button" class="sweet-preset-btn" data-sweet="25">25%</button>
-          <button type="button" class="sweet-preset-btn" data-sweet="50">50%</button>
-          <button type="button" class="sweet-preset-btn" data-sweet="75">75%</button>
-          <button type="button" class="sweet-preset-btn active" data-sweet="100">100%</button>
-          <button type="button" class="sweet-preset-btn" data-sweet="125">125%</button>
-        </div>
-      </div>
-
-      <ul class="ingredients-list" id="modalIngredients"></ul>
-
-      <div class="section-heading" id="stepsSectionHeading">របៀបធ្វើ</div>
-      <ol class="steps-list" id="modalSteps"></ol>
-
-      <div class="tip-box" id="modalTip"></div>
-
-      <div class="modal-footer-actions" id="modalFooterActions">
-        <button class="icon-btn primary" id="modalAddOrderBtn">+ ដាក់ចូលកន្ត្រក</button>
       </div>
     </div>
   </div>
@@ -2038,9 +2150,19 @@
         </div>
       </div>
 
-      <!-- 5. Appearance, Backup & Reset -->
+      <!-- 5. Appearance & Data Management (Single Lock Switch) -->
       <div class="settings-group">
         <h3 class="settings-group-title" id="setSecSystemTitle">៥. រូបរាង និងគ្រប់គ្រងទិន្នន័យ</h3>
+        <div class="setting-row">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setLockModeLbl">បិទ Menu ហាមកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders</span>
+            <span class="setting-sub" id="setLockModeSub">បើក Switch នេះ នឹងបិទការកុម្ម៉ង់ គ្រឿងផ្សំ ក្រាហ្វ និង All Order ទាំងអស់</span>
+          </div>
+          <label class="ios-switch">
+            <input type="checkbox" id="setLockModeToggle" />
+            <span class="ios-slider danger-active"></span>
+          </label>
+        </div>
         <div class="setting-row">
           <div class="setting-label-wrap">
             <span class="setting-label" id="setDarkModeLbl">មុខងារងងឹត (Dark Mode)</span>
@@ -2083,6 +2205,8 @@
         themeDark: "ងងឹត",
         themeLight: "ភ្លឺ",
         settingsBtn: "ការកំណត់",
+        lockBannerText: "កំពុងបិទការកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders",
+        unlockBannerBtn: "បើកវិញ",
         filterCoffee: () => "Coffee",
         filterDrinks: () => "ភេសជ្ជៈ",
         filterCart: () => "កន្ត្រក",
@@ -2138,6 +2262,7 @@
           if (!tNum || tNum === "takeaway") return "ខ្ចប់";
           return `តុលេខ ${tNum}`;
         },
+        recipeLockedNotice: "មុខងារកុម្ម៉ង់ និងមើលគ្រឿងផ្សំត្រូវបានបិទ។ ចូលទៅក្នុង ការកំណត់ → រូបរាង និងគ្រប់គ្រងទិន្នន័យ ដើម្បីបើកវិញ។",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់",
         sweetSliderTitle: "កម្រិតផ្អែម",
         sweetBadgeText: (pct) => {
@@ -2159,6 +2284,7 @@
         resTodayCupsLabel: "ចំនួនកែវថ្ងៃនេះ",
         resWeekCupsLabel: "សរុប ៧ ថ្ងៃចុងក្រោយ",
         cupUnit: "កែវ",
+        chartWdShort: ["អាទិត្យ", "ចន្ទ", "អង្គារ", "ពុធ", "ព្រហ", "សុក្រ", "សៅរ៍"],
         settingsModalTitle: "All Settings • ការកំណត់ទាំងអស់",
         settingsModalSub: "កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ និងហាង",
         setSecPricesTitle: "១. កំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)",
@@ -2176,12 +2302,17 @@
         setTableCountLbl: "ចំនួនតុសរុប (1–15)",
         setTakeawayLbl: "បើកជម្រើស «ខ្ចប់» (Takeaway)",
         setSecSystemTitle: "៥. រូបរាង និងគ្រប់គ្រងទិន្នន័យ",
+        setLockModeLbl: "បិទ Menu ហាមកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders",
+        setLockModeSub: "បើក Switch នេះ នឹងបិទការកុម្ម៉ង់ គ្រឿងផ្សំ ក្រាហ្វ និង All Order ទាំងអស់",
         setDarkModeLbl: "មុខងារងងឹត (Dark Mode)",
         setLangLbl: "ភាសាកម្មវិធី (Language)",
         exportDataBtn: "ទាញយកទិន្នន័យ (Backup)",
         resetAllDataBtn: "កំណត់ឡើងវិញ (Reset)",
         saveSettingsBtn: "រក្សាទុកការកំណត់ទាំងអស់",
         toastSettingsSaved: "បានរក្សាទុកការកំណត់រួចរាល់",
+        toastModeLocked: "បានបិទការកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders",
+        toastModeUnlocked: "បានបើកមុខងារកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders វិញ",
+        toastFeatureLocked: "មុខងារនេះត្រូវបានបិទក្នុងការកំណត់",
         toastBackupExported: "បានទាញយកឯកសារ Backup រួចរាល់",
         toastResetConfirm: "តើអ្នកពិតជាចង់សម្អាតការកំណត់ កន្ត្រក និងការកុម្ម៉ង់ទាំងអស់មែនទេ?",
         toastResetDone: "បានកំណត់កម្មវិធីឡើងវិញរួចរាល់",
@@ -2202,6 +2333,8 @@
         themeDark: "Dark",
         themeLight: "Light",
         settingsBtn: "Settings",
+        lockBannerText: "Ordering, Ingredients, Chart & Orders are locked",
+        unlockBannerBtn: "Unlock",
         filterCoffee: () => "Coffee",
         filterDrinks: () => "Drinks",
         filterCart: () => "Cart",
@@ -2257,6 +2390,7 @@
           if (!tNum || tNum === "takeaway") return "Takeaway";
           return `Table ${tNum}`;
         },
+        recipeLockedNotice: "Ordering and ingredients are locked. Open Settings → Appearance & Data Management to unlock.",
         ingHeading: "Ingredients & Measurements",
         sweetSliderTitle: "Sweetness Level",
         sweetBadgeText: (pct) => {
@@ -2278,6 +2412,7 @@
         resTodayCupsLabel: "Today Cups",
         resWeekCupsLabel: "Last 7 Days Total",
         cupUnit: "cups",
+        chartWdShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         settingsModalTitle: "All Settings",
         settingsModalSub: "Set per-item prices, enable/disable items (e.g. Espresso), tables & shop",
         setSecPricesTitle: "1. Price Per Coffee & Drink ($)",
@@ -2295,12 +2430,17 @@
         setTableCountLbl: "Total Number of Tables (1–15)",
         setTakeawayLbl: "Enable Takeaway Option",
         setSecSystemTitle: "5. Appearance & Data Management",
+        setLockModeLbl: "Lock Ordering, Ingredients, Chart & Orders",
+        setLockModeSub: "Single toggle to block ordering, ingredients, Daily Chart, and All Order",
         setDarkModeLbl: "Dark Mode",
         setLangLbl: "App Language",
         exportDataBtn: "Export Backup (JSON)",
         resetAllDataBtn: "Factory Reset",
         saveSettingsBtn: "Save All Settings",
         toastSettingsSaved: "All settings saved",
+        toastModeLocked: "Locked ordering, ingredients, Chart & Orders",
+        toastModeUnlocked: "Unlocked ordering, ingredients, Chart & Orders",
+        toastFeatureLocked: "This feature is currently locked in Settings",
         toastBackupExported: "Backup JSON exported",
         toastResetConfirm: "Reset all settings, cart, and orders to default?",
         toastResetDone: "App reset to default settings",
@@ -2323,6 +2463,7 @@
       khrRate: 4000,
       tableCount: 5,
       enableTakeaway: true,
+      lockMenuAndData: false,
       priceOverrides: {},
       disabledItems: {}
     };
@@ -3165,7 +3306,7 @@
     ];
 
     const STORAGE_KEYS = {
-      SETTINGS: "cafe_app_paired_settings_v2",
+      SETTINGS: "cafe_app_paired_settings_v3",
       CART: "cafe_app_paired_cart_v1",
       ORDERS: "cafe_app_paired_orders_v1",
       DAILY_CHART: "cafe_app_paired_daily_chart_v1",
@@ -3220,6 +3361,35 @@
       "honey"
     ];
 
+    function isMenuLocked() {
+      return Boolean(appSettings.lockMenuAndData);
+    }
+
+    function applyLockStateUI() {
+      const locked = isMenuLocked();
+      const s = t();
+      document.body.classList.toggle("menu-locked", locked);
+
+      const bannerText = document.getElementById("lockBannerText");
+      const bannerBtn = document.getElementById("unlockFromBannerBtn");
+      if (bannerText) bannerText.textContent = s.lockBannerText;
+      if (bannerBtn) bannerBtn.textContent = s.unlockBannerBtn;
+
+      const cartPill = document.getElementById("filterCartPill");
+      if (cartPill) {
+        cartPill.disabled = locked;
+      }
+
+      const detailsBlock = document.getElementById("recipeDetailsBlock");
+      const lockedNotice = document.getElementById("recipeLockedNotice");
+      if (detailsBlock) detailsBlock.classList.toggle("locked-hidden", locked);
+      if (lockedNotice) lockedNotice.textContent = s.recipeLockedNotice;
+
+      if (locked && (state.tab === "cart" || state.tab === "order" || state.tab === "calc")) {
+        switchTab("all");
+      }
+    }
+
     function getTableOptions() {
       const count = Math.min(15, Math.max(1, parseInt(appSettings.tableCount, 10) || 5));
       const list = [];
@@ -3239,15 +3409,15 @@
       return `${y}-${m}-${d}`;
     }
 
-    function formatShortDateLabel(dateObj) {
+    function formatChartDayParts(dateObj) {
+      const s = t();
       const d = dateObj.getDate();
       const m = dateObj.getMonth() + 1;
-      if (state.lang === "en") {
-        const wd = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][dateObj.getDay()];
-        return `${wd} ${m}/${d}`;
-      }
-      const wdKm = ["អាទិត្យ", "ចន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍"][dateObj.getDay()];
-      return `${wdKm} ${d}/${m}`;
+      const wd = s.chartWdShort[dateObj.getDay()] || "";
+      return {
+        wd,
+        dt: `${d}/${m}`
+      };
     }
 
     function recordDoneOrderToChart(cups, revenue) {
@@ -3546,11 +3716,15 @@
       document.getElementById("setTableCountLbl").textContent = s.setTableCountLbl;
       document.getElementById("setTakeawayLbl").textContent = s.setTakeawayLbl;
       document.getElementById("setSecSystemTitle").textContent = s.setSecSystemTitle;
+      document.getElementById("setLockModeLbl").textContent = s.setLockModeLbl;
+      document.getElementById("setLockModeSub").textContent = s.setLockModeSub;
       document.getElementById("setDarkModeLbl").textContent = s.setDarkModeLbl;
       document.getElementById("setLangLbl").textContent = s.setLangLbl;
       document.getElementById("exportDataBtn").textContent = s.exportDataBtn;
       document.getElementById("resetAllDataBtn").textContent = s.resetAllDataBtn;
       document.getElementById("saveSettingsBtn").textContent = s.saveSettingsBtn;
+
+      applyLockStateUI();
     }
 
     function toggleLanguage() {
@@ -3587,6 +3761,10 @@
     }
 
     function addToCart(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sweetPct = 100, tableNo = "1", replaceCartItemId = null) {
+      if (isMenuLocked()) {
+        showToast(t().toastFeatureLocked);
+        return;
+      }
       const s = t();
       const recipe = getAllRecipes().find((r) => r.id === recipeId);
       if (!recipe) return;
@@ -3630,6 +3808,10 @@
     }
 
     function confirmCartToOrder() {
+      if (isMenuLocked()) {
+        showToast(t().toastFeatureLocked);
+        return;
+      }
       const s = t();
       if (cartItems.length === 0) {
         showToast(s.toastCartEmpty);
@@ -4039,9 +4221,11 @@
         dt.setDate(dt.getDate() - i);
         const key = getLocalDateKey(dt);
         const entry = dailyChartLog[key] || { cups: 0, revenue: 0 };
+        const dayParts = formatChartDayParts(dt);
         days.push({
           key,
-          label: formatShortDateLabel(dt),
+          wd: dayParts.wd,
+          dt: dayParts.dt,
           cups: entry.cups || 0,
           revenue: entry.revenue || 0
         });
@@ -4066,7 +4250,10 @@
             <div class="chart-bar-track">
               <div class="chart-bar-fill" style="height: ${heightPct}%;"></div>
             </div>
-            <span class="chart-day-label">${escapeHtml(d.label)}</span>
+            <div class="chart-day-label">
+              <span class="chart-day-wd">${escapeHtml(d.wd)}</span>
+              <span class="chart-day-dt">${escapeHtml(d.dt)}</span>
+            </div>
           </div>
         `;
       }).join("");
@@ -4085,6 +4272,10 @@
     }
 
     function switchTab(tabName) {
+      if (isMenuLocked() && (tabName === "cart" || tabName === "order" || tabName === "calc")) {
+        showToast(t().toastFeatureLocked);
+        return;
+      }
       state.tab = tabName;
       document.querySelectorAll(".nav-item").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.tab === tabName);
@@ -4146,6 +4337,7 @@
       document.getElementById("modalPriceTag").textContent = formatPrice(getRecipePrice(recipe));
 
       renderModalVariantContent(recipe, targetMode);
+      applyLockStateUI();
       document.getElementById("recipeModal").classList.add("open");
     }
 
@@ -4221,7 +4413,6 @@
       const s = t();
       const all = getAllRecipes();
 
-      // 1. Per-item price inputs
       const pricesContainer = document.getElementById("itemPricesContainer");
       pricesContainer.innerHTML = all.map((r) => {
         const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
@@ -4240,7 +4431,6 @@
         `;
       }).join("");
 
-      // 2. Per-item On/Off switches (e.g. turn Espresso off and on)
       const availContainer = document.getElementById("itemAvailabilityContainer");
       availContainer.innerHTML = all.map((r) => {
         const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
@@ -4283,6 +4473,7 @@
       document.getElementById("setTableCountInput").value = appSettings.tableCount || 5;
       document.getElementById("setTakeawayToggle").checked = appSettings.enableTakeaway !== false;
 
+      document.getElementById("setLockModeToggle").checked = Boolean(appSettings.lockMenuAndData);
       document.getElementById("setDarkModeToggle").checked = state.theme === "dark";
       document.getElementById("setLangSelect").value = state.lang;
 
@@ -4302,6 +4493,7 @@
 
       const tableCount = Math.min(15, Math.max(1, parseInt(document.getElementById("setTableCountInput").value, 10) || 5));
       const enableTakeaway = document.getElementById("setTakeawayToggle").checked;
+      const lockMenuAndData = document.getElementById("setLockModeToggle").checked;
 
       const priceOverrides = {};
       document.querySelectorAll("#itemPricesContainer .item-price-input").forEach((inp) => {
@@ -4330,6 +4522,7 @@
         khrRate,
         tableCount,
         enableTakeaway,
+        lockMenuAndData,
         priceOverrides,
         disabledItems
       };
@@ -4412,6 +4605,21 @@
       document.getElementById("langToggleBtn").addEventListener("click", toggleLanguage);
       document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
 
+      // Quick toggle lock state directly from the single switch in Settings
+      document.getElementById("setLockModeToggle").addEventListener("change", (e) => {
+        appSettings.lockMenuAndData = e.target.checked;
+        saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+        applyLockStateUI();
+        showToast(appSettings.lockMenuAndData ? t().toastModeLocked : t().toastModeUnlocked);
+      });
+
+      document.getElementById("unlockFromBannerBtn").addEventListener("click", () => {
+        appSettings.lockMenuAndData = false;
+        saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+        applyLockStateUI();
+        showToast(t().toastModeUnlocked);
+      });
+
       // Settings Modal Events
       document.getElementById("openSettingsBtn").addEventListener("click", openSettingsModal);
       document.getElementById("closeSettingsModal").addEventListener("click", closeSettingsModal);
@@ -4465,6 +4673,10 @@
       });
 
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
+        if (isMenuLocked()) {
+          showToast(t().toastFeatureLocked);
+          return;
+        }
         if (!state.activeRecipeId) return;
         const editingId = state.editingCartItemId;
         addToCart(
