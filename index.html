@@ -1740,6 +1740,53 @@
       flex: 1;
     }
 
+    .table-qr-card {
+      margin-top: 6px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(118, 118, 128, 0.07);
+      border: 1px solid rgba(92, 75, 65, 0.14);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .table-qr-canvas-box {
+      width: 164px;
+      height: 164px;
+      padding: 10px;
+      border-radius: 16px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      display: grid;
+      place-items: center;
+    }
+
+    .table-qr-canvas-box canvas,
+    .table-qr-canvas-box img {
+      width: 144px !important;
+      height: 144px !important;
+      display: block;
+    }
+
+    .table-qr-url-text {
+      width: 100%;
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.75);
+      padding: 6px 10px;
+      border-radius: 10px;
+      word-break: break-all;
+      border: 1px solid rgba(92, 75, 65, 0.12);
+    }
+
+    body.dark-mode .table-qr-url-text {
+      background: rgba(28, 22, 18, 0.85);
+    }
+
     .ios-input, .ios-select {
       width: 100%;
       border: 1px solid rgba(92, 75, 65, 0.22);
@@ -2233,7 +2280,7 @@
       </div>
 
       <div class="settings-group">
-        <h3 class="settings-group-title" id="setSecTableTitle">៤. ការកំណត់តុ (Tables)</h3>
+        <h3 class="settings-group-title" id="setSecTableTitle">៤. ការកំណត់តុ &amp; QR ស្កេនម៉ឺនុយតាមតុ</h3>
         <div class="setting-row">
           <div class="setting-label-wrap">
             <span class="setting-label" id="setTableCountLbl">ចំនួនតុសរុប (1–15)</span>
@@ -2248,6 +2295,22 @@
             <input type="checkbox" id="setTakeawayToggle" checked />
             <span class="ios-slider"></span>
           </label>
+        </div>
+
+        <div class="setting-row setting-row-stack">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setTableQrTitleLbl">QR ស្កេនបើក Link ម៉ឺនុយលើទូរស័ព្ទភ្ញៀវតាមតុ</span>
+            <span class="setting-sub" id="setTableQrSub">ជ្រើសតុ ដើម្បីបង្កើត QR Link សម្រាប់ភ្ញៀវស្កេន និងកុម្ម៉ង់ផ្ទាល់តាមតុ</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <select id="setQrTableSelect" class="ios-select" style="width:auto; min-width:130px;"></select>
+            <button type="button" class="icon-btn small-action-btn" id="copyTableQrLinkBtn">ចម្លង Link</button>
+            <button type="button" class="icon-btn small-action-btn primary" id="downloadTableQrBtn">ទាញយក QR</button>
+          </div>
+          <div class="table-qr-card">
+            <div class="table-qr-canvas-box" id="tableMenuQrBox"></div>
+            <div class="table-qr-url-text" id="tableMenuQrUrlText"></div>
+          </div>
         </div>
       </div>
 
@@ -2295,7 +2358,8 @@
 
   <div class="toast" id="toast"></div>
 
-  <!-- Firebase Compat SDK for cross-phone real-time sync -->
+  <!-- QRCode.js & Firebase Compat SDK -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
@@ -2463,9 +2527,13 @@
         setReceiptNoteLbl: "ពាក្យបាតវិក័យប័ត្រ",
         setCurrencyLbl: "រូបិយប័ណ្ណ (Currency)",
         setKhrRateLbl: "អត្រាប្តូរប្រាក់ (1$ = ? ៛)",
-        setSecTableTitle: "៤. ការកំណត់តុ (Tables)",
+        setSecTableTitle: "៤. ការកំណត់តុ & QR ស្កេនម៉ឺនុយតាមតុ",
         setTableCountLbl: "ចំនួនតុសរុប (1–15)",
         setTakeawayLbl: "បើកជម្រើស «ខ្ចប់» (Takeaway)",
+        setTableQrTitleLbl: "QR ស្កេនបើក Link ម៉ឺនុយលើទូរស័ព្ទភ្ញៀវតាមតុ",
+        setTableQrSub: "ជ្រើសតុ ដើម្បីបង្កើត QR Link សម្រាប់ភ្ញៀវស្កេន និងកុម្ម៉ង់ផ្ទាល់តាមតុ",
+        copyTableQrLinkBtn: "ចម្លង Link",
+        downloadTableQrBtn: "ទាញយក QR",
         setSecSystemTitle: "៥. រូបរាង និងគ្រប់គ្រងទិន្នន័យ",
         setLockModeLbl: "បិទ Menu ហាមកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders",
         setLockModeSub: "បើក Switch នេះ នឹងបិទការកុម្ម៉ង់ គ្រឿងផ្សំ ក្រាហ្វ និង All Order ទាំងអស់",
@@ -2477,6 +2545,9 @@
         toastSettingsSaved: "បានរក្សាទុកការកំណត់ និង Sync ទៅគ្រប់ទូរស័ព្ទ",
         toastQrUpdated: "បានបញ្ចូលរូបភាព QR Code រួចរាល់",
         toastQrReset: "បានប្តូរទៅប្រើ QR Code គំរូវិញ",
+        toastTableQrLinkCopied: "បានចម្លង Link តុរួចរាល់",
+        toastTableQrDownloaded: "បានទាញយករូប QR តុរួចរាល់",
+        toastTableSelectedFromQr: (label) => `បានជ្រើស ${label} តាមរយៈ QR`,
         toastModeLocked: "បានបិទការកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders",
         toastModeUnlocked: "បានបើកមុខងារកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders វិញ",
         toastFeatureLocked: "មុខងារនេះត្រូវបានបិទក្នុងការកំណត់",
@@ -2599,9 +2670,13 @@
         setReceiptNoteLbl: "Receipt Footer Message",
         setCurrencyLbl: "Display Currency",
         setKhrRateLbl: "Exchange Rate (1$ = ? ៛)",
-        setSecTableTitle: "4. Table Setup",
+        setSecTableTitle: "4. Table Setup & Table Menu QR",
         setTableCountLbl: "Total Number of Tables (1–15)",
         setTakeawayLbl: "Enable Takeaway Option",
+        setTableQrTitleLbl: "Table Menu QR Code for Guest Phones",
+        setTableQrSub: "Pick a table to generate a QR link that opens the menu pre-set to that table",
+        copyTableQrLinkBtn: "Copy Link",
+        downloadTableQrBtn: "Download QR",
         setSecSystemTitle: "5. Appearance & Data Management",
         setLockModeLbl: "Lock Ordering, Ingredients, Chart & Orders",
         setLockModeSub: "Single toggle to block ordering, ingredients, Daily Chart, and All Order",
@@ -2613,6 +2688,9 @@
         toastSettingsSaved: "All settings saved & synced",
         toastQrUpdated: "Payment QR image updated",
         toastQrReset: "Switched back to default sample QR",
+        toastTableQrLinkCopied: "Table menu link copied",
+        toastTableQrDownloaded: "Table QR image downloaded",
+        toastTableSelectedFromQr: (label) => `Selected ${label} from QR code`,
         toastModeLocked: "Locked ordering, ingredients, Chart & Orders",
         toastModeUnlocked: "Unlocked ordering, ingredients, Chart & Orders",
         toastFeatureLocked: "This feature is currently locked in Settings",
@@ -3499,6 +3577,7 @@
     let pendingDoneOrderId = null;
     let activeReceiptTableNo = null;
     let draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
+    let selectedQrTableNo = "1";
 
     let dbRef = null;
     let cloudConnected = false;
@@ -3540,6 +3619,110 @@
       "vanilla",
       "honey"
     ];
+
+    function getTableMenuUrl(tNum) {
+      const normalized = normalizeTableNo(tNum);
+      const url = new URL(window.location.href);
+      url.searchParams.set("table", normalized);
+      return url.toString();
+    }
+
+    function applyTableFromUrlIfPresent() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const rawTable = params.get("table");
+        if (!rawTable) return;
+        const opts = getTableOptions();
+        if (opts.includes(rawTable)) {
+          state.tableNo = rawTable;
+          selectedQrTableNo = rawTable;
+          syncTableSelectionUI();
+          showToast(t().toastTableSelectedFromQr(t().tableOptionLabel(rawTable)));
+        }
+      } catch {}
+    }
+
+    function renderTableMenuQrGenerator() {
+      const s = t();
+      const opts = getTableOptions();
+      selectedQrTableNo = normalizeTableNo(selectedQrTableNo);
+
+      const selectEl = document.getElementById("setQrTableSelect");
+      if (selectEl) {
+        selectEl.innerHTML = opts.map(
+          (num) => `<option value="${num}" ${num === selectedQrTableNo ? "selected" : ""}>${escapeHtml(s.tableOptionLabel(num))}</option>`
+        ).join("");
+      }
+
+      const targetUrl = getTableMenuUrl(selectedQrTableNo);
+      const urlTextEl = document.getElementById("tableMenuQrUrlText");
+      if (urlTextEl) {
+        urlTextEl.textContent = targetUrl;
+      }
+
+      const boxEl = document.getElementById("tableMenuQrBox");
+      if (!boxEl) return;
+      boxEl.innerHTML = "";
+
+      if (typeof QRCode !== "undefined") {
+        new QRCode(boxEl, {
+          text: targetUrl,
+          width: 144,
+          height: 144,
+          colorDark: "#1A120E",
+          colorLight: "#FFFFFF",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    }
+
+    function downloadTableMenuQr() {
+      const boxEl = document.getElementById("tableMenuQrBox");
+      if (!boxEl) return;
+      const canvas = boxEl.querySelector("canvas");
+      const img = boxEl.querySelector("img");
+      let dataUrl = "";
+
+      if (canvas) {
+        dataUrl = canvas.toDataURL("image/png");
+      } else if (img && img.src) {
+        dataUrl = img.src;
+      }
+      if (!dataUrl) return;
+
+      const link = document.createElement("a");
+      link.download = `menu-qr-table-${selectedQrTableNo}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast(t().toastTableQrDownloaded);
+    }
+
+    function copyTableMenuQrLink() {
+      const url = getTableMenuUrl(selectedQrTableNo);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast(t().toastTableQrLinkCopied);
+        }).catch(() => {
+          fallbackCopyText(url);
+        });
+      } else {
+        fallbackCopyText(url);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+      } catch {}
+      document.body.removeChild(ta);
+      showToast(t().toastTableQrLinkCopied);
+    }
 
     function hasFirebaseConfig() {
       return Boolean(
@@ -3993,6 +4176,10 @@
       document.getElementById("setSecTableTitle").textContent = s.setSecTableTitle;
       document.getElementById("setTableCountLbl").textContent = s.setTableCountLbl;
       document.getElementById("setTakeawayLbl").textContent = s.setTakeawayLbl;
+      document.getElementById("setTableQrTitleLbl").textContent = s.setTableQrTitleLbl;
+      document.getElementById("setTableQrSub").textContent = s.setTableQrSub;
+      document.getElementById("copyTableQrLinkBtn").textContent = s.copyTableQrLinkBtn;
+      document.getElementById("downloadTableQrBtn").textContent = s.downloadTableQrBtn;
       document.getElementById("setSecSystemTitle").textContent = s.setSecSystemTitle;
       document.getElementById("setLockModeLbl").textContent = s.setLockModeLbl;
       document.getElementById("setLockModeSub").textContent = s.setLockModeSub;
@@ -4001,6 +4188,10 @@
       document.getElementById("exportDataBtn").textContent = s.exportDataBtn;
       document.getElementById("resetAllDataBtn").textContent = s.resetAllDataBtn;
       document.getElementById("saveSettingsBtn").textContent = s.saveSettingsBtn;
+
+      if (document.getElementById("settingsModal").classList.contains("open")) {
+        renderTableMenuQrGenerator();
+      }
 
       applyLockStateUI();
     }
@@ -4687,29 +4878,28 @@
         ul.insertAdjacentHTML(
           "beforeend",
           `
-          <li class="ing-item is-sweetener" data-idx="extra-sweet">
+          <li class="ing-item is-sweetener">
             <div class="ing-left">
               <span>${escapeHtml(extraLabel)}</span>
               <span class="ing-sweet-pill">${escapeHtml(s.sweetPillLabel(state.sweetPct))}</span>
             </div>
             <span class="ing-amount">${escapeHtml(extraSweetAmt)}</span>
           </li>
-        `
+          `
         );
       }
     }
 
-    function updateSettingsQrPreview() {
+    function closeRecipeModal() {
+      document.getElementById("recipeModal").classList.remove("open");
+      state.activeRecipeId = null;
+      state.editingCartItemId = null;
+    }
+
+    function renderQrSettingsPreview() {
       const previewEl = document.getElementById("qrSettingsPreview");
-      if (previewEl) {
-        previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
-      }
-      const qrBox = document.getElementById("qrUploadBox");
-      const toggle = document.getElementById("setQrEnabledToggle");
-      if (qrBox && toggle) {
-        qrBox.style.opacity = toggle.checked ? "1" : "0.45";
-        qrBox.style.pointerEvents = toggle.checked ? "auto" : "none";
-      }
+      if (!previewEl) return;
+      previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
     }
 
     function renderSettingsItemLists() {
@@ -4717,74 +4907,67 @@
       const all = getAllRecipes();
 
       const pricesContainer = document.getElementById("itemPricesContainer");
-      pricesContainer.innerHTML = all.map((r) => {
-        const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
-        const currentPrice = getRecipePrice(r).toFixed(2);
-        return `
-          <div class="item-toggle-row">
-            <div class="item-toggle-meta">
-              <span class="drink-tag">${escapeHtml(secLabel)}</span>
-              <span class="setting-label" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(getRecipeNamePrimary(r))}</span>
+      if (pricesContainer) {
+        pricesContainer.innerHTML = all.map((r) => {
+          const currentPrice = getRecipePrice(r);
+          const name = getRecipeNamePrimary(r);
+          const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
+          return `
+            <div class="item-toggle-row">
+              <div class="item-toggle-meta">
+                <span class="drink-tag" style="margin:0;">${escapeHtml(secLabel)}</span>
+                <span style="font-size:0.84rem; font-weight:700;">${escapeHtml(name)}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:5px;">
+                <span style="font-size:0.82rem; font-weight:700; color:var(--text-muted);">$</span>
+                <input type="number" class="ios-input item-price-input" data-price-item-id="${r.id}" step="0.25" min="0" value="${currentPrice.toFixed(2)}" />
+              </div>
             </div>
-            <div style="display:flex; align-items:center; gap:5px; flex-shrink:0;">
-              <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">$</span>
-              <input type="number" class="ios-input item-price-input" data-price-id="${r.id}" step="0.25" min="0" value="${currentPrice}" />
-            </div>
-          </div>
-        `;
-      }).join("");
+          `;
+        }).join("");
+      }
 
-      const availContainer = document.getElementById("itemAvailabilityContainer");
-      availContainer.innerHTML = all.map((r) => {
-        const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
-        const isEnabled = !isItemDisabled(r.id);
-        return `
-          <div class="item-toggle-row">
-            <div class="item-toggle-meta">
-              <span class="drink-tag">${escapeHtml(secLabel)}</span>
-              <span class="setting-label" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(getRecipeNamePrimary(r))}</span>
-              <span class="item-status-pill ${isEnabled ? "on" : "off"}" data-status-pill="${r.id}">${isEnabled ? s.statusOn : s.statusOff}</span>
+      const toggleContainer = document.getElementById("itemAvailabilityContainer");
+      if (toggleContainer) {
+        toggleContainer.innerHTML = all.map((r) => {
+          const disabled = Boolean(appSettings.disabledItems && appSettings.disabledItems[r.id] === true);
+          const isOn = !disabled;
+          const name = getRecipeNamePrimary(r);
+          const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
+          return `
+            <div class="item-toggle-row">
+              <div class="item-toggle-meta">
+                <span class="drink-tag" style="margin:0;">${escapeHtml(secLabel)}</span>
+                <span style="font-size:0.84rem; font-weight:700;">${escapeHtml(name)}</span>
+                <span class="item-status-pill ${isOn ? "on" : "off"}">${isOn ? s.statusOn : s.statusOff}</span>
+              </div>
+              <label class="ios-switch">
+                <input type="checkbox" class="item-avail-toggle" data-avail-item-id="${r.id}" ${isOn ? "checked" : ""} />
+                <span class="ios-slider"></span>
+              </label>
             </div>
-            <label class="ios-switch">
-              <input type="checkbox" class="item-avail-checkbox" data-avail-id="${r.id}" ${isEnabled ? "checked" : ""} />
-              <span class="ios-slider"></span>
-            </label>
-          </div>
-        `;
-      }).join("");
-
-      availContainer.querySelectorAll(".item-avail-checkbox").forEach((cb) => {
-        cb.addEventListener("change", () => {
-          const id = cb.dataset.availId;
-          const pill = availContainer.querySelector(`[data-status-pill="${id}"]`);
-          if (pill) {
-            pill.textContent = cb.checked ? s.statusOn : s.statusOff;
-            pill.classList.toggle("on", cb.checked);
-            pill.classList.toggle("off", !cb.checked);
-          }
-        });
-      });
+          `;
+        }).join("");
+      }
     }
 
     function openSettingsModal() {
-      document.getElementById("setShopNameInput").value = appSettings.shopName || "Coffee & Drinks";
-      document.getElementById("setReceiptNoteInput").value = appSettings.receiptFooter || "";
-      document.getElementById("setQrEnabledToggle").checked = appSettings.qrEnabled !== false;
       draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
-      updateSettingsQrPreview();
-
+      document.getElementById("setShopNameInput").value = appSettings.shopName || "Coffee & Drinks";
+      document.getElementById("setQrEnabledToggle").checked = appSettings.qrEnabled !== false;
+      renderQrSettingsPreview();
+      document.getElementById("setReceiptNoteInput").value = appSettings.receiptFooter || "";
       document.getElementById("setCurrencySelect").value = appSettings.currency || "USD";
       document.getElementById("setKhrRateInput").value = appSettings.khrRate || 4000;
-      document.getElementById("khrRateRow").style.display = appSettings.currency === "KHR" ? "flex" : "none";
-
       document.getElementById("setTableCountInput").value = appSettings.tableCount || 5;
       document.getElementById("setTakeawayToggle").checked = appSettings.enableTakeaway !== false;
-
       document.getElementById("setLockModeToggle").checked = Boolean(appSettings.lockMenuAndData);
       document.getElementById("setDarkModeToggle").checked = state.theme === "dark";
       document.getElementById("setLangSelect").value = state.lang;
 
+      selectedQrTableNo = normalizeTableNo(state.tableNo);
       renderSettingsItemLists();
+      renderTableMenuQrGenerator();
       document.getElementById("settingsModal").classList.add("open");
     }
 
@@ -4792,73 +4975,73 @@
       document.getElementById("settingsModal").classList.remove("open");
     }
 
-    function saveAllSettings() {
-      const shopName = document.getElementById("setShopNameInput").value.trim() || "Coffee & Drinks";
-      const receiptFooter = document.getElementById("setReceiptNoteInput").value.trim();
-      const qrEnabled = document.getElementById("setQrEnabledToggle").checked;
-      const currency = document.getElementById("setCurrencySelect").value === "KHR" ? "KHR" : "USD";
-      const khrRate = Math.max(1000, parseInt(document.getElementById("setKhrRateInput").value, 10) || 4000);
+    function saveSettingsFromModal() {
+      const prevLock = Boolean(appSettings.lockMenuAndData);
+      const nextLock = Boolean(document.getElementById("setLockModeToggle").checked);
 
-      const tableCount = Math.min(15, Math.max(1, parseInt(document.getElementById("setTableCountInput").value, 10) || 5));
-      const enableTakeaway = document.getElementById("setTakeawayToggle").checked;
-      const lockMenuAndData = document.getElementById("setLockModeToggle").checked;
-
-      const priceOverrides = {};
-      document.querySelectorAll("#itemPricesContainer .item-price-input").forEach((inp) => {
-        const id = inp.dataset.priceId;
+      const newPriceOverrides = {};
+      document.querySelectorAll(".item-price-input").forEach((inp) => {
+        const id = inp.dataset.priceItemId;
         const val = parseFloat(inp.value);
         if (id && !isNaN(val) && val >= 0) {
-          priceOverrides[id] = Number(val.toFixed(2));
+          newPriceOverrides[id] = Math.round(val * 100) / 100;
         }
       });
 
-      const disabledItems = {};
-      document.querySelectorAll("#itemAvailabilityContainer .item-avail-checkbox").forEach((cb) => {
-        const id = cb.dataset.availId;
-        if (id && !cb.checked) {
-          disabledItems[id] = true;
+      const newDisabledItems = {};
+      document.querySelectorAll(".item-avail-toggle").forEach((chk) => {
+        const id = chk.dataset.availItemId;
+        if (id && !chk.checked) {
+          newDisabledItems[id] = true;
         }
       });
 
-      const newTheme = document.getElementById("setDarkModeToggle").checked ? "dark" : "light";
-      const newLang = document.getElementById("setLangSelect").value === "en" ? "en" : "km";
+      appSettings.shopName = (document.getElementById("setShopNameInput").value || "").trim() || "Coffee & Drinks";
+      appSettings.qrEnabled = Boolean(document.getElementById("setQrEnabledToggle").checked);
+      appSettings.qrImageDataUrl = draftQrImageDataUrl || "";
+      appSettings.receiptFooter = (document.getElementById("setReceiptNoteInput").value || "").trim();
+      appSettings.currency = document.getElementById("setCurrencySelect").value === "KHR" ? "KHR" : "USD";
+      appSettings.khrRate = Math.max(1000, parseInt(document.getElementById("setKhrRateInput").value, 10) || 4000);
+      appSettings.tableCount = Math.min(15, Math.max(1, parseInt(document.getElementById("setTableCountInput").value, 10) || 5));
+      appSettings.enableTakeaway = Boolean(document.getElementById("setTakeawayToggle").checked);
+      appSettings.lockMenuAndData = nextLock;
+      appSettings.priceOverrides = newPriceOverrides;
+      appSettings.disabledItems = newDisabledItems;
 
-      appSettings = {
-        shopName,
-        receiptFooter,
-        qrEnabled,
-        qrImageDataUrl: draftQrImageDataUrl,
-        currency,
-        khrRate,
-        tableCount,
-        enableTakeaway,
-        lockMenuAndData,
-        priceOverrides,
-        disabledItems
-      };
+      const selectedLang = document.getElementById("setLangSelect").value === "en" ? "en" : "km";
+      const selectedDark = document.getElementById("setDarkModeToggle").checked;
 
-      state.theme = newTheme;
-      state.lang = newLang;
+      state.lang = selectedLang;
+      state.theme = selectedDark ? "dark" : "light";
       state.tableNo = normalizeTableNo(state.tableNo);
 
       saveJson(STORAGE_KEYS.SETTINGS, appSettings);
-      saveJson(STORAGE_KEYS.THEME, state.theme);
       saveJson(STORAGE_KEYS.LANG, state.lang);
-      pushSharedStateToCloud();
+      saveJson(STORAGE_KEYS.THEME, state.theme);
 
+      pushSharedStateToCloud();
       applyStaticTranslations();
-      refreshActiveView();
       closeSettingsModal();
-      showToast(t().toastSettingsSaved);
+      refreshActiveView();
+
+      if (!prevLock && nextLock) {
+        showToast(t().toastModeLocked);
+      } else if (prevLock && !nextLock) {
+        showToast(t().toastModeUnlocked);
+      } else {
+        showToast(t().toastSettingsSaved);
+      }
     }
 
-    function exportBackupJson() {
+    function exportBackupData() {
       const payload = {
         exportedAt: new Date().toISOString(),
         settings: appSettings,
         cart: cartItems,
-        orders: orders,
-        dailyChartLog: dailyChartLog
+        orders,
+        dailyChartLog,
+        lang: state.lang,
+        theme: state.theme
       };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
@@ -4874,21 +5057,42 @@
 
     function resetAllAppData() {
       if (!confirm(t().toastResetConfirm)) return;
+      Object.values(STORAGE_KEYS).forEach((k) => {
+        try {
+          localStorage.removeItem(k);
+        } catch {}
+      });
       appSettings = Object.assign({}, DEFAULT_SETTINGS, { priceOverrides: {}, disabledItems: {} });
       draftQrImageDataUrl = "";
       cartItems = [];
       orders = [];
       dailyChartLog = {};
+      state.lang = "km";
+      state.theme = "light";
       state.tableNo = "1";
-
-      saveJson(STORAGE_KEYS.SETTINGS, appSettings);
-      saveJson(STORAGE_KEYS.CART, cartItems);
+      selectedQrTableNo = "1";
       pushSharedStateToCloud();
-
       applyStaticTranslations();
-      refreshActiveView();
       closeSettingsModal();
+      switchTab("all");
       showToast(t().toastResetDone);
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove("show"), 2300);
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
     }
 
     function bindEvents() {
@@ -4896,8 +5100,8 @@
       document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
       document.getElementById("openSettingsBtn").addEventListener("click", openSettingsModal);
       document.getElementById("closeSettingsModal").addEventListener("click", closeSettingsModal);
-      document.getElementById("saveSettingsBtn").addEventListener("click", saveAllSettings);
-      document.getElementById("exportDataBtn").addEventListener("click", exportBackupJson);
+      document.getElementById("saveSettingsBtn").addEventListener("click", saveSettingsFromModal);
+      document.getElementById("exportDataBtn").addEventListener("click", exportBackupData);
       document.getElementById("resetAllDataBtn").addEventListener("click", resetAllAppData);
 
       document.getElementById("unlockFromBannerBtn").addEventListener("click", () => {
@@ -4908,31 +5112,53 @@
         showToast(t().toastModeUnlocked);
       });
 
-      document.getElementById("setQrEnabledToggle").addEventListener("change", updateSettingsQrPreview);
       document.getElementById("uploadQrBtn").addEventListener("click", () => {
         document.getElementById("setQrFileInput").click();
       });
+
       document.getElementById("setQrFileInput").addEventListener("change", (e) => {
         const file = e.target.files && e.target.files[0];
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (ev) => {
-          draftQrImageDataUrl = String(ev.target.result || "");
-          updateSettingsQrPreview();
-          showToast(t().toastQrUpdated);
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const size = 360;
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, size, size);
+            const scale = Math.min(size / img.width, size / img.height);
+            const drawW = img.width * scale;
+            const drawH = img.height * scale;
+            const dx = (size - drawW) / 2;
+            const dy = (size - drawH) / 2;
+            ctx.drawImage(img, dx, dy, drawW, drawH);
+            draftQrImageDataUrl = canvas.toDataURL("image/png", 0.9);
+            renderQrSettingsPreview();
+            showToast(t().toastQrUpdated);
+          };
+          img.src = ev.target.result;
         };
         reader.readAsDataURL(file);
         e.target.value = "";
       });
+
       document.getElementById("removeQrBtn").addEventListener("click", () => {
         draftQrImageDataUrl = "";
-        updateSettingsQrPreview();
+        renderQrSettingsPreview();
         showToast(t().toastQrReset);
       });
 
-      document.getElementById("setCurrencySelect").addEventListener("change", (e) => {
-        document.getElementById("khrRateRow").style.display = e.target.value === "KHR" ? "flex" : "none";
+      document.getElementById("setQrTableSelect").addEventListener("change", (e) => {
+        selectedQrTableNo = normalizeTableNo(e.target.value);
+        renderTableMenuQrGenerator();
       });
+
+      document.getElementById("copyTableQrLinkBtn").addEventListener("click", copyTableMenuQrLink);
+      document.getElementById("downloadTableQrBtn").addEventListener("click", downloadTableMenuQr);
 
       document.getElementById("settingsModal").addEventListener("click", (e) => {
         if (e.target.id === "settingsModal") closeSettingsModal();
@@ -4940,12 +5166,16 @@
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const filterVal = btn.dataset.filter;
-          if (filterVal === "cart") {
+          const targetFilter = btn.dataset.filter;
+          if (targetFilter === "cart") {
+            if (isMenuLocked()) {
+              showToast(t().toastFeatureLocked);
+              return;
+            }
             switchTab("cart");
             return;
           }
-          state.filter = filterVal;
+          state.filter = targetFilter;
           if (state.tab !== "all") {
             switchTab("all");
           } else {
@@ -4962,6 +5192,18 @@
       document.getElementById("confirmCartToOrderBtn").addEventListener("click", confirmCartToOrder);
       document.getElementById("backToCartBtn").addEventListener("click", () => switchTab("cart"));
 
+      document.getElementById("resetChartBtn").addEventListener("click", () => {
+        dailyChartLog = {};
+        pushSharedStateToCloud();
+        renderDailyChart();
+        showToast(t().toastChartCleared);
+      });
+
+      document.getElementById("closeRecipeModal").addEventListener("click", closeRecipeModal);
+      document.getElementById("recipeModal").addEventListener("click", (e) => {
+        if (e.target.id === "recipeModal") closeRecipeModal();
+      });
+
       document.getElementById("cancelDoneBtn").addEventListener("click", closeConfirmDoneModal);
       document.getElementById("acceptDoneBtn").addEventListener("click", acceptConfirmDone);
       document.getElementById("confirmDoneModal").addEventListener("click", (e) => {
@@ -4975,29 +5217,14 @@
         if (e.target.id === "receiptModal") closeReceiptModal();
       });
 
-      document.getElementById("resetChartBtn").addEventListener("click", () => {
-        dailyChartLog = {};
-        pushSharedStateToCloud();
-        renderDailyChart();
-        showToast(t().toastChartCleared);
-      });
-
-      document.getElementById("closeRecipeModal").addEventListener("click", () => {
-        document.getElementById("recipeModal").classList.remove("open");
-      });
-      document.getElementById("recipeModal").addEventListener("click", (e) => {
-        if (e.target.id === "recipeModal") {
-          document.getElementById("recipeModal").classList.remove("open");
-        }
-      });
-
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          if (btn.disabled) return;
+          if (btn.disabled || !state.activeRecipeId) return;
           const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (!recipe) return;
-          state.activeMode = btn.dataset.mode;
-          renderModalVariantContent(recipe, state.activeMode);
+          const nextMode = btn.dataset.mode;
+          if (!recipe || !supportsTemp(recipe, nextMode)) return;
+          state.activeMode = nextMode;
+          renderModalVariantContent(recipe, nextMode);
         });
       });
 
@@ -5007,18 +5234,21 @@
           btn.classList.add("active");
           state.cupSize = btn.dataset.size;
           const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          const variant = getActiveVariant(recipe, state.activeMode);
-          if (variant) renderModalIngredients(variant);
+          if (recipe) {
+            const variant = getActiveVariant(recipe, state.activeMode);
+            if (variant) renderModalIngredients(variant);
+          }
         });
       });
 
-      const sweetSlider = document.getElementById("sweetRangeInput");
-      sweetSlider.addEventListener("input", (e) => {
-        state.sweetPct = parseInt(e.target.value, 10);
+      document.getElementById("sweetRangeInput").addEventListener("input", (e) => {
+        state.sweetPct = parseInt(e.target.value, 10) || 0;
         updateSweetSliderUI();
         const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-        const variant = getActiveVariant(recipe, state.activeMode);
-        if (variant) renderModalIngredients(variant);
+        if (recipe) {
+          const variant = getActiveVariant(recipe, state.activeMode);
+          if (variant) renderModalIngredients(variant);
+        }
       });
 
       document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
@@ -5026,8 +5256,10 @@
           state.sweetPct = parseInt(btn.dataset.sweet, 10);
           updateSweetSliderUI();
           const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          const variant = getActiveVariant(recipe, state.activeMode);
-          if (variant) renderModalIngredients(variant);
+          if (recipe) {
+            const variant = getActiveVariant(recipe, state.activeMode);
+            if (variant) renderModalIngredients(variant);
+          }
         });
       });
 
@@ -5036,47 +5268,28 @@
           showToast(t().toastFeatureLocked);
           return;
         }
-        if (!state.activeRecipeId) return;
-        const replaceId = state.editingCartItemId;
-        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sweetPct, state.tableNo, replaceId);
-        state.editingCartItemId = null;
-        document.getElementById("recipeModal").classList.remove("open");
+        if (state.activeRecipeId) {
+          const editId = state.editingCartItemId;
+          addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sweetPct, state.tableNo, editId);
+          closeRecipeModal();
+        }
       });
 
-      let startY = 0;
-      const sheet = document.getElementById("recipeSheet");
-      sheet.addEventListener("touchstart", (e) => {
-        if (sheet.scrollTop === 0) startY = e.touches[0].clientY;
-      }, { passive: true });
-      sheet.addEventListener("touchend", (e) => {
-        const endY = e.changedTouches[0].clientY;
-        if (sheet.scrollTop === 0 && endY - startY > 90) {
-          document.getElementById("recipeModal").classList.remove("open");
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeSettingsModal();
+          closeReceiptModal();
+          closeConfirmDoneModal();
+          closeRecipeModal();
         }
-      }, { passive: true });
-    }
-
-    function escapeHtml(str) {
-      return String(str ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
-    function showToast(msg) {
-      const el = document.getElementById("toast");
-      el.textContent = msg;
-      el.classList.add("show");
-      clearTimeout(showToast._timer);
-      showToast._timer = setTimeout(() => el.classList.remove("show"), 2200);
+      });
     }
 
     function init() {
-      state.tableNo = normalizeTableNo(state.tableNo);
-      bindEvents();
       applyStaticTranslations();
+      bindEvents();
       renderMenu();
+      applyTableFromUrlIfPresent();
       initCloudSync();
     }
 
