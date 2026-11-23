@@ -122,7 +122,6 @@
       height: 22px;
     }
 
-    /* Locked Mode Banner */
     .lock-banner {
       display: none;
       align-items: center;
@@ -147,7 +146,6 @@
       display: flex;
     }
 
-    /* iOS Frosted Glass Top Header */
     .top-header {
       position: sticky;
       top: 10px;
@@ -234,15 +232,8 @@
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    .icon-btn:active {
-      transform: scale(0.95);
-    }
-
-    .icon-btn:disabled {
-      opacity: 0.42;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .icon-btn:active { transform: scale(0.95); }
+    .icon-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
 
     .icon-btn.primary {
       background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
@@ -308,7 +299,6 @@
       border-color: rgba(255, 255, 255, 0.35);
     }
 
-    /* Filter / Cart Trigger Row */
     .filter-controls-row {
       display: flex;
       align-items: center;
@@ -371,7 +361,6 @@
       pointer-events: none;
     }
 
-    /* Summary Strip */
     .summary-strip {
       display: flex;
       align-items: center;
@@ -383,11 +372,8 @@
       color: var(--text-secondary);
     }
 
-    .summary-count strong {
-      color: var(--text-primary);
-    }
+    .summary-count strong { color: var(--text-primary); }
 
-    /* Menu Grid */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -395,12 +381,8 @@
     }
 
     @media (max-width: 680px) {
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-      .header-actions .btn-label {
-        display: none;
-      }
+      .menu-grid { grid-template-columns: 1fr; }
+      .header-actions .btn-label { display: none; }
     }
 
     .drink-card {
@@ -425,10 +407,7 @@
       background: var(--glass-surface-strong);
     }
 
-    .drink-info {
-      flex: 1;
-      min-width: 0;
-    }
+    .drink-info { flex: 1; min-width: 0; }
 
     .drink-top-meta {
       display: flex;
@@ -438,10 +417,7 @@
       margin-bottom: 6px;
     }
 
-    .drink-top-meta:empty {
-      display: none;
-      margin-bottom: 0;
-    }
+    .drink-top-meta:empty { display: none; margin-bottom: 0; }
 
     .drink-tag {
       font-size: 0.72rem;
@@ -453,39 +429,13 @@
       white-space: nowrap;
     }
 
-    body.dark-mode .drink-tag {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .drink-tag.temp-hot {
-      background: rgba(201, 59, 32, 0.14);
-      color: var(--accent-hot);
-    }
-
-    .drink-tag.temp-ice {
-      background: rgba(21, 106, 148, 0.14);
-      color: var(--accent-ice);
-    }
-
-    .drink-tag.sweet-tag {
-      background: rgba(198, 125, 59, 0.16);
-      color: #8A4D14;
-    }
-
-    body.dark-mode .drink-tag.sweet-tag {
-      background: rgba(224, 148, 77, 0.2);
-      color: #F4BE88;
-    }
-
-    .drink-tag.table-tag {
-      background: rgba(58, 32, 16, 0.12);
-      color: #3A2010;
-    }
-
-    body.dark-mode .drink-tag.table-tag {
-      background: rgba(255, 255, 255, 0.14);
-      color: #F6EFE8;
-    }
+    body.dark-mode .drink-tag { background: rgba(255, 255, 255, 0.1); }
+    .drink-tag.temp-hot { background: rgba(201, 59, 32, 0.14); color: var(--accent-hot); }
+    .drink-tag.temp-ice { background: rgba(21, 106, 148, 0.14); color: var(--accent-ice); }
+    .drink-tag.sweet-tag { background: rgba(198, 125, 59, 0.16); color: #8A4D14; }
+    body.dark-mode .drink-tag.sweet-tag { background: rgba(224, 148, 77, 0.2); color: #F4BE88; }
+    .drink-tag.table-tag { background: rgba(58, 32, 16, 0.12); color: #3A2010; }
+    body.dark-mode .drink-tag.table-tag { background: rgba(255, 255, 255, 0.14); color: #F6EFE8; }
 
     .drink-name-main {
       margin: 0;
@@ -536,11 +486,8 @@
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
     }
 
-    .price-pill-btn:active {
-      transform: scale(0.94);
-    }
+    .price-pill-btn:active { transform: scale(0.94); }
 
-    /* Cart & All Order Views */
     .order-panel {
       background: var(--glass-surface-strong);
       border: 1px solid var(--glass-border);
@@ -559,22 +506,9 @@
       margin-bottom: 16px;
     }
 
-    .order-header-row h2 {
-      margin: 0 0 4px;
-      font-size: 1.15rem;
-    }
-
-    .order-header-row p.subtitle {
-      margin: 0;
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-    }
-
-    .order-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .order-header-row h2 { margin: 0 0 4px; font-size: 1.15rem; }
+    .order-header-row p.subtitle { margin: 0; font-size: 0.84rem; color: var(--text-secondary); }
+    .order-list { display: flex; flex-direction: column; gap: 10px; }
 
     .order-row-card {
       background: rgba(255, 255, 255, 0.9);
@@ -593,15 +527,8 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     }
 
-    .order-row-card.clean-order-card {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 8px;
-    }
-
-    .order-row-card.clean-order-card.done {
-      opacity: 0.78;
-    }
+    .order-row-card.clean-order-card { flex-direction: column; align-items: stretch; gap: 8px; }
+    .order-row-card.clean-order-card.done { opacity: 0.78; }
 
     .order-card-top {
       display: flex;
@@ -611,12 +538,7 @@
       flex-wrap: wrap;
     }
 
-    .order-card-badges {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
+    .order-card-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 
     .order-card-time {
       font-size: 0.76rem;
@@ -633,16 +555,8 @@
       flex-wrap: wrap;
     }
 
-    .order-card-right-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .order-row-main {
-      min-width: 0;
-      flex: 1;
-    }
+    .order-card-right-meta { display: flex; align-items: center; gap: 8px; }
+    .order-row-main { min-width: 0; flex: 1; }
 
     .order-row-title {
       margin: 0;
@@ -663,32 +577,11 @@
       white-space: nowrap;
     }
 
-    .order-status-badge.pending {
-      background: rgba(198, 125, 59, 0.16);
-      color: #8A4D14;
-    }
-
-    body.dark-mode .order-status-badge.pending {
-      background: rgba(224, 148, 77, 0.22);
-      color: #F4BE88;
-    }
-
-    .order-status-badge.done {
-      background: rgba(27, 128, 69, 0.16);
-      color: #1B8045;
-    }
-
-    body.dark-mode .order-status-badge.done {
-      background: rgba(76, 217, 134, 0.18);
-      color: #6BE89E;
-    }
-
-    .order-row-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
+    .order-status-badge.pending { background: rgba(198, 125, 59, 0.16); color: #8A4D14; }
+    body.dark-mode .order-status-badge.pending { background: rgba(224, 148, 77, 0.22); color: #F4BE88; }
+    .order-status-badge.done { background: rgba(27, 128, 69, 0.16); color: #1B8045; }
+    body.dark-mode .order-status-badge.done { background: rgba(76, 217, 134, 0.18); color: #6BE89E; }
+    .order-row-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
     .order-summary-bar {
       margin-top: 16px;
@@ -705,22 +598,15 @@
       font-weight: 700;
     }
 
-    body.dark-mode .order-summary-bar {
-      background: rgba(45, 36, 30, 0.86);
-    }
+    body.dark-mode .order-summary-bar { background: rgba(45, 36, 30, 0.86); }
 
-    /* Table Bills / Receipts Section */
     .table-bills-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
 
-    @media (max-width: 680px) {
-      .table-bills-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 680px) { .table-bills-grid { grid-template-columns: 1fr; } }
 
     .bill-card {
       background: rgba(255, 255, 255, 0.9);
@@ -734,9 +620,7 @@
       box-shadow: 0 2px 8px rgba(34, 19, 10, 0.04);
     }
 
-    body.dark-mode .bill-card {
-      background: rgba(45, 36, 30, 0.88);
-    }
+    body.dark-mode .bill-card { background: rgba(45, 36, 30, 0.88); }
 
     .bill-card-header {
       display: flex;
@@ -747,17 +631,8 @@
       border-bottom: 1px dashed rgba(92, 75, 65, 0.25);
     }
 
-    .bill-table-name {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--text-primary);
-    }
-
-    .bill-total-amount {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--accent-caramel);
-    }
+    .bill-table-name { font-size: 1rem; font-weight: 800; color: var(--text-primary); }
+    .bill-total-amount { font-size: 1.05rem; font-weight: 800; color: var(--accent-caramel); }
 
     .bill-items-preview {
       display: flex;
@@ -768,12 +643,7 @@
       color: var(--text-secondary);
     }
 
-    .bill-item-line {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
+    .bill-item-line { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 
     .bill-card-footer {
       display: flex;
@@ -783,7 +653,6 @@
       padding-top: 6px;
     }
 
-    /* Empty State */
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
@@ -794,7 +663,6 @@
       box-shadow: var(--shadow-glass);
     }
 
-    /* Daily Chart View */
     .calc-panel {
       background: var(--glass-surface-strong);
       border: 1px solid var(--glass-border);
@@ -803,16 +671,8 @@
       box-shadow: var(--shadow-glass);
     }
 
-    .calc-panel h2 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
-    }
-
-    .calc-panel p.subtitle {
-      margin: 0;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
+    .calc-panel h2 { margin: 0 0 6px; font-size: 1.15rem; }
+    .calc-panel p.subtitle { margin: 0; font-size: 0.85rem; color: var(--text-secondary); }
 
     .calc-results {
       display: grid;
@@ -829,22 +689,9 @@
       text-align: center;
     }
 
-    body.dark-mode .result-box {
-      background: rgba(45, 36, 30, 0.86);
-    }
-
-    .result-box .res-label {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-
-    .result-box .res-val {
-      font-size: 1.65rem;
-      font-weight: 800;
-      color: var(--accent-espresso);
-    }
+    body.dark-mode .result-box { background: rgba(45, 36, 30, 0.86); }
+    .result-box .res-label { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; }
+    .result-box .res-val { font-size: 1.65rem; font-weight: 800; color: var(--accent-espresso); }
 
     .chart-card {
       background: rgba(255, 255, 255, 0.9);
@@ -869,9 +716,7 @@
       border-bottom: 1px solid rgba(92, 75, 65, 0.22);
     }
 
-    body.dark-mode .chart-bars-wrap {
-      border-bottom-color: rgba(255, 255, 255, 0.12);
-    }
+    body.dark-mode .chart-bars-wrap { border-bottom-color: rgba(255, 255, 255, 0.12); }
 
     .chart-col {
       display: flex;
@@ -883,12 +728,7 @@
       min-width: 0;
     }
 
-    .chart-val-label {
-      font-size: 0.76rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      white-space: nowrap;
-    }
+    .chart-val-label { font-size: 0.76rem; font-weight: 800; color: var(--text-primary); white-space: nowrap; }
 
     .chart-bar-track {
       width: 100%;
@@ -902,9 +742,7 @@
       padding: 3px;
     }
 
-    body.dark-mode .chart-bar-track {
-      background: rgba(255, 255, 255, 0.07);
-    }
+    body.dark-mode .chart-bar-track { background: rgba(255, 255, 255, 0.07); }
 
     .chart-bar-fill {
       width: 100%;
@@ -914,9 +752,7 @@
       transition: height 0.28s ease;
     }
 
-    body.dark-mode .chart-bar-fill {
-      background: linear-gradient(180deg, #F4B97E 0%, #C67D3B 100%);
-    }
+    body.dark-mode .chart-bar-fill { background: linear-gradient(180deg, #F4B97E 0%, #C67D3B 100%); }
 
     .chart-day-label {
       display: flex;
@@ -938,14 +774,8 @@
       max-width: 100%;
     }
 
-    .chart-day-dt {
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
+    .chart-day-dt { font-size: 0.68rem; font-weight: 800; color: var(--text-muted); white-space: nowrap; }
 
-    /* iOS Floating Dock Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 14px;
@@ -998,11 +828,8 @@
     }
 
     body.menu-locked .nav-item[data-tab="order"],
-    body.menu-locked .nav-item[data-tab="calc"] {
-      opacity: 0.36;
-    }
+    body.menu-locked .nav-item[data-tab="calc"] { opacity: 0.36; }
 
-    /* iOS Frosted Modal / Bottom Sheet */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1016,15 +843,8 @@
       padding: 12px;
     }
 
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    @media (min-width: 700px) {
-      .modal-backdrop {
-        align-items: center;
-      }
-    }
+    .modal-backdrop.open { display: flex; }
+    @media (min-width: 700px) { .modal-backdrop { align-items: center; } }
 
     .modal-sheet {
       width: 100%;
@@ -1057,19 +877,11 @@
       margin: -4px auto 12px;
     }
 
-    body.dark-mode .drag-handle {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    body.dark-mode .drag-handle { background: rgba(255, 255, 255, 0.2); }
 
     @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(22px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .modal-header {
@@ -1081,9 +893,7 @@
       border-bottom: 1px solid rgba(74, 44, 24, 0.12);
     }
 
-    body.dark-mode .modal-header {
-      border-bottom-color: rgba(255, 255, 255, 0.1);
-    }
+    body.dark-mode .modal-header { border-bottom-color: rgba(255, 255, 255, 0.1); }
 
     .close-modal-btn {
       width: 42px;
@@ -1101,16 +911,9 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
-    body.dark-mode .close-modal-btn {
-      background: rgba(54, 43, 37, 0.95);
-      color: var(--text-primary);
-    }
+    body.dark-mode .close-modal-btn { background: rgba(54, 43, 37, 0.95); color: var(--text-primary); }
+    .close-modal-btn:active { transform: scale(0.92); }
 
-    .close-modal-btn:active {
-      transform: scale(0.92);
-    }
-
-    /* Hot vs Ice Mode Switcher inside Modal */
     .mode-switch-bar {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1153,10 +956,7 @@
       box-shadow: 0 4px 12px rgba(29, 110, 150, 0.28);
     }
 
-    .mode-option-btn.disabled-mode {
-      opacity: 0.36;
-      cursor: not-allowed;
-    }
+    .mode-option-btn.disabled-mode { opacity: 0.36; cursor: not-allowed; }
 
     .controls-bar {
       display: flex;
@@ -1169,9 +969,7 @@
       margin: 12px 0;
     }
 
-    body.dark-mode .controls-bar {
-      background: rgba(45, 36, 30, 0.86);
-    }
+    body.dark-mode .controls-bar { background: rgba(45, 36, 30, 0.86); }
 
     .seg-group {
       display: inline-flex;
@@ -1182,15 +980,8 @@
       gap: 3px;
     }
 
-    body.dark-mode .seg-group {
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .seg-group.table-seg-group {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-    }
+    body.dark-mode .seg-group { background: rgba(255, 255, 255, 0.08); }
+    .seg-group.table-seg-group { display: flex; flex-wrap: wrap; width: 100%; }
 
     .seg-btn {
       border: none;
@@ -1206,16 +997,8 @@
       transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
     }
 
-    .seg-btn:active {
-      transform: scale(0.95);
-    }
-
-    .table-seg-group .seg-btn {
-      min-width: 38px;
-      padding: 7px 11px;
-      text-align: center;
-      flex: 0 0 auto;
-    }
+    .seg-btn:active { transform: scale(0.95); }
+    .table-seg-group .seg-btn { min-width: 38px; padding: 7px 11px; text-align: center; flex: 0 0 auto; }
 
     .seg-btn.active {
       background: #FFFFFF;
@@ -1223,10 +1006,7 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
-    body.dark-mode .seg-btn.active {
-      background: rgba(255, 255, 255, 0.2);
-      color: #FFFFFF;
-    }
+    body.dark-mode .seg-btn.active { background: rgba(255, 255, 255, 0.2); color: #FFFFFF; }
 
     .table-seg-group .seg-btn.active {
       background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
@@ -1238,9 +1018,7 @@
       color: #1A110B;
     }
 
-    .recipe-details-block.locked-hidden {
-      display: none !important;
-    }
+    .recipe-details-block.locked-hidden { display: none !important; }
 
     .locked-notice-box {
       display: none;
@@ -1255,9 +1033,7 @@
       text-align: center;
     }
 
-    body.menu-locked .locked-notice-box {
-      display: block;
-    }
+    body.menu-locked .locked-notice-box { display: block; }
 
     .section-heading {
       font-size: 0.92rem;
@@ -1271,7 +1047,6 @@
       flex-wrap: wrap;
     }
 
-    /* Sweetness Percentage Slider Card */
     .sweet-slider-card {
       background: rgba(255, 255, 255, 0.88);
       border: 1px solid rgba(198, 125, 59, 0.32);
@@ -1281,9 +1056,7 @@
       box-shadow: 0 3px 10px rgba(74, 44, 24, 0.05);
     }
 
-    body.dark-mode .sweet-slider-card {
-      background: rgba(45, 36, 30, 0.88);
-    }
+    body.dark-mode .sweet-slider-card { background: rgba(45, 36, 30, 0.88); }
 
     .sweet-slider-header {
       display: flex;
@@ -1338,25 +1111,7 @@
       transition: transform 0.12s ease;
     }
 
-    .sweet-range-input::-webkit-slider-thumb:active {
-      transform: scale(1.12);
-    }
-
-    .sweet-range-input::-moz-range-thumb {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #FFFFFF;
-      border: 3px solid var(--accent-caramel);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-    }
-
-    .sweet-presets-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 4px;
-    }
+    .sweet-presets-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
 
     .sweet-preset-btn {
       border: 1px solid rgba(74, 44, 24, 0.12);
@@ -1371,29 +1126,11 @@
       transition: all 0.15s ease;
     }
 
-    body.dark-mode .sweet-preset-btn {
-      background: rgba(58, 46, 38, 0.9);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
+    body.dark-mode .sweet-preset-btn { background: rgba(58, 46, 38, 0.9); border-color: rgba(255, 255, 255, 0.1); }
+    .sweet-preset-btn.active { background: var(--accent-espresso); color: #FFFFFF; border-color: var(--accent-espresso); }
+    body.dark-mode .sweet-preset-btn.active { color: #1A110B; }
 
-    .sweet-preset-btn.active {
-      background: var(--accent-espresso);
-      color: #FFFFFF;
-      border-color: var(--accent-espresso);
-    }
-
-    body.dark-mode .sweet-preset-btn.active {
-      color: #1A110B;
-    }
-
-    .ingredients-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .ingredients-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 
     .ing-item {
       background: rgba(255, 255, 255, 0.88);
@@ -1407,26 +1144,15 @@
       gap: 10px;
     }
 
-    body.dark-mode .ing-item {
-      background: rgba(45, 36, 30, 0.88);
-    }
+    body.dark-mode .ing-item { background: rgba(45, 36, 30, 0.88); }
 
     .ing-item.is-sweetener {
       border-color: rgba(198, 125, 59, 0.42);
       background: rgba(255, 250, 242, 0.95);
     }
 
-    body.dark-mode .ing-item.is-sweetener {
-      background: rgba(62, 46, 32, 0.92);
-    }
-
-    .ing-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      font-weight: 500;
-    }
+    body.dark-mode .ing-item.is-sweetener { background: rgba(62, 46, 32, 0.92); }
+    .ing-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 500; }
 
     .ing-sweet-pill {
       font-size: 0.68rem;
@@ -1437,17 +1163,8 @@
       color: #8A4D14;
     }
 
-    body.dark-mode .ing-sweet-pill {
-      background: rgba(224, 148, 77, 0.24);
-      color: #F4BE88;
-    }
-
-    .ing-amount {
-      font-weight: 700;
-      color: var(--accent-caramel);
-      font-size: 0.88rem;
-      white-space: nowrap;
-    }
+    body.dark-mode .ing-sweet-pill { background: rgba(224, 148, 77, 0.24); color: #F4BE88; }
+    .ing-amount { font-weight: 700; color: var(--accent-caramel); font-size: 0.88rem; white-space: nowrap; }
 
     .steps-list {
       margin: 0;
@@ -1470,30 +1187,12 @@
       color: #5A3716;
     }
 
-    body.dark-mode .tip-box {
-      background: rgba(58, 42, 27, 0.88);
-      color: #F3CFA6;
-    }
+    body.dark-mode .tip-box { background: rgba(58, 42, 27, 0.88); color: #F3CFA6; }
+    .modal-footer-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .modal-footer-actions:empty { display: none !important; }
 
-    .modal-footer-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .modal-footer-actions:empty {
-      display: none !important;
-    }
-
-    /* Confirm Order Done Modal & Receipt Modal */
-    .confirm-sheet {
-      max-width: 420px;
-    }
-
-    .confirm-sheet.centered {
-      text-align: center;
-    }
+    .confirm-sheet { max-width: 420px; }
+    .confirm-sheet.centered { text-align: center; }
 
     .confirm-item-preview {
       margin: 14px 0 18px;
@@ -1506,15 +1205,8 @@
       color: var(--text-primary);
     }
 
-    body.dark-mode .confirm-item-preview {
-      background: rgba(48, 38, 32, 0.9);
-    }
-
-    .confirm-actions-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    body.dark-mode .confirm-item-preview { background: rgba(48, 38, 32, 0.9); }
+    .confirm-actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .receipt-box {
       background: rgba(255, 255, 255, 0.92);
@@ -1524,9 +1216,7 @@
       margin: 12px 0 16px;
     }
 
-    body.dark-mode .receipt-box {
-      background: rgba(46, 37, 31, 0.92);
-    }
+    body.dark-mode .receipt-box { background: rgba(46, 37, 31, 0.92); }
 
     .receipt-line {
       display: flex;
@@ -1538,9 +1228,7 @@
       font-size: 0.86rem;
     }
 
-    .receipt-line:last-child {
-      border-bottom: none;
-    }
+    .receipt-line:last-child { border-bottom: none; }
 
     .receipt-total-row {
       display: flex;
@@ -1554,7 +1242,6 @@
       color: var(--accent-caramel);
     }
 
-    /* Payment QR Code Box inside Receipt Modal */
     .receipt-qr-section {
       margin-top: 14px;
       padding: 14px;
@@ -1568,16 +1255,8 @@
       gap: 8px;
     }
 
-    body.dark-mode .receipt-qr-section {
-      background: rgba(34, 27, 22, 0.95);
-      border-color: rgba(224, 148, 77, 0.38);
-    }
-
-    .receipt-qr-title {
-      font-size: 0.84rem;
-      font-weight: 800;
-      color: var(--text-primary);
-    }
+    body.dark-mode .receipt-qr-section { background: rgba(34, 27, 22, 0.95); border-color: rgba(224, 148, 77, 0.38); }
+    .receipt-qr-title { font-size: 0.84rem; font-weight: 800; color: var(--text-primary); }
 
     .receipt-qr-frame {
       width: 188px;
@@ -1593,13 +1272,7 @@
     }
 
     .receipt-qr-frame img,
-    .receipt-qr-frame svg {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 10px;
-      display: block;
-    }
+    .receipt-qr-frame svg { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; display: block; }
 
     .receipt-qr-amount-chip {
       font-size: 0.86rem;
@@ -1619,7 +1292,6 @@
       color: var(--text-muted);
     }
 
-    /* ================= ALL SETTINGS MODAL STYLES ================= */
     .settings-group {
       background: rgba(255, 255, 255, 0.86);
       border: 1px solid var(--glass-border);
@@ -1631,9 +1303,7 @@
       gap: 10px;
     }
 
-    body.dark-mode .settings-group {
-      background: rgba(45, 36, 30, 0.86);
-    }
+    body.dark-mode .settings-group { background: rgba(45, 36, 30, 0.86); }
 
     .settings-group-title {
       font-size: 0.86rem;
@@ -1655,40 +1325,12 @@
       border-top: 1px solid rgba(92, 75, 65, 0.12);
     }
 
-    body.dark-mode .setting-row {
-      border-top-color: rgba(255, 255, 255, 0.08);
-    }
-
-    .setting-row:first-of-type {
-      border-top: none;
-      padding-top: 0;
-    }
-
-    .setting-row-stack {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 6px;
-    }
-
-    .setting-label-wrap {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .setting-label {
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      display: block;
-    }
-
-    .setting-sub {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      display: block;
-      margin-top: 2px;
-      line-height: 1.35;
-    }
+    body.dark-mode .setting-row { border-top-color: rgba(255, 255, 255, 0.08); }
+    .setting-row:first-of-type { border-top: none; padding-top: 0; }
+    .setting-row-stack { flex-direction: column; align-items: stretch; gap: 6px; }
+    .setting-label-wrap { min-width: 0; flex: 1; }
+    .setting-label { font-size: 0.86rem; font-weight: 700; color: var(--text-primary); display: block; }
+    .setting-sub { font-size: 0.74rem; color: var(--text-muted); display: block; margin-top: 2px; line-height: 1.35; }
 
     .qr-upload-box {
       display: flex;
@@ -1714,19 +1356,8 @@
     }
 
     .qr-settings-preview img,
-    .qr-settings-preview svg {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .qr-upload-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      flex: 1;
-    }
+    .qr-settings-preview svg { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+    .qr-upload-actions { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
 
     .ios-input, .ios-select {
       width: 100%;
@@ -1742,23 +1373,10 @@
     }
 
     body.dark-mode .ios-input,
-    body.dark-mode .ios-select {
-      background: rgba(28, 22, 18, 0.9);
-      border-color: rgba(255, 255, 255, 0.14);
-    }
+    body.dark-mode .ios-select { background: rgba(28, 22, 18, 0.9); border-color: rgba(255, 255, 255, 0.14); }
+    .ios-input:focus, .ios-select:focus { border-color: var(--accent-caramel); }
 
-    .ios-input:focus, .ios-select:focus {
-      border-color: var(--accent-caramel);
-    }
-
-    .item-price-input {
-      width: 86px;
-      text-align: right;
-      padding: 7px 10px;
-      border-radius: 11px;
-      font-size: 0.84rem;
-      font-weight: 800;
-    }
+    .item-price-input { width: 86px; text-align: right; padding: 7px 10px; border-radius: 11px; font-size: 0.84rem; font-weight: 800; }
 
     .item-toggle-row {
       display: flex;
@@ -1769,60 +1387,17 @@
       border-top: 1px solid rgba(92, 75, 65, 0.1);
     }
 
-    body.dark-mode .item-toggle-row {
-      border-top-color: rgba(255, 255, 255, 0.07);
-    }
+    body.dark-mode .item-toggle-row { border-top-color: rgba(255, 255, 255, 0.07); }
+    .item-toggle-row:first-child { border-top: none; padding-top: 2px; }
+    .item-toggle-meta { display: flex; align-items: center; gap: 8px; min-width: 0; }
 
-    .item-toggle-row:first-child {
-      border-top: none;
-      padding-top: 2px;
-    }
+    .item-status-pill { font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+    .item-status-pill.on { background: rgba(27, 128, 69, 0.14); color: var(--accent-success); }
+    .item-status-pill.off { background: rgba(184, 29, 55, 0.14); color: #B81D37; }
+    .settings-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
-    .item-toggle-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-width: 0;
-    }
-
-    .item-status-pill {
-      font-size: 0.68rem;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-
-    .item-status-pill.on {
-      background: rgba(27, 128, 69, 0.14);
-      color: var(--accent-success);
-    }
-
-    .item-status-pill.off {
-      background: rgba(184, 29, 55, 0.14);
-      color: #B81D37;
-    }
-
-    .settings-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    /* iOS Switch */
-    .ios-switch {
-      position: relative;
-      display: inline-block;
-      width: 48px;
-      height: 28px;
-      flex-shrink: 0;
-    }
-
-    .ios-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+    .ios-switch { position: relative; display: inline-block; width: 48px; height: 28px; flex-shrink: 0; }
+    .ios-switch input { opacity: 0; width: 0; height: 0; }
 
     .ios-slider {
       position: absolute;
@@ -1846,24 +1421,11 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    .ios-switch input:checked + .ios-slider {
-      background-color: var(--accent-success);
-    }
+    .ios-switch input:checked + .ios-slider { background-color: var(--accent-success); }
+    .ios-switch input:checked + .ios-slider.danger-active { background-color: var(--accent-danger); }
+    .ios-switch input:checked + .ios-slider:before { transform: translateX(20px); }
+    .settings-danger-btn { color: #B81D37 !important; border-color: rgba(184, 29, 55, 0.28) !important; }
 
-    .ios-switch input:checked + .ios-slider.danger-active {
-      background-color: var(--accent-danger);
-    }
-
-    .ios-switch input:checked + .ios-slider:before {
-      transform: translateX(20px);
-    }
-
-    .settings-danger-btn {
-      color: #B81D37 !important;
-      border-color: rgba(184, 29, 55, 0.28) !important;
-    }
-
-    /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 88px;
@@ -1885,15 +1447,11 @@
       text-align: center;
     }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
   <div class="app-container" id="appContainer">
-    <!-- Top Header -->
     <header class="top-header">
       <div class="header-top-row">
         <div class="brand-title">
@@ -1938,23 +1496,19 @@
       </div>
     </header>
 
-    <!-- Lock Status Banner -->
     <div class="lock-banner" id="lockBanner">
       <span id="lockBannerText">កំពុងបិទការកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders</span>
       <button type="button" class="icon-btn small-action-btn" id="unlockFromBannerBtn">បើកវិញ</button>
     </div>
 
-    <!-- Summary Strip -->
     <div class="summary-strip" id="summaryStrip">
       <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong>0</strong> មុខ (សរុប <span>0</span> មុខ)</div>
     </div>
 
-    <!-- Main View: Menu Grid -->
     <main id="menuView">
       <div class="menu-grid" id="menuGrid"></div>
     </main>
 
-    <!-- Cart View -->
     <section id="cartView" style="display: none;">
       <div class="order-panel">
         <div class="order-header-row">
@@ -1973,7 +1527,6 @@
       </div>
     </section>
 
-    <!-- All Order + Table Receipts View -->
     <section id="orderView" style="display: none;">
       <div class="order-panel">
         <div class="order-header-row">
@@ -1991,7 +1544,6 @@
         </div>
       </div>
 
-      <!-- Table Bills / Receipts Section -->
       <div class="order-panel">
         <div class="order-header-row" style="margin-bottom: 12px;">
           <div>
@@ -2003,7 +1555,6 @@
       </div>
     </section>
 
-    <!-- Daily Cups Chart View -->
     <section id="calculatorView" style="display: none;">
       <div class="calc-panel">
         <div class="order-header-row">
@@ -2028,7 +1579,6 @@
     </section>
   </div>
 
-  <!-- Bottom Navigation -->
   <nav class="bottom-nav" aria-label="Bottom Navigation">
     <button class="nav-item active" id="navAll" data-tab="all">
       <svg class="ui-icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
@@ -2044,7 +1594,6 @@
     </button>
   </nav>
 
-  <!-- Recipe Detail Modal -->
   <div class="modal-backdrop" id="recipeModal" role="dialog" aria-modal="true">
     <div class="modal-sheet" id="recipeSheet">
       <div class="drag-handle"></div>
@@ -2059,7 +1608,6 @@
         <button class="close-modal-btn" id="closeRecipeModal" aria-label="Close">X</button>
       </div>
 
-      <!-- Hot / Ice Mode Switcher -->
       <div class="mode-switch-bar" id="modalModeSwitchBar" role="group" aria-label="Temperature">
         <button type="button" class="mode-option-btn" data-mode="hot" id="modeHotBtn">ក្តៅ</button>
         <button type="button" class="mode-option-btn" data-mode="ice" id="modeIceBtn">ត្រជាក់</button>
@@ -2072,7 +1620,6 @@
       </div>
 
       <div class="recipe-details-block" id="recipeDetailsBlock">
-        <!-- Cup Size & Table Number Segmented Buttons -->
         <div class="controls-bar">
           <div>
             <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">ទំហំកែវ</div>
@@ -2090,7 +1637,6 @@
 
         <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់</div>
 
-        <!-- Sweetness Level Percentage Slider -->
         <div class="sweet-slider-card" id="sweetSliderCard">
           <div class="sweet-slider-header">
             <span class="sweet-slider-title" id="sweetSliderTitle">កម្រិតផ្អែម</span>
@@ -2121,7 +1667,6 @@
     </div>
   </div>
 
-  <!-- Confirm Order Done Modal -->
   <div class="modal-backdrop" id="confirmDoneModal" role="dialog" aria-modal="true">
     <div class="modal-sheet confirm-sheet centered">
       <div class="drag-handle"></div>
@@ -2135,7 +1680,6 @@
     </div>
   </div>
 
-  <!-- Table Receipt Modal with Payment QR -->
   <div class="modal-backdrop" id="receiptModal" role="dialog" aria-modal="true">
     <div class="modal-sheet confirm-sheet">
       <div class="drag-handle"></div>
@@ -2156,7 +1700,6 @@
     </div>
   </div>
 
-  <!-- ALL SETTINGS MODAL -->
   <div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true">
     <div class="modal-sheet">
       <div class="drag-handle"></div>
@@ -2168,21 +1711,18 @@
         <button class="close-modal-btn" id="closeSettingsModal" aria-label="Close">X</button>
       </div>
 
-      <!-- 1. Set Price Per Coffee & Drink -->
       <div class="settings-group">
         <h3 class="settings-group-title" id="setSecPricesTitle">១. ការកំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)</h3>
         <span class="setting-sub" id="setPricesSub">កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក</span>
         <div id="itemPricesContainer"></div>
       </div>
 
-      <!-- 2. Enable / Disable Individual Items -->
       <div class="settings-group">
         <h3 class="settings-group-title" id="setSecToggleItemsTitle">២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)</h3>
         <span class="setting-sub" id="setToggleItemsSub">បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល</span>
         <div id="itemAvailabilityContainer"></div>
       </div>
 
-      <!-- 3. Shop, Payment QR & Currency Settings -->
       <div class="settings-group">
         <h3 class="settings-group-title" id="setSecShopTitle">៣. ព័ត៌មានហាង QR គិតលុយ និងរូបិយប័ណ្ណ</h3>
         <div class="setting-row setting-row-stack">
@@ -2192,7 +1732,6 @@
           <input type="text" id="setShopNameInput" class="ios-input" placeholder="Coffee & Drinks" />
         </div>
 
-        <!-- Payment QR Upload / Toggle -->
         <div class="setting-row setting-row-stack">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
             <div class="setting-label-wrap">
@@ -2238,7 +1777,6 @@
         </div>
       </div>
 
-      <!-- 4. Table Management Settings -->
       <div class="settings-group">
         <h3 class="settings-group-title" id="setSecTableTitle">៤. ការកំណត់តុ (Tables)</h3>
         <div class="setting-row">
@@ -2258,7 +1796,6 @@
         </div>
       </div>
 
-      <!-- 5. Appearance & Data Management (Single Lock Switch) -->
       <div class="settings-group">
         <h3 class="settings-group-title" id="setSecSystemTitle">៥. រូបរាង និងគ្រប់គ្រងទិន្នន័យ</h3>
         <div class="setting-row">
@@ -2301,7 +1838,6 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
   <script>
@@ -2409,14 +1945,8 @@
         closeBtnLabel: "បិទ",
         cupSizeLabel: "ទំហំកែវ",
         tableNumberLabel: "លេខតុ",
-        tableChipLabel: (tNum) => {
-          if (!tNum || tNum === "takeaway") return "ខ្ចប់";
-          return `${tNum}`;
-        },
-        tableOptionLabel: (tNum) => {
-          if (!tNum || tNum === "takeaway") return "ខ្ចប់";
-          return `តុលេខ ${tNum}`;
-        },
+        tableChipLabel: (tNum) => (!tNum || tNum === "takeaway" ? "ខ្ចប់" : `${tNum}`),
+        tableOptionLabel: (tNum) => (!tNum || tNum === "takeaway" ? "ខ្ចប់" : `តុលេខ ${tNum}`),
         recipeLockedNotice: "មុខងារកុម្ម៉ង់ និងមើលគ្រឿងផ្សំត្រូវបានបិទ។ ចូលទៅក្នុង ការកំណត់ → រូបរាង និងគ្រប់គ្រងទិន្នន័យ ដើម្បីបើកវិញ។",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់",
         sweetSliderTitle: "កម្រិតផ្អែម",
@@ -2543,14 +2073,8 @@
         closeBtnLabel: "Close",
         cupSizeLabel: "Cup Size",
         tableNumberLabel: "Table",
-        tableChipLabel: (tNum) => {
-          if (!tNum || tNum === "takeaway") return "Takeaway";
-          return `${tNum}`;
-        },
-        tableOptionLabel: (tNum) => {
-          if (!tNum || tNum === "takeaway") return "Takeaway";
-          return `Table ${tNum}`;
-        },
+        tableChipLabel: (tNum) => (!tNum || tNum === "takeaway" ? "Takeaway" : `${tNum}`),
+        tableOptionLabel: (tNum) => (!tNum || tNum === "takeaway" ? "Takeaway" : `Table ${tNum}`),
         recipeLockedNotice: "Ordering and ingredients are locked. Open Settings → Appearance & Data Management to unlock.",
         ingHeading: "Ingredients & Measurements",
         sweetSliderTitle: "Sweetness Level",
@@ -3169,8 +2693,6 @@
           }
         }
       },
-
-      /* ===================== DRINKS ===================== */
       {
         id: "drink-strawberry-soda",
         section: "drinks",
@@ -3506,28 +3028,11 @@
       sweetPct: 100
     };
 
-    const CUP_SIZE_MULTIPLIER = {
-      "12oz": 0.8,
-      "16oz": 1.0,
-      "22oz": 1.3
-    };
-
+    const CUP_SIZE_MULTIPLIER = { "12oz": 0.8, "16oz": 1.0, "22oz": 1.3 };
     const SWEETENER_KEYWORDS = [
-      "ផ្អែម",
-      "ទឹកដោះគោខាប់ផ្អែម",
-      "សេរ៉ូ",
-      "សូកូឡា",
-      "ទឹកឃ្មុំ",
-      "puree",
-      "jam",
-      "sweet",
-      "syrup",
-      "condensed milk",
-      "sweetened condensed",
-      "chocolate",
-      "caramel",
-      "vanilla",
-      "honey"
+      "ផ្អែម", "ទឹកដោះគោខាប់ផ្អែម", "សេរ៉ូ", "សូកូឡា", "ទឹកឃ្មុំ",
+      "puree", "jam", "sweet", "syrup", "condensed milk", "sweetened condensed",
+      "chocolate", "caramel", "vanilla", "honey"
     ];
 
     function renderQrGraphicHtml(dataUrl) {
@@ -3537,9 +3042,7 @@
       return DEFAULT_QR_SVG;
     }
 
-    function isMenuLocked() {
-      return Boolean(appSettings.lockMenuAndData);
-    }
+    function isMenuLocked() { return Boolean(appSettings.lockMenuAndData); }
 
     function applyLockStateUI() {
       const locked = isMenuLocked();
@@ -3552,9 +3055,7 @@
       if (bannerBtn) bannerBtn.textContent = s.unlockBannerBtn;
 
       const cartPill = document.getElementById("filterCartPill");
-      if (cartPill) {
-        cartPill.disabled = locked;
-      }
+      if (cartPill) cartPill.disabled = locked;
 
       const detailsBlock = document.getElementById("recipeDetailsBlock");
       const lockedNotice = document.getElementById("recipeLockedNotice");
@@ -3569,12 +3070,8 @@
     function getTableOptions() {
       const count = Math.min(15, Math.max(1, parseInt(appSettings.tableCount, 10) || 5));
       const list = [];
-      for (let i = 1; i <= count; i++) {
-        list.push(String(i));
-      }
-      if (appSettings.enableTakeaway !== false) {
-        list.push("takeaway");
-      }
+      for (let i = 1; i <= count; i++) list.push(String(i));
+      if (appSettings.enableTakeaway !== false) list.push("takeaway");
       return list;
     }
 
@@ -3590,10 +3087,7 @@
       const d = dateObj.getDate();
       const m = dateObj.getMonth() + 1;
       const wd = s.chartWdShort[dateObj.getDay()] || "";
-      return {
-        wd,
-        dt: `${d}/${m}`
-      };
+      return { wd, dt: `${d}/${m}` };
     }
 
     function recordPaidCupsToChart(cups) {
@@ -3601,17 +3095,14 @@
       if (added <= 0) return;
       const key = getLocalDateKey();
       const current = dailyChartLog[key] || { cups: 0 };
-      dailyChartLog[key] = {
-        cups: (current.cups || 0) + added
-      };
+      dailyChartLog[key] = { cups: (current.cups || 0) + added };
       saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
     }
 
     function normalizeTableNo(val) {
       const opts = getTableOptions();
       const str = String(val);
-      if (opts.includes(str)) return str;
-      return opts[0] || "1";
+      return opts.includes(str) ? str : (opts[0] || "1");
     }
 
     function isItemDisabled(recipeId) {
@@ -3645,9 +3136,7 @@
       return SWEETENER_KEYWORDS.some((kw) => text.includes(kw));
     }
 
-    function t() {
-      return UI_STRINGS[state.lang] || UI_STRINGS.km;
-    }
+    function t() { return UI_STRINGS[state.lang] || UI_STRINGS.km; }
 
     function loadJson(key, fallback) {
       try {
@@ -3659,32 +3148,18 @@
     }
 
     function saveJson(key, value) {
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-      } catch {}
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
     }
 
     function getRecipeSection(r) {
       if (r && r.section) return r.section;
-      if (r && ["drinks", "soda", "smoothie", "milk-drink", "tea", "juice"].includes(r.category)) {
-        return "drinks";
-      }
+      if (r && ["drinks", "soda", "smoothie", "milk-drink", "tea", "juice"].includes(r.category)) return "drinks";
       return "coffee";
     }
 
-    function getAllRecipes() {
-      return DEFAULT_RECIPES;
-    }
-
-    function supportsTemp(recipe, temp) {
-      return Boolean(recipe && recipe.variants && recipe.variants[temp]);
-    }
-
-    function getDefaultVariantKey(recipe) {
-      if (supportsTemp(recipe, "ice")) return "ice";
-      return "hot";
-    }
-
+    function getAllRecipes() { return DEFAULT_RECIPES; }
+    function supportsTemp(recipe, temp) { return Boolean(recipe && recipe.variants && recipe.variants[temp]); }
+    function getDefaultVariantKey(recipe) { return supportsTemp(recipe, "ice") ? "ice" : "hot"; }
     function getActiveVariant(recipe, mode = state.activeMode) {
       if (!recipe || !recipe.variants) return null;
       return recipe.variants[mode] || recipe.variants.ice || recipe.variants.hot;
@@ -3693,25 +3168,16 @@
     function getCardBadgeInfo(recipe) {
       const hasHot = supportsTemp(recipe, "hot");
       const hasIce = supportsTemp(recipe, "ice");
-      if (hasHot && hasIce) {
-        return { cls: "temp-both", label: t().bothFull };
-      }
-      if (hasHot) {
-        return { cls: "temp-hot", label: t().hotFull };
-      }
+      if (hasHot && hasIce) return { cls: "temp-both", label: t().bothFull };
+      if (hasHot) return { cls: "temp-hot", label: t().hotFull };
       return { cls: "temp-ice", label: t().iceFull };
     }
 
-    function getRecipeNamePrimary(r) {
-      return state.lang === "en" ? (r.nameEn || r.nameKm) : (r.nameKm || r.nameEn);
-    }
-
+    function getRecipeNamePrimary(r) { return state.lang === "en" ? (r.nameEn || r.nameKm) : (r.nameKm || r.nameEn); }
     function getRecipeDesc(r, variant) {
       const desc = state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
       if (desc) return desc;
-      if (variant) {
-        return state.lang === "en" ? (variant.descEn || variant.descKm || "") : (variant.descKm || variant.descEn || "");
-      }
+      if (variant) return state.lang === "en" ? (variant.descEn || variant.descKm || "") : (variant.descKm || variant.descEn || "");
       return "";
     }
 
@@ -3731,9 +3197,7 @@
       return state.lang === "en" ? (ing.nameEn || ing.nameKm || ing.name || "") : (ing.nameKm || ing.nameEn || ing.name || "");
     }
 
-    function getTotalCartCups() {
-      return cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
-    }
+    function getTotalCartCups() { return cartItems.reduce((sum, item) => sum + (item.qty || 1), 0); }
 
     function getTotalCartPrice() {
       const all = getAllRecipes();
@@ -3749,9 +3213,7 @@
       const s = t();
       const labelEl = document.getElementById("themeBtnLabel");
       const iconSvg = document.getElementById("themeIconSvg");
-      if (labelEl) {
-        labelEl.textContent = isDark ? s.themeLight : s.themeDark;
-      }
+      if (labelEl) labelEl.textContent = isDark ? s.themeLight : s.themeDark;
       if (iconSvg) {
         if (isDark) {
           iconSvg.innerHTML = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
@@ -3775,8 +3237,7 @@
       state.tableNo = activeTable;
 
       const buttonsHtml = opts.map(
-        (num) =>
-          `<button type="button" class="seg-btn ${num === activeTable ? "active" : ""}" data-table="${num}">${escapeHtml(s.tableChipLabel(num))}</button>`
+        (num) => `<button type="button" class="seg-btn ${num === activeTable ? "active" : ""}" data-table="${num}">${escapeHtml(s.tableChipLabel(num))}</button>`
       ).join("");
 
       const modalGroup = document.getElementById("tableNumberGroup");
@@ -3811,9 +3272,7 @@
         const fillPct = Math.min(100, Math.max(0, (pct / 150) * 100));
         slider.style.background = `linear-gradient(90deg, #C67D3B 0%, #C67D3B ${fillPct}%, rgba(118, 118, 128, 0.2) ${fillPct}%, rgba(118, 118, 128, 0.2) 100%)`;
       }
-      if (badge) {
-        badge.textContent = s.sweetBadgeText(pct);
-      }
+      if (badge) badge.textContent = s.sweetBadgeText(pct);
 
       document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
         btn.classList.toggle("active", parseInt(btn.dataset.sweet, 10) === pct);
@@ -3876,7 +3335,6 @@
       document.getElementById("resetChartBtn").textContent = s.resetChartBtn;
       document.getElementById("resTodayCupsLabel").textContent = s.resTodayCupsLabel;
 
-      // Settings Modal Labels
       document.getElementById("settingsModalTitle").textContent = s.settingsModalTitle;
       document.getElementById("settingsModalSub").textContent = s.settingsModalSub;
       document.getElementById("setSecPricesTitle").textContent = s.setSecPricesTitle;
@@ -3981,6 +3439,7 @@
       }
 
       saveJson(STORAGE_KEYS.CART, cartItems);
+      pushStateToServer();
       if (state.tab === "cart") renderCart();
       const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
       const tableLabel = s.tableOptionLabel(resolvedTable);
@@ -4033,6 +3492,7 @@
       cartItems = [];
       saveJson(STORAGE_KEYS.CART, cartItems);
       saveJson(STORAGE_KEYS.ORDERS, orders);
+      pushStateToServer();
       showToast(s.toastConfirmedOrder(addedCups));
       switchTab("order");
     }
@@ -4063,6 +3523,7 @@
         const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
 
         saveJson(STORAGE_KEYS.ORDERS, orders);
+        pushStateToServer();
         renderOrders();
         showToast(t().toastMarkedDoneOnly(name));
       }
@@ -4101,9 +3562,7 @@
         return `
           <article class="drink-card" data-id="${r.id}">
             <div class="drink-info">
-              <div class="drink-top-meta">
-                ${modeTagHtml}
-              </div>
+              <div class="drink-top-meta">${modeTagHtml}</div>
               <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
             </div>
@@ -4190,6 +3649,7 @@
           row.querySelector('[data-action="remove"]').addEventListener("click", () => {
             cartItems = cartItems.filter((o) => o.id !== cId);
             saveJson(STORAGE_KEYS.CART, cartItems);
+            pushStateToServer();
             renderCart();
           });
         });
@@ -4232,9 +3692,7 @@
                 <span class="bill-table-name">${escapeHtml(s.tableOptionLabel(tNum))}</span>
                 <span class="bill-total-amount">${escapeHtml(formatPrice(totalAmt))}</span>
               </div>
-              <div class="bill-items-preview">
-                ${previewHtml}
-              </div>
+              <div class="bill-items-preview">${previewHtml}</div>
             </div>
             <div class="bill-card-footer">
               <span style="font-size:0.76rem; color:var(--text-muted); font-weight:700;">${escapeHtml(s.billItemsCount(tableOrders.length))}</span>
@@ -4247,9 +3705,7 @@
       gridEl.querySelectorAll('[data-action="open-bill"]').forEach((btn) => {
         btn.addEventListener("click", () => {
           const card = btn.closest(".bill-card");
-          if (card && card.dataset.billTable) {
-            openReceiptModal(card.dataset.billTable);
-          }
+          if (card && card.dataset.billTable) openReceiptModal(card.dataset.billTable);
         });
       });
     }
@@ -4333,12 +3789,11 @@
       const tableOrders = orders.filter((o) => normalizeTableNo(o.tableNo) === activeReceiptTableNo);
       const paidCups = tableOrders.reduce((sum, ord) => sum + (ord.qty || 1), 0);
 
-      if (paidCups > 0) {
-        recordPaidCupsToChart(paidCups);
-      }
+      if (paidCups > 0) recordPaidCupsToChart(paidCups);
 
       orders = orders.filter((o) => normalizeTableNo(o.tableNo) !== activeReceiptTableNo);
       saveJson(STORAGE_KEYS.ORDERS, orders);
+      pushStateToServer();
       closeReceiptModal();
       renderOrders();
       showToast(s.toastTableClearedAndChart(label, paidCups));
@@ -4400,9 +3855,7 @@
           btn.addEventListener("click", (e) => {
             e.stopPropagation();
             const card = btn.closest(".order-row-card");
-            if (card && card.dataset.orderId) {
-              openConfirmDoneModal(card.dataset.orderId);
-            }
+            if (card && card.dataset.orderId) openConfirmDoneModal(card.dataset.orderId);
           });
         });
       }
@@ -4422,12 +3875,7 @@
         const key = getLocalDateKey(dt);
         const entry = dailyChartLog[key] || { cups: 0 };
         const dayParts = formatChartDayParts(dt);
-        days.push({
-          key,
-          wd: dayParts.wd,
-          dt: dayParts.dt,
-          cups: entry.cups || 0
-        });
+        days.push({ key, wd: dayParts.wd, dt: dayParts.dt, cups: entry.cups || 0 });
       }
 
       const todayEntry = dailyChartLog[todayKey] || { cups: 0 };
@@ -4454,13 +3902,9 @@
 
     function syncTopFilterPills() {
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        if (state.tab === "cart") {
-          btn.classList.toggle("active", btn.dataset.filter === "cart");
-        } else if (state.tab === "all") {
-          btn.classList.toggle("active", btn.dataset.filter === state.filter);
-        } else {
-          btn.classList.remove("active");
-        }
+        if (state.tab === "cart") btn.classList.toggle("active", btn.dataset.filter === "cart");
+        else if (state.tab === "all") btn.classList.toggle("active", btn.dataset.filter === state.filter);
+        else btn.classList.remove("active");
       });
     }
 
@@ -4601,12 +4045,9 @@
       }
     }
 
-    /* ================= ALL SETTINGS LOGIC ================= */
     function updateSettingsQrPreview() {
       const previewEl = document.getElementById("qrSettingsPreview");
-      if (previewEl) {
-        previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
-      }
+      if (previewEl) previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
       const qrBox = document.getElementById("qrUploadBox");
       const toggle = document.getElementById("setQrEnabledToggle");
       if (qrBox && toggle) {
@@ -4691,9 +4132,7 @@
       document.getElementById("settingsModal").classList.add("open");
     }
 
-    function closeSettingsModal() {
-      document.getElementById("settingsModal").classList.remove("open");
-    }
+    function closeSettingsModal() { document.getElementById("settingsModal").classList.remove("open"); }
 
     function saveAllSettings() {
       const shopName = document.getElementById("setShopNameInput").value.trim() || "Coffee & Drinks";
@@ -4701,7 +4140,6 @@
       const qrEnabled = document.getElementById("setQrEnabledToggle").checked;
       const currency = document.getElementById("setCurrencySelect").value === "KHR" ? "KHR" : "USD";
       const khrRate = Math.max(1000, parseInt(document.getElementById("setKhrRateInput").value, 10) || 4000);
-
       const tableCount = Math.min(15, Math.max(1, parseInt(document.getElementById("setTableCountInput").value, 10) || 5));
       const enableTakeaway = document.getElementById("setTakeawayToggle").checked;
       const lockMenuAndData = document.getElementById("setLockModeToggle").checked;
@@ -4710,34 +4148,22 @@
       document.querySelectorAll("#itemPricesContainer .item-price-input").forEach((inp) => {
         const id = inp.dataset.priceId;
         const val = parseFloat(inp.value);
-        if (id && !isNaN(val) && val >= 0) {
-          priceOverrides[id] = Number(val.toFixed(2));
-        }
+        if (id && !isNaN(val) && val >= 0) priceOverrides[id] = Number(val.toFixed(2));
       });
 
       const disabledItems = {};
       document.querySelectorAll("#itemAvailabilityContainer .item-avail-checkbox").forEach((cb) => {
         const id = cb.dataset.availId;
-        if (id && !cb.checked) {
-          disabledItems[id] = true;
-        }
+        if (id && !cb.checked) disabledItems[id] = true;
       });
 
       const newTheme = document.getElementById("setDarkModeToggle").checked ? "dark" : "light";
       const newLang = document.getElementById("setLangSelect").value === "en" ? "en" : "km";
 
       appSettings = {
-        shopName,
-        receiptFooter,
-        qrEnabled,
-        qrImageDataUrl: draftQrImageDataUrl,
-        currency,
-        khrRate,
-        tableCount,
-        enableTakeaway,
-        lockMenuAndData,
-        priceOverrides,
-        disabledItems
+        shopName, receiptFooter, qrEnabled, qrImageDataUrl: draftQrImageDataUrl,
+        currency, khrRate, tableCount, enableTakeaway, lockMenuAndData,
+        priceOverrides, disabledItems
       };
 
       state.theme = newTheme;
@@ -4746,6 +4172,7 @@
       saveJson(STORAGE_KEYS.SETTINGS, appSettings);
       saveJson(STORAGE_KEYS.THEME, state.theme);
       saveJson(STORAGE_KEYS.LANG, state.lang);
+      pushStateToServer();
 
       applyStaticTranslations();
       refreshActiveView();
@@ -4775,10 +4202,7 @@
     function resetAllAppData() {
       const s = t();
       if (!confirm(s.toastResetConfirm)) return;
-      appSettings = Object.assign({}, DEFAULT_SETTINGS, {
-        priceOverrides: {},
-        disabledItems: {}
-      });
+      appSettings = Object.assign({}, DEFAULT_SETTINGS, { priceOverrides: {}, disabledItems: {} });
       draftQrImageDataUrl = "";
       cartItems = [];
       orders = [];
@@ -4792,6 +4216,7 @@
       Object.values(STORAGE_KEYS).forEach((k) => {
         try { localStorage.removeItem(k); } catch {}
       });
+      pushStateToServer();
 
       applyStaticTranslations();
       closeSettingsModal();
@@ -4822,6 +4247,7 @@
       document.getElementById("setLockModeToggle").addEventListener("change", (e) => {
         appSettings.lockMenuAndData = e.target.checked;
         saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+        pushStateToServer();
         applyLockStateUI();
         showToast(appSettings.lockMenuAndData ? t().toastModeLocked : t().toastModeUnlocked);
       });
@@ -4829,6 +4255,7 @@
       document.getElementById("unlockFromBannerBtn").addEventListener("click", () => {
         appSettings.lockMenuAndData = false;
         saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+        pushStateToServer();
         applyLockStateUI();
         showToast(t().toastModeUnlocked);
       });
@@ -4892,9 +4319,8 @@
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
           const val = btn.dataset.filter;
-          if (val === "cart") {
-            switchTab("cart");
-          } else {
+          if (val === "cart") switchTab("cart");
+          else {
             state.filter = val;
             switchTab("all");
           }
@@ -4911,6 +4337,7 @@
       document.getElementById("resetChartBtn").addEventListener("click", () => {
         dailyChartLog = {};
         saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+        pushStateToServer();
         renderDailyChart();
         showToast(t().toastChartCleared);
       });
@@ -4942,9 +4369,7 @@
           btn.classList.add("active");
           state.cupSize = btn.dataset.size;
           const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (recipe) {
-            renderModalIngredients(getActiveVariant(recipe, state.activeMode));
-          }
+          if (recipe) renderModalIngredients(getActiveVariant(recipe, state.activeMode));
         });
       });
 
@@ -4953,19 +4378,12 @@
         state.sweetPct = clamped;
         updateSweetSliderUI();
         const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-        if (recipe) {
-          renderModalIngredients(getActiveVariant(recipe, state.activeMode));
-        }
+        if (recipe) renderModalIngredients(getActiveVariant(recipe, state.activeMode));
       }
 
-      document.getElementById("sweetRangeInput").addEventListener("input", (e) => {
-        applySweetnessChange(e.target.value);
-      });
-
+      document.getElementById("sweetRangeInput").addEventListener("input", (e) => applySweetnessChange(e.target.value));
       document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          applySweetnessChange(btn.dataset.sweet);
-        });
+        btn.addEventListener("click", () => applySweetnessChange(btn.dataset.sweet));
       });
 
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
@@ -5008,9 +4426,70 @@
       });
     }
 
-    initEvents();
+    // ================= AUTOMATIC SERVER API SYNC =================
+    let isSyncingFromServer = false;
+
+    async function pushStateToServer() {
+      if (isSyncingFromServer) return;
+      try {
+        await fetch("/api/state", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            settings: appSettings,
+            cartItems,
+            orders,
+            dailyChartLog
+          })
+        });
+      } catch (err) {
+        console.warn("Offline fallback (using localStorage):", err.message);
+      }
+    }
+
+    async function pullStateFromServer() {
+      isSyncingFromServer = true;
+      try {
+        const res = await fetch("/api/state", { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+
+        if (data.settings && typeof data.settings === "object") {
+          appSettings = Object.assign({}, DEFAULT_SETTINGS, data.settings);
+          appSettings.priceOverrides = Object.assign({}, DEFAULT_SETTINGS.priceOverrides, appSettings.priceOverrides || {});
+          appSettings.disabledItems = Object.assign({}, DEFAULT_SETTINGS.disabledItems, appSettings.disabledItems || {});
+          draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
+          saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+        }
+
+        if (Array.isArray(data.cartItems)) {
+          cartItems = data.cartItems;
+          saveJson(STORAGE_KEYS.CART, cartItems);
+        }
+
+        if (Array.isArray(data.orders)) {
+          orders = data.orders;
+          saveJson(STORAGE_KEYS.ORDERS, orders);
+        }
+
+        if (data.dailyChartLog && typeof data.dailyChartLog === "object") {
+          dailyChartLog = data.dailyChartLog;
+          saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+        }
+
+        applyStaticTranslations();
+        refreshActiveView();
+      } catch (err) {
+        console.warn("Server not reachable yet, using localStorage:", err.message);
+      } finally {
+        isSyncingFromServer = false;
+      }
+    }
+
     applyStaticTranslations();
+    initEvents();
     renderMenu();
+    pullStateFromServer();
   </script>
 </body>
 </html>
