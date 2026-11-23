@@ -122,6 +122,34 @@
       height: 22px;
     }
 
+    .sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(27, 128, 69, 0.12);
+      color: var(--accent-success);
+    }
+
+    .sync-pill.local-only {
+      background: rgba(198, 125, 59, 0.15);
+      color: #8A4D14;
+    }
+
+    body.dark-mode .sync-pill.local-only {
+      color: #F4BE88;
+    }
+
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
     .lock-banner {
       display: none;
       align-items: center;
@@ -232,8 +260,15 @@
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    .icon-btn:active { transform: scale(0.95); }
-    .icon-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
+    .icon-btn:active {
+      transform: scale(0.95);
+    }
+
+    .icon-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .icon-btn.primary {
       background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
@@ -372,7 +407,9 @@
       color: var(--text-secondary);
     }
 
-    .summary-count strong { color: var(--text-primary); }
+    .summary-count strong {
+      color: var(--text-primary);
+    }
 
     .menu-grid {
       display: grid;
@@ -381,8 +418,12 @@
     }
 
     @media (max-width: 680px) {
-      .menu-grid { grid-template-columns: 1fr; }
-      .header-actions .btn-label { display: none; }
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-actions .btn-label {
+        display: none;
+      }
     }
 
     .drink-card {
@@ -407,7 +448,10 @@
       background: var(--glass-surface-strong);
     }
 
-    .drink-info { flex: 1; min-width: 0; }
+    .drink-info {
+      flex: 1;
+      min-width: 0;
+    }
 
     .drink-top-meta {
       display: flex;
@@ -417,7 +461,10 @@
       margin-bottom: 6px;
     }
 
-    .drink-top-meta:empty { display: none; margin-bottom: 0; }
+    .drink-top-meta:empty {
+      display: none;
+      margin-bottom: 0;
+    }
 
     .drink-tag {
       font-size: 0.72rem;
@@ -429,13 +476,39 @@
       white-space: nowrap;
     }
 
-    body.dark-mode .drink-tag { background: rgba(255, 255, 255, 0.1); }
-    .drink-tag.temp-hot { background: rgba(201, 59, 32, 0.14); color: var(--accent-hot); }
-    .drink-tag.temp-ice { background: rgba(21, 106, 148, 0.14); color: var(--accent-ice); }
-    .drink-tag.sweet-tag { background: rgba(198, 125, 59, 0.16); color: #8A4D14; }
-    body.dark-mode .drink-tag.sweet-tag { background: rgba(224, 148, 77, 0.2); color: #F4BE88; }
-    .drink-tag.table-tag { background: rgba(58, 32, 16, 0.12); color: #3A2010; }
-    body.dark-mode .drink-tag.table-tag { background: rgba(255, 255, 255, 0.14); color: #F6EFE8; }
+    body.dark-mode .drink-tag {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .drink-tag.temp-hot {
+      background: rgba(201, 59, 32, 0.14);
+      color: var(--accent-hot);
+    }
+
+    .drink-tag.temp-ice {
+      background: rgba(21, 106, 148, 0.14);
+      color: var(--accent-ice);
+    }
+
+    .drink-tag.sweet-tag {
+      background: rgba(198, 125, 59, 0.16);
+      color: #8A4D14;
+    }
+
+    body.dark-mode .drink-tag.sweet-tag {
+      background: rgba(224, 148, 77, 0.2);
+      color: #F4BE88;
+    }
+
+    .drink-tag.table-tag {
+      background: rgba(58, 32, 16, 0.12);
+      color: #3A2010;
+    }
+
+    body.dark-mode .drink-tag.table-tag {
+      background: rgba(255, 255, 255, 0.14);
+      color: #F6EFE8;
+    }
 
     .drink-name-main {
       margin: 0;
@@ -486,7 +559,9 @@
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
     }
 
-    .price-pill-btn:active { transform: scale(0.94); }
+    .price-pill-btn:active {
+      transform: scale(0.94);
+    }
 
     .order-panel {
       background: var(--glass-surface-strong);
@@ -506,9 +581,22 @@
       margin-bottom: 16px;
     }
 
-    .order-header-row h2 { margin: 0 0 4px; font-size: 1.15rem; }
-    .order-header-row p.subtitle { margin: 0; font-size: 0.84rem; color: var(--text-secondary); }
-    .order-list { display: flex; flex-direction: column; gap: 10px; }
+    .order-header-row h2 {
+      margin: 0 0 4px;
+      font-size: 1.15rem;
+    }
+
+    .order-header-row p.subtitle {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .order-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
     .order-row-card {
       background: rgba(255, 255, 255, 0.9);
@@ -527,8 +615,15 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     }
 
-    .order-row-card.clean-order-card { flex-direction: column; align-items: stretch; gap: 8px; }
-    .order-row-card.clean-order-card.done { opacity: 0.78; }
+    .order-row-card.clean-order-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .order-row-card.clean-order-card.done {
+      opacity: 0.78;
+    }
 
     .order-card-top {
       display: flex;
@@ -538,7 +633,12 @@
       flex-wrap: wrap;
     }
 
-    .order-card-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .order-card-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
 
     .order-card-time {
       font-size: 0.76rem;
@@ -555,8 +655,16 @@
       flex-wrap: wrap;
     }
 
-    .order-card-right-meta { display: flex; align-items: center; gap: 8px; }
-    .order-row-main { min-width: 0; flex: 1; }
+    .order-card-right-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .order-row-main {
+      min-width: 0;
+      flex: 1;
+    }
 
     .order-row-title {
       margin: 0;
@@ -577,11 +685,32 @@
       white-space: nowrap;
     }
 
-    .order-status-badge.pending { background: rgba(198, 125, 59, 0.16); color: #8A4D14; }
-    body.dark-mode .order-status-badge.pending { background: rgba(224, 148, 77, 0.22); color: #F4BE88; }
-    .order-status-badge.done { background: rgba(27, 128, 69, 0.16); color: #1B8045; }
-    body.dark-mode .order-status-badge.done { background: rgba(76, 217, 134, 0.18); color: #6BE89E; }
-    .order-row-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .order-status-badge.pending {
+      background: rgba(198, 125, 59, 0.16);
+      color: #8A4D14;
+    }
+
+    body.dark-mode .order-status-badge.pending {
+      background: rgba(224, 148, 77, 0.22);
+      color: #F4BE88;
+    }
+
+    .order-status-badge.done {
+      background: rgba(27, 128, 69, 0.16);
+      color: #1B8045;
+    }
+
+    body.dark-mode .order-status-badge.done {
+      background: rgba(76, 217, 134, 0.18);
+      color: #6BE89E;
+    }
+
+    .order-row-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
 
     .order-summary-bar {
       margin-top: 16px;
@@ -598,7 +727,9 @@
       font-weight: 700;
     }
 
-    body.dark-mode .order-summary-bar { background: rgba(45, 36, 30, 0.86); }
+    body.dark-mode .order-summary-bar {
+      background: rgba(45, 36, 30, 0.86);
+    }
 
     .table-bills-grid {
       display: grid;
@@ -606,7 +737,11 @@
       gap: 12px;
     }
 
-    @media (max-width: 680px) { .table-bills-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 680px) {
+      .table-bills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .bill-card {
       background: rgba(255, 255, 255, 0.9);
@@ -620,7 +755,9 @@
       box-shadow: 0 2px 8px rgba(34, 19, 10, 0.04);
     }
 
-    body.dark-mode .bill-card { background: rgba(45, 36, 30, 0.88); }
+    body.dark-mode .bill-card {
+      background: rgba(45, 36, 30, 0.88);
+    }
 
     .bill-card-header {
       display: flex;
@@ -631,8 +768,17 @@
       border-bottom: 1px dashed rgba(92, 75, 65, 0.25);
     }
 
-    .bill-table-name { font-size: 1rem; font-weight: 800; color: var(--text-primary); }
-    .bill-total-amount { font-size: 1.05rem; font-weight: 800; color: var(--accent-caramel); }
+    .bill-table-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .bill-total-amount {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-caramel);
+    }
 
     .bill-items-preview {
       display: flex;
@@ -643,7 +789,12 @@
       color: var(--text-secondary);
     }
 
-    .bill-item-line { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .bill-item-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
 
     .bill-card-footer {
       display: flex;
@@ -671,8 +822,16 @@
       box-shadow: var(--shadow-glass);
     }
 
-    .calc-panel h2 { margin: 0 0 6px; font-size: 1.15rem; }
-    .calc-panel p.subtitle { margin: 0; font-size: 0.85rem; color: var(--text-secondary); }
+    .calc-panel h2 {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+    }
+
+    .calc-panel p.subtitle {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
 
     .calc-results {
       display: grid;
@@ -689,9 +848,22 @@
       text-align: center;
     }
 
-    body.dark-mode .result-box { background: rgba(45, 36, 30, 0.86); }
-    .result-box .res-label { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; }
-    .result-box .res-val { font-size: 1.65rem; font-weight: 800; color: var(--accent-espresso); }
+    body.dark-mode .result-box {
+      background: rgba(45, 36, 30, 0.86);
+    }
+
+    .result-box .res-label {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .result-box .res-val {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--accent-espresso);
+    }
 
     .chart-card {
       background: rgba(255, 255, 255, 0.9);
@@ -716,7 +888,9 @@
       border-bottom: 1px solid rgba(92, 75, 65, 0.22);
     }
 
-    body.dark-mode .chart-bars-wrap { border-bottom-color: rgba(255, 255, 255, 0.12); }
+    body.dark-mode .chart-bars-wrap {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
 
     .chart-col {
       display: flex;
@@ -728,7 +902,12 @@
       min-width: 0;
     }
 
-    .chart-val-label { font-size: 0.76rem; font-weight: 800; color: var(--text-primary); white-space: nowrap; }
+    .chart-val-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
 
     .chart-bar-track {
       width: 100%;
@@ -742,7 +921,9 @@
       padding: 3px;
     }
 
-    body.dark-mode .chart-bar-track { background: rgba(255, 255, 255, 0.07); }
+    body.dark-mode .chart-bar-track {
+      background: rgba(255, 255, 255, 0.07);
+    }
 
     .chart-bar-fill {
       width: 100%;
@@ -752,7 +933,9 @@
       transition: height 0.28s ease;
     }
 
-    body.dark-mode .chart-bar-fill { background: linear-gradient(180deg, #F4B97E 0%, #C67D3B 100%); }
+    body.dark-mode .chart-bar-fill {
+      background: linear-gradient(180deg, #F4B97E 0%, #C67D3B 100%);
+    }
 
     .chart-day-label {
       display: flex;
@@ -774,7 +957,12 @@
       max-width: 100%;
     }
 
-    .chart-day-dt { font-size: 0.68rem; font-weight: 800; color: var(--text-muted); white-space: nowrap; }
+    .chart-day-dt {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
 
     .bottom-nav {
       position: fixed;
@@ -828,7 +1016,9 @@
     }
 
     body.menu-locked .nav-item[data-tab="order"],
-    body.menu-locked .nav-item[data-tab="calc"] { opacity: 0.36; }
+    body.menu-locked .nav-item[data-tab="calc"] {
+      opacity: 0.36;
+    }
 
     .modal-backdrop {
       position: fixed;
@@ -843,8 +1033,15 @@
       padding: 12px;
     }
 
-    .modal-backdrop.open { display: flex; }
-    @media (min-width: 700px) { .modal-backdrop { align-items: center; } }
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    @media (min-width: 700px) {
+      .modal-backdrop {
+        align-items: center;
+      }
+    }
 
     .modal-sheet {
       width: 100%;
@@ -877,11 +1074,19 @@
       margin: -4px auto 12px;
     }
 
-    body.dark-mode .drag-handle { background: rgba(255, 255, 255, 0.2); }
+    body.dark-mode .drag-handle {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .modal-header {
@@ -893,7 +1098,9 @@
       border-bottom: 1px solid rgba(74, 44, 24, 0.12);
     }
 
-    body.dark-mode .modal-header { border-bottom-color: rgba(255, 255, 255, 0.1); }
+    body.dark-mode .modal-header {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
 
     .close-modal-btn {
       width: 42px;
@@ -911,8 +1118,14 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
-    body.dark-mode .close-modal-btn { background: rgba(54, 43, 37, 0.95); color: var(--text-primary); }
-    .close-modal-btn:active { transform: scale(0.92); }
+    body.dark-mode .close-modal-btn {
+      background: rgba(54, 43, 37, 0.95);
+      color: var(--text-primary);
+    }
+
+    .close-modal-btn:active {
+      transform: scale(0.92);
+    }
 
     .mode-switch-bar {
       display: grid;
@@ -956,7 +1169,10 @@
       box-shadow: 0 4px 12px rgba(29, 110, 150, 0.28);
     }
 
-    .mode-option-btn.disabled-mode { opacity: 0.36; cursor: not-allowed; }
+    .mode-option-btn.disabled-mode {
+      opacity: 0.36;
+      cursor: not-allowed;
+    }
 
     .controls-bar {
       display: flex;
@@ -969,7 +1185,9 @@
       margin: 12px 0;
     }
 
-    body.dark-mode .controls-bar { background: rgba(45, 36, 30, 0.86); }
+    body.dark-mode .controls-bar {
+      background: rgba(45, 36, 30, 0.86);
+    }
 
     .seg-group {
       display: inline-flex;
@@ -980,8 +1198,15 @@
       gap: 3px;
     }
 
-    body.dark-mode .seg-group { background: rgba(255, 255, 255, 0.08); }
-    .seg-group.table-seg-group { display: flex; flex-wrap: wrap; width: 100%; }
+    body.dark-mode .seg-group {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .seg-group.table-seg-group {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
 
     .seg-btn {
       border: none;
@@ -997,8 +1222,16 @@
       transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
     }
 
-    .seg-btn:active { transform: scale(0.95); }
-    .table-seg-group .seg-btn { min-width: 38px; padding: 7px 11px; text-align: center; flex: 0 0 auto; }
+    .seg-btn:active {
+      transform: scale(0.95);
+    }
+
+    .table-seg-group .seg-btn {
+      min-width: 38px;
+      padding: 7px 11px;
+      text-align: center;
+      flex: 0 0 auto;
+    }
 
     .seg-btn.active {
       background: #FFFFFF;
@@ -1006,7 +1239,10 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
-    body.dark-mode .seg-btn.active { background: rgba(255, 255, 255, 0.2); color: #FFFFFF; }
+    body.dark-mode .seg-btn.active {
+      background: rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+    }
 
     .table-seg-group .seg-btn.active {
       background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
@@ -1018,7 +1254,9 @@
       color: #1A110B;
     }
 
-    .recipe-details-block.locked-hidden { display: none !important; }
+    .recipe-details-block.locked-hidden {
+      display: none !important;
+    }
 
     .locked-notice-box {
       display: none;
@@ -1033,7 +1271,9 @@
       text-align: center;
     }
 
-    body.menu-locked .locked-notice-box { display: block; }
+    body.menu-locked .locked-notice-box {
+      display: block;
+    }
 
     .section-heading {
       font-size: 0.92rem;
@@ -1056,7 +1296,9 @@
       box-shadow: 0 3px 10px rgba(74, 44, 24, 0.05);
     }
 
-    body.dark-mode .sweet-slider-card { background: rgba(45, 36, 30, 0.88); }
+    body.dark-mode .sweet-slider-card {
+      background: rgba(45, 36, 30, 0.88);
+    }
 
     .sweet-slider-header {
       display: flex;
@@ -1111,7 +1353,25 @@
       transition: transform 0.12s ease;
     }
 
-    .sweet-presets-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+    .sweet-range-input::-webkit-slider-thumb:active {
+      transform: scale(1.12);
+    }
+
+    .sweet-range-input::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--accent-caramel);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .sweet-presets-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
 
     .sweet-preset-btn {
       border: 1px solid rgba(74, 44, 24, 0.12);
@@ -1126,11 +1386,29 @@
       transition: all 0.15s ease;
     }
 
-    body.dark-mode .sweet-preset-btn { background: rgba(58, 46, 38, 0.9); border-color: rgba(255, 255, 255, 0.1); }
-    .sweet-preset-btn.active { background: var(--accent-espresso); color: #FFFFFF; border-color: var(--accent-espresso); }
-    body.dark-mode .sweet-preset-btn.active { color: #1A110B; }
+    body.dark-mode .sweet-preset-btn {
+      background: rgba(58, 46, 38, 0.9);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
 
-    .ingredients-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .sweet-preset-btn.active {
+      background: var(--accent-espresso);
+      color: #FFFFFF;
+      border-color: var(--accent-espresso);
+    }
+
+    body.dark-mode .sweet-preset-btn.active {
+      color: #1A110B;
+    }
+
+    .ingredients-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
     .ing-item {
       background: rgba(255, 255, 255, 0.88);
@@ -1144,15 +1422,26 @@
       gap: 10px;
     }
 
-    body.dark-mode .ing-item { background: rgba(45, 36, 30, 0.88); }
+    body.dark-mode .ing-item {
+      background: rgba(45, 36, 30, 0.88);
+    }
 
     .ing-item.is-sweetener {
       border-color: rgba(198, 125, 59, 0.42);
       background: rgba(255, 250, 242, 0.95);
     }
 
-    body.dark-mode .ing-item.is-sweetener { background: rgba(62, 46, 32, 0.92); }
-    .ing-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 500; }
+    body.dark-mode .ing-item.is-sweetener {
+      background: rgba(62, 46, 32, 0.92);
+    }
+
+    .ing-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-weight: 500;
+    }
 
     .ing-sweet-pill {
       font-size: 0.68rem;
@@ -1163,8 +1452,17 @@
       color: #8A4D14;
     }
 
-    body.dark-mode .ing-sweet-pill { background: rgba(224, 148, 77, 0.24); color: #F4BE88; }
-    .ing-amount { font-weight: 700; color: var(--accent-caramel); font-size: 0.88rem; white-space: nowrap; }
+    body.dark-mode .ing-sweet-pill {
+      background: rgba(224, 148, 77, 0.24);
+      color: #F4BE88;
+    }
+
+    .ing-amount {
+      font-weight: 700;
+      color: var(--accent-caramel);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
 
     .steps-list {
       margin: 0;
@@ -1187,12 +1485,29 @@
       color: #5A3716;
     }
 
-    body.dark-mode .tip-box { background: rgba(58, 42, 27, 0.88); color: #F3CFA6; }
-    .modal-footer-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .modal-footer-actions:empty { display: none !important; }
+    body.dark-mode .tip-box {
+      background: rgba(58, 42, 27, 0.88);
+      color: #F3CFA6;
+    }
 
-    .confirm-sheet { max-width: 420px; }
-    .confirm-sheet.centered { text-align: center; }
+    .modal-footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .modal-footer-actions:empty {
+      display: none !important;
+    }
+
+    .confirm-sheet {
+      max-width: 420px;
+    }
+
+    .confirm-sheet.centered {
+      text-align: center;
+    }
 
     .confirm-item-preview {
       margin: 14px 0 18px;
@@ -1205,8 +1520,15 @@
       color: var(--text-primary);
     }
 
-    body.dark-mode .confirm-item-preview { background: rgba(48, 38, 32, 0.9); }
-    .confirm-actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    body.dark-mode .confirm-item-preview {
+      background: rgba(48, 38, 32, 0.9);
+    }
+
+    .confirm-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
 
     .receipt-box {
       background: rgba(255, 255, 255, 0.92);
@@ -1216,7 +1538,9 @@
       margin: 12px 0 16px;
     }
 
-    body.dark-mode .receipt-box { background: rgba(46, 37, 31, 0.92); }
+    body.dark-mode .receipt-box {
+      background: rgba(46, 37, 31, 0.92);
+    }
 
     .receipt-line {
       display: flex;
@@ -1228,7 +1552,9 @@
       font-size: 0.86rem;
     }
 
-    .receipt-line:last-child { border-bottom: none; }
+    .receipt-line:last-child {
+      border-bottom: none;
+    }
 
     .receipt-total-row {
       display: flex;
@@ -1255,8 +1581,16 @@
       gap: 8px;
     }
 
-    body.dark-mode .receipt-qr-section { background: rgba(34, 27, 22, 0.95); border-color: rgba(224, 148, 77, 0.38); }
-    .receipt-qr-title { font-size: 0.84rem; font-weight: 800; color: var(--text-primary); }
+    body.dark-mode .receipt-qr-section {
+      background: rgba(34, 27, 22, 0.95);
+      border-color: rgba(224, 148, 77, 0.38);
+    }
+
+    .receipt-qr-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
 
     .receipt-qr-frame {
       width: 188px;
@@ -1272,7 +1606,13 @@
     }
 
     .receipt-qr-frame img,
-    .receipt-qr-frame svg { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; display: block; }
+    .receipt-qr-frame svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+    }
 
     .receipt-qr-amount-chip {
       font-size: 0.86rem;
@@ -1303,7 +1643,9 @@
       gap: 10px;
     }
 
-    body.dark-mode .settings-group { background: rgba(45, 36, 30, 0.86); }
+    body.dark-mode .settings-group {
+      background: rgba(45, 36, 30, 0.86);
+    }
 
     .settings-group-title {
       font-size: 0.86rem;
@@ -1325,12 +1667,40 @@
       border-top: 1px solid rgba(92, 75, 65, 0.12);
     }
 
-    body.dark-mode .setting-row { border-top-color: rgba(255, 255, 255, 0.08); }
-    .setting-row:first-of-type { border-top: none; padding-top: 0; }
-    .setting-row-stack { flex-direction: column; align-items: stretch; gap: 6px; }
-    .setting-label-wrap { min-width: 0; flex: 1; }
-    .setting-label { font-size: 0.86rem; font-weight: 700; color: var(--text-primary); display: block; }
-    .setting-sub { font-size: 0.74rem; color: var(--text-muted); display: block; margin-top: 2px; line-height: 1.35; }
+    body.dark-mode .setting-row {
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .setting-row:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .setting-row-stack {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+    }
+
+    .setting-label-wrap {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .setting-label {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .setting-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
 
     .qr-upload-box {
       display: flex;
@@ -1356,8 +1726,19 @@
     }
 
     .qr-settings-preview img,
-    .qr-settings-preview svg { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
-    .qr-upload-actions { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+    .qr-settings-preview svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .qr-upload-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+    }
 
     .ios-input, .ios-select {
       width: 100%;
@@ -1373,10 +1754,23 @@
     }
 
     body.dark-mode .ios-input,
-    body.dark-mode .ios-select { background: rgba(28, 22, 18, 0.9); border-color: rgba(255, 255, 255, 0.14); }
-    .ios-input:focus, .ios-select:focus { border-color: var(--accent-caramel); }
+    body.dark-mode .ios-select {
+      background: rgba(28, 22, 18, 0.9);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
 
-    .item-price-input { width: 86px; text-align: right; padding: 7px 10px; border-radius: 11px; font-size: 0.84rem; font-weight: 800; }
+    .ios-input:focus, .ios-select:focus {
+      border-color: var(--accent-caramel);
+    }
+
+    .item-price-input {
+      width: 86px;
+      text-align: right;
+      padding: 7px 10px;
+      border-radius: 11px;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
 
     .item-toggle-row {
       display: flex;
@@ -1387,17 +1781,59 @@
       border-top: 1px solid rgba(92, 75, 65, 0.1);
     }
 
-    body.dark-mode .item-toggle-row { border-top-color: rgba(255, 255, 255, 0.07); }
-    .item-toggle-row:first-child { border-top: none; padding-top: 2px; }
-    .item-toggle-meta { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    body.dark-mode .item-toggle-row {
+      border-top-color: rgba(255, 255, 255, 0.07);
+    }
 
-    .item-status-pill { font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
-    .item-status-pill.on { background: rgba(27, 128, 69, 0.14); color: var(--accent-success); }
-    .item-status-pill.off { background: rgba(184, 29, 55, 0.14); color: #B81D37; }
-    .settings-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .item-toggle-row:first-child {
+      border-top: none;
+      padding-top: 2px;
+    }
 
-    .ios-switch { position: relative; display: inline-block; width: 48px; height: 28px; flex-shrink: 0; }
-    .ios-switch input { opacity: 0; width: 0; height: 0; }
+    .item-toggle-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .item-status-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .item-status-pill.on {
+      background: rgba(27, 128, 69, 0.14);
+      color: var(--accent-success);
+    }
+
+    .item-status-pill.off {
+      background: rgba(184, 29, 55, 0.14);
+      color: #B81D37;
+    }
+
+    .settings-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .ios-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .ios-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
     .ios-slider {
       position: absolute;
@@ -1421,10 +1857,22 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    .ios-switch input:checked + .ios-slider { background-color: var(--accent-success); }
-    .ios-switch input:checked + .ios-slider.danger-active { background-color: var(--accent-danger); }
-    .ios-switch input:checked + .ios-slider:before { transform: translateX(20px); }
-    .settings-danger-btn { color: #B81D37 !important; border-color: rgba(184, 29, 55, 0.28) !important; }
+    .ios-switch input:checked + .ios-slider {
+      background-color: var(--accent-success);
+    }
+
+    .ios-switch input:checked + .ios-slider.danger-active {
+      background-color: var(--accent-danger);
+    }
+
+    .ios-switch input:checked + .ios-slider:before {
+      transform: translateX(20px);
+    }
+
+    .settings-danger-btn {
+      color: #B81D37 !important;
+      border-color: rgba(184, 29, 55, 0.28) !important;
+    }
 
     .toast {
       position: fixed;
@@ -1447,7 +1895,10 @@
       text-align: center;
     }
 
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -1503,6 +1954,10 @@
 
     <div class="summary-strip" id="summaryStrip">
       <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong>0</strong> មុខ (សរុប <span>0</span> មុខ)</div>
+      <div class="sync-pill local-only" id="syncStatusPill">
+        <span class="sync-dot"></span>
+        <span id="syncStatusText">Local Only</span>
+      </div>
     </div>
 
     <main id="menuView">
@@ -1840,7 +2295,21 @@
 
   <div class="toast" id="toast"></div>
 
+  <!-- Firebase Compat SDK for cross-phone real-time sync -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
   <script>
+    // Replace these values with your Firebase Realtime Database config so all phones share live edits
+    const FIREBASE_CONFIG = {
+      apiKey: "",
+      authDomain: "",
+      databaseURL: "",
+      projectId: "",
+      appId: ""
+    };
+    const SHARED_ROOM_ID = "main-shop";
+
     const DEFAULT_QR_SVG = `
       <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-label="KHQR Payment Code">
         <rect width="180" height="180" rx="14" fill="#FFFFFF"/>
@@ -1895,6 +2364,8 @@
         themeDark: "ងងឹត",
         themeLight: "ភ្លឺ",
         settingsBtn: "ការកំណត់",
+        syncLive: "Sync គ្រប់ទូរស័ព្ទ",
+        syncLocal: "ក្នុងម៉ាស៊ីន (បញ្ចូល Firebase ដើម្បី Sync)",
         lockBannerText: "កំពុងបិទការកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders",
         unlockBannerBtn: "បើកវិញ",
         filterCoffee: () => "Coffee",
@@ -1918,7 +2389,7 @@
         cartEmptyDesc: "ចុចលើតម្លៃ ឬមុខកាហ្វេ/ភេសជ្ជៈក្នុងម៉ឺនុយ ដើម្បីមើលរូបមន្ត និងដាក់ចូលកន្ត្រក។",
         cartTotalCups: (cups, totalPriceFmt) => `សរុបក្នុងកន្ត្រក៖ ${cups} កែវ — ${totalPriceFmt}`,
         orderTitle: "All Order",
-        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់",
+        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់ (Sync គ្រប់ទូរស័ព្ទ)",
         backToCartBtn: "← កន្ត្រក",
         orderEmptyTitle: "មិនទាន់មានការកុម្ម៉ង់ទេ",
         orderEmptyDesc: "បញ្ចូលមុខទំនិញទៅកន្ត្រក ហើយចុចបញ្ជាក់ ដើម្បីដាក់ទៅ All Order។",
@@ -1945,8 +2416,14 @@
         closeBtnLabel: "បិទ",
         cupSizeLabel: "ទំហំកែវ",
         tableNumberLabel: "លេខតុ",
-        tableChipLabel: (tNum) => (!tNum || tNum === "takeaway" ? "ខ្ចប់" : `${tNum}`),
-        tableOptionLabel: (tNum) => (!tNum || tNum === "takeaway" ? "ខ្ចប់" : `តុលេខ ${tNum}`),
+        tableChipLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "ខ្ចប់";
+          return `${tNum}`;
+        },
+        tableOptionLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "ខ្ចប់";
+          return `តុលេខ ${tNum}`;
+        },
         recipeLockedNotice: "មុខងារកុម្ម៉ង់ និងមើលគ្រឿងផ្សំត្រូវបានបិទ។ ចូលទៅក្នុង ការកំណត់ → រូបរាង និងគ្រប់គ្រងទិន្នន័យ ដើម្បីបើកវិញ។",
         ingHeading: "គ្រឿងផ្សំ និងរង្វាស់",
         sweetSliderTitle: "កម្រិតផ្អែម",
@@ -1972,7 +2449,7 @@
         settingsModalTitle: "All Settings • ការកំណត់ទាំងអស់",
         settingsModalSub: "កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ QR គិតលុយ និងហាង",
         setSecPricesTitle: "១. កំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)",
-        setPricesSub: "កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក",
+        setPricesSub: "កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក (គ្រប់ទូរស័ព្ទនឹងឃើញដូចគ្នា)",
         setSecToggleItemsTitle: "២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)",
         setToggleItemsSub: "បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល",
         statusOn: "បើក",
@@ -1997,7 +2474,7 @@
         exportDataBtn: "ទាញយកទិន្នន័យ (Backup)",
         resetAllDataBtn: "កំណត់ឡើងវិញ (Reset)",
         saveSettingsBtn: "រក្សាទុកការកំណត់ទាំងអស់",
-        toastSettingsSaved: "បានរក្សាទុកការកំណត់រួចរាល់",
+        toastSettingsSaved: "បានរក្សាទុកការកំណត់ និង Sync ទៅគ្រប់ទូរស័ព្ទ",
         toastQrUpdated: "បានបញ្ចូលរូបភាព QR Code រួចរាល់",
         toastQrReset: "បានប្តូរទៅប្រើ QR Code គំរូវិញ",
         toastModeLocked: "បានបិទការកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders",
@@ -2023,6 +2500,8 @@
         themeDark: "Dark",
         themeLight: "Light",
         settingsBtn: "Settings",
+        syncLive: "Live Sync",
+        syncLocal: "Local Only (Add Firebase to Sync)",
         lockBannerText: "Ordering, Ingredients, Chart & Orders are locked",
         unlockBannerBtn: "Unlock",
         filterCoffee: () => "Coffee",
@@ -2046,7 +2525,7 @@
         cartEmptyDesc: "Tap any price or drink card in Menu to view the recipe and add to cart.",
         cartTotalCups: (cups, totalPriceFmt) => `Cart Total: ${cups} cups — ${totalPriceFmt}`,
         orderTitle: "All Order",
-        orderSubtitle: "Confirmed orders list",
+        orderSubtitle: "Confirmed orders list (Synced across devices)",
         backToCartBtn: "← Cart",
         orderEmptyTitle: "No confirmed orders yet",
         orderEmptyDesc: "Add items to Cart and tap confirm to send them to All Order.",
@@ -2073,8 +2552,14 @@
         closeBtnLabel: "Close",
         cupSizeLabel: "Cup Size",
         tableNumberLabel: "Table",
-        tableChipLabel: (tNum) => (!tNum || tNum === "takeaway" ? "Takeaway" : `${tNum}`),
-        tableOptionLabel: (tNum) => (!tNum || tNum === "takeaway" ? "Takeaway" : `Table ${tNum}`),
+        tableChipLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "Takeaway";
+          return `${tNum}`;
+        },
+        tableOptionLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "Takeaway";
+          return `Table ${tNum}`;
+        },
         recipeLockedNotice: "Ordering and ingredients are locked. Open Settings → Appearance & Data Management to unlock.",
         ingHeading: "Ingredients & Measurements",
         sweetSliderTitle: "Sweetness Level",
@@ -2100,7 +2585,7 @@
         settingsModalTitle: "All Settings",
         settingsModalSub: "Set per-item prices, enable/disable items, tables, Payment QR & shop",
         setSecPricesTitle: "1. Price Per Coffee & Drink ($)",
-        setPricesSub: "Edit individual item prices and tap Save All Settings",
+        setPricesSub: "Edit individual item prices and tap Save All Settings (syncs across phones)",
         setSecToggleItemsTitle: "2. Enable / Disable Items (e.g. Turn Espresso Off & On)",
         setToggleItemsSub: "Turn off any item to hide it from Menu immediately; turn back on anytime",
         statusOn: "ON",
@@ -2125,7 +2610,7 @@
         exportDataBtn: "Export Backup (JSON)",
         resetAllDataBtn: "Factory Reset",
         saveSettingsBtn: "Save All Settings",
-        toastSettingsSaved: "All settings saved",
+        toastSettingsSaved: "All settings saved & synced",
         toastQrUpdated: "Payment QR image updated",
         toastQrReset: "Switched back to default sample QR",
         toastModeLocked: "Locked ordering, ingredients, Chart & Orders",
@@ -3015,6 +3500,10 @@
     let activeReceiptTableNo = null;
     let draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
 
+    let dbRef = null;
+    let cloudConnected = false;
+    let isApplyingRemoteSnapshot = false;
+
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
       theme: loadJson(STORAGE_KEYS.THEME, "light") === "dark" ? "dark" : "light",
@@ -3028,12 +3517,116 @@
       sweetPct: 100
     };
 
-    const CUP_SIZE_MULTIPLIER = { "12oz": 0.8, "16oz": 1.0, "22oz": 1.3 };
+    const CUP_SIZE_MULTIPLIER = {
+      "12oz": 0.8,
+      "16oz": 1.0,
+      "22oz": 1.3
+    };
+
     const SWEETENER_KEYWORDS = [
-      "ផ្អែម", "ទឹកដោះគោខាប់ផ្អែម", "សេរ៉ូ", "សូកូឡា", "ទឹកឃ្មុំ",
-      "puree", "jam", "sweet", "syrup", "condensed milk", "sweetened condensed",
-      "chocolate", "caramel", "vanilla", "honey"
+      "ផ្អែម",
+      "ទឹកដោះគោខាប់ផ្អែម",
+      "សេរ៉ូ",
+      "សូកូឡា",
+      "ទឹកឃ្មុំ",
+      "puree",
+      "jam",
+      "sweet",
+      "syrup",
+      "condensed milk",
+      "sweetened condensed",
+      "chocolate",
+      "caramel",
+      "vanilla",
+      "honey"
     ];
+
+    function hasFirebaseConfig() {
+      return Boolean(
+        FIREBASE_CONFIG &&
+        FIREBASE_CONFIG.apiKey &&
+        FIREBASE_CONFIG.databaseURL &&
+        FIREBASE_CONFIG.projectId
+      );
+    }
+
+    function updateSyncPillUI() {
+      const s = t();
+      const pill = document.getElementById("syncStatusPill");
+      const text = document.getElementById("syncStatusText");
+      if (!pill || !text) return;
+      if (cloudConnected) {
+        pill.classList.remove("local-only");
+        text.textContent = s.syncLive;
+      } else {
+        pill.classList.add("local-only");
+        text.textContent = s.syncLocal;
+      }
+    }
+
+    function pushSharedStateToCloud() {
+      saveJson(STORAGE_KEYS.ORDERS, orders);
+      saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+      if (!dbRef || isApplyingRemoteSnapshot) return;
+      dbRef.set({
+        settings: appSettings,
+        orders: orders,
+        dailyChartLog: dailyChartLog,
+        updatedAt: Date.now()
+      }).catch(() => {});
+    }
+
+    function initCloudSync() {
+      if (!hasFirebaseConfig() || typeof firebase === "undefined") {
+        cloudConnected = false;
+        updateSyncPillUI();
+        return;
+      }
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(FIREBASE_CONFIG);
+        }
+        dbRef = firebase.database().ref(`rooms/${SHARED_ROOM_ID}`);
+        cloudConnected = true;
+        updateSyncPillUI();
+
+        dbRef.on("value", (snap) => {
+          const val = snap.val();
+          if (!val) {
+            pushSharedStateToCloud();
+            return;
+          }
+          isApplyingRemoteSnapshot = true;
+          if (val.settings) {
+            appSettings = Object.assign({}, DEFAULT_SETTINGS, val.settings);
+            appSettings.priceOverrides = Object.assign({}, DEFAULT_SETTINGS.priceOverrides, appSettings.priceOverrides || {});
+            appSettings.disabledItems = Object.assign({}, DEFAULT_SETTINGS.disabledItems, appSettings.disabledItems || {});
+            draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
+            saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+          }
+          if (Array.isArray(val.orders)) {
+            orders = val.orders;
+            saveJson(STORAGE_KEYS.ORDERS, orders);
+          } else if (val.orders && typeof val.orders === "object") {
+            orders = Object.values(val.orders);
+            saveJson(STORAGE_KEYS.ORDERS, orders);
+          }
+          if (val.dailyChartLog && typeof val.dailyChartLog === "object") {
+            dailyChartLog = val.dailyChartLog;
+            saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+          }
+          applyStaticTranslations();
+          refreshActiveView();
+          if (activeReceiptTableNo && document.getElementById("receiptModal").classList.contains("open")) {
+            openReceiptModal(activeReceiptTableNo);
+          }
+          isApplyingRemoteSnapshot = false;
+        });
+      } catch {
+        cloudConnected = false;
+        updateSyncPillUI();
+      }
+    }
 
     function renderQrGraphicHtml(dataUrl) {
       if (dataUrl && typeof dataUrl === "string" && dataUrl.startsWith("data:image/")) {
@@ -3042,7 +3635,9 @@
       return DEFAULT_QR_SVG;
     }
 
-    function isMenuLocked() { return Boolean(appSettings.lockMenuAndData); }
+    function isMenuLocked() {
+      return Boolean(appSettings.lockMenuAndData);
+    }
 
     function applyLockStateUI() {
       const locked = isMenuLocked();
@@ -3055,7 +3650,9 @@
       if (bannerBtn) bannerBtn.textContent = s.unlockBannerBtn;
 
       const cartPill = document.getElementById("filterCartPill");
-      if (cartPill) cartPill.disabled = locked;
+      if (cartPill) {
+        cartPill.disabled = locked;
+      }
 
       const detailsBlock = document.getElementById("recipeDetailsBlock");
       const lockedNotice = document.getElementById("recipeLockedNotice");
@@ -3070,8 +3667,12 @@
     function getTableOptions() {
       const count = Math.min(15, Math.max(1, parseInt(appSettings.tableCount, 10) || 5));
       const list = [];
-      for (let i = 1; i <= count; i++) list.push(String(i));
-      if (appSettings.enableTakeaway !== false) list.push("takeaway");
+      for (let i = 1; i <= count; i++) {
+        list.push(String(i));
+      }
+      if (appSettings.enableTakeaway !== false) {
+        list.push("takeaway");
+      }
       return list;
     }
 
@@ -3087,7 +3688,10 @@
       const d = dateObj.getDate();
       const m = dateObj.getMonth() + 1;
       const wd = s.chartWdShort[dateObj.getDay()] || "";
-      return { wd, dt: `${d}/${m}` };
+      return {
+        wd,
+        dt: `${d}/${m}`
+      };
     }
 
     function recordPaidCupsToChart(cups) {
@@ -3095,14 +3699,17 @@
       if (added <= 0) return;
       const key = getLocalDateKey();
       const current = dailyChartLog[key] || { cups: 0 };
-      dailyChartLog[key] = { cups: (current.cups || 0) + added };
-      saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+      dailyChartLog[key] = {
+        cups: (current.cups || 0) + added
+      };
+      pushSharedStateToCloud();
     }
 
     function normalizeTableNo(val) {
       const opts = getTableOptions();
       const str = String(val);
-      return opts.includes(str) ? str : (opts[0] || "1");
+      if (opts.includes(str)) return str;
+      return opts[0] || "1";
     }
 
     function isItemDisabled(recipeId) {
@@ -3136,7 +3743,9 @@
       return SWEETENER_KEYWORDS.some((kw) => text.includes(kw));
     }
 
-    function t() { return UI_STRINGS[state.lang] || UI_STRINGS.km; }
+    function t() {
+      return UI_STRINGS[state.lang] || UI_STRINGS.km;
+    }
 
     function loadJson(key, fallback) {
       try {
@@ -3148,18 +3757,32 @@
     }
 
     function saveJson(key, value) {
-      try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {}
     }
 
     function getRecipeSection(r) {
       if (r && r.section) return r.section;
-      if (r && ["drinks", "soda", "smoothie", "milk-drink", "tea", "juice"].includes(r.category)) return "drinks";
+      if (r && ["drinks", "soda", "smoothie", "milk-drink", "tea", "juice"].includes(r.category)) {
+        return "drinks";
+      }
       return "coffee";
     }
 
-    function getAllRecipes() { return DEFAULT_RECIPES; }
-    function supportsTemp(recipe, temp) { return Boolean(recipe && recipe.variants && recipe.variants[temp]); }
-    function getDefaultVariantKey(recipe) { return supportsTemp(recipe, "ice") ? "ice" : "hot"; }
+    function getAllRecipes() {
+      return DEFAULT_RECIPES;
+    }
+
+    function supportsTemp(recipe, temp) {
+      return Boolean(recipe && recipe.variants && recipe.variants[temp]);
+    }
+
+    function getDefaultVariantKey(recipe) {
+      if (supportsTemp(recipe, "ice")) return "ice";
+      return "hot";
+    }
+
     function getActiveVariant(recipe, mode = state.activeMode) {
       if (!recipe || !recipe.variants) return null;
       return recipe.variants[mode] || recipe.variants.ice || recipe.variants.hot;
@@ -3168,16 +3791,25 @@
     function getCardBadgeInfo(recipe) {
       const hasHot = supportsTemp(recipe, "hot");
       const hasIce = supportsTemp(recipe, "ice");
-      if (hasHot && hasIce) return { cls: "temp-both", label: t().bothFull };
-      if (hasHot) return { cls: "temp-hot", label: t().hotFull };
+      if (hasHot && hasIce) {
+        return { cls: "temp-both", label: t().bothFull };
+      }
+      if (hasHot) {
+        return { cls: "temp-hot", label: t().hotFull };
+      }
       return { cls: "temp-ice", label: t().iceFull };
     }
 
-    function getRecipeNamePrimary(r) { return state.lang === "en" ? (r.nameEn || r.nameKm) : (r.nameKm || r.nameEn); }
+    function getRecipeNamePrimary(r) {
+      return state.lang === "en" ? (r.nameEn || r.nameKm) : (r.nameKm || r.nameEn);
+    }
+
     function getRecipeDesc(r, variant) {
       const desc = state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
       if (desc) return desc;
-      if (variant) return state.lang === "en" ? (variant.descEn || variant.descKm || "") : (variant.descKm || variant.descEn || "");
+      if (variant) {
+        return state.lang === "en" ? (variant.descEn || variant.descKm || "") : (variant.descKm || variant.descEn || "");
+      }
       return "";
     }
 
@@ -3197,7 +3829,9 @@
       return state.lang === "en" ? (ing.nameEn || ing.nameKm || ing.name || "") : (ing.nameKm || ing.nameEn || ing.name || "");
     }
 
-    function getTotalCartCups() { return cartItems.reduce((sum, item) => sum + (item.qty || 1), 0); }
+    function getTotalCartCups() {
+      return cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
+    }
 
     function getTotalCartPrice() {
       const all = getAllRecipes();
@@ -3213,7 +3847,9 @@
       const s = t();
       const labelEl = document.getElementById("themeBtnLabel");
       const iconSvg = document.getElementById("themeIconSvg");
-      if (labelEl) labelEl.textContent = isDark ? s.themeLight : s.themeDark;
+      if (labelEl) {
+        labelEl.textContent = isDark ? s.themeLight : s.themeDark;
+      }
       if (iconSvg) {
         if (isDark) {
           iconSvg.innerHTML = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
@@ -3237,7 +3873,8 @@
       state.tableNo = activeTable;
 
       const buttonsHtml = opts.map(
-        (num) => `<button type="button" class="seg-btn ${num === activeTable ? "active" : ""}" data-table="${num}">${escapeHtml(s.tableChipLabel(num))}</button>`
+        (num) =>
+          `<button type="button" class="seg-btn ${num === activeTable ? "active" : ""}" data-table="${num}">${escapeHtml(s.tableChipLabel(num))}</button>`
       ).join("");
 
       const modalGroup = document.getElementById("tableNumberGroup");
@@ -3272,7 +3909,9 @@
         const fillPct = Math.min(100, Math.max(0, (pct / 150) * 100));
         slider.style.background = `linear-gradient(90deg, #C67D3B 0%, #C67D3B ${fillPct}%, rgba(118, 118, 128, 0.2) ${fillPct}%, rgba(118, 118, 128, 0.2) 100%)`;
       }
-      if (badge) badge.textContent = s.sweetBadgeText(pct);
+      if (badge) {
+        badge.textContent = s.sweetBadgeText(pct);
+      }
 
       document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
         btn.classList.toggle("active", parseInt(btn.dataset.sweet, 10) === pct);
@@ -3288,6 +3927,7 @@
       document.getElementById("langBadgeText").textContent = s.langBadge;
       document.getElementById("settingsBtnLabel").textContent = s.settingsBtn;
       applyThemeUI();
+      updateSyncPillUI();
 
       document.getElementById("navAllLabel").textContent = s.navMenu();
       document.getElementById("navOrderLabel").textContent = s.navOrder();
@@ -3439,7 +4079,6 @@
       }
 
       saveJson(STORAGE_KEYS.CART, cartItems);
-      pushStateToServer();
       if (state.tab === "cart") renderCart();
       const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
       const tableLabel = s.tableOptionLabel(resolvedTable);
@@ -3491,8 +4130,7 @@
 
       cartItems = [];
       saveJson(STORAGE_KEYS.CART, cartItems);
-      saveJson(STORAGE_KEYS.ORDERS, orders);
-      pushStateToServer();
+      pushSharedStateToCloud();
       showToast(s.toastConfirmedOrder(addedCups));
       switchTab("order");
     }
@@ -3522,8 +4160,7 @@
         const recipe = getAllRecipes().find((r) => r.id === ord.recipeId);
         const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
 
-        saveJson(STORAGE_KEYS.ORDERS, orders);
-        pushStateToServer();
+        pushSharedStateToCloud();
         renderOrders();
         showToast(t().toastMarkedDoneOnly(name));
       }
@@ -3562,7 +4199,9 @@
         return `
           <article class="drink-card" data-id="${r.id}">
             <div class="drink-info">
-              <div class="drink-top-meta">${modeTagHtml}</div>
+              <div class="drink-top-meta">
+                ${modeTagHtml}
+              </div>
               <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
               <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
             </div>
@@ -3649,7 +4288,6 @@
           row.querySelector('[data-action="remove"]').addEventListener("click", () => {
             cartItems = cartItems.filter((o) => o.id !== cId);
             saveJson(STORAGE_KEYS.CART, cartItems);
-            pushStateToServer();
             renderCart();
           });
         });
@@ -3692,7 +4330,9 @@
                 <span class="bill-table-name">${escapeHtml(s.tableOptionLabel(tNum))}</span>
                 <span class="bill-total-amount">${escapeHtml(formatPrice(totalAmt))}</span>
               </div>
-              <div class="bill-items-preview">${previewHtml}</div>
+              <div class="bill-items-preview">
+                ${previewHtml}
+              </div>
             </div>
             <div class="bill-card-footer">
               <span style="font-size:0.76rem; color:var(--text-muted); font-weight:700;">${escapeHtml(s.billItemsCount(tableOrders.length))}</span>
@@ -3705,7 +4345,9 @@
       gridEl.querySelectorAll('[data-action="open-bill"]').forEach((btn) => {
         btn.addEventListener("click", () => {
           const card = btn.closest(".bill-card");
-          if (card && card.dataset.billTable) openReceiptModal(card.dataset.billTable);
+          if (card && card.dataset.billTable) {
+            openReceiptModal(card.dataset.billTable);
+          }
         });
       });
     }
@@ -3789,11 +4431,12 @@
       const tableOrders = orders.filter((o) => normalizeTableNo(o.tableNo) === activeReceiptTableNo);
       const paidCups = tableOrders.reduce((sum, ord) => sum + (ord.qty || 1), 0);
 
-      if (paidCups > 0) recordPaidCupsToChart(paidCups);
+      if (paidCups > 0) {
+        recordPaidCupsToChart(paidCups);
+      }
 
       orders = orders.filter((o) => normalizeTableNo(o.tableNo) !== activeReceiptTableNo);
-      saveJson(STORAGE_KEYS.ORDERS, orders);
-      pushStateToServer();
+      pushSharedStateToCloud();
       closeReceiptModal();
       renderOrders();
       showToast(s.toastTableClearedAndChart(label, paidCups));
@@ -3855,7 +4498,9 @@
           btn.addEventListener("click", (e) => {
             e.stopPropagation();
             const card = btn.closest(".order-row-card");
-            if (card && card.dataset.orderId) openConfirmDoneModal(card.dataset.orderId);
+            if (card && card.dataset.orderId) {
+              openConfirmDoneModal(card.dataset.orderId);
+            }
           });
         });
       }
@@ -3875,7 +4520,12 @@
         const key = getLocalDateKey(dt);
         const entry = dailyChartLog[key] || { cups: 0 };
         const dayParts = formatChartDayParts(dt);
-        days.push({ key, wd: dayParts.wd, dt: dayParts.dt, cups: entry.cups || 0 });
+        days.push({
+          key,
+          wd: dayParts.wd,
+          dt: dayParts.dt,
+          cups: entry.cups || 0
+        });
       }
 
       const todayEntry = dailyChartLog[todayKey] || { cups: 0 };
@@ -3902,9 +4552,13 @@
 
     function syncTopFilterPills() {
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
-        if (state.tab === "cart") btn.classList.toggle("active", btn.dataset.filter === "cart");
-        else if (state.tab === "all") btn.classList.toggle("active", btn.dataset.filter === state.filter);
-        else btn.classList.remove("active");
+        if (state.tab === "cart") {
+          btn.classList.toggle("active", btn.dataset.filter === "cart");
+        } else if (state.tab === "all") {
+          btn.classList.toggle("active", btn.dataset.filter === state.filter);
+        } else {
+          btn.classList.remove("active");
+        }
       });
     }
 
@@ -4047,7 +4701,9 @@
 
     function updateSettingsQrPreview() {
       const previewEl = document.getElementById("qrSettingsPreview");
-      if (previewEl) previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
+      if (previewEl) {
+        previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
+      }
       const qrBox = document.getElementById("qrUploadBox");
       const toggle = document.getElementById("setQrEnabledToggle");
       if (qrBox && toggle) {
@@ -4132,7 +4788,9 @@
       document.getElementById("settingsModal").classList.add("open");
     }
 
-    function closeSettingsModal() { document.getElementById("settingsModal").classList.remove("open"); }
+    function closeSettingsModal() {
+      document.getElementById("settingsModal").classList.remove("open");
+    }
 
     function saveAllSettings() {
       const shopName = document.getElementById("setShopNameInput").value.trim() || "Coffee & Drinks";
@@ -4140,6 +4798,7 @@
       const qrEnabled = document.getElementById("setQrEnabledToggle").checked;
       const currency = document.getElementById("setCurrencySelect").value === "KHR" ? "KHR" : "USD";
       const khrRate = Math.max(1000, parseInt(document.getElementById("setKhrRateInput").value, 10) || 4000);
+
       const tableCount = Math.min(15, Math.max(1, parseInt(document.getElementById("setTableCountInput").value, 10) || 5));
       const enableTakeaway = document.getElementById("setTakeawayToggle").checked;
       const lockMenuAndData = document.getElementById("setLockModeToggle").checked;
@@ -4148,31 +4807,44 @@
       document.querySelectorAll("#itemPricesContainer .item-price-input").forEach((inp) => {
         const id = inp.dataset.priceId;
         const val = parseFloat(inp.value);
-        if (id && !isNaN(val) && val >= 0) priceOverrides[id] = Number(val.toFixed(2));
+        if (id && !isNaN(val) && val >= 0) {
+          priceOverrides[id] = Number(val.toFixed(2));
+        }
       });
 
       const disabledItems = {};
       document.querySelectorAll("#itemAvailabilityContainer .item-avail-checkbox").forEach((cb) => {
         const id = cb.dataset.availId;
-        if (id && !cb.checked) disabledItems[id] = true;
+        if (id && !cb.checked) {
+          disabledItems[id] = true;
+        }
       });
 
       const newTheme = document.getElementById("setDarkModeToggle").checked ? "dark" : "light";
       const newLang = document.getElementById("setLangSelect").value === "en" ? "en" : "km";
 
       appSettings = {
-        shopName, receiptFooter, qrEnabled, qrImageDataUrl: draftQrImageDataUrl,
-        currency, khrRate, tableCount, enableTakeaway, lockMenuAndData,
-        priceOverrides, disabledItems
+        shopName,
+        receiptFooter,
+        qrEnabled,
+        qrImageDataUrl: draftQrImageDataUrl,
+        currency,
+        khrRate,
+        tableCount,
+        enableTakeaway,
+        lockMenuAndData,
+        priceOverrides,
+        disabledItems
       };
 
       state.theme = newTheme;
       state.lang = newLang;
+      state.tableNo = normalizeTableNo(state.tableNo);
 
       saveJson(STORAGE_KEYS.SETTINGS, appSettings);
       saveJson(STORAGE_KEYS.THEME, state.theme);
       saveJson(STORAGE_KEYS.LANG, state.lang);
-      pushStateToServer();
+      pushSharedStateToCloud();
 
       applyStaticTranslations();
       refreshActiveView();
@@ -4184,14 +4856,15 @@
       const payload = {
         exportedAt: new Date().toISOString(),
         settings: appSettings,
-        orders,
-        dailyChartLog
+        cart: cartItems,
+        orders: orders,
+        dailyChartLog: dailyChartLog
       };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `coffee_pos_backup_${getLocalDateKey()}.json`;
+      a.download = `coffee-drinks-backup-${getLocalDateKey()}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -4200,73 +4873,39 @@
     }
 
     function resetAllAppData() {
-      const s = t();
-      if (!confirm(s.toastResetConfirm)) return;
+      if (!confirm(t().toastResetConfirm)) return;
       appSettings = Object.assign({}, DEFAULT_SETTINGS, { priceOverrides: {}, disabledItems: {} });
       draftQrImageDataUrl = "";
       cartItems = [];
       orders = [];
       dailyChartLog = {};
-      state.theme = "light";
-      state.lang = "km";
-      state.cupSize = "16oz";
       state.tableNo = "1";
-      state.sweetPct = 100;
 
-      Object.values(STORAGE_KEYS).forEach((k) => {
-        try { localStorage.removeItem(k); } catch {}
-      });
-      pushStateToServer();
+      saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+      saveJson(STORAGE_KEYS.CART, cartItems);
+      pushSharedStateToCloud();
 
       applyStaticTranslations();
+      refreshActiveView();
       closeSettingsModal();
-      switchTab("all");
-      showToast(s.toastResetDone);
+      showToast(t().toastResetDone);
     }
 
-    function showToast(msg) {
-      const toast = document.getElementById("toast");
-      toast.textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => toast.classList.remove("show"), 2200);
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
-    function initEvents() {
+    function bindEvents() {
       document.getElementById("langToggleBtn").addEventListener("click", toggleLanguage);
       document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
-
-      document.getElementById("setLockModeToggle").addEventListener("change", (e) => {
-        appSettings.lockMenuAndData = e.target.checked;
-        saveJson(STORAGE_KEYS.SETTINGS, appSettings);
-        pushStateToServer();
-        applyLockStateUI();
-        showToast(appSettings.lockMenuAndData ? t().toastModeLocked : t().toastModeUnlocked);
-      });
+      document.getElementById("openSettingsBtn").addEventListener("click", openSettingsModal);
+      document.getElementById("closeSettingsModal").addEventListener("click", closeSettingsModal);
+      document.getElementById("saveSettingsBtn").addEventListener("click", saveAllSettings);
+      document.getElementById("exportDataBtn").addEventListener("click", exportBackupJson);
+      document.getElementById("resetAllDataBtn").addEventListener("click", resetAllAppData);
 
       document.getElementById("unlockFromBannerBtn").addEventListener("click", () => {
         appSettings.lockMenuAndData = false;
         saveJson(STORAGE_KEYS.SETTINGS, appSettings);
-        pushStateToServer();
+        pushSharedStateToCloud();
         applyLockStateUI();
         showToast(t().toastModeUnlocked);
-      });
-
-      document.getElementById("openSettingsBtn").addEventListener("click", openSettingsModal);
-      document.getElementById("closeSettingsModal").addEventListener("click", closeSettingsModal);
-      document.getElementById("settingsModal").addEventListener("click", (e) => {
-        if (e.target.id === "settingsModal") closeSettingsModal();
-      });
-      document.getElementById("setCurrencySelect").addEventListener("change", (e) => {
-        document.getElementById("khrRateRow").style.display = e.target.value === "KHR" ? "flex" : "none";
       });
 
       document.getElementById("setQrEnabledToggle").addEventListener("change", updateSettingsQrPreview);
@@ -4278,30 +4917,9 @@
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (ev) => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement("canvas");
-            const maxDim = 420;
-            let w = img.width;
-            let h = img.height;
-            if (w > maxDim || h > maxDim) {
-              if (w > h) {
-                h = Math.round((h * maxDim) / w);
-                w = maxDim;
-              } else {
-                w = Math.round((w * maxDim) / h);
-                h = maxDim;
-              }
-            }
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, w, h);
-            draftQrImageDataUrl = canvas.toDataURL("image/png", 0.9);
-            updateSettingsQrPreview();
-            showToast(t().toastQrUpdated);
-          };
-          img.src = ev.target.result;
+          draftQrImageDataUrl = String(ev.target.result || "");
+          updateSettingsQrPreview();
+          showToast(t().toastQrUpdated);
         };
         reader.readAsDataURL(file);
         e.target.value = "";
@@ -4312,17 +4930,27 @@
         showToast(t().toastQrReset);
       });
 
-      document.getElementById("saveSettingsBtn").addEventListener("click", saveAllSettings);
-      document.getElementById("exportDataBtn").addEventListener("click", exportBackupJson);
-      document.getElementById("resetAllDataBtn").addEventListener("click", resetAllAppData);
+      document.getElementById("setCurrencySelect").addEventListener("change", (e) => {
+        document.getElementById("khrRateRow").style.display = e.target.value === "KHR" ? "flex" : "none";
+      });
+
+      document.getElementById("settingsModal").addEventListener("click", (e) => {
+        if (e.target.id === "settingsModal") closeSettingsModal();
+      });
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const val = btn.dataset.filter;
-          if (val === "cart") switchTab("cart");
-          else {
-            state.filter = val;
+          const filterVal = btn.dataset.filter;
+          if (filterVal === "cart") {
+            switchTab("cart");
+            return;
+          }
+          state.filter = filterVal;
+          if (state.tab !== "all") {
             switchTab("all");
+          } else {
+            syncTopFilterPills();
+            renderMenu();
           }
         });
       });
@@ -4333,74 +4961,6 @@
 
       document.getElementById("confirmCartToOrderBtn").addEventListener("click", confirmCartToOrder);
       document.getElementById("backToCartBtn").addEventListener("click", () => switchTab("cart"));
-
-      document.getElementById("resetChartBtn").addEventListener("click", () => {
-        dailyChartLog = {};
-        saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
-        pushStateToServer();
-        renderDailyChart();
-        showToast(t().toastChartCleared);
-      });
-
-      document.getElementById("closeRecipeModal").addEventListener("click", () => {
-        state.editingCartItemId = null;
-        document.getElementById("recipeModal").classList.remove("open");
-      });
-      document.getElementById("recipeModal").addEventListener("click", (e) => {
-        if (e.target.id === "recipeModal") {
-          state.editingCartItemId = null;
-          e.currentTarget.classList.remove("open");
-        }
-      });
-
-      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          if (btn.disabled || !state.activeRecipeId) return;
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (!recipe || !supportsTemp(recipe, btn.dataset.mode)) return;
-          state.activeMode = btn.dataset.mode;
-          renderModalVariantContent(recipe, state.activeMode);
-        });
-      });
-
-      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          state.cupSize = btn.dataset.size;
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (recipe) renderModalIngredients(getActiveVariant(recipe, state.activeMode));
-        });
-      });
-
-      function applySweetnessChange(newPct) {
-        const clamped = Math.min(150, Math.max(0, parseInt(newPct, 10) || 0));
-        state.sweetPct = clamped;
-        updateSweetSliderUI();
-        const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-        if (recipe) renderModalIngredients(getActiveVariant(recipe, state.activeMode));
-      }
-
-      document.getElementById("sweetRangeInput").addEventListener("input", (e) => applySweetnessChange(e.target.value));
-      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
-        btn.addEventListener("click", () => applySweetnessChange(btn.dataset.sweet));
-      });
-
-      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
-        if (state.activeRecipeId) {
-          addToCart(
-            state.activeRecipeId,
-            state.activeMode,
-            state.cupSize,
-            1,
-            state.sweetPct,
-            state.tableNo,
-            state.editingCartItemId
-          );
-          state.editingCartItemId = null;
-          document.getElementById("recipeModal").classList.remove("open");
-        }
-      });
 
       document.getElementById("cancelDoneBtn").addEventListener("click", closeConfirmDoneModal);
       document.getElementById("acceptDoneBtn").addEventListener("click", acceptConfirmDone);
@@ -4415,81 +4975,112 @@
         if (e.target.id === "receiptModal") closeReceiptModal();
       });
 
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          closeConfirmDoneModal();
-          closeReceiptModal();
-          closeSettingsModal();
-          state.editingCartItemId = null;
+      document.getElementById("resetChartBtn").addEventListener("click", () => {
+        dailyChartLog = {};
+        pushSharedStateToCloud();
+        renderDailyChart();
+        showToast(t().toastChartCleared);
+      });
+
+      document.getElementById("closeRecipeModal").addEventListener("click", () => {
+        document.getElementById("recipeModal").classList.remove("open");
+      });
+      document.getElementById("recipeModal").addEventListener("click", (e) => {
+        if (e.target.id === "recipeModal") {
           document.getElementById("recipeModal").classList.remove("open");
         }
       });
-    }
 
-    // ================= AUTOMATIC SERVER API SYNC =================
-    let isSyncingFromServer = false;
-
-    async function pushStateToServer() {
-      if (isSyncingFromServer) return;
-      try {
-        await fetch("/api/state", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            settings: appSettings,
-            cartItems,
-            orders,
-            dailyChartLog
-          })
+      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.disabled) return;
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (!recipe) return;
+          state.activeMode = btn.dataset.mode;
+          renderModalVariantContent(recipe, state.activeMode);
         });
-      } catch (err) {
-        console.warn("Offline fallback (using localStorage):", err.message);
-      }
+      });
+
+      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.cupSize = btn.dataset.size;
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          const variant = getActiveVariant(recipe, state.activeMode);
+          if (variant) renderModalIngredients(variant);
+        });
+      });
+
+      const sweetSlider = document.getElementById("sweetRangeInput");
+      sweetSlider.addEventListener("input", (e) => {
+        state.sweetPct = parseInt(e.target.value, 10);
+        updateSweetSliderUI();
+        const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+        const variant = getActiveVariant(recipe, state.activeMode);
+        if (variant) renderModalIngredients(variant);
+      });
+
+      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.sweetPct = parseInt(btn.dataset.sweet, 10);
+          updateSweetSliderUI();
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          const variant = getActiveVariant(recipe, state.activeMode);
+          if (variant) renderModalIngredients(variant);
+        });
+      });
+
+      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
+        if (isMenuLocked()) {
+          showToast(t().toastFeatureLocked);
+          return;
+        }
+        if (!state.activeRecipeId) return;
+        const replaceId = state.editingCartItemId;
+        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sweetPct, state.tableNo, replaceId);
+        state.editingCartItemId = null;
+        document.getElementById("recipeModal").classList.remove("open");
+      });
+
+      let startY = 0;
+      const sheet = document.getElementById("recipeSheet");
+      sheet.addEventListener("touchstart", (e) => {
+        if (sheet.scrollTop === 0) startY = e.touches[0].clientY;
+      }, { passive: true });
+      sheet.addEventListener("touchend", (e) => {
+        const endY = e.changedTouches[0].clientY;
+        if (sheet.scrollTop === 0 && endY - startY > 90) {
+          document.getElementById("recipeModal").classList.remove("open");
+        }
+      }, { passive: true });
     }
 
-    async function pullStateFromServer() {
-      isSyncingFromServer = true;
-      try {
-        const res = await fetch("/api/state", { cache: "no-store" });
-        if (!res.ok) return;
-        const data = await res.json();
-
-        if (data.settings && typeof data.settings === "object") {
-          appSettings = Object.assign({}, DEFAULT_SETTINGS, data.settings);
-          appSettings.priceOverrides = Object.assign({}, DEFAULT_SETTINGS.priceOverrides, appSettings.priceOverrides || {});
-          appSettings.disabledItems = Object.assign({}, DEFAULT_SETTINGS.disabledItems, appSettings.disabledItems || {});
-          draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
-          saveJson(STORAGE_KEYS.SETTINGS, appSettings);
-        }
-
-        if (Array.isArray(data.cartItems)) {
-          cartItems = data.cartItems;
-          saveJson(STORAGE_KEYS.CART, cartItems);
-        }
-
-        if (Array.isArray(data.orders)) {
-          orders = data.orders;
-          saveJson(STORAGE_KEYS.ORDERS, orders);
-        }
-
-        if (data.dailyChartLog && typeof data.dailyChartLog === "object") {
-          dailyChartLog = data.dailyChartLog;
-          saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
-        }
-
-        applyStaticTranslations();
-        refreshActiveView();
-      } catch (err) {
-        console.warn("Server not reachable yet, using localStorage:", err.message);
-      } finally {
-        isSyncingFromServer = false;
-      }
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
     }
 
-    applyStaticTranslations();
-    initEvents();
-    renderMenu();
-    pullStateFromServer();
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => el.classList.remove("show"), 2200);
+    }
+
+    function init() {
+      state.tableNo = normalizeTableNo(state.tableNo);
+      bindEvents();
+      applyStaticTranslations();
+      renderMenu();
+      initCloudSync();
+    }
+
+    init();
   </script>
 </body>
 </html>
