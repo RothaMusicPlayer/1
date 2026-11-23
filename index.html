@@ -278,6 +278,12 @@
       border-radius: 11px;
     }
 
+    .icon-btn.qr-pay-btn {
+      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
     .lang-toggle-btn {
       border-color: rgba(198, 125, 59, 0.45);
       background: rgba(255, 248, 238, 0.92);
@@ -753,7 +759,17 @@
       color: var(--accent-caramel);
     }
 
+    .bill-card-body {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
     .bill-items-preview {
+      flex: 1;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 5px;
@@ -766,6 +782,36 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+    }
+
+    /* Inline QR Preview on Table Bill Card */
+    .bill-inline-qr {
+      width: 72px;
+      height: 72px;
+      padding: 4px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(198, 125, 59, 0.35);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.14s ease;
+      overflow: hidden;
+    }
+
+    .bill-inline-qr:active {
+      transform: scale(0.94);
+    }
+
+    .bill-inline-qr img,
+    .bill-inline-qr svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
     }
 
     .bill-card-footer {
@@ -1550,7 +1596,7 @@
     /* Payment QR Code Box inside Receipt */
     .receipt-qr-section {
       margin-top: 14px;
-      padding: 12px;
+      padding: 14px;
       border-radius: 16px;
       background: rgba(250, 246, 240, 0.95);
       border: 1px dashed rgba(198, 125, 59, 0.45);
@@ -1567,14 +1613,14 @@
     }
 
     .receipt-qr-title {
-      font-size: 0.8rem;
+      font-size: 0.84rem;
       font-weight: 800;
       color: var(--text-primary);
     }
 
     .receipt-qr-frame {
-      width: 172px;
-      height: 172px;
+      width: 188px;
+      height: 188px;
       padding: 8px;
       border-radius: 16px;
       background: #FFFFFF;
@@ -1595,11 +1641,11 @@
     }
 
     .receipt-qr-amount-chip {
-      font-size: 0.82rem;
+      font-size: 0.86rem;
       font-weight: 800;
       color: var(--accent-caramel);
       background: rgba(198, 125, 59, 0.14);
-      padding: 3px 12px;
+      padding: 4px 14px;
       border-radius: 999px;
     }
 
@@ -1984,12 +2030,12 @@
         </div>
       </div>
 
-      <!-- Table Bills / Receipts Section -->
+      <!-- Table Bills / Receipts Section with QR -->
       <div class="order-panel">
         <div class="order-header-row" style="margin-bottom: 12px;">
           <div>
-            <h2 id="tableBillsTitle">វិក័យប័ត្រសរុបតម្លៃតាមតុ</h2>
-            <p class="subtitle" id="tableBillsSubtitle">សរុបតម្លៃ និងមុខទំនិញដាច់ដោយឡែកតាមតុនីមួយៗ</p>
+            <h2 id="tableBillsTitle">វិក័យប័ត្រសរុបតម្លៃតាមតុ &amp; QR គិតលុយ</h2>
+            <p class="subtitle" id="tableBillsSubtitle">ស្កេន QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច</p>
           </div>
         </div>
         <div class="table-bills-grid" id="tableBillsGrid"></div>
@@ -2002,7 +2048,7 @@
         <div class="order-header-row">
           <div>
             <h2 id="chartPanelTitle">ក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ</h2>
-            <p class="subtitle" id="chartPanelSubtitle">កត់ត្រាចំនួនកែវដែលបានចុចធ្វើរួច (Done) ពី All Order ដោយស្វ័យប្រវត្តិ</p>
+            <p class="subtitle" id="chartPanelSubtitle">កត់ត្រាចំនួនកែវដែលបានគិតលុយរួចពីវិក័យប័ត្រតុដោយស្វ័យប្រវត្តិ</p>
           </div>
           <button type="button" class="icon-btn small-action-btn" id="resetChartBtn" style="color:#B81D37;">សម្អាតក្រាហ្វ</button>
         </div>
@@ -2114,12 +2160,12 @@
     </div>
   </div>
 
-  <!-- Confirm Mark Order Done Modal -->
+  <!-- Confirm Order Done Modal -->
   <div class="modal-backdrop" id="confirmDoneModal" role="dialog" aria-modal="true">
     <div class="modal-sheet confirm-sheet centered">
       <div class="drag-handle"></div>
       <h2 id="confirmDoneTitle" style="margin: 0 0 6px; font-size: 1.14rem;">បញ្ជាក់ថាធ្វើរួច?</h2>
-      <p id="confirmDoneDesc" style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">ចំនួនកែវនឹងត្រូវបញ្ចូលទៅក្នុងក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ។</p>
+      <p id="confirmDoneDesc" style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">សម្គាល់ថាភេសជ្ជៈនេះធ្វើរួចរាល់ (ទិន្នន័យក្រាហ្វនឹងបញ្ចូលពេលគិតលុយរួច)។</p>
       <div class="confirm-item-preview" id="confirmDoneItemText"></div>
       <div class="confirm-actions-row">
         <button type="button" class="icon-btn" id="cancelDoneBtn">បោះបង់</button>
@@ -2144,7 +2190,7 @@
 
       <div class="confirm-actions-row">
         <button type="button" class="icon-btn" id="closeReceiptBtn">បិទ</button>
-        <button type="button" class="icon-btn confirm-btn" id="clearTableBillBtn">គិតលុយ / សម្អាតតុ</button>
+        <button type="button" class="icon-btn confirm-btn" id="clearTableBillBtn">គិតលុយរួច</button>
       </div>
     </div>
   </div>
@@ -2383,18 +2429,18 @@
         orderStatusDone: "ធ្វើរួច",
         markDoneBtn: "ធ្វើរួច",
         confirmDoneTitle: "បញ្ជាក់ថាធ្វើរួច?",
-        confirmDoneDesc: "ចំនួនកែវនឹងត្រូវបញ្ចូលទៅក្នុងក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ។",
+        confirmDoneDesc: "សម្គាល់ថាភេសជ្ជៈនេះធ្វើរួចរាល់ (ទិន្នន័យក្រាហ្វនឹងបញ្ចូលពេលគិតលុយរួច)។",
         cancelDoneBtn: "បោះបង់",
         acceptDoneBtn: "បញ្ជាក់",
         orderEditBtn: "កែ",
         orderRemoveBtn: "លុប",
         orderDoneSummary: (doneCount, totalCount) => `ធ្វើរួច៖ ${doneCount}/${totalCount} មុខ`,
-        tableBillsTitle: "វិក័យប័ត្រសរុបតម្លៃតាមតុ",
-        tableBillsSubtitle: "សរុបតម្លៃ និងមុខទំនិញតាមតុនីមួយៗ",
+        tableBillsTitle: "វិក័យប័ត្រសរុបតម្លៃតាមតុ & QR គិតលុយ",
+        tableBillsSubtitle: "ស្កេន QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច",
         billEmptyText: "មិនទាន់មានការកុម្ម៉ង់សម្រាប់តុនេះទេ",
         billItemsCount: (n) => `${n} មុខ`,
-        viewBillBtn: "មើលវិក័យប័ត្រ",
-        clearTableBtn: "គិតលុយតុនេះ",
+        viewBillBtn: "បង្ហាញ QR គិតលុយ",
+        clearTableBtn: "គិតលុយរួច",
         receiptTitleForTable: (label) => `វិក័យប័ត្រ — ${label}`,
         receiptEmptyModal: "គ្មានមុខទំនិញក្នុងវិក័យប័ត្រតុនេះទេ។",
         receiptTotalLabel: "តម្លៃសរុប",
@@ -2427,7 +2473,7 @@
         defaultTip: "ឆុង ឬលាយឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
         addOrderBtnLabel: "+ ដាក់ចូលកន្ត្រក",
         chartPanelTitle: "ក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ",
-        chartPanelSubtitle: "កត់ត្រាចំនួនកែវដែលបានចុចធ្វើរួចពី All Order ដោយស្វ័យប្រវត្តិ",
+        chartPanelSubtitle: "កត់ត្រាចំនួនកែវដែលបានគិតលុយរួចពីវិក័យប័ត្រតុដោយស្វ័យប្រវត្តិ",
         resetChartBtn: "សម្អាតក្រាហ្វ",
         resTodayCupsLabel: "ចំនួនកែវថ្ងៃនេះ",
         cupUnit: "កែវ",
@@ -2472,9 +2518,9 @@
         toastAddedToCart: (name) => `បានដាក់ "${name}" ចូលកន្ត្រក`,
         toastCartEmpty: "កន្ត្រកនៅទំនេរ — សូមជ្រើសរើសមុខទំនិញជាមុន",
         toastConfirmedOrder: (cups) => `បានបញ្ជាក់ ${cups} កែវ ទៅ All Order`,
-        toastMarkedDoneAndChart: (name, cups) => `បានបញ្ជាក់ «${name}» ធ្វើរួច (+${cups} កែវ ក្នុងក្រាហ្វ)`,
+        toastMarkedDoneOnly: (name) => `បានបញ្ជាក់ «${name}» ធ្វើរួចរាល់`,
         toastChartCleared: "បានសម្អាតទិន្នន័យក្រាហ្វរួចរាល់",
-        toastTableCleared: (label) => `បានគិតលុយ និងសម្អាតវិក័យប័ត្រ ${label}`,
+        toastTableClearedAndChart: (label, cups) => `បានគិតលុយ ${label} រួច (+${cups} កែវ ក្នុងក្រាហ្វ)`,
         toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ",
         toastThemeDark: "បានប្តូរទៅមុខងារងងឹត",
         toastThemeLight: "បានប្តូរទៅមុខងារភ្លឺ"
@@ -2517,18 +2563,18 @@
         orderStatusDone: "Done",
         markDoneBtn: "Done",
         confirmDoneTitle: "Confirm Done?",
-        confirmDoneDesc: "Cups will be recorded into the Daily Cups Chart.",
+        confirmDoneDesc: "Mark this drink as prepared (cups will be recorded to Daily Chart upon payment).",
         cancelDoneBtn: "Cancel",
         acceptDoneBtn: "Confirm",
         orderEditBtn: "Edit",
         orderRemoveBtn: "Remove",
         orderDoneSummary: (doneCount, totalCount) => `Done: ${doneCount}/${totalCount} items`,
-        tableBillsTitle: "Table Bills & Totals",
-        tableBillsSubtitle: "Total amount and items per table",
+        tableBillsTitle: "Table Bills & Payment QR",
+        tableBillsSubtitle: "Scan QR to pay per table and record cups to Daily Chart once paid",
         billEmptyText: "No orders for this table yet",
         billItemsCount: (n) => `${n} items`,
-        viewBillBtn: "View Bill",
-        clearTableBtn: "Settle Table",
+        viewBillBtn: "Show Payment QR",
+        clearTableBtn: "Paid & Settle",
         receiptTitleForTable: (label) => `Bill — ${label}`,
         receiptEmptyModal: "No items on this table bill.",
         receiptTotalLabel: "Total Amount",
@@ -2561,7 +2607,7 @@
         defaultTip: "Measure consistently to keep balanced flavor in every cup.",
         addOrderBtnLabel: "+ Add to Cart",
         chartPanelTitle: "Daily Cups Chart",
-        chartPanelSubtitle: "Automatically records cups marked Done in All Order",
+        chartPanelSubtitle: "Automatically records cups once paid from table bills",
         resetChartBtn: "Clear Chart",
         resTodayCupsLabel: "Today Cups",
         cupUnit: "cups",
@@ -2606,9 +2652,9 @@
         toastAddedToCart: (name) => `Added "${name}" to Cart`,
         toastCartEmpty: "Cart is empty — add an item first",
         toastConfirmedOrder: (cups) => `Confirmed ${cups} cups into All Order`,
-        toastMarkedDoneAndChart: (name, cups) => `Marked "${name}" Done (+${cups} cups in chart)`,
+        toastMarkedDoneOnly: (name) => `Marked "${name}" as Done`,
         toastChartCleared: "Daily chart data cleared",
-        toastTableCleared: (label) => `Settled and cleared bill for ${label}`,
+        toastTableClearedAndChart: (label, cups) => `Paid ${label} (+${cups} cups recorded in chart)`,
         toastLangSwitched: "Switched to English",
         toastThemeDark: "Switched to Dark Mode",
         toastThemeLight: "Switched to Light Mode"
@@ -3589,11 +3635,13 @@
       };
     }
 
-    function recordDoneOrderToChart(cups) {
+    function recordPaidCupsToChart(cups) {
+      const added = Number(cups) || 0;
+      if (added <= 0) return;
       const key = getLocalDateKey();
       const current = dailyChartLog[key] || { cups: 0 };
       dailyChartLog[key] = {
-        cups: (current.cups || 0) + (cups || 1)
+        cups: (current.cups || 0) + added
       };
       saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
     }
@@ -4050,14 +4098,12 @@
       const ord = orders.find((o) => o.id === pendingDoneOrderId);
       if (ord && !ord.done) {
         ord.done = true;
-        const qty = ord.qty || 1;
         const recipe = getAllRecipes().find((r) => r.id === ord.recipeId);
         const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
 
-        recordDoneOrderToChart(qty);
         saveJson(STORAGE_KEYS.ORDERS, orders);
         renderOrders();
-        showToast(t().toastMarkedDoneAndChart(name, qty));
+        showToast(t().toastMarkedDoneOnly(name));
       }
       closeConfirmDoneModal();
     }
@@ -4218,6 +4264,11 @@
               `;
             }).join("");
 
+        const showInlineQr = tableOrders.length > 0 && appSettings.qrEnabled !== false;
+        const inlineQrHtml = showInlineQr
+          ? `<div class="bill-inline-qr" data-action="open-bill" title="${escapeHtml(s.receiptQrScanLabel)}">${renderQrGraphicHtml(appSettings.qrImageDataUrl)}</div>`
+          : "";
+
         return `
           <div class="bill-card" data-bill-table="${tNum}">
             <div>
@@ -4225,21 +4276,24 @@
                 <span class="bill-table-name">${escapeHtml(s.tableOptionLabel(tNum))}</span>
                 <span class="bill-total-amount">${escapeHtml(formatPrice(totalAmt))}</span>
               </div>
-              <div class="bill-items-preview" style="margin-top:8px;">
-                ${previewHtml}
+              <div class="bill-card-body">
+                <div class="bill-items-preview">
+                  ${previewHtml}
+                </div>
+                ${inlineQrHtml}
               </div>
             </div>
             <div class="bill-card-footer">
               <span style="font-size:0.76rem; color:var(--text-muted); font-weight:700;">${escapeHtml(s.billItemsCount(tableOrders.length))}</span>
-              <button type="button" class="icon-btn small-action-btn" data-action="open-bill">${escapeHtml(s.viewBillBtn)}</button>
+              <button type="button" class="icon-btn small-action-btn ${tableOrders.length > 0 ? "qr-pay-btn" : ""}" data-action="open-bill">${escapeHtml(s.viewBillBtn)}</button>
             </div>
           </div>
         `;
       }).join("");
 
-      gridEl.querySelectorAll('[data-action="open-bill"]').forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const card = btn.closest(".bill-card");
+      gridEl.querySelectorAll('[data-action="open-bill"]').forEach((el) => {
+        el.addEventListener("click", () => {
+          const card = el.closest(".bill-card");
           if (card && card.dataset.billTable) {
             openReceiptModal(card.dataset.billTable);
           }
@@ -4260,9 +4314,13 @@
       document.getElementById("receiptModalSub").textContent = s.billItemsCount(tableOrders.length);
 
       const container = document.getElementById("receiptLinesContainer");
+      const clearBtn = document.getElementById("clearTableBillBtn");
+
       if (tableOrders.length === 0) {
         container.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:14px 0; font-size:0.86rem;">${escapeHtml(s.receiptEmptyModal)}</div>`;
+        if (clearBtn) clearBtn.disabled = true;
       } else {
+        if (clearBtn) clearBtn.disabled = false;
         let totalSum = 0;
         const linesHtml = tableOrders.map((ord) => {
           const rec = allRecipes.find((r) => r.id === ord.recipeId);
@@ -4319,11 +4377,18 @@
       if (!activeReceiptTableNo) return;
       const s = t();
       const label = s.tableOptionLabel(activeReceiptTableNo);
+      const tableOrders = orders.filter((o) => normalizeTableNo(o.tableNo) === activeReceiptTableNo);
+      const paidCups = tableOrders.reduce((sum, ord) => sum + (ord.qty || 1), 0);
+
+      if (paidCups > 0) {
+        recordPaidCupsToChart(paidCups);
+      }
+
       orders = orders.filter((o) => normalizeTableNo(o.tableNo) !== activeReceiptTableNo);
       saveJson(STORAGE_KEYS.ORDERS, orders);
       closeReceiptModal();
       renderOrders();
-      showToast(s.toastTableCleared(label));
+      showToast(s.toastTableClearedAndChart(label, paidCups));
     }
 
     function renderOrders() {
@@ -4823,6 +4888,7 @@
       document.getElementById("setCurrencySelect").addEventListener("change", (e) => {
         document.getElementById("khrRateRow").style.display = e.target.value === "KHR" ? "flex" : "none";
       });
+
       document.getElementById("setQrEnabledToggle").addEventListener("change", updateSettingsQrPreview);
       document.getElementById("uploadQrBtn").addEventListener("click", () => {
         document.getElementById("setQrFileInput").click();
@@ -4834,6 +4900,7 @@
         reader.onload = (ev) => {
           const img = new Image();
           img.onload = () => {
+            const canvas = document.createElement("canvas");
             const maxDim = 420;
             let w = img.width;
             let h = img.height;
@@ -4846,7 +4913,6 @@
                 h = maxDim;
               }
             }
-            const canvas = document.createElement("canvas");
             canvas.width = w;
             canvas.height = h;
             const ctx = canvas.getContext("2d");
@@ -4872,12 +4938,12 @@
 
       document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const filterVal = btn.dataset.filter;
-          if (filterVal === "cart") {
+          const val = btn.dataset.filter;
+          if (val === "cart") {
             switchTab("cart");
             return;
           }
-          state.filter = filterVal;
+          state.filter = val;
           if (state.tab !== "all") {
             switchTab("all");
           } else {
@@ -4888,13 +4954,7 @@
       });
 
       document.querySelectorAll(".nav-item").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const targetTab = btn.dataset.tab;
-          if (targetTab === "all") {
-            state.filter = "coffee";
-          }
-          switchTab(targetTab);
-        });
+        btn.addEventListener("click", () => switchTab(btn.dataset.tab));
       });
 
       document.getElementById("confirmCartToOrderBtn").addEventListener("click", confirmCartToOrder);
@@ -4920,26 +4980,23 @@
         showToast(t().toastChartCleared);
       });
 
-      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          if (btn.disabled) return;
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (!recipe) return;
-          state.activeMode = btn.dataset.mode;
-          renderModalVariantContent(recipe, state.activeMode);
-        });
-      });
-
       document.getElementById("closeRecipeModal").addEventListener("click", () => {
-        state.editingCartItemId = null;
         document.getElementById("recipeModal").classList.remove("open");
       });
-
       document.getElementById("recipeModal").addEventListener("click", (e) => {
         if (e.target.id === "recipeModal") {
-          state.editingCartItemId = null;
           document.getElementById("recipeModal").classList.remove("open");
         }
+      });
+
+      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetMode = btn.dataset.mode;
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (!recipe || !supportsTemp(recipe, targetMode)) return;
+          state.activeMode = targetMode;
+          renderModalVariantContent(recipe, targetMode);
+        });
       });
 
       document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
@@ -4948,10 +5005,7 @@
           btn.classList.add("active");
           state.cupSize = btn.dataset.size;
           const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
-          if (r) {
-            const v = getActiveVariant(r, state.activeMode);
-            if (v) renderModalIngredients(v);
-          }
+          if (r) renderModalVariantContent(r, state.activeMode);
         });
       });
 
@@ -4961,38 +5015,47 @@
         updateSweetSliderUI();
         const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
         if (r) {
-          const v = getActiveVariant(r, state.activeMode);
-          if (v) renderModalIngredients(v);
+          const variant = getActiveVariant(r, state.activeMode);
+          if (variant) renderModalIngredients(variant);
         }
       });
 
       document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state.sweetPct = parseInt(btn.dataset.sweet, 10) || 0;
+          state.sweetPct = parseInt(btn.dataset.sweet, 10);
           updateSweetSliderUI();
           const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
           if (r) {
-            const v = getActiveVariant(r, state.activeMode);
-            if (v) renderModalIngredients(v);
+            const variant = getActiveVariant(r, state.activeMode);
+            if (variant) renderModalIngredients(variant);
           }
         });
       });
 
       document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
-        if (!state.activeRecipeId) return;
-        const wasEditingId = state.editingCartItemId;
-        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sweetPct, state.tableNo, wasEditingId);
-        state.editingCartItemId = null;
-        document.getElementById("recipeModal").classList.remove("open");
-        if (wasEditingId) {
-          switchTab("cart");
+        if (isMenuLocked()) {
+          showToast(t().toastFeatureLocked);
+          return;
+        }
+        if (state.activeRecipeId) {
+          addToCart(
+            state.activeRecipeId,
+            state.activeMode,
+            state.cupSize,
+            1,
+            state.sweetPct,
+            state.tableNo,
+            state.editingCartItemId
+          );
+          state.editingCartItemId = null;
+          document.getElementById("recipeModal").classList.remove("open");
         }
       });
     }
 
     initEvents();
     applyStaticTranslations();
-    switchTab("all");
+    renderMenu();
   </script>
 </body>
 </html>
