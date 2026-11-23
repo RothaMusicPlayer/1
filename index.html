@@ -759,20 +759,11 @@
       color: var(--accent-caramel);
     }
 
-    .bill-card-body {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
     .bill-items-preview {
-      flex: 1;
-      min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 5px;
+      margin-top: 8px;
       font-size: 0.82rem;
       color: var(--text-secondary);
     }
@@ -782,36 +773,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-    }
-
-    /* Inline QR Preview on Table Bill Card */
-    .bill-inline-qr {
-      width: 72px;
-      height: 72px;
-      padding: 4px;
-      border-radius: 12px;
-      background: #FFFFFF;
-      border: 1px solid rgba(198, 125, 59, 0.35);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: transform 0.14s ease;
-      overflow: hidden;
-    }
-
-    .bill-inline-qr:active {
-      transform: scale(0.94);
-    }
-
-    .bill-inline-qr img,
-    .bill-inline-qr svg {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 8px;
-      display: block;
     }
 
     .bill-card-footer {
@@ -1593,7 +1554,7 @@
       color: var(--accent-caramel);
     }
 
-    /* Payment QR Code Box inside Receipt */
+    /* Payment QR Code Box inside Receipt Modal */
     .receipt-qr-section {
       margin-top: 14px;
       padding: 14px;
@@ -2030,12 +1991,12 @@
         </div>
       </div>
 
-      <!-- Table Bills / Receipts Section with QR -->
+      <!-- Table Bills / Receipts Section -->
       <div class="order-panel">
         <div class="order-header-row" style="margin-bottom: 12px;">
           <div>
             <h2 id="tableBillsTitle">វិក័យប័ត្រសរុបតម្លៃតាមតុ &amp; QR គិតលុយ</h2>
-            <p class="subtitle" id="tableBillsSubtitle">ស្កេន QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច</p>
+            <p class="subtitle" id="tableBillsSubtitle">ចុចបង្ហាញ QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច</p>
           </div>
         </div>
         <div class="table-bills-grid" id="tableBillsGrid"></div>
@@ -2236,7 +2197,7 @@
           <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
             <div class="setting-label-wrap">
               <span class="setting-label" id="setQrEnableLbl">បង្ហាញ QR Code កន្លែងគិតលុយ</span>
-              <span class="setting-sub" id="setQrEnableSub">បង្ហាញ QR ធនាគារ/KHQR ក្នុងវិក័យប័ត្រតុ</span>
+              <span class="setting-sub" id="setQrEnableSub">បង្ហាញ QR ធនាគារ/KHQR ពេលចុចបង្ហាញ QR គិតលុយ</span>
             </div>
             <label class="ios-switch">
               <input type="checkbox" id="setQrEnabledToggle" checked />
@@ -2436,7 +2397,7 @@
         orderRemoveBtn: "លុប",
         orderDoneSummary: (doneCount, totalCount) => `ធ្វើរួច៖ ${doneCount}/${totalCount} មុខ`,
         tableBillsTitle: "វិក័យប័ត្រសរុបតម្លៃតាមតុ & QR គិតលុយ",
-        tableBillsSubtitle: "ស្កេន QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច",
+        tableBillsSubtitle: "ចុចបង្ហាញ QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច",
         billEmptyText: "មិនទាន់មានការកុម្ម៉ង់សម្រាប់តុនេះទេ",
         billItemsCount: (n) => `${n} មុខ`,
         viewBillBtn: "បង្ហាញ QR គិតលុយ",
@@ -2489,7 +2450,7 @@
         setSecShopTitle: "៣. ព័ត៌មានហាង QR គិតលុយ និងរូបិយប័ណ្ណ",
         setShopNameLbl: "ឈ្មោះហាង",
         setQrEnableLbl: "បង្ហាញ QR Code កន្លែងគិតលុយ",
-        setQrEnableSub: "បង្ហាញ QR ធនាគារ/KHQR ក្នុងវិក័យប័ត្រតុ",
+        setQrEnableSub: "បង្ហាញ QR ធនាគារ/KHQR ពេលចុចបង្ហាញ QR គិតលុយ",
         uploadQrBtn: "ជ្រើសរើសរូប QR",
         removeQrBtn: "ប្រើ QR គំរូ",
         setReceiptNoteLbl: "ពាក្យបាតវិក័យប័ត្រ",
@@ -2570,7 +2531,7 @@
         orderRemoveBtn: "Remove",
         orderDoneSummary: (doneCount, totalCount) => `Done: ${doneCount}/${totalCount} items`,
         tableBillsTitle: "Table Bills & Payment QR",
-        tableBillsSubtitle: "Scan QR to pay per table and record cups to Daily Chart once paid",
+        tableBillsSubtitle: "Tap Show Payment QR per table and record cups to Daily Chart once paid",
         billEmptyText: "No orders for this table yet",
         billItemsCount: (n) => `${n} items`,
         viewBillBtn: "Show Payment QR",
@@ -2623,7 +2584,7 @@
         setSecShopTitle: "3. Shop Info, Payment QR & Currency",
         setShopNameLbl: "Shop Name",
         setQrEnableLbl: "Show Payment QR at Checkout",
-        setQrEnableSub: "Display bank/KHQR code inside table bills",
+        setQrEnableSub: "Display bank/KHQR code when opening a table bill",
         uploadQrBtn: "Upload QR Image",
         removeQrBtn: "Use Default QR",
         setReceiptNoteLbl: "Receipt Footer Message",
@@ -4264,11 +4225,6 @@
               `;
             }).join("");
 
-        const showInlineQr = tableOrders.length > 0 && appSettings.qrEnabled !== false;
-        const inlineQrHtml = showInlineQr
-          ? `<div class="bill-inline-qr" data-action="open-bill" title="${escapeHtml(s.receiptQrScanLabel)}">${renderQrGraphicHtml(appSettings.qrImageDataUrl)}</div>`
-          : "";
-
         return `
           <div class="bill-card" data-bill-table="${tNum}">
             <div>
@@ -4276,11 +4232,8 @@
                 <span class="bill-table-name">${escapeHtml(s.tableOptionLabel(tNum))}</span>
                 <span class="bill-total-amount">${escapeHtml(formatPrice(totalAmt))}</span>
               </div>
-              <div class="bill-card-body">
-                <div class="bill-items-preview">
-                  ${previewHtml}
-                </div>
-                ${inlineQrHtml}
+              <div class="bill-items-preview">
+                ${previewHtml}
               </div>
             </div>
             <div class="bill-card-footer">
@@ -4291,9 +4244,9 @@
         `;
       }).join("");
 
-      gridEl.querySelectorAll('[data-action="open-bill"]').forEach((el) => {
-        el.addEventListener("click", () => {
-          const card = el.closest(".bill-card");
+      gridEl.querySelectorAll('[data-action="open-bill"]').forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const card = btn.closest(".bill-card");
           if (card && card.dataset.billTable) {
             openReceiptModal(card.dataset.billTable);
           }
@@ -4941,14 +4894,9 @@
           const val = btn.dataset.filter;
           if (val === "cart") {
             switchTab("cart");
-            return;
-          }
-          state.filter = val;
-          if (state.tab !== "all") {
-            switchTab("all");
           } else {
-            syncTopFilterPills();
-            renderMenu();
+            state.filter = val;
+            switchTab("all");
           }
         });
       });
@@ -4959,6 +4907,82 @@
 
       document.getElementById("confirmCartToOrderBtn").addEventListener("click", confirmCartToOrder);
       document.getElementById("backToCartBtn").addEventListener("click", () => switchTab("cart"));
+
+      document.getElementById("resetChartBtn").addEventListener("click", () => {
+        dailyChartLog = {};
+        saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+        renderDailyChart();
+        showToast(t().toastChartCleared);
+      });
+
+      document.getElementById("closeRecipeModal").addEventListener("click", () => {
+        state.editingCartItemId = null;
+        document.getElementById("recipeModal").classList.remove("open");
+      });
+      document.getElementById("recipeModal").addEventListener("click", (e) => {
+        if (e.target.id === "recipeModal") {
+          state.editingCartItemId = null;
+          e.currentTarget.classList.remove("open");
+        }
+      });
+
+      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.disabled || !state.activeRecipeId) return;
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (!recipe || !supportsTemp(recipe, btn.dataset.mode)) return;
+          state.activeMode = btn.dataset.mode;
+          renderModalVariantContent(recipe, state.activeMode);
+        });
+      });
+
+      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.cupSize = btn.dataset.size;
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (recipe) {
+            renderModalIngredients(getActiveVariant(recipe, state.activeMode));
+          }
+        });
+      });
+
+      function applySweetnessChange(newPct) {
+        const clamped = Math.min(150, Math.max(0, parseInt(newPct, 10) || 0));
+        state.sweetPct = clamped;
+        updateSweetSliderUI();
+        const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+        if (recipe) {
+          renderModalIngredients(getActiveVariant(recipe, state.activeMode));
+        }
+      }
+
+      document.getElementById("sweetRangeInput").addEventListener("input", (e) => {
+        applySweetnessChange(e.target.value);
+      });
+
+      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          applySweetnessChange(btn.dataset.sweet);
+        });
+      });
+
+      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
+        if (state.activeRecipeId) {
+          addToCart(
+            state.activeRecipeId,
+            state.activeMode,
+            state.cupSize,
+            1,
+            state.sweetPct,
+            state.tableNo,
+            state.editingCartItemId
+          );
+          state.editingCartItemId = null;
+          document.getElementById("recipeModal").classList.remove("open");
+        }
+      });
 
       document.getElementById("cancelDoneBtn").addEventListener("click", closeConfirmDoneModal);
       document.getElementById("acceptDoneBtn").addEventListener("click", acceptConfirmDone);
@@ -4973,80 +4997,11 @@
         if (e.target.id === "receiptModal") closeReceiptModal();
       });
 
-      document.getElementById("resetChartBtn").addEventListener("click", () => {
-        dailyChartLog = {};
-        saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
-        renderDailyChart();
-        showToast(t().toastChartCleared);
-      });
-
-      document.getElementById("closeRecipeModal").addEventListener("click", () => {
-        document.getElementById("recipeModal").classList.remove("open");
-      });
-      document.getElementById("recipeModal").addEventListener("click", (e) => {
-        if (e.target.id === "recipeModal") {
-          document.getElementById("recipeModal").classList.remove("open");
-        }
-      });
-
-      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const targetMode = btn.dataset.mode;
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (!recipe || !supportsTemp(recipe, targetMode)) return;
-          state.activeMode = targetMode;
-          renderModalVariantContent(recipe, targetMode);
-        });
-      });
-
-      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          state.cupSize = btn.dataset.size;
-          const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
-          if (r) renderModalVariantContent(r, state.activeMode);
-        });
-      });
-
-      const sweetRange = document.getElementById("sweetRangeInput");
-      sweetRange.addEventListener("input", () => {
-        state.sweetPct = parseInt(sweetRange.value, 10) || 0;
-        updateSweetSliderUI();
-        const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
-        if (r) {
-          const variant = getActiveVariant(r, state.activeMode);
-          if (variant) renderModalIngredients(variant);
-        }
-      });
-
-      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.sweetPct = parseInt(btn.dataset.sweet, 10);
-          updateSweetSliderUI();
-          const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
-          if (r) {
-            const variant = getActiveVariant(r, state.activeMode);
-            if (variant) renderModalIngredients(variant);
-          }
-        });
-      });
-
-      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
-        if (isMenuLocked()) {
-          showToast(t().toastFeatureLocked);
-          return;
-        }
-        if (state.activeRecipeId) {
-          addToCart(
-            state.activeRecipeId,
-            state.activeMode,
-            state.cupSize,
-            1,
-            state.sweetPct,
-            state.tableNo,
-            state.editingCartItemId
-          );
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeConfirmDoneModal();
+          closeReceiptModal();
+          closeSettingsModal();
           state.editingCartItemId = null;
           document.getElementById("recipeModal").classList.remove("open");
         }
