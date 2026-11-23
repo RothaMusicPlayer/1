@@ -1547,6 +1547,62 @@
       color: var(--accent-caramel);
     }
 
+    /* Payment QR Code Box inside Receipt */
+    .receipt-qr-section {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(250, 246, 240, 0.95);
+      border: 1px dashed rgba(198, 125, 59, 0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+
+    body.dark-mode .receipt-qr-section {
+      background: rgba(34, 27, 22, 0.95);
+      border-color: rgba(224, 148, 77, 0.38);
+    }
+
+    .receipt-qr-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .receipt-qr-frame {
+      width: 172px;
+      height: 172px;
+      padding: 8px;
+      border-radius: 16px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .receipt-qr-frame img,
+    .receipt-qr-frame svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .receipt-qr-amount-chip {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-caramel);
+      background: rgba(198, 125, 59, 0.14);
+      padding: 3px 12px;
+      border-radius: 999px;
+    }
+
     .receipt-footer-note {
       margin-top: 10px;
       padding-top: 8px;
@@ -1625,6 +1681,44 @@
       display: block;
       margin-top: 2px;
       line-height: 1.35;
+    }
+
+    .qr-upload-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(118, 118, 128, 0.08);
+      border: 1px solid rgba(92, 75, 65, 0.14);
+    }
+
+    .qr-settings-preview {
+      width: 66px;
+      height: 66px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 4px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .qr-settings-preview img,
+    .qr-settings-preview svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .qr-upload-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
     }
 
     .ios-input, .ios-select {
@@ -2034,7 +2128,7 @@
     </div>
   </div>
 
-  <!-- Table Receipt Modal -->
+  <!-- Table Receipt Modal with Payment QR -->
   <div class="modal-backdrop" id="receiptModal" role="dialog" aria-modal="true">
     <div class="modal-sheet confirm-sheet">
       <div class="drag-handle"></div>
@@ -2062,7 +2156,7 @@
       <div class="modal-header">
         <div>
           <h2 id="settingsModalTitle" style="margin: 0; font-size: 1.22rem;">All Settings • ការកំណត់ទាំងអស់</h2>
-          <p id="settingsModalSub" style="margin: 3px 0 0; font-size: 0.82rem; color: var(--text-secondary);">កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ និងហាង</p>
+          <p id="settingsModalSub" style="margin: 3px 0 0; font-size: 0.82rem; color: var(--text-secondary);">កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ QR គិតលុយ និងហាង</p>
         </div>
         <button class="close-modal-btn" id="closeSettingsModal" aria-label="Close">X</button>
       </div>
@@ -2074,22 +2168,46 @@
         <div id="itemPricesContainer"></div>
       </div>
 
-      <!-- 2. Enable / Disable Individual Items (e.g. Turn Espresso Off & On) -->
+      <!-- 2. Enable / Disable Individual Items -->
       <div class="settings-group">
         <h3 class="settings-group-title" id="setSecToggleItemsTitle">២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)</h3>
         <span class="setting-sub" id="setToggleItemsSub">បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល</span>
         <div id="itemAvailabilityContainer"></div>
       </div>
 
-      <!-- 3. Shop & Currency Settings -->
+      <!-- 3. Shop, Payment QR & Currency Settings -->
       <div class="settings-group">
-        <h3 class="settings-group-title" id="setSecShopTitle">៣. ព័ត៌មានហាង និងរូបិយប័ណ្ណ</h3>
+        <h3 class="settings-group-title" id="setSecShopTitle">៣. ព័ត៌មានហាង QR គិតលុយ និងរូបិយប័ណ្ណ</h3>
         <div class="setting-row setting-row-stack">
           <div class="setting-label-wrap">
             <span class="setting-label" id="setShopNameLbl">ឈ្មោះហាង</span>
           </div>
           <input type="text" id="setShopNameInput" class="ios-input" placeholder="Coffee & Drinks" />
         </div>
+
+        <!-- Payment QR Upload / Toggle -->
+        <div class="setting-row setting-row-stack">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div class="setting-label-wrap">
+              <span class="setting-label" id="setQrEnableLbl">បង្ហាញ QR Code កន្លែងគិតលុយ</span>
+              <span class="setting-sub" id="setQrEnableSub">បង្ហាញ QR ធនាគារ/KHQR ក្នុងវិក័យប័ត្រតុ</span>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" id="setQrEnabledToggle" checked />
+              <span class="ios-slider"></span>
+            </label>
+          </div>
+
+          <div class="qr-upload-box" id="qrUploadBox">
+            <div class="qr-settings-preview" id="qrSettingsPreview"></div>
+            <div class="qr-upload-actions">
+              <input type="file" id="setQrFileInput" accept="image/*" style="display:none;" />
+              <button type="button" class="icon-btn small-action-btn primary" id="uploadQrBtn">ជ្រើសរើសរូប QR</button>
+              <button type="button" class="icon-btn small-action-btn settings-danger-btn" id="removeQrBtn">ប្រើ QR គំរូ</button>
+            </div>
+          </div>
+        </div>
+
         <div class="setting-row setting-row-stack">
           <div class="setting-label-wrap">
             <span class="setting-label" id="setReceiptNoteLbl">ពាក្យបាតវិក័យប័ត្រ</span>
@@ -2180,6 +2298,52 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    const DEFAULT_QR_SVG = `
+      <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-label="KHQR Payment Code">
+        <rect width="180" height="180" rx="14" fill="#FFFFFF"/>
+        <path d="M14 26 A12 12 0 0 1 26 14 H154 A12 12 0 0 1 166 26 V36 H14 Z" fill="#E1232E"/>
+        <text x="90" y="29" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">KHQR</text>
+        <g fill="#1A120E" transform="translate(24, 46)">
+          <rect x="0" y="0" width="36" height="36" rx="4"/>
+          <rect x="5" y="5" width="26" height="26" rx="2" fill="#FFFFFF"/>
+          <rect x="10" y="10" width="16" height="16" rx="1"/>
+          <rect x="96" y="0" width="36" height="36" rx="4"/>
+          <rect x="101" y="5" width="26" height="26" rx="2" fill="#FFFFFF"/>
+          <rect x="106" y="10" width="16" height="16" rx="1"/>
+          <rect x="0" y="84" width="36" height="36" rx="4"/>
+          <rect x="5" y="89" width="26" height="26" rx="2" fill="#FFFFFF"/>
+          <rect x="10" y="94" width="16" height="16" rx="1"/>
+          <rect x="44" y="4" width="8" height="8"/>
+          <rect x="60" y="4" width="8" height="8"/>
+          <rect x="76" y="4" width="8" height="8"/>
+          <rect x="44" y="16" width="16" height="8"/>
+          <rect x="68" y="16" width="8" height="16"/>
+          <rect x="84" y="20" width="8" height="12"/>
+          <rect x="4" y="44" width="12" height="8"/>
+          <rect x="24" y="44" width="8" height="16"/>
+          <rect x="40" y="44" width="12" height="12"/>
+          <rect x="80" y="44" width="12" height="8"/>
+          <rect x="100" y="44" width="8" height="16"/>
+          <rect x="116" y="44" width="16" height="8"/>
+          <rect x="4" y="64" width="16" height="8"/>
+          <rect x="28" y="68" width="12" height="8"/>
+          <rect x="84" y="64" width="16" height="8"/>
+          <rect x="112" y="68" width="12" height="12"/>
+          <rect x="44" y="84" width="8" height="16"/>
+          <rect x="60" y="88" width="16" height="8"/>
+          <rect x="84" y="84" width="12" height="12"/>
+          <rect x="104" y="88" width="8" height="16"/>
+          <rect x="120" y="88" width="12" height="8"/>
+          <rect x="44" y="108" width="16" height="12"/>
+          <rect x="68" y="104" width="8" height="16"/>
+          <rect x="84" y="112" width="16" height="8"/>
+          <rect x="108" y="112" width="24" height="8"/>
+          <circle cx="66" cy="60" r="14" fill="#E1232E"/>
+          <text x="66" y="65" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="14" font-weight="800">៛</text>
+        </g>
+      </svg>
+    `;
+
     const UI_STRINGS = {
       km: {
         docTitle: "Coffee & Drinks",
@@ -2234,6 +2398,7 @@
         receiptTitleForTable: (label) => `វិក័យប័ត្រ — ${label}`,
         receiptEmptyModal: "គ្មានមុខទំនិញក្នុងវិក័យប័ត្រតុនេះទេ។",
         receiptTotalLabel: "តម្លៃសរុប",
+        receiptQrScanLabel: "ស្កេន QR ដើម្បីបង់ប្រាក់",
         closeBtnLabel: "បិទ",
         cupSizeLabel: "ទំហំកែវ",
         tableNumberLabel: "លេខតុ",
@@ -2268,15 +2433,19 @@
         cupUnit: "កែវ",
         chartWdShort: ["អាទិត្យ", "ចន្ទ", "អង្គារ", "ពុធ", "ព្រហ", "សុក្រ", "សៅរ៍"],
         settingsModalTitle: "All Settings • ការកំណត់ទាំងអស់",
-        settingsModalSub: "កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ និងហាង",
+        settingsModalSub: "កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ QR គិតលុយ និងហាង",
         setSecPricesTitle: "១. កំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)",
         setPricesSub: "កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក",
         setSecToggleItemsTitle: "២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)",
         setToggleItemsSub: "បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល",
         statusOn: "បើក",
         statusOff: "បិទ",
-        setSecShopTitle: "៣. ព័ត៌មានហាង និងរូបិយប័ណ្ណ",
+        setSecShopTitle: "៣. ព័ត៌មានហាង QR គិតលុយ និងរូបិយប័ណ្ណ",
         setShopNameLbl: "ឈ្មោះហាង",
+        setQrEnableLbl: "បង្ហាញ QR Code កន្លែងគិតលុយ",
+        setQrEnableSub: "បង្ហាញ QR ធនាគារ/KHQR ក្នុងវិក័យប័ត្រតុ",
+        uploadQrBtn: "ជ្រើសរើសរូប QR",
+        removeQrBtn: "ប្រើ QR គំរូ",
         setReceiptNoteLbl: "ពាក្យបាតវិក័យប័ត្រ",
         setCurrencyLbl: "រូបិយប័ណ្ណ (Currency)",
         setKhrRateLbl: "អត្រាប្តូរប្រាក់ (1$ = ? ៛)",
@@ -2292,6 +2461,8 @@
         resetAllDataBtn: "កំណត់ឡើងវិញ (Reset)",
         saveSettingsBtn: "រក្សាទុកការកំណត់ទាំងអស់",
         toastSettingsSaved: "បានរក្សាទុកការកំណត់រួចរាល់",
+        toastQrUpdated: "បានបញ្ចូលរូបភាព QR Code រួចរាល់",
+        toastQrReset: "បានប្តូរទៅប្រើ QR Code គំរូវិញ",
         toastModeLocked: "បានបិទការកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders",
         toastModeUnlocked: "បានបើកមុខងារកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders វិញ",
         toastFeatureLocked: "មុខងារនេះត្រូវបានបិទក្នុងការកំណត់",
@@ -2361,6 +2532,7 @@
         receiptTitleForTable: (label) => `Bill — ${label}`,
         receiptEmptyModal: "No items on this table bill.",
         receiptTotalLabel: "Total Amount",
+        receiptQrScanLabel: "Scan QR to Pay",
         closeBtnLabel: "Close",
         cupSizeLabel: "Cup Size",
         tableNumberLabel: "Table",
@@ -2395,15 +2567,19 @@
         cupUnit: "cups",
         chartWdShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         settingsModalTitle: "All Settings",
-        settingsModalSub: "Set per-item prices, enable/disable items (e.g. Espresso), tables & shop",
+        settingsModalSub: "Set per-item prices, enable/disable items, tables, Payment QR & shop",
         setSecPricesTitle: "1. Price Per Coffee & Drink ($)",
         setPricesSub: "Edit individual item prices and tap Save All Settings",
         setSecToggleItemsTitle: "2. Enable / Disable Items (e.g. Turn Espresso Off & On)",
         setToggleItemsSub: "Turn off any item to hide it from Menu immediately; turn back on anytime",
         statusOn: "ON",
         statusOff: "OFF",
-        setSecShopTitle: "3. Shop Info & Currency",
+        setSecShopTitle: "3. Shop Info, Payment QR & Currency",
         setShopNameLbl: "Shop Name",
+        setQrEnableLbl: "Show Payment QR at Checkout",
+        setQrEnableSub: "Display bank/KHQR code inside table bills",
+        uploadQrBtn: "Upload QR Image",
+        removeQrBtn: "Use Default QR",
         setReceiptNoteLbl: "Receipt Footer Message",
         setCurrencyLbl: "Display Currency",
         setKhrRateLbl: "Exchange Rate (1$ = ? ៛)",
@@ -2419,6 +2595,8 @@
         resetAllDataBtn: "Factory Reset",
         saveSettingsBtn: "Save All Settings",
         toastSettingsSaved: "All settings saved",
+        toastQrUpdated: "Payment QR image updated",
+        toastQrReset: "Switched back to default sample QR",
         toastModeLocked: "Locked ordering, ingredients, Chart & Orders",
         toastModeUnlocked: "Unlocked ordering, ingredients, Chart & Orders",
         toastFeatureLocked: "This feature is currently locked in Settings",
@@ -2440,6 +2618,8 @@
     const DEFAULT_SETTINGS = {
       shopName: "Coffee & Drinks",
       receiptFooter: "សូមអរគុណ! Thank you!",
+      qrEnabled: true,
+      qrImageDataUrl: "",
       currency: "USD",
       khrRate: 4000,
       tableCount: 5,
@@ -3287,7 +3467,7 @@
     ];
 
     const STORAGE_KEYS = {
-      SETTINGS: "cafe_app_paired_settings_v3",
+      SETTINGS: "cafe_app_paired_settings_v4",
       CART: "cafe_app_paired_cart_v1",
       ORDERS: "cafe_app_paired_orders_v1",
       DAILY_CHART: "cafe_app_paired_daily_chart_v1",
@@ -3304,6 +3484,7 @@
     let dailyChartLog = loadJson(STORAGE_KEYS.DAILY_CHART, {});
     let pendingDoneOrderId = null;
     let activeReceiptTableNo = null;
+    let draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
 
     let state = {
       lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
@@ -3341,6 +3522,13 @@
       "vanilla",
       "honey"
     ];
+
+    function renderQrGraphicHtml(dataUrl) {
+      if (dataUrl && typeof dataUrl === "string" && dataUrl.startsWith("data:image/")) {
+        return `<img src="${dataUrl}" alt="Payment QR Code" />`;
+      }
+      return DEFAULT_QR_SVG;
+    }
 
     function isMenuLocked() {
       return Boolean(appSettings.lockMenuAndData);
@@ -3688,6 +3876,10 @@
       document.getElementById("setToggleItemsSub").textContent = s.setToggleItemsSub;
       document.getElementById("setSecShopTitle").textContent = s.setSecShopTitle;
       document.getElementById("setShopNameLbl").textContent = s.setShopNameLbl;
+      document.getElementById("setQrEnableLbl").textContent = s.setQrEnableLbl;
+      document.getElementById("setQrEnableSub").textContent = s.setQrEnableSub;
+      document.getElementById("uploadQrBtn").textContent = s.uploadQrBtn;
+      document.getElementById("removeQrBtn").textContent = s.removeQrBtn;
       document.getElementById("setReceiptNoteLbl").textContent = s.setReceiptNoteLbl;
       document.getElementById("setCurrencyLbl").textContent = s.setCurrencyLbl;
       document.getElementById("setKhrRateLbl").textContent = s.setKhrRateLbl;
@@ -4089,6 +4281,17 @@
           `;
         }).join("");
 
+        const formattedTotal = formatPrice(totalSum);
+        const qrSectionHtml = appSettings.qrEnabled !== false
+          ? `
+            <div class="receipt-qr-section">
+              <div class="receipt-qr-title">${escapeHtml(s.receiptQrScanLabel)}</div>
+              <div class="receipt-qr-frame">${renderQrGraphicHtml(appSettings.qrImageDataUrl)}</div>
+              <div class="receipt-qr-amount-chip">${escapeHtml(formattedTotal)}</div>
+            </div>
+          `
+          : "";
+
         const footerNoteHtml = appSettings.receiptFooter && appSettings.receiptFooter.trim()
           ? `<div class="receipt-footer-note">${escapeHtml(appSettings.receiptFooter.trim())}</div>`
           : "";
@@ -4097,8 +4300,9 @@
           ${linesHtml}
           <div class="receipt-total-row">
             <span>${escapeHtml(s.receiptTotalLabel)}</span>
-            <span>${escapeHtml(formatPrice(totalSum))}</span>
+            <span>${escapeHtml(formattedTotal)}</span>
           </div>
+          ${qrSectionHtml}
           ${footerNoteHtml}
         `;
       }
@@ -4380,6 +4584,19 @@
     }
 
     /* ================= ALL SETTINGS LOGIC ================= */
+    function updateSettingsQrPreview() {
+      const previewEl = document.getElementById("qrSettingsPreview");
+      if (previewEl) {
+        previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
+      }
+      const qrBox = document.getElementById("qrUploadBox");
+      const toggle = document.getElementById("setQrEnabledToggle");
+      if (qrBox && toggle) {
+        qrBox.style.opacity = toggle.checked ? "1" : "0.45";
+        qrBox.style.pointerEvents = toggle.checked ? "auto" : "none";
+      }
+    }
+
     function renderSettingsItemLists() {
       const s = t();
       const all = getAllRecipes();
@@ -4437,6 +4654,10 @@
     function openSettingsModal() {
       document.getElementById("setShopNameInput").value = appSettings.shopName || "Coffee & Drinks";
       document.getElementById("setReceiptNoteInput").value = appSettings.receiptFooter || "";
+      document.getElementById("setQrEnabledToggle").checked = appSettings.qrEnabled !== false;
+      draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
+      updateSettingsQrPreview();
+
       document.getElementById("setCurrencySelect").value = appSettings.currency || "USD";
       document.getElementById("setKhrRateInput").value = appSettings.khrRate || 4000;
       document.getElementById("khrRateRow").style.display = appSettings.currency === "KHR" ? "flex" : "none";
@@ -4459,6 +4680,7 @@
     function saveAllSettings() {
       const shopName = document.getElementById("setShopNameInput").value.trim() || "Coffee & Drinks";
       const receiptFooter = document.getElementById("setReceiptNoteInput").value.trim();
+      const qrEnabled = document.getElementById("setQrEnabledToggle").checked;
       const currency = document.getElementById("setCurrencySelect").value === "KHR" ? "KHR" : "USD";
       const khrRate = Math.max(1000, parseInt(document.getElementById("setKhrRateInput").value, 10) || 4000);
 
@@ -4489,6 +4711,8 @@
       appSettings = {
         shopName,
         receiptFooter,
+        qrEnabled,
+        qrImageDataUrl: draftQrImageDataUrl,
         currency,
         khrRate,
         tableCount,
@@ -4537,6 +4761,7 @@
         priceOverrides: {},
         disabledItems: {}
       });
+      draftQrImageDataUrl = "";
       cartItems = [];
       orders = [];
       dailyChartLog = {};
@@ -4598,6 +4823,49 @@
       document.getElementById("setCurrencySelect").addEventListener("change", (e) => {
         document.getElementById("khrRateRow").style.display = e.target.value === "KHR" ? "flex" : "none";
       });
+      document.getElementById("setQrEnabledToggle").addEventListener("change", updateSettingsQrPreview);
+      document.getElementById("uploadQrBtn").addEventListener("click", () => {
+        document.getElementById("setQrFileInput").click();
+      });
+      document.getElementById("setQrFileInput").addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            const maxDim = 420;
+            let w = img.width;
+            let h = img.height;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) {
+                h = Math.round((h * maxDim) / w);
+                w = maxDim;
+              } else {
+                w = Math.round((w * maxDim) / h);
+                h = maxDim;
+              }
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, w, h);
+            draftQrImageDataUrl = canvas.toDataURL("image/png", 0.9);
+            updateSettingsQrPreview();
+            showToast(t().toastQrUpdated);
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+        e.target.value = "";
+      });
+      document.getElementById("removeQrBtn").addEventListener("click", () => {
+        draftQrImageDataUrl = "";
+        updateSettingsQrPreview();
+        showToast(t().toastQrReset);
+      });
+
       document.getElementById("saveSettingsBtn").addEventListener("click", saveAllSettings);
       document.getElementById("exportDataBtn").addEventListener("click", exportBackupJson);
       document.getElementById("resetAllDataBtn").addEventListener("click", resetAllAppData);
@@ -4610,13 +4878,24 @@
             return;
           }
           state.filter = filterVal;
-          switchTab("all");
+          if (state.tab !== "all") {
+            switchTab("all");
+          } else {
+            syncTopFilterPills();
+            renderMenu();
+          }
         });
       });
 
-      document.getElementById("navAll").addEventListener("click", () => switchTab("all"));
-      document.getElementById("navOrder").addEventListener("click", () => switchTab("order"));
-      document.getElementById("navCalc").addEventListener("click", () => switchTab("calc"));
+      document.querySelectorAll(".nav-item").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetTab = btn.dataset.tab;
+          if (targetTab === "all") {
+            state.filter = "coffee";
+          }
+          switchTab(targetTab);
+        });
+      });
 
       document.getElementById("confirmCartToOrderBtn").addEventListener("click", confirmCartToOrder);
       document.getElementById("backToCartBtn").addEventListener("click", () => switchTab("cart"));
@@ -4641,61 +4920,13 @@
         showToast(t().toastChartCleared);
       });
 
-      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
-        if (isMenuLocked()) {
-          showToast(t().toastFeatureLocked);
-          return;
-        }
-        if (!state.activeRecipeId) return;
-        const editingId = state.editingCartItemId;
-        addToCart(
-          state.activeRecipeId,
-          state.activeMode,
-          state.cupSize,
-          1,
-          state.sweetPct,
-          normalizeTableNo(state.tableNo),
-          editingId
-        );
-        state.editingCartItemId = null;
-        document.getElementById("recipeModal").classList.remove("open");
-      });
-
       document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           if (btn.disabled) return;
           const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          if (!recipe || !supportsTemp(recipe, btn.dataset.mode)) return;
+          if (!recipe) return;
           state.activeMode = btn.dataset.mode;
           renderModalVariantContent(recipe, state.activeMode);
-        });
-      });
-
-      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.cupSize = btn.dataset.size;
-          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.toggle("active", b === btn));
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          const variant = getActiveVariant(recipe, state.activeMode);
-          if (variant) renderModalIngredients(variant);
-        });
-      });
-
-      document.getElementById("sweetRangeInput").addEventListener("input", (e) => {
-        state.sweetPct = parseInt(e.target.value, 10) || 0;
-        updateSweetSliderUI();
-        const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-        const variant = getActiveVariant(recipe, state.activeMode);
-        if (variant) renderModalIngredients(variant);
-      });
-
-      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.sweetPct = parseInt(btn.dataset.sweet, 10) || 0;
-          updateSweetSliderUI();
-          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
-          const variant = getActiveVariant(recipe, state.activeMode);
-          if (variant) renderModalIngredients(variant);
         });
       });
 
@@ -4703,18 +4934,65 @@
         state.editingCartItemId = null;
         document.getElementById("recipeModal").classList.remove("open");
       });
+
       document.getElementById("recipeModal").addEventListener("click", (e) => {
         if (e.target.id === "recipeModal") {
           state.editingCartItemId = null;
-          e.target.classList.remove("open");
+          document.getElementById("recipeModal").classList.remove("open");
+        }
+      });
+
+      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.cupSize = btn.dataset.size;
+          const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
+          if (r) {
+            const v = getActiveVariant(r, state.activeMode);
+            if (v) renderModalIngredients(v);
+          }
+        });
+      });
+
+      const sweetRange = document.getElementById("sweetRangeInput");
+      sweetRange.addEventListener("input", () => {
+        state.sweetPct = parseInt(sweetRange.value, 10) || 0;
+        updateSweetSliderUI();
+        const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
+        if (r) {
+          const v = getActiveVariant(r, state.activeMode);
+          if (v) renderModalIngredients(v);
+        }
+      });
+
+      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.sweetPct = parseInt(btn.dataset.sweet, 10) || 0;
+          updateSweetSliderUI();
+          const r = getAllRecipes().find((x) => x.id === state.activeRecipeId);
+          if (r) {
+            const v = getActiveVariant(r, state.activeMode);
+            if (v) renderModalIngredients(v);
+          }
+        });
+      });
+
+      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
+        if (!state.activeRecipeId) return;
+        const wasEditingId = state.editingCartItemId;
+        addToCart(state.activeRecipeId, state.activeMode, state.cupSize, 1, state.sweetPct, state.tableNo, wasEditingId);
+        state.editingCartItemId = null;
+        document.getElementById("recipeModal").classList.remove("open");
+        if (wasEditingId) {
+          switchTab("cart");
         }
       });
     }
 
-    applyStaticTranslations();
-    renderMenu();
-    renderDailyChart();
     initEvents();
+    applyStaticTranslations();
+    switchTab("all");
   </script>
 </body>
 </html>
