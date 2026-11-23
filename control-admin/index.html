@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Control Server — Coffee &amp; Drinks Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin/css/control.css" />
+</head>
+<body>
+  <div class="control-container">
+    <header class="control-header">
+      <div class="control-brand">
+        <div class="control-badge">🎛️</div>
+        <div>
+          <h1>Control Server • គ្រប់គ្រងប្រព័ន្ធទាំងអស់</h1>
+          <p class="sub">កំណត់តម្លៃ បិទ/បើកមុខទំនិញ QR គិតលុយ តុ និងបិទ/បើក POS ពីចម្ងាយភ្លាមៗ</p>
+        </div>
+      </div>
+      <div class="control-header-actions">
+        <span class="status-pill" id="controlConnStatus">● POS Connected</span>
+        <a href="http://localhost:3000" target="_blank" class="btn">បើក POS (Port 3000) ↗</a>
+        <button type="button" class="btn btn-primary" id="saveAllControlBtn">រក្សាទុក &amp; បញ្ជូនទៅ POS</button>
+      </div>
+    </header>
+
+    <!-- Live Overview Cards -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">ការកុម្ម៉ង់សកម្ម (All Order)</span>
+        <strong class="stat-val" id="statActiveOrders">0 មុខ</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">ចំនួនកែវលក់បានថ្ងៃនេះ</span>
+        <strong class="stat-val" id="statTodayCups">0 កែវ</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">មុខទំនិញកំពុងបើកលក់</span>
+        <strong class="stat-val" id="statEnabledItems">0 / 0 មុខ</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">ស្ថានភាព POS</span>
+        <strong class="stat-val" id="statPosLockState">បើកដំណើរការ</strong>
+      </div>
+    </section>
+
+    <div class="control-grid">
+      <!-- Left Column: Prices & Availability -->
+      <div class="control-col">
+        <!-- 1. Set Price Per Coffee & Drink -->
+        <div class="card">
+          <h2>១. កំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)</h2>
+          <p class="card-sub">កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុច «រក្សាទុក &amp; បញ្ជូនទៅ POS»</p>
+          <div id="itemPricesContainer" class="list-stack"></div>
+        </div>
+
+        <!-- 2. Enable / Disable Individual Items -->
+        <div class="card">
+          <h2>២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)</h2>
+          <p class="card-sub">បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយ POS ភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល</p>
+          <div id="itemAvailabilityContainer" class="list-stack"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Shop, QR, Tables, System Lock & Backup -->
+      <div class="control-col">
+        <!-- 3. Shop, Payment QR & Currency Settings -->
+        <div class="card">
+          <h2>៣. ព័ត៌មានហាង QR គិតលុយ និងរូបិយប័ណ្ណ</h2>
+
+          <div class="field-group">
+            <label for="setShopNameInput">ឈ្មោះហាង (Shop Name)</label>
+            <input type="text" id="setShopNameInput" class="ios-input" placeholder="Coffee & Drinks" />
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <strong>បង្ហាញ QR Code កន្លែងគិតលុយ</strong>
+              <span>បង្ហាញ QR ធនាគារ/KHQR លើវិក័យប័ត្រ POS</span>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" id="setQrEnabledToggle" checked />
+              <span class="ios-slider"></span>
+            </label>
+          </div>
+
+          <div class="qr-upload-box" id="qrUploadBox">
+            <div class="qr-settings-preview" id="qrSettingsPreview"></div>
+            <div class="qr-upload-actions">
+              <input type="file" id="setQrFileInput" accept="image/*" style="display:none;" />
+              <button type="button" class="btn btn-primary" id="uploadQrBtn">ជ្រើសរើសរូប QR</button>
+              <button type="button" class="btn btn-danger" id="removeQrBtn">ប្រើ QR គំរូ</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="setReceiptNoteInput">ពាក្យបាតវិក័យប័ត្រ (Receipt Footer)</label>
+            <input type="text" id="setReceiptNoteInput" class="ios-input" placeholder="សូមអរគុណ! Thank you!" />
+          </div>
+
+          <div class="row-between">
+            <div>
+              <strong>រូបិយប័ណ្ណ (Currency)</strong>
+            </div>
+            <select id="setCurrencySelect" class="ios-select">
+              <option value="USD">USD ($)</option>
+              <option value="KHR">KHR (៛)</option>
+            </select>
+          </div>
+
+          <div class="row-between" id="khrRateRow">
+            <div>
+              <strong>អត្រាប្តូរប្រាក់ (1$ = ? ៛)</strong>
+            </div>
+            <input type="number" id="setKhrRateInput" class="ios-input" style="width:120px; text-align:right;" min="1000" step="100" value="4000" />
+          </div>
+        </div>
+
+        <!-- 4. Table Setup -->
+        <div class="card">
+          <h2>៤. ការកំណត់តុ (Tables)</h2>
+          <div class="row-between">
+            <div>
+              <strong>ចំនួនតុសរុប (1–15)</strong>
+            </div>
+            <input type="number" id="setTableCountInput" class="ios-input" style="width:90px; text-align:center;" min="1" max="15" value="5" />
+          </div>
+          <div class="switch-row">
+            <div>
+              <strong>បើកជម្រើស «ខ្ចប់» (Takeaway)</strong>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" id="setTakeawayToggle" checked />
+              <span class="ios-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 5. Remote Lock, Appearance & Data Management -->
+        <div class="card">
+          <h2>៥. គ្រប់គ្រងការបិទ/បើក POS និងទិន្នន័យ</h2>
+
+          <div class="switch-row danger-box">
+            <div>
+              <strong>បិទ Menu ហាមកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders</strong>
+              <span>បើក Switch នេះ នឹងចាក់សោ POS (Port 3000) ភ្លាមៗ</span>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" id="setLockModeToggle" />
+              <span class="ios-slider danger-active"></span>
+            </label>
+          </div>
+
+          <div class="switch-row">
+            <div>
+              <strong>មុខងារងងឹត (Dark Mode លើ POS)</strong>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" id="setDarkModeToggle" />
+              <span class="ios-slider"></span>
+            </label>
+          </div>
+
+          <div class="row-between">
+            <div>
+              <strong>ភាសាកម្មវិធី (Language)</strong>
+            </div>
+            <select id="setLangSelect" class="ios-select">
+              <option value="km">ភាសាខ្មែរ (KM)</option>
+              <option value="en">English (EN)</option>
+            </select>
+          </div>
+
+          <div class="actions-grid-2">
+            <button type="button" class="btn" id="exportDataBtn">ទាញយកទិន្នន័យ (Backup)</button>
+            <button type="button" class="btn btn-danger" id="resetAllDataBtn">កំណត់ឡើងវិញ (Reset)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/shared/recipes.js"></script>
+  <script src="/admin/js/control-app.js"></script>
+</body>
+</html>
