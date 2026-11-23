@@ -1,0 +1,5016 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Coffee & Drinks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-canvas: #EBE4DC;
+      --glass-surface: rgba(255, 255, 255, 0.74);
+      --glass-surface-strong: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(255, 255, 255, 0.92);
+      --text-primary: #1A120E;
+      --text-secondary: #5C4B41;
+      --text-muted: #8B796E;
+      --accent-espresso: #3A2010;
+      --accent-caramel: #C67D3B;
+      --accent-hot: #C93B20;
+      --accent-ice: #156A94;
+      --accent-drink: #1F7A8C;
+      --accent-success: #1B8045;
+      --accent-danger: #C92A3E;
+      --shadow-glass: 0 10px 26px -8px rgba(34, 19, 10, 0.12), inset 0 1px 0 0 rgba(255, 255, 255, 0.88);
+      --shadow-float: 0 16px 36px -8px rgba(24, 14, 8, 0.24), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --nav-height: 76px;
+    }
+
+    body.dark-mode {
+      --bg-canvas: #14100E;
+      --glass-surface: rgba(34, 27, 23, 0.78);
+      --glass-surface-strong: rgba(30, 24, 20, 0.92);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --text-primary: #F6EFE8;
+      --text-secondary: #C8B7A8;
+      --text-muted: #9A8778;
+      --accent-espresso: #E7A76A;
+      --accent-caramel: #E0944D;
+      --accent-hot: #FF6E52;
+      --accent-ice: #5BC0EB;
+      --accent-success: #4CD986;
+      --accent-danger: #FF6B7B;
+      --shadow-glass: 0 10px 26px -8px rgba(0, 0, 0, 0.48), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      --shadow-float: 0 16px 36px -8px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input, textarea, select {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+      touch-action: manipulation;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-canvas);
+      background-image:
+        radial-gradient(at 10% 6%, rgba(217, 138, 60, 0.24) 0px, transparent 48%),
+        radial-gradient(at 90% 10%, rgba(45, 138, 184, 0.18) 0px, transparent 46%),
+        radial-gradient(at 80% 65%, rgba(168, 92, 46, 0.16) 0px, transparent 52%),
+        radial-gradient(at 15% 88%, rgba(86, 130, 163, 0.15) 0px, transparent 50%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      overscroll-behavior-y: contain;
+      transition: background-color 0.22s ease, color 0.22s ease;
+    }
+
+    body.dark-mode {
+      background-image:
+        radial-gradient(at 10% 6%, rgba(198, 125, 59, 0.16) 0px, transparent 48%),
+        radial-gradient(at 90% 10%, rgba(31, 122, 168, 0.14) 0px, transparent 46%),
+        radial-gradient(at 80% 65%, rgba(130, 68, 28, 0.14) 0px, transparent 52%),
+        radial-gradient(at 15% 88%, rgba(45, 85, 115, 0.12) 0px, transparent 50%);
+    }
+
+    button {
+      touch-action: manipulation;
+    }
+
+    .app-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 14px 16px calc(var(--nav-height) + 42px);
+    }
+
+    .ui-icon {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .ui-icon-lg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Locked Mode Banner */
+    .lock-banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      border-radius: 18px;
+      background: rgba(201, 42, 62, 0.12);
+      border: 1px solid rgba(201, 42, 62, 0.28);
+      color: var(--accent-danger);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    body.dark-mode .lock-banner {
+      background: rgba(255, 107, 123, 0.14);
+      border-color: rgba(255, 107, 123, 0.3);
+    }
+
+    body.menu-locked .lock-banner {
+      display: flex;
+    }
+
+    /* iOS Frosted Glass Top Header */
+    .top-header {
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      background: var(--glass-surface-strong);
+      backdrop-filter: blur(18px) saturate(165%);
+      -webkit-backdrop-filter: blur(18px) saturate(165%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-glass);
+      margin-bottom: 14px;
+      transform: translateZ(0);
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 11px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #4A2C18 0%, #8C5327 55%, #C67D3B 100%);
+      color: #FFF;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 16px rgba(74, 44, 24, 0.24), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      flex-shrink: 0;
+    }
+
+    .brand-title h1 {
+      margin: 0;
+      font-size: 1.14rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--text-primary);
+      border-radius: 14px;
+      padding: 9px 11px;
+      min-height: 40px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: transform 0.14s ease, background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      white-space: nowrap;
+    }
+
+    body.dark-mode .icon-btn {
+      background: rgba(52, 42, 36, 0.88);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.95);
+    }
+
+    .icon-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .icon-btn.primary {
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    body.dark-mode .icon-btn.primary {
+      background: linear-gradient(180deg, #E0944D 0%, #B86E2C 100%);
+      color: #1A110B;
+    }
+
+    .icon-btn.confirm-btn {
+      background: linear-gradient(180deg, #219653 0%, #166B3A 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .icon-btn.done-action-btn {
+      background: linear-gradient(180deg, #219653 0%, #156A39 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.25);
+      padding: 8px 12px;
+      min-height: 36px;
+      font-size: 0.78rem;
+      border-radius: 12px;
+    }
+
+    .icon-btn.small-action-btn {
+      padding: 7px 11px;
+      min-height: 36px;
+      font-size: 0.78rem;
+      border-radius: 11px;
+    }
+
+    .icon-btn.qr-pay-btn {
+      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .lang-toggle-btn {
+      border-color: rgba(198, 125, 59, 0.45);
+      background: rgba(255, 248, 238, 0.92);
+      color: #7D4616;
+    }
+
+    body.dark-mode .lang-toggle-btn {
+      background: rgba(68, 49, 32, 0.88);
+      color: #F4BE88;
+      border-color: rgba(224, 148, 77, 0.4);
+    }
+
+    .theme-toggle-btn {
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    body.dark-mode .theme-toggle-btn {
+      background: linear-gradient(180deg, #E0944D 0%, #B86E2C 100%);
+      color: #1A110B;
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* Filter / Cart Trigger Row */
+    .filter-controls-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .temp-filter-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: rgba(118, 118, 128, 0.14);
+      padding: 3px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      gap: 3px;
+      width: 100%;
+    }
+
+    body.dark-mode .temp-filter-group {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .temp-pill {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 8px 10px;
+      min-height: 38px;
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .temp-pill.active {
+      background: #FFFFFF;
+      color: #1A120E;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .temp-pill.active {
+      background: rgba(255, 255, 255, 0.18);
+      color: #FFFFFF;
+    }
+
+    .temp-pill[data-filter="drinks"].active {
+      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
+      color: #FFFFFF;
+    }
+
+    .temp-pill[data-filter="cart"].active {
+      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
+      color: #FFFFFF;
+    }
+
+    body.menu-locked .temp-pill[data-filter="cart"] {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* Summary Strip */
+    .summary-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 6px 6px 14px;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .summary-count strong {
+      color: var(--text-primary);
+    }
+
+    /* Menu Grid */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-actions .btn-label {
+        display: none;
+      }
+    }
+
+    .drink-card {
+      background: var(--glass-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--shadow-glass);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.18s ease;
+      position: relative;
+      touch-action: manipulation;
+      transform: translateZ(0);
+    }
+
+    .drink-card:active {
+      transform: scale(0.985) translateZ(0);
+      background: var(--glass-surface-strong);
+    }
+
+    .drink-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .drink-top-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .drink-top-meta:empty {
+      display: none;
+      margin-bottom: 0;
+    }
+
+    .drink-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(74, 44, 24, 0.09);
+      color: var(--accent-espresso);
+      white-space: nowrap;
+    }
+
+    body.dark-mode .drink-tag {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .drink-tag.temp-hot {
+      background: rgba(201, 59, 32, 0.14);
+      color: var(--accent-hot);
+    }
+
+    .drink-tag.temp-ice {
+      background: rgba(21, 106, 148, 0.14);
+      color: var(--accent-ice);
+    }
+
+    .drink-tag.sweet-tag {
+      background: rgba(198, 125, 59, 0.16);
+      color: #8A4D14;
+    }
+
+    body.dark-mode .drink-tag.sweet-tag {
+      background: rgba(224, 148, 77, 0.2);
+      color: #F4BE88;
+    }
+
+    .drink-tag.table-tag {
+      background: rgba(58, 32, 16, 0.12);
+      color: #3A2010;
+    }
+
+    body.dark-mode .drink-tag.table-tag {
+      background: rgba(255, 255, 255, 0.14);
+      color: #F6EFE8;
+    }
+
+    .drink-name-main {
+      margin: 0;
+      font-size: 1.06rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .drink-desc {
+      margin: 4px 0 0;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.45;
+    }
+
+    .price-pill-btn {
+      border: 1px solid rgba(198, 125, 59, 0.35);
+      background: linear-gradient(180deg, rgba(255, 250, 243, 0.96) 0%, rgba(245, 232, 214, 0.92) 100%);
+      color: #6E390E;
+      min-width: 62px;
+      height: 40px;
+      padding: 0 13px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(74, 44, 24, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      flex-shrink: 0;
+      transition: transform 0.14s ease, background 0.18s ease, color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    body.dark-mode .price-pill-btn {
+      background: linear-gradient(180deg, rgba(84, 56, 34, 0.92) 0%, rgba(58, 38, 23, 0.95) 100%);
+      color: #F7C694;
+      border-color: rgba(224, 148, 77, 0.4);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    .price-pill-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* Cart & All Order Views */
+    .order-panel {
+      background: var(--glass-surface-strong);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      box-shadow: var(--shadow-glass);
+      margin-bottom: 16px;
+    }
+
+    .order-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .order-header-row h2 {
+      margin: 0 0 4px;
+      font-size: 1.15rem;
+    }
+
+    .order-header-row p.subtitle {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .order-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .order-row-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(34, 19, 10, 0.04);
+    }
+
+    body.dark-mode .order-row-card {
+      background: rgba(45, 36, 30, 0.86);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .order-row-card.clean-order-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .order-row-card.clean-order-card.done {
+      opacity: 0.78;
+    }
+
+    .order-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .order-card-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .order-card-time {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .order-card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .order-card-right-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .order-row-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .order-row-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .order-status-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .order-status-badge.pending {
+      background: rgba(198, 125, 59, 0.16);
+      color: #8A4D14;
+    }
+
+    body.dark-mode .order-status-badge.pending {
+      background: rgba(224, 148, 77, 0.22);
+      color: #F4BE88;
+    }
+
+    .order-status-badge.done {
+      background: rgba(27, 128, 69, 0.16);
+      color: #1B8045;
+    }
+
+    body.dark-mode .order-status-badge.done {
+      background: rgba(76, 217, 134, 0.18);
+      color: #6BE89E;
+    }
+
+    .order-row-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .order-summary-bar {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    body.dark-mode .order-summary-bar {
+      background: rgba(45, 36, 30, 0.86);
+    }
+
+    /* Table Bills / Receipts Section */
+    .table-bills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (max-width: 680px) {
+      .table-bills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .bill-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(34, 19, 10, 0.04);
+    }
+
+    body.dark-mode .bill-card {
+      background: rgba(45, 36, 30, 0.88);
+    }
+
+    .bill-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed rgba(92, 75, 65, 0.25);
+    }
+
+    .bill-table-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .bill-total-amount {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-caramel);
+    }
+
+    .bill-items-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .bill-item-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .bill-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 6px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 20px;
+      background: var(--glass-surface);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glass);
+    }
+
+    /* Daily Chart View */
+    .calc-panel {
+      background: var(--glass-surface-strong);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      box-shadow: var(--shadow-glass);
+    }
+
+    .calc-panel h2 {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+    }
+
+    .calc-panel p.subtitle {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .calc-results {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      margin: 14px 0 18px;
+    }
+
+    .result-box {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      text-align: center;
+    }
+
+    body.dark-mode .result-box {
+      background: rgba(45, 36, 30, 0.86);
+    }
+
+    .result-box .res-label {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .result-box .res-val {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--accent-espresso);
+    }
+
+    .chart-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 12px;
+      box-shadow: 0 4px 16px rgba(34, 19, 10, 0.05);
+    }
+
+    body.dark-mode .chart-card {
+      background: rgba(42, 33, 28, 0.92);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+    }
+
+    .chart-bars-wrap {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+      align-items: end;
+      height: 215px;
+      padding: 22px 2px 10px;
+      border-bottom: 1px solid rgba(92, 75, 65, 0.22);
+    }
+
+    body.dark-mode .chart-bars-wrap {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .chart-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .chart-val-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .chart-bar-track {
+      width: 100%;
+      max-width: 38px;
+      height: 132px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(118, 118, 128, 0.11);
+      border-radius: 12px 12px 6px 6px;
+      padding: 3px;
+    }
+
+    body.dark-mode .chart-bar-track {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .chart-bar-fill {
+      width: 100%;
+      min-height: 4px;
+      border-radius: 9px 9px 4px 4px;
+      background: linear-gradient(180deg, #E0944D 0%, #8C4A19 100%);
+      transition: height 0.28s ease;
+    }
+
+    body.dark-mode .chart-bar-fill {
+      background: linear-gradient(180deg, #F4B97E 0%, #C67D3B 100%);
+    }
+
+    .chart-day-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.25;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .chart-day-wd {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .chart-day-dt {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* iOS Floating Dock Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%) translateZ(0);
+      width: min(470px, calc(100% - 28px));
+      height: 62px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 999px;
+      box-shadow: var(--shadow-float);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 5px;
+      z-index: 40;
+    }
+
+    body.dark-mode .bottom-nav {
+      background: rgba(34, 27, 23, 0.92);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .nav-item {
+      border: none;
+      background: transparent;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
+      color: #FFFFFF;
+      box-shadow: 0 5px 14px rgba(51, 29, 15, 0.25);
+    }
+
+    body.dark-mode .nav-item.active {
+      background: linear-gradient(180deg, #E0944D 0%, #B86E2C 100%);
+      color: #1A110B;
+    }
+
+    body.menu-locked .nav-item[data-tab="order"],
+    body.menu-locked .nav-item[data-tab="calc"] {
+      opacity: 0.36;
+    }
+
+    /* iOS Frosted Modal / Bottom Sheet */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 12, 7, 0.54);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 60;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    @media (min-width: 700px) {
+      .modal-backdrop {
+        align-items: center;
+      }
+    }
+
+    .modal-sheet {
+      width: 100%;
+      max-width: 660px;
+      max-height: 90vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      background: rgba(252, 248, 243, 0.97);
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 30px;
+      padding: 20px;
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.32);
+      animation: slideUp 0.22s ease-out;
+      position: relative;
+      transform: translateZ(0);
+    }
+
+    body.dark-mode .modal-sheet {
+      background: rgba(32, 25, 21, 0.98);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .drag-handle {
+      width: 40px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(60, 40, 28, 0.22);
+      margin: -4px auto 12px;
+    }
+
+    body.dark-mode .drag-handle {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(74, 44, 24, 0.12);
+    }
+
+    body.dark-mode .modal-header {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .close-modal-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: #FFFFFF;
+      color: #1A120E;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    body.dark-mode .close-modal-btn {
+      background: rgba(54, 43, 37, 0.95);
+      color: var(--text-primary);
+    }
+
+    .close-modal-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Hot vs Ice Mode Switcher inside Modal */
+    .mode-switch-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: rgba(118, 118, 128, 0.14);
+      padding: 4px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      margin-top: 12px;
+    }
+
+    body.dark-mode .mode-switch-bar {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .mode-option-btn {
+      border: none;
+      background: transparent;
+      border-radius: 12px;
+      padding: 10px 12px;
+      min-height: 42px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .mode-option-btn.active[data-mode="hot"] {
+      background: linear-gradient(180deg, #D4472B 0%, #B33319 100%);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(184, 66, 37, 0.28);
+    }
+
+    .mode-option-btn.active[data-mode="ice"] {
+      background: linear-gradient(180deg, #1F7AA8 0%, #145D82 100%);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(29, 110, 150, 0.28);
+    }
+
+    .mode-option-btn.disabled-mode {
+      opacity: 0.36;
+      cursor: not-allowed;
+    }
+
+    .controls-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.84);
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      margin: 12px 0;
+    }
+
+    body.dark-mode .controls-bar {
+      background: rgba(45, 36, 30, 0.86);
+    }
+
+    .seg-group {
+      display: inline-flex;
+      flex-wrap: wrap;
+      background: rgba(118, 118, 128, 0.14);
+      padding: 3px;
+      border-radius: 12px;
+      gap: 3px;
+    }
+
+    body.dark-mode .seg-group {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .seg-group.table-seg-group {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .seg-btn {
+      border: none;
+      background: transparent;
+      padding: 7px 12px;
+      min-height: 36px;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+
+    .seg-btn:active {
+      transform: scale(0.95);
+    }
+
+    .table-seg-group .seg-btn {
+      min-width: 38px;
+      padding: 7px 11px;
+      text-align: center;
+      flex: 0 0 auto;
+    }
+
+    .seg-btn.active {
+      background: #FFFFFF;
+      color: #1A120E;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .seg-btn.active {
+      background: rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+    }
+
+    .table-seg-group .seg-btn.active {
+      background: linear-gradient(180deg, #4E2F1B 0%, #331D0F 100%);
+      color: #FFFFFF;
+    }
+
+    body.dark-mode .table-seg-group .seg-btn.active {
+      background: linear-gradient(180deg, #E0944D 0%, #B86E2C 100%);
+      color: #1A110B;
+    }
+
+    .recipe-details-block.locked-hidden {
+      display: none !important;
+    }
+
+    .locked-notice-box {
+      display: none;
+      margin: 14px 0;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(201, 42, 62, 0.1);
+      border: 1px solid rgba(201, 42, 62, 0.25);
+      color: var(--accent-danger);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    body.menu-locked .locked-notice-box {
+      display: block;
+    }
+
+    .section-heading {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--accent-espresso);
+      margin: 16px 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Sweetness Percentage Slider Card */
+    .sweet-slider-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(198, 125, 59, 0.32);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 10px rgba(74, 44, 24, 0.05);
+    }
+
+    body.dark-mode .sweet-slider-card {
+      background: rgba(45, 36, 30, 0.88);
+    }
+
+    .sweet-slider-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .sweet-slider-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sweet-pct-badge {
+      background: linear-gradient(180deg, #D18641 0%, #B56E2D 100%);
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(181, 110, 45, 0.25);
+      white-space: nowrap;
+    }
+
+    .sweet-range-input {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #C67D3B 0%, #C67D3B 66.6%, rgba(118, 118, 128, 0.2) 66.6%, rgba(118, 118, 128, 0.2) 100%);
+      outline: none;
+      cursor: pointer;
+      margin: 6px 0 10px;
+    }
+
+    .sweet-range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--accent-caramel);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .sweet-range-input::-webkit-slider-thumb:active {
+      transform: scale(1.12);
+    }
+
+    .sweet-range-input::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--accent-caramel);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .sweet-presets-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
+
+    .sweet-preset-btn {
+      border: 1px solid rgba(74, 44, 24, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-secondary);
+      border-radius: 9px;
+      padding: 5px 4px;
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    body.dark-mode .sweet-preset-btn {
+      background: rgba(58, 46, 38, 0.9);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sweet-preset-btn.active {
+      background: var(--accent-espresso);
+      color: #FFFFFF;
+      border-color: var(--accent-espresso);
+    }
+
+    body.dark-mode .sweet-preset-btn.active {
+      color: #1A110B;
+    }
+
+    .ingredients-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ing-item {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    body.dark-mode .ing-item {
+      background: rgba(45, 36, 30, 0.88);
+    }
+
+    .ing-item.is-sweetener {
+      border-color: rgba(198, 125, 59, 0.42);
+      background: rgba(255, 250, 242, 0.95);
+    }
+
+    body.dark-mode .ing-item.is-sweetener {
+      background: rgba(62, 46, 32, 0.92);
+    }
+
+    .ing-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-weight: 500;
+    }
+
+    .ing-sweet-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(198, 125, 59, 0.18);
+      color: #8A4D14;
+    }
+
+    body.dark-mode .ing-sweet-pill {
+      background: rgba(224, 148, 77, 0.24);
+      color: #F4BE88;
+    }
+
+    .ing-amount {
+      font-weight: 700;
+      color: var(--accent-caramel);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .steps-list {
+      margin: 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .tip-box {
+      margin-top: 14px;
+      background: rgba(255, 245, 228, 0.92);
+      border: 1px solid rgba(198, 125, 59, 0.28);
+      border-left: 4px solid var(--accent-caramel);
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 0.84rem;
+      color: #5A3716;
+    }
+
+    body.dark-mode .tip-box {
+      background: rgba(58, 42, 27, 0.88);
+      color: #F3CFA6;
+    }
+
+    .modal-footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .modal-footer-actions:empty {
+      display: none !important;
+    }
+
+    /* Confirm Order Done Modal & Receipt Modal */
+    .confirm-sheet {
+      max-width: 420px;
+    }
+
+    .confirm-sheet.centered {
+      text-align: center;
+    }
+
+    .confirm-item-preview {
+      margin: 14px 0 18px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--glass-border);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    body.dark-mode .confirm-item-preview {
+      background: rgba(48, 38, 32, 0.9);
+    }
+
+    .confirm-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .receipt-box {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 12px 0 16px;
+    }
+
+    body.dark-mode .receipt-box {
+      background: rgba(46, 37, 31, 0.92);
+    }
+
+    .receipt-line {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px dashed rgba(92, 75, 65, 0.2);
+      font-size: 0.86rem;
+    }
+
+    .receipt-line:last-child {
+      border-bottom: none;
+    }
+
+    .receipt-total-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      margin-top: 6px;
+      border-top: 2px solid rgba(92, 75, 65, 0.28);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-caramel);
+    }
+
+    /* Payment QR Code Box inside Receipt Modal */
+    .receipt-qr-section {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(250, 246, 240, 0.95);
+      border: 1px dashed rgba(198, 125, 59, 0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+
+    body.dark-mode .receipt-qr-section {
+      background: rgba(34, 27, 22, 0.95);
+      border-color: rgba(224, 148, 77, 0.38);
+    }
+
+    .receipt-qr-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .receipt-qr-frame {
+      width: 188px;
+      height: 188px;
+      padding: 8px;
+      border-radius: 16px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .receipt-qr-frame img,
+    .receipt-qr-frame svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .receipt-qr-amount-chip {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--accent-caramel);
+      background: rgba(198, 125, 59, 0.14);
+      padding: 4px 14px;
+      border-radius: 999px;
+    }
+
+    .receipt-footer-note {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(92, 75, 65, 0.2);
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ================= ALL SETTINGS MODAL STYLES ================= */
+    .settings-group {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    body.dark-mode .settings-group {
+      background: rgba(45, 36, 30, 0.86);
+    }
+
+    .settings-group-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--accent-espresso);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(92, 75, 65, 0.12);
+    }
+
+    body.dark-mode .setting-row {
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .setting-row:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .setting-row-stack {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+    }
+
+    .setting-label-wrap {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .setting-label {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .setting-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+
+    .qr-upload-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(118, 118, 128, 0.08);
+      border: 1px solid rgba(92, 75, 65, 0.14);
+    }
+
+    .qr-settings-preview {
+      width: 66px;
+      height: 66px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 4px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .qr-settings-preview img,
+    .qr-settings-preview svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .qr-upload-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .ios-input, .ios-select {
+      width: 100%;
+      border: 1px solid rgba(92, 75, 65, 0.22);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-primary);
+      border-radius: 12px;
+      padding: 8px 11px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      outline: none;
+    }
+
+    body.dark-mode .ios-input,
+    body.dark-mode .ios-select {
+      background: rgba(28, 22, 18, 0.9);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .ios-input:focus, .ios-select:focus {
+      border-color: var(--accent-caramel);
+    }
+
+    .item-price-input {
+      width: 86px;
+      text-align: right;
+      padding: 7px 10px;
+      border-radius: 11px;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .item-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-top: 1px solid rgba(92, 75, 65, 0.1);
+    }
+
+    body.dark-mode .item-toggle-row {
+      border-top-color: rgba(255, 255, 255, 0.07);
+    }
+
+    .item-toggle-row:first-child {
+      border-top: none;
+      padding-top: 2px;
+    }
+
+    .item-toggle-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .item-status-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .item-status-pill.on {
+      background: rgba(27, 128, 69, 0.14);
+      color: var(--accent-success);
+    }
+
+    .item-status-pill.off {
+      background: rgba(184, 29, 55, 0.14);
+      color: #B81D37;
+    }
+
+    .settings-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* iOS Switch */
+    .ios-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .ios-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .ios-slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: rgba(118, 118, 128, 0.28);
+      transition: 0.22s;
+      border-radius: 999px;
+    }
+
+    .ios-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #FFFFFF;
+      transition: 0.22s;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .ios-switch input:checked + .ios-slider {
+      background-color: var(--accent-success);
+    }
+
+    .ios-switch input:checked + .ios-slider.danger-active {
+      background-color: var(--accent-danger);
+    }
+
+    .ios-switch input:checked + .ios-slider:before {
+      transform: translateX(20px);
+    }
+
+    .settings-danger-btn {
+      color: #B81D37 !important;
+      border-color: rgba(184, 29, 55, 0.28) !important;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 88px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(28, 18, 13, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 90;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+      max-width: calc(100% - 28px);
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container" id="appContainer">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-top-row">
+        <div class="brand-title">
+          <div class="brand-badge" aria-hidden="true">
+            <svg class="ui-icon ui-icon-lg" viewBox="0 0 24 24">
+              <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+              <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
+              <line x1="6" y1="2" x2="6" y2="4"></line>
+              <line x1="10" y1="2" x2="10" y2="4"></line>
+              <line x1="14" y1="2" x2="14" y2="4"></line>
+            </svg>
+          </div>
+          <div style="min-width: 0;">
+            <h1 id="mainHeaderTitle">Coffee &amp; Drinks</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn lang-toggle-btn" id="langToggleBtn" title="Language">
+            <svg class="ui-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span id="langBadgeText">EN</span>
+          </button>
+          <button class="icon-btn theme-toggle-btn" id="themeToggleBtn" title="Theme">
+            <svg class="ui-icon" id="themeIconSvg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <span class="btn-label" id="themeBtnLabel">Dark</span>
+          </button>
+          <button class="icon-btn" id="openSettingsBtn" title="All Settings">
+            <svg class="ui-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span class="btn-label" id="settingsBtnLabel">ការកំណត់</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-controls-row">
+        <div class="temp-filter-group" id="tempFilterGroup" role="group" aria-label="Category Filter">
+          <button class="temp-pill active" data-filter="coffee">Coffee</button>
+          <button class="temp-pill" data-filter="drinks">ភេសជ្ជៈ</button>
+          <button class="temp-pill" data-filter="cart" id="filterCartPill">កន្ត្រក</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Lock Status Banner -->
+    <div class="lock-banner" id="lockBanner">
+      <span id="lockBannerText">កំពុងបិទការកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders</span>
+      <button type="button" class="icon-btn small-action-btn" id="unlockFromBannerBtn">បើកវិញ</button>
+    </div>
+
+    <!-- Summary Strip -->
+    <div class="summary-strip" id="summaryStrip">
+      <div class="summary-count" id="summaryCountText">កំពុងបង្ហាញ៖ <strong>0</strong> មុខ (សរុប <span>0</span> មុខ)</div>
+    </div>
+
+    <!-- Main View: Menu Grid -->
+    <main id="menuView">
+      <div class="menu-grid" id="menuGrid"></div>
+    </main>
+
+    <!-- Cart View -->
+    <section id="cartView" style="display: none;">
+      <div class="order-panel">
+        <div class="order-header-row">
+          <div>
+            <h2 id="cartTitle">កន្ត្រក</h2>
+            <p class="subtitle" id="cartSubtitle">ពិនិត្យមុខទំនិញក្នុងកន្ត្រក រួចចុចបញ្ជាក់ការកុម្ម៉ង់ ដើម្បីបញ្ជូនទៅ All Order</p>
+          </div>
+          <button class="icon-btn confirm-btn" id="confirmCartToOrderBtn">បញ្ជាក់ការកុម្ម៉ង់</button>
+        </div>
+
+        <div class="order-list" id="cartList"></div>
+
+        <div class="order-summary-bar" id="cartSummaryBar">
+          <span id="cartTotalCupsText">សរុបក្នុងកន្ត្រក៖ 0 កែវ — $0.00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Order + Table Receipts View -->
+    <section id="orderView" style="display: none;">
+      <div class="order-panel">
+        <div class="order-header-row">
+          <div>
+            <h2 id="orderTitle">All Order</h2>
+            <p class="subtitle" id="orderSubtitle">បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់</p>
+          </div>
+          <button class="icon-btn" id="backToCartBtn">← កន្ត្រក</button>
+        </div>
+
+        <div class="order-list" id="orderList"></div>
+
+        <div class="order-summary-bar" id="orderSummaryBar">
+          <span id="orderDoneCountText">ធ្វើរួច៖ 0/0 មុខ</span>
+        </div>
+      </div>
+
+      <!-- Table Bills / Receipts Section -->
+      <div class="order-panel">
+        <div class="order-header-row" style="margin-bottom: 12px;">
+          <div>
+            <h2 id="tableBillsTitle">វិក័យប័ត្រសរុបតម្លៃតាមតុ &amp; QR គិតលុយ</h2>
+            <p class="subtitle" id="tableBillsSubtitle">ចុចបង្ហាញ QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច</p>
+          </div>
+        </div>
+        <div class="table-bills-grid" id="tableBillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- Daily Cups Chart View -->
+    <section id="calculatorView" style="display: none;">
+      <div class="calc-panel">
+        <div class="order-header-row">
+          <div>
+            <h2 id="chartPanelTitle">ក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ</h2>
+            <p class="subtitle" id="chartPanelSubtitle">កត់ត្រាចំនួនកែវដែលបានគិតលុយរួចពីវិក័យប័ត្រតុដោយស្វ័យប្រវត្តិ</p>
+          </div>
+          <button type="button" class="icon-btn small-action-btn" id="resetChartBtn" style="color:#B81D37;">សម្អាតក្រាហ្វ</button>
+        </div>
+
+        <div class="calc-results">
+          <div class="result-box">
+            <div class="res-label" id="resTodayCupsLabel">ចំនួនកែវថ្ងៃនេះ</div>
+            <div class="res-val" id="resTodayCups">0 កែវ</div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-bars-wrap" id="dailyChartBars"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" aria-label="Bottom Navigation">
+    <button class="nav-item active" id="navAll" data-tab="all">
+      <svg class="ui-icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+      <span id="navAllLabel">ម៉ឺនុយ</span>
+    </button>
+    <button class="nav-item" id="navOrder" data-tab="order">
+      <svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="15" y2="16"></line></svg>
+      <span id="navOrderLabel">All Order</span>
+    </button>
+    <button class="nav-item" id="navCalc" data-tab="calc">
+      <svg class="ui-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span id="navCalcLabel">ក្រាហ្វប្រចាំថ្ងៃ</span>
+    </button>
+  </nav>
+
+  <!-- Recipe Detail Modal -->
+  <div class="modal-backdrop" id="recipeModal" role="dialog" aria-modal="true">
+    <div class="modal-sheet" id="recipeSheet">
+      <div class="drag-handle"></div>
+      <div class="modal-header">
+        <div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+            <span class="drink-tag" id="modalTempTag"></span>
+            <span class="drink-tag sweet-tag" id="modalPriceTag"></span>
+          </div>
+          <h2 id="modalTitleMain" style="margin: 6px 0 2px; font-size: 1.24rem;"></h2>
+        </div>
+        <button class="close-modal-btn" id="closeRecipeModal" aria-label="Close">X</button>
+      </div>
+
+      <!-- Hot / Ice Mode Switcher -->
+      <div class="mode-switch-bar" id="modalModeSwitchBar" role="group" aria-label="Temperature">
+        <button type="button" class="mode-option-btn" data-mode="hot" id="modeHotBtn">ក្តៅ</button>
+        <button type="button" class="mode-option-btn" data-mode="ice" id="modeIceBtn">ត្រជាក់</button>
+      </div>
+
+      <p id="modalDesc" style="margin: 12px 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;"></p>
+
+      <div class="locked-notice-box" id="recipeLockedNotice">
+        មុខងារកុម្ម៉ង់ និងមើលគ្រឿងផ្សំត្រូវបានបិទ។ ចូលទៅក្នុង ការកំណត់ → រូបរាង និងគ្រប់គ្រងទិន្នន័យ ដើម្បីបើកវិញ។
+      </div>
+
+      <div class="recipe-details-block" id="recipeDetailsBlock">
+        <!-- Cup Size & Table Number Segmented Buttons -->
+        <div class="controls-bar">
+          <div>
+            <div id="cupSizeLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">ទំហំកែវ</div>
+            <div class="seg-group" id="cupSizeGroup">
+              <button type="button" class="seg-btn" data-size="12oz">12oz</button>
+              <button type="button" class="seg-btn active" data-size="16oz">16oz</button>
+              <button type="button" class="seg-btn" data-size="22oz">22oz</button>
+            </div>
+          </div>
+          <div>
+            <div id="tableNumberLabel" style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">លេខតុ</div>
+            <div class="seg-group table-seg-group" id="tableNumberGroup" role="group" aria-label="Table"></div>
+          </div>
+        </div>
+
+        <div class="section-heading" id="ingSectionHeading">គ្រឿងផ្សំ និងរង្វាស់</div>
+
+        <!-- Sweetness Level Percentage Slider -->
+        <div class="sweet-slider-card" id="sweetSliderCard">
+          <div class="sweet-slider-header">
+            <span class="sweet-slider-title" id="sweetSliderTitle">កម្រិតផ្អែម</span>
+            <span class="sweet-pct-badge" id="sweetPctBadge">100%</span>
+          </div>
+          <input type="range" id="sweetRangeInput" class="sweet-range-input" min="0" max="150" step="5" value="100" aria-label="Sweetness" />
+          <div class="sweet-presets-row" id="sweetPresetsRow">
+            <button type="button" class="sweet-preset-btn" data-sweet="0">0%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="25">25%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="50">50%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="75">75%</button>
+            <button type="button" class="sweet-preset-btn active" data-sweet="100">100%</button>
+            <button type="button" class="sweet-preset-btn" data-sweet="125">125%</button>
+          </div>
+        </div>
+
+        <ul class="ingredients-list" id="modalIngredients"></ul>
+
+        <div class="section-heading" id="stepsSectionHeading">របៀបធ្វើ</div>
+        <ol class="steps-list" id="modalSteps"></ol>
+
+        <div class="tip-box" id="modalTip"></div>
+
+        <div class="modal-footer-actions" id="modalFooterActions">
+          <button class="icon-btn primary" id="modalAddOrderBtn">+ ដាក់ចូលកន្ត្រក</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Order Done Modal -->
+  <div class="modal-backdrop" id="confirmDoneModal" role="dialog" aria-modal="true">
+    <div class="modal-sheet confirm-sheet centered">
+      <div class="drag-handle"></div>
+      <h2 id="confirmDoneTitle" style="margin: 0 0 6px; font-size: 1.14rem;">បញ្ជាក់ថាធ្វើរួច?</h2>
+      <p id="confirmDoneDesc" style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">សម្គាល់ថាភេសជ្ជៈនេះធ្វើរួចរាល់ (ទិន្នន័យក្រាហ្វនឹងបញ្ចូលពេលគិតលុយរួច)។</p>
+      <div class="confirm-item-preview" id="confirmDoneItemText"></div>
+      <div class="confirm-actions-row">
+        <button type="button" class="icon-btn" id="cancelDoneBtn">បោះបង់</button>
+        <button type="button" class="icon-btn confirm-btn" id="acceptDoneBtn">បញ្ជាក់</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Receipt Modal with Payment QR -->
+  <div class="modal-backdrop" id="receiptModal" role="dialog" aria-modal="true">
+    <div class="modal-sheet confirm-sheet">
+      <div class="drag-handle"></div>
+      <div class="modal-header" style="padding-bottom: 10px;">
+        <div>
+          <h2 id="receiptModalTitle" style="margin: 0; font-size: 1.18rem;">វិក័យប័ត្រតុ</h2>
+          <p id="receiptModalSub" style="margin: 3px 0 0; font-size: 0.8rem; color: var(--text-secondary);"></p>
+        </div>
+        <button class="close-modal-btn" id="closeReceiptModal" aria-label="Close">X</button>
+      </div>
+
+      <div class="receipt-box" id="receiptLinesContainer"></div>
+
+      <div class="confirm-actions-row">
+        <button type="button" class="icon-btn" id="closeReceiptBtn">បិទ</button>
+        <button type="button" class="icon-btn confirm-btn" id="clearTableBillBtn">គិតលុយរួច</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL SETTINGS MODAL -->
+  <div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true">
+    <div class="modal-sheet">
+      <div class="drag-handle"></div>
+      <div class="modal-header">
+        <div>
+          <h2 id="settingsModalTitle" style="margin: 0; font-size: 1.22rem;">All Settings • ការកំណត់ទាំងអស់</h2>
+          <p id="settingsModalSub" style="margin: 3px 0 0; font-size: 0.82rem; color: var(--text-secondary);">កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ QR គិតលុយ និងហាង</p>
+        </div>
+        <button class="close-modal-btn" id="closeSettingsModal" aria-label="Close">X</button>
+      </div>
+
+      <!-- 1. Set Price Per Coffee & Drink -->
+      <div class="settings-group">
+        <h3 class="settings-group-title" id="setSecPricesTitle">១. ការកំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)</h3>
+        <span class="setting-sub" id="setPricesSub">កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក</span>
+        <div id="itemPricesContainer"></div>
+      </div>
+
+      <!-- 2. Enable / Disable Individual Items -->
+      <div class="settings-group">
+        <h3 class="settings-group-title" id="setSecToggleItemsTitle">២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)</h3>
+        <span class="setting-sub" id="setToggleItemsSub">បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល</span>
+        <div id="itemAvailabilityContainer"></div>
+      </div>
+
+      <!-- 3. Shop, Payment QR & Currency Settings -->
+      <div class="settings-group">
+        <h3 class="settings-group-title" id="setSecShopTitle">៣. ព័ត៌មានហាង QR គិតលុយ និងរូបិយប័ណ្ណ</h3>
+        <div class="setting-row setting-row-stack">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setShopNameLbl">ឈ្មោះហាង</span>
+          </div>
+          <input type="text" id="setShopNameInput" class="ios-input" placeholder="Coffee & Drinks" />
+        </div>
+
+        <!-- Payment QR Upload / Toggle -->
+        <div class="setting-row setting-row-stack">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div class="setting-label-wrap">
+              <span class="setting-label" id="setQrEnableLbl">បង្ហាញ QR Code កន្លែងគិតលុយ</span>
+              <span class="setting-sub" id="setQrEnableSub">បង្ហាញ QR ធនាគារ/KHQR ពេលចុចបង្ហាញ QR គិតលុយ</span>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" id="setQrEnabledToggle" checked />
+              <span class="ios-slider"></span>
+            </label>
+          </div>
+
+          <div class="qr-upload-box" id="qrUploadBox">
+            <div class="qr-settings-preview" id="qrSettingsPreview"></div>
+            <div class="qr-upload-actions">
+              <input type="file" id="setQrFileInput" accept="image/*" style="display:none;" />
+              <button type="button" class="icon-btn small-action-btn primary" id="uploadQrBtn">ជ្រើសរើសរូប QR</button>
+              <button type="button" class="icon-btn small-action-btn settings-danger-btn" id="removeQrBtn">ប្រើ QR គំរូ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-row setting-row-stack">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setReceiptNoteLbl">ពាក្យបាតវិក័យប័ត្រ</span>
+          </div>
+          <input type="text" id="setReceiptNoteInput" class="ios-input" placeholder="សូមអរគុណ! Thank you!" />
+        </div>
+        <div class="setting-row">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setCurrencyLbl">រូបិយប័ណ្ណ (Currency)</span>
+          </div>
+          <select id="setCurrencySelect" class="ios-select" style="width: auto; min-width: 120px;">
+            <option value="USD">USD ($)</option>
+            <option value="KHR">KHR (៛)</option>
+          </select>
+        </div>
+        <div class="setting-row" id="khrRateRow">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setKhrRateLbl">អត្រាប្តូរប្រាក់ (1$ = ? ៛)</span>
+          </div>
+          <input type="number" id="setKhrRateInput" class="ios-input" style="width: 115px; text-align: right;" min="1000" step="100" value="4000" />
+        </div>
+      </div>
+
+      <!-- 4. Table Management Settings -->
+      <div class="settings-group">
+        <h3 class="settings-group-title" id="setSecTableTitle">៤. ការកំណត់តុ (Tables)</h3>
+        <div class="setting-row">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setTableCountLbl">ចំនួនតុសរុប (1–15)</span>
+          </div>
+          <input type="number" id="setTableCountInput" class="ios-input" style="width: 90px; text-align: center;" min="1" max="15" value="5" />
+        </div>
+        <div class="setting-row">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setTakeawayLbl">បើកជម្រើស «ខ្ចប់» (Takeaway)</span>
+          </div>
+          <label class="ios-switch">
+            <input type="checkbox" id="setTakeawayToggle" checked />
+            <span class="ios-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 5. Appearance & Data Management (Single Lock Switch) -->
+      <div class="settings-group">
+        <h3 class="settings-group-title" id="setSecSystemTitle">៥. រូបរាង និងគ្រប់គ្រងទិន្នន័យ</h3>
+        <div class="setting-row">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setLockModeLbl">បិទ Menu ហាមកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders</span>
+            <span class="setting-sub" id="setLockModeSub">បើក Switch នេះ នឹងបិទការកុម្ម៉ង់ គ្រឿងផ្សំ ក្រាហ្វ និង All Order ទាំងអស់</span>
+          </div>
+          <label class="ios-switch">
+            <input type="checkbox" id="setLockModeToggle" />
+            <span class="ios-slider danger-active"></span>
+          </label>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setDarkModeLbl">មុខងារងងឹត (Dark Mode)</span>
+          </div>
+          <label class="ios-switch">
+            <input type="checkbox" id="setDarkModeToggle" />
+            <span class="ios-slider"></span>
+          </label>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label-wrap">
+            <span class="setting-label" id="setLangLbl">ភាសាកម្មវិធី (Language)</span>
+          </div>
+          <select id="setLangSelect" class="ios-select" style="width: auto; min-width: 120px;">
+            <option value="km">ភាសាខ្មែរ (KM)</option>
+            <option value="en">English (EN)</option>
+          </select>
+        </div>
+        <div class="settings-grid-2" style="margin-top: 4px;">
+          <button type="button" class="icon-btn" id="exportDataBtn">ទាញយកទិន្នន័យ (Backup)</button>
+          <button type="button" class="icon-btn settings-danger-btn" id="resetAllDataBtn">កំណត់ឡើងវិញ (Reset)</button>
+        </div>
+      </div>
+
+      <div class="modal-footer-actions">
+        <button type="button" class="icon-btn confirm-btn" id="saveSettingsBtn" style="width: 100%; min-height: 44px;">រក្សាទុកការកំណត់ទាំងអស់</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const DEFAULT_QR_SVG = `
+      <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-label="KHQR Payment Code">
+        <rect width="180" height="180" rx="14" fill="#FFFFFF"/>
+        <path d="M14 26 A12 12 0 0 1 26 14 H154 A12 12 0 0 1 166 26 V36 H14 Z" fill="#E1232E"/>
+        <text x="90" y="29" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">KHQR</text>
+        <g fill="#1A120E" transform="translate(24, 46)">
+          <rect x="0" y="0" width="36" height="36" rx="4"/>
+          <rect x="5" y="5" width="26" height="26" rx="2" fill="#FFFFFF"/>
+          <rect x="10" y="10" width="16" height="16" rx="1"/>
+          <rect x="96" y="0" width="36" height="36" rx="4"/>
+          <rect x="101" y="5" width="26" height="26" rx="2" fill="#FFFFFF"/>
+          <rect x="106" y="10" width="16" height="16" rx="1"/>
+          <rect x="0" y="84" width="36" height="36" rx="4"/>
+          <rect x="5" y="89" width="26" height="26" rx="2" fill="#FFFFFF"/>
+          <rect x="10" y="94" width="16" height="16" rx="1"/>
+          <rect x="44" y="4" width="8" height="8"/>
+          <rect x="60" y="4" width="8" height="8"/>
+          <rect x="76" y="4" width="8" height="8"/>
+          <rect x="44" y="16" width="16" height="8"/>
+          <rect x="68" y="16" width="8" height="16"/>
+          <rect x="84" y="20" width="8" height="12"/>
+          <rect x="4" y="44" width="12" height="8"/>
+          <rect x="24" y="44" width="8" height="16"/>
+          <rect x="40" y="44" width="12" height="12"/>
+          <rect x="80" y="44" width="12" height="8"/>
+          <rect x="100" y="44" width="8" height="16"/>
+          <rect x="116" y="44" width="16" height="8"/>
+          <rect x="4" y="64" width="16" height="8"/>
+          <rect x="28" y="68" width="12" height="8"/>
+          <rect x="84" y="64" width="16" height="8"/>
+          <rect x="112" y="68" width="12" height="12"/>
+          <rect x="44" y="84" width="8" height="16"/>
+          <rect x="60" y="88" width="16" height="8"/>
+          <rect x="84" y="84" width="12" height="12"/>
+          <rect x="104" y="88" width="8" height="16"/>
+          <rect x="120" y="88" width="12" height="8"/>
+          <rect x="44" y="108" width="16" height="12"/>
+          <rect x="68" y="104" width="8" height="16"/>
+          <rect x="84" y="112" width="16" height="8"/>
+          <rect x="108" y="112" width="24" height="8"/>
+          <circle cx="66" cy="60" r="14" fill="#E1232E"/>
+          <text x="66" y="65" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" font-size="14" font-weight="800">៛</text>
+        </g>
+      </svg>
+    `;
+
+    const UI_STRINGS = {
+      km: {
+        docTitle: "Coffee & Drinks",
+        headerTitle: "Coffee & Drinks",
+        langBadge: "EN",
+        themeDark: "ងងឹត",
+        themeLight: "ភ្លឺ",
+        settingsBtn: "ការកំណត់",
+        lockBannerText: "កំពុងបិទការកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders",
+        unlockBannerBtn: "បើកវិញ",
+        filterCoffee: () => "Coffee",
+        filterDrinks: () => "ភេសជ្ជៈ",
+        filterCart: () => "កន្ត្រក",
+        showingPrefix: "កំពុងបង្ហាញ៖",
+        showingMid: "មុខ ក្នុងចំណោម",
+        showingSuffix: "មុខ",
+        hotFull: "ក្តៅ",
+        iceFull: "ត្រជាក់",
+        bothFull: "",
+        navMenu: () => "ម៉ឺនុយ",
+        navOrder: () => "All Order",
+        navCalc: "ក្រាហ្វប្រចាំថ្ងៃ",
+        emptyTitle: "រកមិនឃើញមុខទំនិញ",
+        emptyDesc: "សាកល្បងប្តូរផ្ទាំង Coffee ឬ ភេសជ្ជៈ ឬបើកមុខទំនិញក្នុងការកំណត់។",
+        cartTitle: "កន្ត្រក",
+        cartSubtitle: "ពិនិត្យមុខទំនិញក្នុងកន្ត្រក រួចចុចបញ្ជាក់ការកុម្ម៉ង់ ដើម្បីបញ្ជូនទៅ All Order",
+        confirmCartBtn: "បញ្ជាក់ការកុម្ម៉ង់",
+        cartEmptyTitle: "កន្ត្រកនៅទំនេរ",
+        cartEmptyDesc: "ចុចលើតម្លៃ ឬមុខកាហ្វេ/ភេសជ្ជៈក្នុងម៉ឺនុយ ដើម្បីមើលរូបមន្ត និងដាក់ចូលកន្ត្រក។",
+        cartTotalCups: (cups, totalPriceFmt) => `សរុបក្នុងកន្ត្រក៖ ${cups} កែវ — ${totalPriceFmt}`,
+        orderTitle: "All Order",
+        orderSubtitle: "បញ្ជីការកុម្ម៉ង់ដែលបានបញ្ជាក់រួចរាល់",
+        backToCartBtn: "← កន្ត្រក",
+        orderEmptyTitle: "មិនទាន់មានការកុម្ម៉ង់ទេ",
+        orderEmptyDesc: "បញ្ចូលមុខទំនិញទៅកន្ត្រក ហើយចុចបញ្ជាក់ ដើម្បីដាក់ទៅ All Order។",
+        orderStatusPending: "កំពុងធ្វើ",
+        orderStatusDone: "ធ្វើរួច",
+        markDoneBtn: "ធ្វើរួច",
+        confirmDoneTitle: "បញ្ជាក់ថាធ្វើរួច?",
+        confirmDoneDesc: "សម្គាល់ថាភេសជ្ជៈនេះធ្វើរួចរាល់ (ទិន្នន័យក្រាហ្វនឹងបញ្ចូលពេលគិតលុយរួច)។",
+        cancelDoneBtn: "បោះបង់",
+        acceptDoneBtn: "បញ្ជាក់",
+        orderEditBtn: "កែ",
+        orderRemoveBtn: "លុប",
+        orderDoneSummary: (doneCount, totalCount) => `ធ្វើរួច៖ ${doneCount}/${totalCount} មុខ`,
+        tableBillsTitle: "វិក័យប័ត្រសរុបតម្លៃតាមតុ & QR គិតលុយ",
+        tableBillsSubtitle: "ចុចបង្ហាញ QR គិតលុយតាមតុនីមួយៗ និងកត់ត្រាចំនួនកែវចូលក្រាហ្វពេលគិតលុយរួច",
+        billEmptyText: "មិនទាន់មានការកុម្ម៉ង់សម្រាប់តុនេះទេ",
+        billItemsCount: (n) => `${n} មុខ`,
+        viewBillBtn: "បង្ហាញ QR គិតលុយ",
+        clearTableBtn: "គិតលុយរួច",
+        receiptTitleForTable: (label) => `វិក័យប័ត្រ — ${label}`,
+        receiptEmptyModal: "គ្មានមុខទំនិញក្នុងវិក័យប័ត្រតុនេះទេ។",
+        receiptTotalLabel: "តម្លៃសរុប",
+        receiptQrScanLabel: "ស្កេន QR ដើម្បីបង់ប្រាក់",
+        closeBtnLabel: "បិទ",
+        cupSizeLabel: "ទំហំកែវ",
+        tableNumberLabel: "លេខតុ",
+        tableChipLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "ខ្ចប់";
+          return `${tNum}`;
+        },
+        tableOptionLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "ខ្ចប់";
+          return `តុលេខ ${tNum}`;
+        },
+        recipeLockedNotice: "មុខងារកុម្ម៉ង់ និងមើលគ្រឿងផ្សំត្រូវបានបិទ។ ចូលទៅក្នុង ការកំណត់ → រូបរាង និងគ្រប់គ្រងទិន្នន័យ ដើម្បីបើកវិញ។",
+        ingHeading: "គ្រឿងផ្សំ និងរង្វាស់",
+        sweetSliderTitle: "កម្រិតផ្អែម",
+        sweetBadgeText: (pct) => {
+          if (pct === 0) return "0% (មិនផ្អែម)";
+          if (pct < 50) return `${pct}% (ផ្អែមតិចបំផុត)`;
+          if (pct < 85) return `${pct}% (ផ្អែមតិច)`;
+          if (pct <= 105) return `${pct}% (ធម្មតា)`;
+          return `${pct}% (ផ្អែមខ្លាំង)`;
+        },
+        sweetPillLabel: (pct) => `កម្រិតផ្អែម ${pct}%`,
+        sweetOrderBadge: (pct) => `ផ្អែម ${pct}%`,
+        stepsHeading: "របៀបធ្វើ",
+        tipPrefix: "គន្លឹះ៖",
+        defaultTip: "ឆុង ឬលាយឱ្យមានរង្វាស់ច្បាស់លាស់ដើម្បីរក្សារសជាតិថេរ។",
+        addOrderBtnLabel: "+ ដាក់ចូលកន្ត្រក",
+        chartPanelTitle: "ក្រាហ្វចំនួនកែវប្រចាំថ្ងៃ",
+        chartPanelSubtitle: "កត់ត្រាចំនួនកែវដែលបានគិតលុយរួចពីវិក័យប័ត្រតុដោយស្វ័យប្រវត្តិ",
+        resetChartBtn: "សម្អាតក្រាហ្វ",
+        resTodayCupsLabel: "ចំនួនកែវថ្ងៃនេះ",
+        cupUnit: "កែវ",
+        chartWdShort: ["អាទិត្យ", "ចន្ទ", "អង្គារ", "ពុធ", "ព្រហ", "សុក្រ", "សៅរ៍"],
+        settingsModalTitle: "All Settings • ការកំណត់ទាំងអស់",
+        settingsModalSub: "កំណត់តម្លៃមុខនីមួយៗ បិទ/បើកមុខទំនិញ តុ QR គិតលុយ និងហាង",
+        setSecPricesTitle: "១. កំណត់តម្លៃលើ Coffee និង ភេសជ្ជៈ នីមួយៗ ($)",
+        setPricesSub: "កែតម្លៃផ្ទាល់លើមុខនីមួយៗ រួចចុចរក្សាទុក",
+        setSecToggleItemsTitle: "២. បិទ / បើកមុខទំនិញនីមួយៗ (ឧ. បិទ Espresso ហើយបើកវិញ)",
+        setToggleItemsSub: "បិទមុខណាមួយ វានឹងលាក់ពីម៉ឺនុយភ្លាមៗ និងអាចបើកវិញបានគ្រប់ពេល",
+        statusOn: "បើក",
+        statusOff: "បិទ",
+        setSecShopTitle: "៣. ព័ត៌មានហាង QR គិតលុយ និងរូបិយប័ណ្ណ",
+        setShopNameLbl: "ឈ្មោះហាង",
+        setQrEnableLbl: "បង្ហាញ QR Code កន្លែងគិតលុយ",
+        setQrEnableSub: "បង្ហាញ QR ធនាគារ/KHQR ពេលចុចបង្ហាញ QR គិតលុយ",
+        uploadQrBtn: "ជ្រើសរើសរូប QR",
+        removeQrBtn: "ប្រើ QR គំរូ",
+        setReceiptNoteLbl: "ពាក្យបាតវិក័យប័ត្រ",
+        setCurrencyLbl: "រូបិយប័ណ្ណ (Currency)",
+        setKhrRateLbl: "អត្រាប្តូរប្រាក់ (1$ = ? ៛)",
+        setSecTableTitle: "៤. ការកំណត់តុ (Tables)",
+        setTableCountLbl: "ចំនួនតុសរុប (1–15)",
+        setTakeawayLbl: "បើកជម្រើស «ខ្ចប់» (Takeaway)",
+        setSecSystemTitle: "៥. រូបរាង និងគ្រប់គ្រងទិន្នន័យ",
+        setLockModeLbl: "បិទ Menu ហាមកុម្ម៉ង់ មើលគ្រឿងផ្សំ Chart និង Orders",
+        setLockModeSub: "បើក Switch នេះ នឹងបិទការកុម្ម៉ង់ គ្រឿងផ្សំ ក្រាហ្វ និង All Order ទាំងអស់",
+        setDarkModeLbl: "មុខងារងងឹត (Dark Mode)",
+        setLangLbl: "ភាសាកម្មវិធី (Language)",
+        exportDataBtn: "ទាញយកទិន្នន័យ (Backup)",
+        resetAllDataBtn: "កំណត់ឡើងវិញ (Reset)",
+        saveSettingsBtn: "រក្សាទុកការកំណត់ទាំងអស់",
+        toastSettingsSaved: "បានរក្សាទុកការកំណត់រួចរាល់",
+        toastQrUpdated: "បានបញ្ចូលរូបភាព QR Code រួចរាល់",
+        toastQrReset: "បានប្តូរទៅប្រើ QR Code គំរូវិញ",
+        toastModeLocked: "បានបិទការកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders",
+        toastModeUnlocked: "បានបើកមុខងារកុម្ម៉ង់ គ្រឿងផ្សំ Chart និង Orders វិញ",
+        toastFeatureLocked: "មុខងារនេះត្រូវបានបិទក្នុងការកំណត់",
+        toastBackupExported: "បានទាញយកឯកសារ Backup រួចរាល់",
+        toastResetConfirm: "តើអ្នកពិតជាចង់សម្អាតការកំណត់ កន្ត្រក និងការកុម្ម៉ង់ទាំងអស់មែនទេ?",
+        toastResetDone: "បានកំណត់កម្មវិធីឡើងវិញរួចរាល់",
+        toastAddedToCart: (name) => `បានដាក់ "${name}" ចូលកន្ត្រក`,
+        toastCartEmpty: "កន្ត្រកនៅទំនេរ — សូមជ្រើសរើសមុខទំនិញជាមុន",
+        toastConfirmedOrder: (cups) => `បានបញ្ជាក់ ${cups} កែវ ទៅ All Order`,
+        toastMarkedDoneOnly: (name) => `បានបញ្ជាក់ «${name}» ធ្វើរួចរាល់`,
+        toastChartCleared: "បានសម្អាតទិន្នន័យក្រាហ្វរួចរាល់",
+        toastTableClearedAndChart: (label, cups) => `បានគិតលុយ ${label} រួច (+${cups} កែវ ក្នុងក្រាហ្វ)`,
+        toastLangSwitched: "បានប្តូរទៅភាសាខ្មែរ",
+        toastThemeDark: "បានប្តូរទៅមុខងារងងឹត",
+        toastThemeLight: "បានប្តូរទៅមុខងារភ្លឺ"
+      },
+      en: {
+        docTitle: "Coffee & Drinks",
+        headerTitle: "Coffee & Drinks",
+        langBadge: "ខ្មែរ",
+        themeDark: "Dark",
+        themeLight: "Light",
+        settingsBtn: "Settings",
+        lockBannerText: "Ordering, Ingredients, Chart & Orders are locked",
+        unlockBannerBtn: "Unlock",
+        filterCoffee: () => "Coffee",
+        filterDrinks: () => "Drinks",
+        filterCart: () => "Cart",
+        showingPrefix: "Showing",
+        showingMid: "of",
+        showingSuffix: "items",
+        hotFull: "Hot",
+        iceFull: "Ice",
+        bothFull: "",
+        navMenu: () => "Menu",
+        navOrder: () => "All Order",
+        navCalc: "Daily Chart",
+        emptyTitle: "No items found",
+        emptyDesc: "Try switching tabs or re-enable items in Settings.",
+        cartTitle: "Cart",
+        cartSubtitle: "Review items in your cart, then tap confirm to send to All Order",
+        confirmCartBtn: "Confirm Order",
+        cartEmptyTitle: "Cart is empty",
+        cartEmptyDesc: "Tap any price or drink card in Menu to view the recipe and add to cart.",
+        cartTotalCups: (cups, totalPriceFmt) => `Cart Total: ${cups} cups — ${totalPriceFmt}`,
+        orderTitle: "All Order",
+        orderSubtitle: "Confirmed orders list",
+        backToCartBtn: "← Cart",
+        orderEmptyTitle: "No confirmed orders yet",
+        orderEmptyDesc: "Add items to Cart and tap confirm to send them to All Order.",
+        orderStatusPending: "Pending",
+        orderStatusDone: "Done",
+        markDoneBtn: "Done",
+        confirmDoneTitle: "Confirm Done?",
+        confirmDoneDesc: "Mark this drink as prepared (cups will be recorded to Daily Chart upon payment).",
+        cancelDoneBtn: "Cancel",
+        acceptDoneBtn: "Confirm",
+        orderEditBtn: "Edit",
+        orderRemoveBtn: "Remove",
+        orderDoneSummary: (doneCount, totalCount) => `Done: ${doneCount}/${totalCount} items`,
+        tableBillsTitle: "Table Bills & Payment QR",
+        tableBillsSubtitle: "Tap Show Payment QR per table and record cups to Daily Chart once paid",
+        billEmptyText: "No orders for this table yet",
+        billItemsCount: (n) => `${n} items`,
+        viewBillBtn: "Show Payment QR",
+        clearTableBtn: "Paid & Settle",
+        receiptTitleForTable: (label) => `Bill — ${label}`,
+        receiptEmptyModal: "No items on this table bill.",
+        receiptTotalLabel: "Total Amount",
+        receiptQrScanLabel: "Scan QR to Pay",
+        closeBtnLabel: "Close",
+        cupSizeLabel: "Cup Size",
+        tableNumberLabel: "Table",
+        tableChipLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "Takeaway";
+          return `${tNum}`;
+        },
+        tableOptionLabel: (tNum) => {
+          if (!tNum || tNum === "takeaway") return "Takeaway";
+          return `Table ${tNum}`;
+        },
+        recipeLockedNotice: "Ordering and ingredients are locked. Open Settings → Appearance & Data Management to unlock.",
+        ingHeading: "Ingredients & Measurements",
+        sweetSliderTitle: "Sweetness Level",
+        sweetBadgeText: (pct) => {
+          if (pct === 0) return "0% (Unsweetened)";
+          if (pct < 50) return `${pct}% (Quarter Sweet)`;
+          if (pct < 85) return `${pct}% (Less Sweet)`;
+          if (pct <= 105) return `${pct}% (Normal)`;
+          return `${pct}% (Extra Sweet)`;
+        },
+        sweetPillLabel: (pct) => `Sweetness ${pct}%`,
+        sweetOrderBadge: (pct) => `Sweet ${pct}%`,
+        stepsHeading: "Instructions",
+        tipPrefix: "Tip:",
+        defaultTip: "Measure consistently to keep balanced flavor in every cup.",
+        addOrderBtnLabel: "+ Add to Cart",
+        chartPanelTitle: "Daily Cups Chart",
+        chartPanelSubtitle: "Automatically records cups once paid from table bills",
+        resetChartBtn: "Clear Chart",
+        resTodayCupsLabel: "Today Cups",
+        cupUnit: "cups",
+        chartWdShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        settingsModalTitle: "All Settings",
+        settingsModalSub: "Set per-item prices, enable/disable items, tables, Payment QR & shop",
+        setSecPricesTitle: "1. Price Per Coffee & Drink ($)",
+        setPricesSub: "Edit individual item prices and tap Save All Settings",
+        setSecToggleItemsTitle: "2. Enable / Disable Items (e.g. Turn Espresso Off & On)",
+        setToggleItemsSub: "Turn off any item to hide it from Menu immediately; turn back on anytime",
+        statusOn: "ON",
+        statusOff: "OFF",
+        setSecShopTitle: "3. Shop Info, Payment QR & Currency",
+        setShopNameLbl: "Shop Name",
+        setQrEnableLbl: "Show Payment QR at Checkout",
+        setQrEnableSub: "Display bank/KHQR code when opening a table bill",
+        uploadQrBtn: "Upload QR Image",
+        removeQrBtn: "Use Default QR",
+        setReceiptNoteLbl: "Receipt Footer Message",
+        setCurrencyLbl: "Display Currency",
+        setKhrRateLbl: "Exchange Rate (1$ = ? ៛)",
+        setSecTableTitle: "4. Table Setup",
+        setTableCountLbl: "Total Number of Tables (1–15)",
+        setTakeawayLbl: "Enable Takeaway Option",
+        setSecSystemTitle: "5. Appearance & Data Management",
+        setLockModeLbl: "Lock Ordering, Ingredients, Chart & Orders",
+        setLockModeSub: "Single toggle to block ordering, ingredients, Daily Chart, and All Order",
+        setDarkModeLbl: "Dark Mode",
+        setLangLbl: "App Language",
+        exportDataBtn: "Export Backup (JSON)",
+        resetAllDataBtn: "Factory Reset",
+        saveSettingsBtn: "Save All Settings",
+        toastSettingsSaved: "All settings saved",
+        toastQrUpdated: "Payment QR image updated",
+        toastQrReset: "Switched back to default sample QR",
+        toastModeLocked: "Locked ordering, ingredients, Chart & Orders",
+        toastModeUnlocked: "Unlocked ordering, ingredients, Chart & Orders",
+        toastFeatureLocked: "This feature is currently locked in Settings",
+        toastBackupExported: "Backup JSON exported",
+        toastResetConfirm: "Reset all settings, cart, and orders to default?",
+        toastResetDone: "App reset to default settings",
+        toastAddedToCart: (name) => `Added "${name}" to Cart`,
+        toastCartEmpty: "Cart is empty — add an item first",
+        toastConfirmedOrder: (cups) => `Confirmed ${cups} cups into All Order`,
+        toastMarkedDoneOnly: (name) => `Marked "${name}" as Done`,
+        toastChartCleared: "Daily chart data cleared",
+        toastTableClearedAndChart: (label, cups) => `Paid ${label} (+${cups} cups recorded in chart)`,
+        toastLangSwitched: "Switched to English",
+        toastThemeDark: "Switched to Dark Mode",
+        toastThemeLight: "Switched to Light Mode"
+      }
+    };
+
+    const DEFAULT_SETTINGS = {
+      shopName: "Coffee & Drinks",
+      receiptFooter: "សូមអរគុណ! Thank you!",
+      qrEnabled: true,
+      qrImageDataUrl: "",
+      currency: "USD",
+      khrRate: 4000,
+      tableCount: 5,
+      enableTakeaway: true,
+      lockMenuAndData: false,
+      priceOverrides: {},
+      disabledItems: {}
+    };
+
+    const DEFAULT_RECIPES = [
+      {
+        id: "espresso-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 1.5,
+        nameKm: "អេស្ព្រេសសូ",
+        nameEn: "Espresso",
+        descKm: "ទឹកកាហ្វេសុទ្ធចម្រាញ់ពីម៉ាស៊ីនសម្ពាធខ្ពស់ — ជ្រើសរើសក្តៅ ឬត្រជាក់ ដើម្បីមើលរូបមន្ត។",
+        descEn: "Pure pressurized espresso shot — switch between Hot and Ice to view recipes.",
+        variants: {
+          hot: {
+            descKm: "ចម្រាញ់ក្តៅៗដាក់ពែងក្តៅឧណ្ហៗ រសជាតិដិតខាប់ និងរក្សាពពុះ Crema ពណ៌មាសពេញលេញ។",
+            descEn: "Pulled hot into a preheated cup with a rich body and full golden crema.",
+            ingredients: [
+              { nameKm: "ម្សៅគ្រាប់កាហ្វេ (Double Shot)", nameEn: "Ground Coffee (Double Shot)", amount: 18, unit: "g" },
+              { nameKm: "ទឹកក្តៅចម្រាញ់ (~93°C)", nameEn: "Extracted Hot Water (~93°C)", amount: 36, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 10, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "កំដៅពែងដោយទឹកក្តៅជាមុន រួចចាក់ទឹកចោល។",
+              "កិនគ្រាប់កាហ្វេឱ្យម៉ត់សមល្មម Tamp ឱ្យស្មើ ហើយចម្រាញ់យក 36 ml ក្នុង 25–30 វិនាទី។",
+              "បម្រើក្តៅៗភ្លាមៗ ដើម្បីកុំឱ្យ Crema រលាយបាត់។"
+            ],
+            stepsEn: [
+              "Preheat the cup with hot water and discard before pulling.",
+              "Grind fine-medium, tamp evenly, and extract 36 ml in 25–30 seconds.",
+              "Serve immediately while hot so the crema stays intact."
+            ],
+            tipKm: "Espresso ក្តៅ ផ្តល់ក្លិនក្រអូបខ្លាំងបំផុតនៅ 30 វិនាទីដំបូងបន្ទាប់ពីចម្រាញ់រួច។",
+            tipEn: "Hot espresso expresses its strongest aromatics within the first 30 seconds after extraction."
+          },
+          ice: {
+            descKm: "ចម្រាញ់ Double Espresso ស្រោចលើទឹកកកត្រជាក់ និងទឹកត្រជាក់បន្តិច ដើម្បីឱ្យត្រជាក់ភ្លាមៗដោយមិនបាត់រសជាតិ។",
+            descEn: "Double espresso pulled over cold water and ice to chill rapidly while keeping bold depth.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 50, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកកក 150g និងទឹកត្រជាក់ 50ml ចូលកែវ។",
+              "ចម្រាញ់ Double Espresso 36 ml ហើយចាក់ស្រោចពីលើទឹកកកភ្លាម។",
+              "កូរស្រាលៗឱ្យត្រជាក់ស្មើគ្នា រួចបម្រើ។"
+            ],
+            stepsEn: [
+              "Add 150g ice and 50ml cold water into the glass.",
+              "Extract a 36 ml double espresso and pour right over the ice.",
+              "Stir lightly to chill evenly and serve."
+            ],
+            tipKm: "ទឹកកកត្រជាក់ធ្វើឱ្យក្លិនកាហ្វេក្តៅធ្លាក់ចុះបន្តិច គួរប្រើគ្រាប់កាហ្វេរសជាតិដិតល្អ។",
+            tipEn: "Cold temperatures mute aromatics slightly, so a bold roast profile works best iced."
+          }
+        }
+      },
+      {
+        id: "americano-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 1.75,
+        nameKm: "អាមេរិកាណូ",
+        nameEn: "Americano",
+        descKm: "Double Espresso ផ្សំជាមួយទឹក — ក្តៅប្រើទឹកក្តៅ ត្រជាក់ប្រើទឹកត្រជាក់ និងទឹកកក។",
+        descEn: "Double espresso with water — hot uses hot water, iced uses cold water and ice.",
+        variants: {
+          hot: {
+            descKm: "Double Espresso លាយទឹកក្តៅ (~85–90°C) ផ្តល់ភាពក្តៅស្រស់ស្រាយ និងមាន Crema នៅពីលើ។",
+            descEn: "Double espresso over hot water (~85–90°C) for a warm, clean cup with crema on top.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកក្តៅ (~85–90°C)", nameEn: "Hot Water (~85–90°C)", amount: 180, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "ចាក់ទឹកក្តៅ (~85–90°C) 180 ml ចូលក្នុងពែង។",
+              "ចម្រាញ់ Double Espresso 36 ml ស្រោចពីលើទឹកក្តៅ។",
+              "បម្រើក្តៅៗ ដោយអាចកែសម្រួលកម្រិតផ្អែមតាមចិត្ត។"
+            ],
+            stepsEn: [
+              "Pour 180 ml of hot water (~85–90°C) into the cup.",
+              "Extract 36 ml double espresso on top of the hot water.",
+              "Serve hot with sweetness adjusted to preference."
+            ],
+            tipKm: "ចាក់ Espresso ពីលើទឹកក្តៅ នឹងរក្សា Crema ពណ៌មាសបានស្អាតជាង។",
+            tipEn: "Pouring espresso over hot water preserves the crema better than pouring water over espresso."
+          },
+          ice: {
+            descKm: "Double Espresso ស្រោចពីលើទឹកត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រឡះ ដិតកាហ្វេ។",
+            descEn: "Double espresso poured over cold water and ice for a crisp, refreshing iced coffee.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកត្រជាក់", nameEn: "Cold Water", amount: 150, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកកក 160g និងទឹកត្រជាក់ 150ml ចូលកែវ។",
+              "ចម្រាញ់ Double Espresso រួចចាក់ស្រោចពីលើទឹកកក។",
+              "កូរស្រាលៗមុនពេលផឹក។"
+            ],
+            stepsEn: [
+              "Fill glass with 160g ice and 150ml cold water.",
+              "Extract a double espresso and pour over the ice.",
+              "Stir gently before drinking."
+            ],
+            tipKm: "ដាក់ទឹកកកពេញកែវល្មម នឹងជួយកុំឱ្យកាហ្វេរលាយទឹកកកសាបលឿន។",
+            tipEn: "Using enough ice chills quickly and slows dilution."
+          }
+        }
+      },
+      {
+        id: "latte-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 2.0,
+        nameKm: "ឡាតេ",
+        nameEn: "Latte",
+        descKm: "Double Espresso ជាមួយទឹកដោះគោស្រស់ — ក្តៅប្រើទឹកដោះគោចំហុយ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់។",
+        descEn: "Double espresso with fresh milk — hot uses steamed milk, iced uses chilled milk over ice.",
+        variants: {
+          hot: {
+            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ចំហុយក្តៅ (~62°C) មានពពុះ Microfoam ស្តើងរលោង។",
+            descEn: "Double espresso with steamed fresh milk (~62°C) and a thin, glossy microfoam layer.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 200, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "ចម្រាញ់ Double Espresso ដាក់ក្នុងពែងធំ។",
+              "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅដល់ ~60–65°C និងមានពពុះរលោង។",
+              "ចាក់ទឹកដោះគោចូលក្នុង Espresso យឺតៗ ដើម្បីបានផ្ទៃរលោងស្អាត។"
+            ],
+            stepsEn: [
+              "Pull a double espresso into a large cup.",
+              "Steam fresh milk to ~60–65°C with glossy microfoam.",
+              "Pour steamed milk steadily into the espresso."
+            ],
+            tipKm: "កុំចំហុយទឹកដោះគោលើស 70°C ដើម្បីរក្សារសជាតិផ្អែមធម្មជាតិ។",
+            tipEn: "Keep steaming below 70°C to preserve milk's natural sweetness."
+          },
+          ice: {
+            descKm: "Double Espresso ស្រោចលើទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ផ្តល់ភាពត្រជាក់ស្រទន់។",
+            descEn: "Double espresso over chilled fresh milk and ice for a smooth, cold latte.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងកម្រិតផ្អែមចូលគ្នា។",
+              "ដាក់ទឹកកកចូលកែវ រួចចាក់ទឹកដោះគោចូល។",
+              "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។"
+            ],
+            stepsEn: [
+              "Stir chilled milk with sweetness.",
+              "Add ice to the glass and pour in the milk.",
+              "Pour double espresso on top for clean layering."
+            ],
+            tipKm: "ប្រើទឹកដោះគោស្រស់ត្រជាក់ល្អ នឹងជួយរក្សាកម្រិតត្រជាក់បានយូរ។",
+            tipEn: "Well-chilled milk keeps the drink cold longer without excess ice melt."
+          }
+        }
+      },
+      {
+        id: "cappuccino-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 2.0,
+        nameKm: "កាពូឈីណូ",
+        nameEn: "Cappuccino",
+        descKm: "កាហ្វេទឹកដោះគោមានស្រទាប់ពពុះក្រាស់ — ក្តៅចំហុយពពុះក្តៅ ត្រជាក់វាយពពុះត្រជាក់។",
+        descEn: "Foam-topped coffee — hot uses steamed foam, iced uses chilled cold foam on top.",
+        variants: {
+          hot: {
+            descKm: "Double Espresso លាយទឹកដោះគោចំហុយ និងមានពពុះក្តៅក្រាស់ទន់នៅផ្នែកខាងលើ។",
+            descEn: "Double espresso with steamed milk and a thick, plush hot foam cap.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ + ពពុះក្តៅក្រាស់ (~62°C)", nameEn: "Fresh Milk + Thick Hot Foam (~62°C)", amount: 170, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "ចម្រាញ់ Double Espresso ដាក់ពែង។",
+              "ចំហុយទឹកដោះគោបញ្ចូលខ្យល់ច្រើនជាង Latte បន្តិច ដើម្បីបានពពុះក្រាស់។",
+              "ចាក់ចូលពែង រួចអាចរោយម្សៅកាកាវបន្តិចពីលើ។"
+            ],
+            stepsEn: [
+              "Pull a double espresso into the cup.",
+              "Aerate slightly more than a latte for a thicker foam cap.",
+              "Pour into the cup and dust lightly with cocoa if desired."
+            ],
+            tipKm: "ពពុះ Cappuccino ល្អត្រូវមានសាច់ម៉ត់រលោង គ្មានពពុះខ្យល់ធំៗ។",
+            tipEn: "Tap and swirl the pitcher before pouring for smooth foam."
+          },
+          ice: {
+            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់ និងមានពពុះទឹកដោះគោត្រជាក់ក្រាស់ពីលើ។",
+            descEn: "Iced espresso and chilled milk topped with thick, creamy cold milk foam.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 130, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ពពុះទឹកដោះគោត្រជាក់", nameEn: "Chilled Milk Foam", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកកក ទឹកដោះគោស្រស់ និង Double Espresso ចូលកែវ។",
+              "វាយពពុះទឹកដោះគោត្រជាក់ដោយម៉ាស៊ីនវាយពពុះតូចឱ្យឡើងខាប់រលោង។",
+              "ចាក់ពពុះត្រជាក់ស្រោចពីលើផ្នែកខាងលើបំផុត។"
+            ],
+            stepsEn: [
+              "Add ice, chilled milk, and double espresso into the glass.",
+              "Froth cold milk with a handheld frother until thick and smooth.",
+              "Spoon or pour the cold foam over the top."
+            ],
+            tipKm: "វាយទឹកដោះគោត្រជាក់ជ្រៅនឹងធ្វើឱ្យពពុះត្រជាក់ឡើងក្រាស់បានល្អ។",
+            tipEn: "Cold milk froths into a denser, more stable cold foam."
+          }
+        }
+      },
+      {
+        id: "flat-white-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 2.0,
+        nameKm: "ហ្វ្លាត វ៉ាយ",
+        nameEn: "Flat White",
+        descKm: "រសជាតិកាហ្វេដិតជាង Latte — ក្តៅប្រើពពុះក្តៅស្តើង ត្រជាក់ប្រើទឹកដោះគោត្រជាក់តិចជាង Latte។",
+        descEn: "More coffee-forward than a latte — hot uses thin microfoam, iced uses less chilled milk.",
+        variants: {
+          hot: {
+            descKm: "Double Espresso លាយទឹកដោះគោចំហុយពពុះស្តើងបំផុត (~62°C) ធ្វើឱ្យក្លិនកាហ្វេដិតច្បាស់។",
+            descEn: "Double espresso with very thin microfoam (~62°C) for a stronger espresso flavor.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ (ពពុះស្តើង ~62°C)", nameEn: "Fresh Milk (Thin Microfoam ~62°C)", amount: 150, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 10, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "ចម្រាញ់ Double Espresso ដាក់ពែងទំហំមធ្យម។",
+              "ចំហុយទឹកដោះគោ 150 ml ឱ្យមានពពុះស្តើងរលោង។",
+              "ចាក់ចូលពែងឱ្យស៊ីសង្វាក់គ្នា រួចបម្រើភ្លាម។"
+            ],
+            stepsEn: [
+              "Pull a double espresso into a medium cup.",
+              "Steam 150 ml milk with a thin, glossy microfoam.",
+              "Pour evenly and serve right away."
+            ],
+            tipKm: "ប្រើទឹកដោះគោតិចជាង Latte ដើម្បីរក្សារសជាតិកាហ្វេឱ្យនៅលេចធ្លោ។",
+            tipEn: "Using less milk than a latte keeps the espresso character prominent."
+          },
+          ice: {
+            descKm: "Double Espresso លាយទឹកដោះគោស្រស់ត្រជាក់បរិមាណសមល្មម និងទឹកកក ផ្តល់រសជាតិកាហ្វេដិតជាង Latte។",
+            descEn: "Double espresso with a balanced splash of chilled milk over ice for a stronger coffee taste.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 115, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 10, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកកក 150g និងទឹកដោះគោត្រជាក់ 115ml ចូលកែវ។",
+              "ចម្រាញ់ Double Espresso ចាក់ស្រោចពីលើ។",
+              "កូរស្រាលៗ រួចបម្រើត្រជាក់ៗ។"
+            ],
+            stepsEn: [
+              "Add 150g ice and 115ml chilled milk to the glass.",
+              "Pull a double espresso and pour over top.",
+              "Stir lightly and serve chilled."
+            ],
+            tipKm: "កាត់បន្ថយទឹកដោះគោពី 160ml មក 115ml នឹងធ្វើឱ្យរសជាតិកាហ្វេមុតជាងមុនច្បាស់។",
+            tipEn: "Reducing milk from 160ml to 115ml gives a noticeably bolder iced coffee note."
+          }
+        }
+      },
+      {
+        id: "mocha-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 2.25,
+        nameKm: "ម៉ូកា",
+        nameEn: "Mocha",
+        descKm: "កាហ្វេផ្សំជាមួយសូកូឡា — ក្តៅជាមួយទឹកដោះគោចំហុយ ត្រជាក់ជាមួយទឹកដោះគោត្រជាក់ និងទឹកកក។",
+        descEn: "Chocolate and coffee — hot with steamed milk, iced with chilled milk over ice.",
+        variants: {
+          hot: {
+            descKm: "Double Espresso រំលាយជាមួយសូកូឡា និងទឹកដោះគោចំហុយក្តៅ ផ្អែមឈ្ងុយកាកាវ។",
+            descEn: "Double espresso melted with chocolate and steamed milk for a warm cocoa-coffee cup.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "សូកូឡា", nameEn: "Chocolate", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" }
+            ],
+            stepsKm: [
+              "ដាក់សូកូឡាចូលពែង រួចចម្រាញ់ Double Espresso ក្តៅពីលើ ហើយកូរឱ្យរលាយ។",
+              "ចំហុយទឹកដោះគោស្រស់ឱ្យក្តៅ និងមានពពុះរលោង។",
+              "ចាក់ទឹកដោះគោចូល រួចបម្រើក្តៅៗ។"
+            ],
+            stepsEn: [
+              "Add chocolate to the cup, pull hot double espresso over it, and stir smooth.",
+              "Steam fresh milk to ~62°C with velvety foam.",
+              "Pour steamed milk in and serve hot."
+            ],
+            tipKm: "កូរសូកូឡាជាមួយ Espresso ក្តៅជាមុន នឹងរលាយស្មើល្អ។",
+            tipEn: "Dissolving chocolate in the hot espresso shot first prevents lumps."
+          },
+          ice: {
+            descKm: "Double Espresso លាយសូកូឡា ទឹកដោះគោស្រស់ត្រជាក់ និងទឹកកក ត្រជាក់ឈ្ងុយសូកូឡា។",
+            descEn: "Double espresso with chocolate, chilled fresh milk, and ice.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "សូកូឡា", nameEn: "Chocolate", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 145, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "រំលាយសូកូឡាជាមួយ Espresso ក្តៅឱ្យចូលគ្នាល្អ។",
+              "ដាក់ទឹកកកចូលកែវ បន្ទាប់មកចាក់ទឹកដោះគោស្រស់ត្រជាក់។",
+              "ចាក់ល្បាយសូកូឡាកាហ្វេចូល រួចកូរឱ្យសព្វមុនលើកជូន។"
+            ],
+            stepsEn: [
+              "Stir chocolate into the hot espresso shot until smooth.",
+              "Fill glass with ice and pour in chilled milk.",
+              "Pour in the chocolate-espresso mix and stir well before serving."
+            ],
+            tipKm: "រំលាយសូកូឡាពេល Espresso កំពុងក្តៅ នឹងជួយកុំឱ្យកកជាដុំនៅបាតកែវ។",
+            tipEn: "Mixing chocolate while the espresso is hot avoids clumping on cold ice."
+          }
+        }
+      },
+      {
+        id: "caramel-macchiato-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 2.25,
+        nameKm: "ការ៉ាមែល ម៉ាគីអាតូ",
+        nameEn: "Caramel Macchiato",
+        descKm: "Vanilla + ទឹកដោះគោ + Espresso + Caramel — ក្តៅចំហុយទឹកដោះគោ ត្រជាក់ដាក់ទឹកកក។",
+        descEn: "Vanilla, milk, espresso, and caramel drizzle — hot with steamed milk, iced over ice.",
+        variants: {
+          hot: {
+            descKm: "ទឹកដោះគោចំហុយក្តៅលាយ Vanilla ស្រោច Espresso ពីលើ និងគូស Caramel ពីលើ។",
+            descEn: "Hot vanilla-steamed milk topped with espresso and a caramel drizzle.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "Vanilla", nameEn: "Vanilla", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 185, unit: "ml" },
+              { nameKm: "Caramel (ស្រោចពីលើ)", nameEn: "Caramel (Drizzle)", amount: 15, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "ចាក់ Vanilla ចូលពែង រួចចាក់ទឹកដោះគោចំហុយក្តៅចូល។",
+              "ចាក់ Double Espresso ស្រោចពីលើពពុះទឹកដោះគោ។",
+              "គូស Caramel ពីលើផ្នែកខាងលើបំផុត។"
+            ],
+            stepsEn: [
+              "Pour vanilla into the cup and add steamed milk.",
+              "Pour double espresso gently over the milk foam.",
+              "Drizzle caramel across the top."
+            ],
+            tipKm: "ចាក់ Espresso យឺតៗតាមចំណុចកណ្តាល ដើម្បីរក្សាស្រទាប់ពណ៌ស្អាត។",
+            tipEn: "Pour espresso slowly at the center for clean layering."
+          },
+          ice: {
+            descKm: "ទឹកដោះគោស្រស់ត្រជាក់លាយ Vanilla ដាក់ទឹកកក ស្រោច Espresso ពីលើ និងបន្ថែម Caramel។",
+            descEn: "Chilled vanilla milk over ice topped with espresso and a caramel drizzle.",
+            ingredients: [
+              { nameKm: "Double Espresso Shot", nameEn: "Double Espresso Shot", amount: 36, unit: "ml" },
+              { nameKm: "Vanilla", nameEn: "Vanilla", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 150, unit: "ml" },
+              { nameKm: "Caramel (ស្រោចពីលើ)", nameEn: "Caramel (Drizzle)", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយ Vanilla ជាមួយទឹកដោះគោស្រស់ត្រជាក់ រួចចាក់ចូលកែវទឹកកក។",
+              "ចាក់ Double Espresso ស្រោចពីលើបង្កើតជាស្រទាប់។",
+              "គូសរង្វង់ Caramel ពីលើផ្នែកខាងលើបំផុត។"
+            ],
+            stepsEn: [
+              "Stir vanilla into chilled milk and pour over ice.",
+              "Pour double espresso over the top to create layers.",
+              "Drizzle caramel across the top."
+            ],
+            tipKm: "ប្រាប់ភ្ញៀវឱ្យកូរមុនផឹក ប្រសិនបើចង់បានរសជាតិស្មើគ្នាពីលើដល់ក្រោម។",
+            tipEn: "Recommend stirring before drinking so caramel blends evenly."
+          }
+        }
+      },
+      {
+        id: "piccolo-pair",
+        section: "coffee",
+        category: "espresso",
+        price: 1.75,
+        nameKm: "ភីកូឡូ / ខូតាដូ",
+        nameEn: "Piccolo / Cortado",
+        descKm: "កាហ្វេទឹកដោះគោតិច រសជាតិដិតមុត — ក្តៅចំហុយក្តៅ ត្រជាក់ប្រើទឹកដោះគោត្រជាក់ និងទឹកកក។",
+        descEn: "Small, punchy milk coffee — hot with steamed milk, iced with chilled milk and ice.",
+        variants: {
+          hot: {
+            descKm: "កាហ្វេទឹកដោះគោកែវតូចក្តៅៗ រសជាតិកាហ្វេដិតខ្លាំង និងមានតុល្យភាពជាមួយទឹកដោះគោចំហុយតិច។",
+            descEn: "Small hot glass balancing bold espresso with a modest amount of steamed milk.",
+            ingredients: [
+              { nameKm: "Espresso", nameEn: "Espresso", amount: 30, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~60°C)", nameEn: "Fresh Milk (Steamed ~60°C)", amount: 50, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 8, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "ចម្រាញ់ Espresso ដាក់កែវក្តៅតូច។",
+              "ចំហុយទឹកដោះគោបរិមាណតិចឱ្យមានពពុះស្តើងរលោង។",
+              "ចាក់ចូលកែវហើយបម្រើភ្លាមៗ។"
+            ],
+            stepsEn: [
+              "Extract espresso into a small preheated glass.",
+              "Steam a small amount of milk with fine microfoam.",
+              "Pour into the glass and serve immediately."
+            ],
+            tipKm: "ស័ក្តិសមបំផុតសម្រាប់ភ្ញៀវដែលចង់ភ្លក្សរសជាតិគ្រាប់កាហ្វេសុទ្ធលាយទឹកដោះគោតិច។",
+            tipEn: "Great for tasting espresso character softened just slightly by milk."
+          },
+          ice: {
+            descKm: "Espresso លាយទឹកដោះគោស្រស់ត្រជាក់តិច និងទឹកកកតូចៗ រសជាតិកាហ្វេដិតត្រជាក់ស្រស់។",
+            descEn: "Espresso with a small splash of chilled milk and ice for a bold, chilled mini cup.",
+            ingredients: [
+              { nameKm: "Espresso", nameEn: "Espresso", amount: 30, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 45, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 8, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 80, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកកក 80g និងទឹកដោះគោត្រជាក់ 45ml ចូលកែវតូច។",
+              "ចម្រាញ់ Espresso 30 ml ចាក់ស្រោចពីលើ។",
+              "កូរតិចៗ រួចបម្រើភ្លាម។"
+            ],
+            stepsEn: [
+              "Add 80g ice and 45ml chilled milk into a small glass.",
+              "Extract 30 ml espresso and pour over top.",
+              "Give a quick stir and serve."
+            ],
+            tipKm: "ប្រើទឹកកកសមល្មមនឹងកែវតូច ដើម្បីកុំឱ្យរលាយទឹកកកធ្វើឱ្យកាហ្វេបាត់ដិត។",
+            tipEn: "Keep ice proportional to the small glass so it doesn't dilute the shot."
+          }
+        }
+      },
+      {
+        id: "khmer-milk-coffee-pair",
+        section: "coffee",
+        category: "local",
+        price: 1.5,
+        nameKm: "កាហ្វេទឹកដោះគោ",
+        nameEn: "Condensed Milk Coffee",
+        descKm: "កាហ្វេផ្អែមឈ្ងុយទឹកដោះគោខាប់ — ក្តៅលាយទឹកក្តៅ ត្រជាក់លាយទឹកកក។",
+        descEn: "Classic sweet condensed milk coffee — hot with hot water, iced over ice.",
+        variants: {
+          hot: {
+            descKm: "កាហ្វេក្តៅលាយទឹកដោះគោខាប់ផ្អែម រសជាតិដិតមុត និងឈ្ងុយកាហ្វេប្រពៃណី។",
+            descEn: "Hot coffee mixed with sweet condensed milk for a classic bold and sweet cup.",
+            ingredients: [
+              { nameKm: "កាហ្វេ / Espresso", nameEn: "Coffee / Espresso", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 35, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកក្តៅ (~85°C)", nameEn: "Hot Water (~85°C)", amount: 110, unit: "ml" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកដោះគោខាប់ផ្អែមចូលពែងក្តៅ។",
+              "ចាក់កាហ្វេ និងទឹកក្តៅចូល រួចកូរឱ្យរលាយចូលគ្នាស្មើល្អ។",
+              "បម្រើក្តៅៗជាមួយតែក្តៅ ១ ពែងនៅចំហៀង។"
+            ],
+            stepsEn: [
+              "Spoon sweetened condensed milk into a hot cup.",
+              "Add coffee and hot water, then stir until fully combined.",
+              "Serve hot."
+            ],
+            tipKm: "កែសម្រួលទឹកដោះគោខាប់តាមកម្រិតផ្អែមដែលភ្ញៀវចូលចិត្ត។",
+            tipEn: "Adjust condensed milk to match your customer's sweetness preference."
+          },
+          ice: {
+            descKm: "កាហ្វេលាយទឹកដោះគោខាប់ផ្អែម ទឹកដោះគោខាប់មិនផ្អែម និងទឹកកក ត្រជាក់ដិតមុតពេញនិយម។",
+            descEn: "Bold coffee blended with sweetened condensed milk, evaporated milk, and ice.",
+            ingredients: [
+              { nameKm: "កាហ្វេ / Espresso", nameEn: "Coffee / Espresso", amount: 36, unit: "ml" },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 40, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកដោះគោខាប់មិនផ្អែម", nameEn: "Evaporated Milk", amount: 20, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ទឹកដោះគោខាប់ផ្អែម និងទឹកដោះគោខាប់មិនផ្អែមចូលកែវ។",
+              "ចាក់កាហ្វេចូល រួចកូរឱ្យរលាយចូលគ្នាស្មើល្អ។",
+              "ចាក់ទឹកកកពេញកែវ រួចកូរម្តងទៀតមុនពេលបម្រើ។"
+            ],
+            stepsEn: [
+              "Add sweetened condensed milk and evaporated milk to the glass.",
+              "Pour in the coffee and stir until smoothly blended.",
+              "Fill with ice and stir once more before serving."
+            ],
+            tipKm: "កូរទឹកដោះគោខាប់ជាមួយកាហ្វេមុនដាក់ទឹកកក នឹងជួយកុំឱ្យកកបាតកែវ។",
+            tipEn: "Stir condensed milk into the coffee before adding ice so it doesn't settle."
+          }
+        }
+      },
+      {
+        id: "ice-black-coffee",
+        section: "coffee",
+        category: "local",
+        price: 1.5,
+        nameKm: "កាហ្វេខ្មៅ ទឹកកក",
+        nameEn: "Iced Black Coffee",
+        descKm: "កាហ្វេខ្មៅលាយជាមួយកម្រិតផ្អែមសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
+        descEn: "Chilled black coffee lightly sweetened over ice.",
+        variants: {
+          ice: {
+            descKm: "កាហ្វេខ្មៅលាយជាមួយកម្រិតផ្អែមសមល្មម និងទឹកកក ផ្តល់ភាពស្រស់ស្រាយ និងភ្ញាក់ខ្លួនល្អ។",
+            descEn: "Chilled black coffee lightly sweetened over ice.",
+            ingredients: [
+              { nameKm: "កាហ្វេ / Espresso", nameEn: "Coffee / Espresso", amount: 40, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកធម្មតា", nameEn: "Water", amount: 60, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយទឹកកាហ្វេ កម្រិតផ្អែម និងទឹកធម្មតាចូលគ្នា។",
+              "ភ្លក្សកម្រិតផ្អែមតាមតម្រូវការភ្ញៀវ។",
+              "ដាក់ទឹកកកចូលកែវ រួចចាក់ល្បាយកាហ្វេចូល។"
+            ],
+            stepsEn: [
+              "Combine coffee, sweetener, and water.",
+              "Adjust sweetness to preference.",
+              "Pour over a glass full of ice."
+            ],
+            tipKm: "ប្រើកម្រិតផ្អែមរាវ នឹងរលាយបានលឿនជាងក្នុងទឹកត្រជាក់។",
+            tipEn: "Liquid sweetener dissolves much faster in cold drinks."
+          }
+        }
+      },
+
+      /* ===================== DRINKS ===================== */
+      {
+        id: "drink-strawberry-soda",
+        section: "drinks",
+        category: "soda",
+        price: 1.75,
+        nameKm: "ស្ត្របឺរី សូដា",
+        nameEn: "Strawberry Soda",
+        descKm: "តំណក់ទឹកស្ត្របឺរីផ្អែមជូរស្រស់ ផ្សំជាមួយទឹកសូដាត្រជាក់មានពពុះស្រស់ស្រាយ។",
+        descEn: "Sweet-tart strawberry puree and syrup topped with crisp sparkling soda over ice.",
+        variants: {
+          ice: {
+            descKm: "ស្ត្របឺរីលាយទឹកក្រូចឆ្មារស្រស់បន្តិច និងទឹកសូដាត្រជាក់ ផ្តល់រសជាតិជូរផ្អែមត្រជាក់ចិត្ត។",
+            descEn: "Strawberry fruit mix with a splash of lime and chilled sparkling soda over ice.",
+            ingredients: [
+              { nameKm: "Strawberry Puree", nameEn: "Strawberry Puree", amount: 35, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Strawberry Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់យឺតៗពីលើ រួចតុបតែងដោយផ្លែស្ត្របឺរី ឬជីអង្កាម។"
+            ],
+            stepsEn: [
+              "Stir strawberry puree, sweetener, and lime juice at the bottom of the glass.",
+              "Fill the glass with ice cubes.",
+              "Slowly top with chilled soda water and garnish with strawberry or mint."
+            ],
+            tipKm: "ប្រើទឹកសូដាដែលក្លាសេត្រជាក់ខ្លាំង ដើម្បីរក្សាពពុះហ្គាសបានយូរ និងមិនឆាប់រលាយទឹកកក។",
+            tipEn: "Use ice-cold soda water so carbonation stays lively and ice melts slowly."
+          }
+        }
+      },
+      {
+        id: "drink-blueberry-soda",
+        section: "drinks",
+        category: "soda",
+        price: 1.75,
+        nameKm: "ប្លូបឺរី សូដា",
+        nameEn: "Blueberry Soda",
+        descKm: "ទឹកប្លូបឺរីឈ្ងុយផ្អែម លាយជាមួយក្រូចឆ្មារស្រស់ និងទឹកសូដាត្រជាក់ស្រឡះ។",
+        descEn: "Aromatic blueberry fruit base balanced with fresh lime and sparkling soda water.",
+        variants: {
+          ice: {
+            descKm: "រសជាតិប្លូបឺរីពណ៌ស្វាយស្រស់ស្អាត ផ្សំទឹកសូដាត្រជាក់ និងទឹកក្រូចឆ្មារបន្តិច។",
+            descEn: "Vibrant purple blueberry mix topped with cold soda water and a bright lime twist.",
+            ingredients: [
+              { nameKm: "Blueberry Puree", nameEn: "Blueberry Puree", amount: 35, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយ Blueberry Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារនៅបាតកែវ។",
+              "បន្ថែមទឹកកកឱ្យពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់ស្រោចពីលើបង្កើតជាពណ៌ស្រទាប់ស្អាត។"
+            ],
+            stepsEn: [
+              "Combine blueberry puree, sweetener, and lime juice in the glass.",
+              "Fill the glass with ice.",
+              "Pour chilled soda water gently over top for a two-tone layer."
+            ],
+            tipKm: "បន្ថែមទឹកក្រូចឆ្មារ 10ml ជួយឱ្យរសជាតិប្លូបឺរីមិនផ្អែមទ្រលាន់ និងកាន់តែស្រស់ស្រាយ។",
+            tipEn: "Adding 10ml fresh lime juice sharpens the blueberry aroma and keeps it refreshing."
+          }
+        }
+      },
+      {
+        id: "drink-mango-soda",
+        section: "drinks",
+        category: "soda",
+        price: 1.75,
+        nameKm: "ស្វាយ សូដា",
+        nameEn: "Mango Soda",
+        descKm: "ទឹកស្វាយទុំក្រអូបផ្អែម លាយជាមួយទឹកសូដាត្រជាក់ និងក្រូចឆ្មារស្រស់។",
+        descEn: "Ripe tropical mango puree with fresh lime and fizzy chilled soda over ice.",
+        variants: {
+          ice: {
+            descKm: "រសជាតិស្វាយទុំឈ្ងុយត្រជាក់ លាយទឹកសូដាមានពពុះស្រស់ស្រាយគ្រប់ពេល។",
+            descEn: "Tropical ripe mango flavor lifted by crisp sparkling soda and lime.",
+            ingredients: [
+              { nameKm: "Mango Puree", nameEn: "Mango Puree", amount: 40, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 10, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 12, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Mango Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរឱ្យសព្វ។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចដាក់ក្រូចឆ្មារ ១ ចំណិតតុបតែង។"
+            ],
+            stepsEn: [
+              "Stir mango puree, sweetener, and lime juice together in the glass.",
+              "Fill with ice cubes.",
+              "Top with cold soda water and garnish with a lime wheel."
+            ],
+            tipKm: "ប្រើទឹកស្វាយខាប់ នឹងធ្វើឱ្យពណ៌លឿងស្អាត និងក្លិនស្វាយឈ្ងុយធម្មជាតិ។",
+            tipEn: "Using real mango puree gives a rich golden hue and authentic tropical aroma."
+          }
+        }
+      },
+      {
+        id: "drink-kiwi-soda",
+        section: "drinks",
+        category: "soda",
+        price: 1.75,
+        nameKm: "គីវី សូដា",
+        nameEn: "Kiwi Soda",
+        descKm: "រសជាតិគីវីជូរអែមពណ៌បៃតងស្រស់ ផ្សំជាមួយទឹកសូដាត្រជាក់បំបាត់ការស្រេកទឹក។",
+        descEn: "Zesty green kiwi fruit mix with sparkling soda water over ice.",
+        variants: {
+          ice: {
+            descKm: "គីវីជូរផ្អែមស្រស់ស្រាយ លាយជាមួយទឹកសូដាត្រជាក់ និងទឹកក្រូចឆ្មារបន្តិច។",
+            descEn: "Refreshing sweet-tangy kiwi topped with crisp soda water over ice.",
+            ingredients: [
+              { nameKm: "Kiwi Puree", nameEn: "Kiwi Puree", amount: 35, unit: "ml", isSweet: true },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកក្រូចឆ្មារស្រស់", nameEn: "Fresh Lime Juice", amount: 10, unit: "ml" },
+              { nameKm: "ទឹកសូដាត្រជាក់", nameEn: "Chilled Soda Water", amount: 150, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Kiwi Puree កម្រិតផ្អែម និងទឹកក្រូចឆ្មារចូលបាតកែវ រួចកូរចូលគ្នា។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "ចាក់ទឹកសូដាត្រជាក់ពីលើ រួចបម្រើជាមួយបំពង់បឺត។"
+            ],
+            stepsEn: [
+              "Mix kiwi puree, sweetener, and lime juice at the base of the glass.",
+              "Add ice cubes to fill the glass.",
+              "Top with chilled soda water and serve with a straw."
+            ],
+            tipKm: "រំលឹកភ្ញៀវឱ្យកូរពីក្រោមឡើងលើមុនពិសា ដើម្បីឱ្យរសជាតិគីវីចូលសព្វជាមួយសូដា។",
+            tipEn: "Remind guests to stir from the bottom so kiwi blends evenly with soda."
+          }
+        }
+      },
+      {
+        id: "drink-passion-soda",
+        section: "drinks",
+        category: "soda",
+        price: 1.75,
+        nameKm: "ផាសិន សូដា",
+        nameEn: "Passion Soda",
+        descKm: "ទឹកផ្លែផាសិនស្រស់ឈ្ងុយជូរផ្អែម លាយជាមួយទឹកសូដាត្រជាក់មានពពុះស្រស់ស្រាយ។",
+        descEn: "Fragrant fresh passion fruit juice and pulp with sparkling soda over ice.",
+        variants: {
+          ice: {
+            descKm: "ផាសិនស្រស់មានគ្រាប់ឈ្ងុយ លាយកម្រិតផ្អែមសមល្មម និងទឹកសូដាត្រជាក់។",
+            descEn: "Fresh passion fruit pulp balanced with sweetener and chilled soda water.",
+            ingredients: [
+              { nameKm: "ទឹកផ្លែផាសិនស្រស់", nameEn: "Fresh Passion Fruit Pulp", amount: 40, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 25, unit: "ml", isSweet: true },
+              { nameKm: "អំបិលម៉ត់", nameEn: "Pinch of Salt", amount: 1, unit: "g" },
+              { nameKm: "ទឹកសូដាត្រជាក់", nameEn: "Chilled Soda Water", amount: 145, unit: "ml" },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 160, unit: "g" }
+            ],
+            stepsKm: [
+              "លាយទឹកផ្លែផាសិន កម្រិតផ្អែម និងអំបិលបន្តិចចូលគ្នាឱ្យរលាយសព្វ។",
+              "ដាក់ទឹកកកពេញកែវ រួចចាក់ល្បាយផាសិនចូល។",
+              "ចាក់ទឹកសូដាត្រជាក់ស្រោចពីលើ រួចបម្រើភ្លាម។"
+            ],
+            stepsEn: [
+              "Stir passion fruit pulp, sweetener, and a tiny pinch of salt together.",
+              "Fill the glass with ice and pour in the passion mix.",
+              "Top with chilled soda water and serve right away."
+            ],
+            tipKm: "អំបិលបន្តិចបំផុតជួយលើករសជាតិផាសិនឱ្យកាន់តែមុត និងមិនជូរឆ្អែតពេក។",
+            tipEn: "A tiny pinch of salt rounds out passion fruit acidity and boosts sweetness."
+          }
+        }
+      },
+      {
+        id: "drink-strawberry-milk",
+        section: "drinks",
+        category: "milk-drink",
+        price: 2.0,
+        nameKm: "ស្ត្របឺរី ទឹកដោះគោស្រស់",
+        nameEn: "Strawberry Fresh Milk",
+        descKm: "តំណក់ផ្លែស្ត្របឺរីស្រស់កិន លាយជាមួយទឹកដោះគោស្រស់ត្រជាក់ ផ្អែមឈ្ងុយទន់មាត់។",
+        descEn: "Crushed strawberry fruit base layered with cold creamy fresh milk over ice.",
+        variants: {
+          ice: {
+            descKm: "ស្ត្របឺរីនៅបាតកែវ ស្រោចដោយទឹកដោះគោស្រស់ត្រជាក់ ២ ស្រទាប់ពណ៌ផ្កាឈូកស្រស់ស្អាត។",
+            descEn: "Two-tone pink strawberry puree layered under chilled fresh milk.",
+            ingredients: [
+              { nameKm: "Strawberry Puree", nameEn: "Strawberry Puree", amount: 45, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 10, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "ចាក់ Strawberry Puree ដាក់បាតកែវ និងបង្វិលជុំវិញជញ្ជាំងកែវបន្តិច។",
+              "ដាក់ទឹកកកពេញកែវ។",
+              "លាយទឹកដោះគោស្រស់ជាមួយទឹកដោះគោខាប់ រួចចាក់ស្រោចពីលើ។"
+            ],
+            stepsEn: [
+              "Spoon strawberry puree into the bottom and swirl lightly along the inner glass.",
+              "Fill the glass with ice cubes.",
+              "Mix fresh milk with condensed milk and pour gently over top."
+            ],
+            tipKm: "ប្រើទឹកដោះគោស្រស់មានជាតិខ្លាញ់ពេញ នឹងធ្វើឱ្យរសជាតិឈ្ងុយក្រែមល្អ។",
+            tipEn: "Full-cream fresh milk gives the richest, creamiest texture with strawberry."
+          }
+        }
+      },
+      {
+        id: "drink-passion-smoothie",
+        section: "drinks",
+        category: "smoothie",
+        price: 2.25,
+        nameKm: "ផាសិន ក្រឡុក",
+        nameEn: "Passion Fruit Smoothie",
+        descKm: "ផ្លែផាសិនស្រស់ក្រឡុកជាមួយទឹកកកម៉ត់ ផ្អែមជូរត្រជាក់ដល់បេះដូង។",
+        descEn: "Blended ice-smooth passion fruit frappe with bright tropical sweetness.",
+        variants: {
+          ice: {
+            descKm: "ផាសិនស្រស់ក្រឡុកម៉ត់ជាមួយកម្រិតផ្អែម និងទឹកដោះគោខាប់បន្តិចឱ្យសាច់រលោងខាប់។",
+            descEn: "Smoothly blended passion fruit with sweetener and a touch of condensed milk for body.",
+            ingredients: [
+              { nameKm: "ទឹកផ្លែផាសិនស្រស់", nameEn: "Fresh Passion Fruit Pulp", amount: 50, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 30, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកដោះគោខាប់ផ្អែម", nameEn: "Sweetened Condensed Milk", amount: 15, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកកដុំតូច", nameEn: "Ice Cubes", amount: 220, unit: "g" }
+            ],
+            stepsKm: [
+              "ដាក់ផាសិន កម្រិតផ្អែម ទឹកដោះគោខាប់ និងទឹកកកចូលម៉ាស៊ីនក្រឡុក។",
+              "ក្រឡុកល្បឿនលឿនប្រហែល 20–25 វិនាទី រហូតម៉ត់រលោងគ្មានដុំទឹកកក។",
+              "ចាក់ដាក់កែវ រួចស្រោចគ្រាប់ផាសិនបន្តិចពីលើដើម្បីតុបតែង។"
+            ],
+            stepsEn: [
+              "Add passion pulp, sweetener, condensed milk, and ice into the blender.",
+              "Blend on high for 20–25 seconds until velvety smooth.",
+              "Pour into the glass and garnish with a spoonful of passion seeds."
+            ],
+            tipKm: "កុំក្រឡុកយូរពេក ព្រោះកម្ដៅម៉ាស៊ីនអាចធ្វើឱ្យទឹកកករលាយរាវ។",
+            tipEn: "Avoid over-blending so blade friction doesn't melt the smoothie."
+          }
+        }
+      },
+      {
+        id: "drink-matcha-latte",
+        section: "drinks",
+        category: "tea",
+        price: 2.25,
+        nameKm: "ម៉ាត់ឆា ឡាតេ",
+        nameEn: "Matcha Latte",
+        descKm: "ម្សៅតែបៃតងជប៉ុនសុទ្ធ ផ្សំជាមួយទឹកដោះគោស្រស់ — មានទាំងក្តៅ និងត្រជាក់។",
+        descEn: "Japanese green tea whisked with fresh milk — available Hot or Ice.",
+        variants: {
+          hot: {
+            descKm: "តែបៃតងម៉ាត់ឆាវាយជាមួយទឹកក្តៅឧណ្ហៗ រួចចាក់ទឹកដោះគោចំហុយក្តៅ (~62°C) ពីលើ។",
+            descEn: "Whisked green matcha topped with velvety steamed fresh milk (~62°C).",
+            ingredients: [
+              { nameKm: "ម្សៅតែបៃតង Matcha", nameEn: "Matcha Green Tea Powder", amount: 4, unit: "g" },
+              { nameKm: "ទឹកក្តៅ (~75°C)", nameEn: "Warm Water (~75°C)", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ (ចំហុយ ~62°C)", nameEn: "Fresh Milk (Steamed ~62°C)", amount: 180, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 15, unit: "ml", isSweet: true }
+            ],
+            stepsKm: [
+              "រែងម្សៅ Matcha 4g ចូលកូនចាន ដាក់ទឹកក្តៅ (~75°C) 40ml រួចវាយឱ្យរលាយម៉ត់គ្មានដុំ។",
+              "ចាក់ទឹក Matcha និងកម្រិតផ្អែមចូលពែង។",
+              "ចាក់ទឹកដោះគោចំហុយក្តៅចូល រួចបម្រើក្តៅៗ។"
+            ],
+            stepsEn: [
+              "Sift 4g matcha powder, add 40ml warm water (~75°C), and whisk until smooth.",
+              "Pour whisked matcha and sweetener into the cup.",
+              "Pour steamed milk over top and serve hot."
+            ],
+            tipKm: "កុំប្រើទឹកពុះ 100°C វាយ Matcha ព្រោះវាធ្វើឱ្យតែមានរសជាតិល្វីងខ្លាំង។",
+            tipEn: "Avoid boiling water when whisking matcha to prevent bitterness."
+          },
+          ice: {
+            descKm: "ទឹកដោះគោស្រស់ត្រជាក់ដាក់ទឹកកក ស្រោចដោយទឹកតែបៃតង Matcha ពណ៌បៃតងចាស់ពីលើ។",
+            descEn: "Chilled fresh milk over ice topped with rich whisked green matcha.",
+            ingredients: [
+              { nameKm: "ម្សៅតែបៃតង Matcha", nameEn: "Matcha Green Tea Powder", amount: 4, unit: "g" },
+              { nameKm: "ទឹកក្តៅឧណ្ហៗ (~75°C)", nameEn: "Warm Water (~75°C)", amount: 40, unit: "ml" },
+              { nameKm: "ទឹកដោះគោស្រស់ត្រជាក់", nameEn: "Chilled Fresh Milk", amount: 160, unit: "ml" },
+              { nameKm: "កម្រិតផ្អែម", nameEn: "Sweetness Level", amount: 20, unit: "ml", isSweet: true },
+              { nameKm: "ទឹកកក", nameEn: "Ice Cubes", amount: 150, unit: "g" }
+            ],
+            stepsKm: [
+              "វាយម្សៅ Matcha ជាមួយទឹកក្តៅឧណ្ហៗ 40ml រហូតម៉ត់រលោង។",
+              "លាយទឹកដោះគោស្រស់ត្រជាក់ និងកម្រិតផ្អែមចាក់ចូលកែវទឹកកក។",
+              "ចាក់ទឹក Matcha ស្រោចពីលើបង្កើតជា ២ ស្រទាប់ពណ៌ស និងបៃតង។"
+            ],
+            stepsEn: [
+              "Whisk matcha powder with 40ml warm water until completely smooth.",
+              "Stir sweetener into chilled milk and pour over ice.",
+              "Pour the whisked matcha gently over top for a green-and-white layer."
+            ],
+            tipKm: "រែងម្សៅ Matcha តាមកញ្ច្រែងតូចមុនវាយ នឹងជួយកុំឱ្យកកជាគ្រាប់តូចៗ។",
+            tipEn: "Sifting matcha through a fine mesh before whisking prevents clumps."
+          }
+        }
+      }
+    ];
+
+    const STORAGE_KEYS = {
+      SETTINGS: "cafe_app_paired_settings_v4",
+      CART: "cafe_app_paired_cart_v1",
+      ORDERS: "cafe_app_paired_orders_v1",
+      DAILY_CHART: "cafe_app_paired_daily_chart_v1",
+      LANG: "cafe_app_paired_lang_v1",
+      THEME: "cafe_app_paired_theme_v1"
+    };
+
+    let appSettings = Object.assign({}, DEFAULT_SETTINGS, loadJson(STORAGE_KEYS.SETTINGS, {}));
+    appSettings.priceOverrides = Object.assign({}, DEFAULT_SETTINGS.priceOverrides, appSettings.priceOverrides || {});
+    appSettings.disabledItems = Object.assign({}, DEFAULT_SETTINGS.disabledItems, appSettings.disabledItems || {});
+
+    let cartItems = loadJson(STORAGE_KEYS.CART, []);
+    let orders = loadJson(STORAGE_KEYS.ORDERS, []);
+    let dailyChartLog = loadJson(STORAGE_KEYS.DAILY_CHART, {});
+    let pendingDoneOrderId = null;
+    let activeReceiptTableNo = null;
+    let draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
+
+    let state = {
+      lang: loadJson(STORAGE_KEYS.LANG, "km") === "en" ? "en" : "km",
+      theme: loadJson(STORAGE_KEYS.THEME, "light") === "dark" ? "dark" : "light",
+      tab: "all",
+      filter: "coffee",
+      activeRecipeId: null,
+      editingCartItemId: null,
+      activeMode: "ice",
+      cupSize: "16oz",
+      tableNo: "1",
+      sweetPct: 100
+    };
+
+    const CUP_SIZE_MULTIPLIER = {
+      "12oz": 0.8,
+      "16oz": 1.0,
+      "22oz": 1.3
+    };
+
+    const SWEETENER_KEYWORDS = [
+      "ផ្អែម",
+      "ទឹកដោះគោខាប់ផ្អែម",
+      "សេរ៉ូ",
+      "សូកូឡា",
+      "ទឹកឃ្មុំ",
+      "puree",
+      "jam",
+      "sweet",
+      "syrup",
+      "condensed milk",
+      "sweetened condensed",
+      "chocolate",
+      "caramel",
+      "vanilla",
+      "honey"
+    ];
+
+    function renderQrGraphicHtml(dataUrl) {
+      if (dataUrl && typeof dataUrl === "string" && dataUrl.startsWith("data:image/")) {
+        return `<img src="${dataUrl}" alt="Payment QR Code" />`;
+      }
+      return DEFAULT_QR_SVG;
+    }
+
+    function isMenuLocked() {
+      return Boolean(appSettings.lockMenuAndData);
+    }
+
+    function applyLockStateUI() {
+      const locked = isMenuLocked();
+      const s = t();
+      document.body.classList.toggle("menu-locked", locked);
+
+      const bannerText = document.getElementById("lockBannerText");
+      const bannerBtn = document.getElementById("unlockFromBannerBtn");
+      if (bannerText) bannerText.textContent = s.lockBannerText;
+      if (bannerBtn) bannerBtn.textContent = s.unlockBannerBtn;
+
+      const cartPill = document.getElementById("filterCartPill");
+      if (cartPill) {
+        cartPill.disabled = locked;
+      }
+
+      const detailsBlock = document.getElementById("recipeDetailsBlock");
+      const lockedNotice = document.getElementById("recipeLockedNotice");
+      if (detailsBlock) detailsBlock.classList.toggle("locked-hidden", locked);
+      if (lockedNotice) lockedNotice.textContent = s.recipeLockedNotice;
+
+      if (locked && (state.tab === "cart" || state.tab === "order" || state.tab === "calc")) {
+        switchTab("all");
+      }
+    }
+
+    function getTableOptions() {
+      const count = Math.min(15, Math.max(1, parseInt(appSettings.tableCount, 10) || 5));
+      const list = [];
+      for (let i = 1; i <= count; i++) {
+        list.push(String(i));
+      }
+      if (appSettings.enableTakeaway !== false) {
+        list.push("takeaway");
+      }
+      return list;
+    }
+
+    function getLocalDateKey(dateObj = new Date()) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const d = String(dateObj.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function formatChartDayParts(dateObj) {
+      const s = t();
+      const d = dateObj.getDate();
+      const m = dateObj.getMonth() + 1;
+      const wd = s.chartWdShort[dateObj.getDay()] || "";
+      return {
+        wd,
+        dt: `${d}/${m}`
+      };
+    }
+
+    function recordPaidCupsToChart(cups) {
+      const added = Number(cups) || 0;
+      if (added <= 0) return;
+      const key = getLocalDateKey();
+      const current = dailyChartLog[key] || { cups: 0 };
+      dailyChartLog[key] = {
+        cups: (current.cups || 0) + added
+      };
+      saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+    }
+
+    function normalizeTableNo(val) {
+      const opts = getTableOptions();
+      const str = String(val);
+      if (opts.includes(str)) return str;
+      return opts[0] || "1";
+    }
+
+    function isItemDisabled(recipeId) {
+      return Boolean(appSettings.disabledItems && appSettings.disabledItems[recipeId] === true);
+    }
+
+    function getRecipePrice(r) {
+      if (!r) return 1.75;
+      if (appSettings.priceOverrides && typeof appSettings.priceOverrides[r.id] === "number" && !isNaN(appSettings.priceOverrides[r.id])) {
+        return Math.max(0, appSettings.priceOverrides[r.id]);
+      }
+      const p = typeof r.price === "number" && !isNaN(r.price) ? r.price : 1.75;
+      return Math.max(0, p);
+    }
+
+    function formatPrice(amountUsd) {
+      const num = Number(amountUsd) || 0;
+      if (appSettings.currency === "KHR") {
+        const rate = Number(appSettings.khrRate) || 4000;
+        const riel = Math.round((num * rate) / 100) * 100;
+        return `${riel.toLocaleString()} ៛`;
+      }
+      return `$${num.toFixed(2)}`;
+    }
+
+    function isSweetenerIngredient(ing) {
+      if (!ing) return false;
+      if (ing.isSweet === true || ing.isSugar === true) return true;
+      const text = `${ing.nameKm || ""} ${ing.nameEn || ""} ${ing.name || ""}`.toLowerCase();
+      if (text.includes("មិនផ្អែម") || text.includes("evaporated")) return false;
+      return SWEETENER_KEYWORDS.some((kw) => text.includes(kw));
+    }
+
+    function t() {
+      return UI_STRINGS[state.lang] || UI_STRINGS.km;
+    }
+
+    function loadJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveJson(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {}
+    }
+
+    function getRecipeSection(r) {
+      if (r && r.section) return r.section;
+      if (r && ["drinks", "soda", "smoothie", "milk-drink", "tea", "juice"].includes(r.category)) {
+        return "drinks";
+      }
+      return "coffee";
+    }
+
+    function getAllRecipes() {
+      return DEFAULT_RECIPES;
+    }
+
+    function supportsTemp(recipe, temp) {
+      return Boolean(recipe && recipe.variants && recipe.variants[temp]);
+    }
+
+    function getDefaultVariantKey(recipe) {
+      if (supportsTemp(recipe, "ice")) return "ice";
+      return "hot";
+    }
+
+    function getActiveVariant(recipe, mode = state.activeMode) {
+      if (!recipe || !recipe.variants) return null;
+      return recipe.variants[mode] || recipe.variants.ice || recipe.variants.hot;
+    }
+
+    function getCardBadgeInfo(recipe) {
+      const hasHot = supportsTemp(recipe, "hot");
+      const hasIce = supportsTemp(recipe, "ice");
+      if (hasHot && hasIce) {
+        return { cls: "temp-both", label: t().bothFull };
+      }
+      if (hasHot) {
+        return { cls: "temp-hot", label: t().hotFull };
+      }
+      return { cls: "temp-ice", label: t().iceFull };
+    }
+
+    function getRecipeNamePrimary(r) {
+      return state.lang === "en" ? (r.nameEn || r.nameKm) : (r.nameKm || r.nameEn);
+    }
+
+    function getRecipeDesc(r, variant) {
+      const desc = state.lang === "en" ? (r.descEn || r.descKm || "") : (r.descKm || r.descEn || "");
+      if (desc) return desc;
+      if (variant) {
+        return state.lang === "en" ? (variant.descEn || variant.descKm || "") : (variant.descKm || variant.descEn || "");
+      }
+      return "";
+    }
+
+    function getRecipeSteps(variant) {
+      if (!variant) return [];
+      if (state.lang === "en" && Array.isArray(variant.stepsEn) && variant.stepsEn.length) return variant.stepsEn;
+      if (Array.isArray(variant.stepsKm) && variant.stepsKm.length) return variant.stepsKm;
+      return variant.steps || [];
+    }
+
+    function getRecipeTip(variant) {
+      if (!variant) return t().defaultTip;
+      return state.lang === "en" ? (variant.tipEn || variant.tipKm || t().defaultTip) : (variant.tipKm || variant.tipEn || t().defaultTip);
+    }
+
+    function getIngredientName(ing) {
+      return state.lang === "en" ? (ing.nameEn || ing.nameKm || ing.name || "") : (ing.nameKm || ing.nameEn || ing.name || "");
+    }
+
+    function getTotalCartCups() {
+      return cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
+    }
+
+    function getTotalCartPrice() {
+      const all = getAllRecipes();
+      return cartItems.reduce((sum, item) => {
+        const r = all.find((x) => x.id === item.recipeId);
+        return sum + (r ? getRecipePrice(r) : 1.75) * (item.qty || 1);
+      }, 0);
+    }
+
+    function applyThemeUI() {
+      const isDark = state.theme === "dark";
+      document.body.classList.toggle("dark-mode", isDark);
+      const s = t();
+      const labelEl = document.getElementById("themeBtnLabel");
+      const iconSvg = document.getElementById("themeIconSvg");
+      if (labelEl) {
+        labelEl.textContent = isDark ? s.themeLight : s.themeDark;
+      }
+      if (iconSvg) {
+        if (isDark) {
+          iconSvg.innerHTML = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+        } else {
+          iconSvg.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+        }
+      }
+    }
+
+    function toggleTheme() {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      saveJson(STORAGE_KEYS.THEME, state.theme);
+      applyThemeUI();
+      showToast(state.theme === "dark" ? t().toastThemeDark : t().toastThemeLight);
+    }
+
+    function renderTablePillGroup() {
+      const s = t();
+      const opts = getTableOptions();
+      const activeTable = normalizeTableNo(state.tableNo);
+      state.tableNo = activeTable;
+
+      const buttonsHtml = opts.map(
+        (num) =>
+          `<button type="button" class="seg-btn ${num === activeTable ? "active" : ""}" data-table="${num}">${escapeHtml(s.tableChipLabel(num))}</button>`
+      ).join("");
+
+      const modalGroup = document.getElementById("tableNumberGroup");
+      if (modalGroup) {
+        modalGroup.innerHTML = buttonsHtml;
+        modalGroup.querySelectorAll(".seg-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.tableNo = normalizeTableNo(btn.dataset.table);
+            syncTableSelectionUI();
+          });
+        });
+      }
+    }
+
+    function syncTableSelectionUI() {
+      const activeTable = normalizeTableNo(state.tableNo);
+      document.querySelectorAll("#tableNumberGroup .seg-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.table === activeTable);
+      });
+    }
+
+    function updateSweetSliderUI() {
+      const s = t();
+      const pct = state.sweetPct;
+      const slider = document.getElementById("sweetRangeInput");
+      const badge = document.getElementById("sweetPctBadge");
+      const title = document.getElementById("sweetSliderTitle");
+
+      if (title) title.textContent = s.sweetSliderTitle;
+      if (slider) {
+        slider.value = pct;
+        const fillPct = Math.min(100, Math.max(0, (pct / 150) * 100));
+        slider.style.background = `linear-gradient(90deg, #C67D3B 0%, #C67D3B ${fillPct}%, rgba(118, 118, 128, 0.2) ${fillPct}%, rgba(118, 118, 128, 0.2) 100%)`;
+      }
+      if (badge) {
+        badge.textContent = s.sweetBadgeText(pct);
+      }
+
+      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
+        btn.classList.toggle("active", parseInt(btn.dataset.sweet, 10) === pct);
+      });
+    }
+
+    function applyStaticTranslations() {
+      const s = t();
+      const shopTitle = (appSettings.shopName && appSettings.shopName.trim()) ? appSettings.shopName.trim() : s.headerTitle;
+      document.documentElement.lang = state.lang;
+      document.title = shopTitle;
+      document.getElementById("mainHeaderTitle").textContent = shopTitle;
+      document.getElementById("langBadgeText").textContent = s.langBadge;
+      document.getElementById("settingsBtnLabel").textContent = s.settingsBtn;
+      applyThemeUI();
+
+      document.getElementById("navAllLabel").textContent = s.navMenu();
+      document.getElementById("navOrderLabel").textContent = s.navOrder();
+      document.getElementById("navCalcLabel").textContent = s.navCalc;
+
+      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
+        if (btn.dataset.filter === "coffee") btn.textContent = s.filterCoffee();
+        if (btn.dataset.filter === "drinks") btn.textContent = s.filterDrinks();
+        if (btn.dataset.filter === "cart") btn.textContent = s.filterCart();
+      });
+
+      document.getElementById("cartTitle").textContent = s.cartTitle;
+      document.getElementById("cartSubtitle").textContent = s.cartSubtitle;
+      document.getElementById("confirmCartToOrderBtn").textContent = s.confirmCartBtn;
+
+      document.getElementById("orderTitle").textContent = s.orderTitle;
+      document.getElementById("orderSubtitle").textContent = s.orderSubtitle;
+      document.getElementById("backToCartBtn").textContent = s.backToCartBtn;
+      document.getElementById("tableBillsTitle").textContent = s.tableBillsTitle;
+      document.getElementById("tableBillsSubtitle").textContent = s.tableBillsSubtitle;
+
+      document.getElementById("confirmDoneTitle").textContent = s.confirmDoneTitle;
+      document.getElementById("confirmDoneDesc").textContent = s.confirmDoneDesc;
+      document.getElementById("cancelDoneBtn").textContent = s.cancelDoneBtn;
+      document.getElementById("acceptDoneBtn").textContent = s.acceptDoneBtn;
+
+      document.getElementById("closeReceiptBtn").textContent = s.closeBtnLabel;
+      document.getElementById("clearTableBillBtn").textContent = s.clearTableBtn;
+
+      renderTablePillGroup();
+
+      document.getElementById("modeHotBtn").textContent = s.hotFull;
+      document.getElementById("modeIceBtn").textContent = s.iceFull;
+      document.getElementById("modalAddOrderBtn").textContent = s.addOrderBtnLabel;
+
+      document.getElementById("cupSizeLabel").textContent = s.cupSizeLabel;
+      document.getElementById("tableNumberLabel").textContent = s.tableNumberLabel;
+      document.getElementById("ingSectionHeading").textContent = s.ingHeading;
+      document.getElementById("stepsSectionHeading").textContent = s.stepsHeading;
+
+      updateSweetSliderUI();
+
+      document.getElementById("chartPanelTitle").textContent = s.chartPanelTitle;
+      document.getElementById("chartPanelSubtitle").textContent = s.chartPanelSubtitle;
+      document.getElementById("resetChartBtn").textContent = s.resetChartBtn;
+      document.getElementById("resTodayCupsLabel").textContent = s.resTodayCupsLabel;
+
+      // Settings Modal Labels
+      document.getElementById("settingsModalTitle").textContent = s.settingsModalTitle;
+      document.getElementById("settingsModalSub").textContent = s.settingsModalSub;
+      document.getElementById("setSecPricesTitle").textContent = s.setSecPricesTitle;
+      document.getElementById("setPricesSub").textContent = s.setPricesSub;
+      document.getElementById("setSecToggleItemsTitle").textContent = s.setSecToggleItemsTitle;
+      document.getElementById("setToggleItemsSub").textContent = s.setToggleItemsSub;
+      document.getElementById("setSecShopTitle").textContent = s.setSecShopTitle;
+      document.getElementById("setShopNameLbl").textContent = s.setShopNameLbl;
+      document.getElementById("setQrEnableLbl").textContent = s.setQrEnableLbl;
+      document.getElementById("setQrEnableSub").textContent = s.setQrEnableSub;
+      document.getElementById("uploadQrBtn").textContent = s.uploadQrBtn;
+      document.getElementById("removeQrBtn").textContent = s.removeQrBtn;
+      document.getElementById("setReceiptNoteLbl").textContent = s.setReceiptNoteLbl;
+      document.getElementById("setCurrencyLbl").textContent = s.setCurrencyLbl;
+      document.getElementById("setKhrRateLbl").textContent = s.setKhrRateLbl;
+      document.getElementById("setSecTableTitle").textContent = s.setSecTableTitle;
+      document.getElementById("setTableCountLbl").textContent = s.setTableCountLbl;
+      document.getElementById("setTakeawayLbl").textContent = s.setTakeawayLbl;
+      document.getElementById("setSecSystemTitle").textContent = s.setSecSystemTitle;
+      document.getElementById("setLockModeLbl").textContent = s.setLockModeLbl;
+      document.getElementById("setLockModeSub").textContent = s.setLockModeSub;
+      document.getElementById("setDarkModeLbl").textContent = s.setDarkModeLbl;
+      document.getElementById("setLangLbl").textContent = s.setLangLbl;
+      document.getElementById("exportDataBtn").textContent = s.exportDataBtn;
+      document.getElementById("resetAllDataBtn").textContent = s.resetAllDataBtn;
+      document.getElementById("saveSettingsBtn").textContent = s.saveSettingsBtn;
+
+      applyLockStateUI();
+    }
+
+    function toggleLanguage() {
+      state.lang = state.lang === "km" ? "en" : "km";
+      saveJson(STORAGE_KEYS.LANG, state.lang);
+      applyStaticTranslations();
+      refreshActiveView();
+      if (state.activeRecipeId && document.getElementById("recipeModal").classList.contains("open")) {
+        openRecipeModal(state.activeRecipeId, state.activeMode, state.sweetPct, state.cupSize, state.tableNo, state.editingCartItemId);
+      }
+      if (activeReceiptTableNo && document.getElementById("receiptModal").classList.contains("open")) {
+        openReceiptModal(activeReceiptTableNo);
+      }
+      if (document.getElementById("settingsModal").classList.contains("open")) {
+        renderSettingsItemLists();
+      }
+      showToast(t().toastLangSwitched);
+    }
+
+    function refreshActiveView() {
+      if (state.tab === "cart") renderCart();
+      else if (state.tab === "order") renderOrders();
+      else if (state.tab === "calc") renderDailyChart();
+      else renderMenu();
+    }
+
+    function getFilteredRecipes() {
+      const all = getAllRecipes();
+      return all.filter((r) => {
+        if (isItemDisabled(r.id)) return false;
+        if (state.filter === "drinks") return getRecipeSection(r) === "drinks";
+        return getRecipeSection(r) === "coffee";
+      });
+    }
+
+    function addToCart(recipeId, mode, cupSize = "16oz", qtyToAdd = 1, sweetPct = 100, tableNo = "1", replaceCartItemId = null) {
+      if (isMenuLocked()) {
+        showToast(t().toastFeatureLocked);
+        return;
+      }
+      const s = t();
+      const recipe = getAllRecipes().find((r) => r.id === recipeId);
+      if (!recipe) return;
+
+      const resolvedMode = supportsTemp(recipe, mode) ? mode : getDefaultVariantKey(recipe);
+      const resolvedTable = normalizeTableNo(tableNo);
+
+      if (replaceCartItemId) {
+        cartItems = cartItems.filter((item) => item.id !== replaceCartItemId);
+      }
+
+      const existing = cartItems.find(
+        (o) =>
+          o.recipeId === recipeId &&
+          o.mode === resolvedMode &&
+          o.cupSize === cupSize &&
+          (o.sweetPct ?? o.sugarPct ?? 100) === sweetPct &&
+          normalizeTableNo(o.tableNo) === resolvedTable
+      );
+
+      if (existing) {
+        existing.qty = (existing.qty || 1) + qtyToAdd;
+      } else {
+        cartItems.unshift({
+          id: "cart_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+          recipeId,
+          mode: resolvedMode,
+          cupSize,
+          sweetPct,
+          tableNo: resolvedTable,
+          qty: qtyToAdd,
+          createdAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        });
+      }
+
+      saveJson(STORAGE_KEYS.CART, cartItems);
+      if (state.tab === "cart") renderCart();
+      const modeLabel = resolvedMode === "hot" ? s.hotFull : s.iceFull;
+      const tableLabel = s.tableOptionLabel(resolvedTable);
+      showToast(s.toastAddedToCart(`${getRecipeNamePrimary(recipe)} (${tableLabel}, ${modeLabel}, ${s.sweetOrderBadge(sweetPct)})`));
+    }
+
+    function confirmCartToOrder() {
+      if (isMenuLocked()) {
+        showToast(t().toastFeatureLocked);
+        return;
+      }
+      const s = t();
+      if (cartItems.length === 0) {
+        showToast(s.toastCartEmpty);
+        return;
+      }
+
+      const addedCups = getTotalCartCups();
+      const nowTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+      cartItems.forEach((cItem) => {
+        const cTable = normalizeTableNo(cItem.tableNo);
+        const cSweet = cItem.sweetPct ?? cItem.sugarPct ?? 100;
+        const match = orders.find(
+          (o) =>
+            o.recipeId === cItem.recipeId &&
+            o.mode === cItem.mode &&
+            o.cupSize === cItem.cupSize &&
+            (o.sweetPct ?? o.sugarPct ?? 100) === cSweet &&
+            normalizeTableNo(o.tableNo) === cTable &&
+            !o.done
+        );
+        if (match) {
+          match.qty = (match.qty || 1) + (cItem.qty || 1);
+        } else {
+          orders.unshift({
+            id: "ord_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+            recipeId: cItem.recipeId,
+            mode: cItem.mode,
+            cupSize: cItem.cupSize,
+            sweetPct: cSweet,
+            tableNo: cTable,
+            qty: cItem.qty || 1,
+            done: false,
+            createdAt: nowTime
+          });
+        }
+      });
+
+      cartItems = [];
+      saveJson(STORAGE_KEYS.CART, cartItems);
+      saveJson(STORAGE_KEYS.ORDERS, orders);
+      showToast(s.toastConfirmedOrder(addedCups));
+      switchTab("order");
+    }
+
+    function openConfirmDoneModal(orderId) {
+      const ord = orders.find((o) => o.id === orderId);
+      if (!ord || ord.done) return;
+      const s = t();
+      const recipe = getAllRecipes().find((r) => r.id === ord.recipeId);
+      const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
+      const tableLabel = s.tableOptionLabel(normalizeTableNo(ord.tableNo));
+      pendingDoneOrderId = orderId;
+      document.getElementById("confirmDoneItemText").textContent = `${tableLabel} • ${name}`;
+      document.getElementById("confirmDoneModal").classList.add("open");
+    }
+
+    function closeConfirmDoneModal() {
+      pendingDoneOrderId = null;
+      document.getElementById("confirmDoneModal").classList.remove("open");
+    }
+
+    function acceptConfirmDone() {
+      if (!pendingDoneOrderId) return;
+      const ord = orders.find((o) => o.id === pendingDoneOrderId);
+      if (ord && !ord.done) {
+        ord.done = true;
+        const recipe = getAllRecipes().find((r) => r.id === ord.recipeId);
+        const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
+
+        saveJson(STORAGE_KEYS.ORDERS, orders);
+        renderOrders();
+        showToast(t().toastMarkedDoneOnly(name));
+      }
+      closeConfirmDoneModal();
+    }
+
+    function renderMenu() {
+      const s = t();
+      const grid = document.getElementById("menuGrid");
+      const list = getFilteredRecipes();
+      const sectionTotal = getAllRecipes().filter((r) => getRecipeSection(r) === state.filter && !isItemDisabled(r.id)).length;
+
+      document.getElementById("summaryCountText").innerHTML =
+        `${s.showingPrefix} <strong>${list.length}</strong> ${s.showingMid} <span>${sectionTotal}</span> ${s.showingSuffix}`;
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin:0 0 6px;">${escapeHtml(s.emptyTitle)}</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(s.emptyDesc)}</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map((r) => {
+        const defaultMode = getDefaultVariantKey(r);
+        const badgeInfo = getCardBadgeInfo(r);
+        const defaultVar = getActiveVariant(r, defaultMode);
+        const primaryName = getRecipeNamePrimary(r);
+        const priceText = formatPrice(getRecipePrice(r));
+        const modeTagHtml = badgeInfo.label
+          ? `<span class="drink-tag ${badgeInfo.cls}">${escapeHtml(badgeInfo.label)}</span>`
+          : "";
+
+        return `
+          <article class="drink-card" data-id="${r.id}">
+            <div class="drink-info">
+              <div class="drink-top-meta">
+                ${modeTagHtml}
+              </div>
+              <h3 class="drink-name-main">${escapeHtml(primaryName)}</h3>
+              <p class="drink-desc">${escapeHtml(getRecipeDesc(r, defaultVar))}</p>
+            </div>
+            <button type="button" class="price-pill-btn" data-price-id="${r.id}" title="${escapeHtml(primaryName)}" aria-label="${escapeHtml(priceText)}">
+              <span>${escapeHtml(priceText)}</span>
+            </button>
+          </article>
+        `;
+      }).join("");
+
+      grid.querySelectorAll(".drink-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const recipe = getAllRecipes().find((x) => x.id === card.dataset.id);
+          openRecipeModal(card.dataset.id, recipe ? getDefaultVariantKey(recipe) : "ice", 100);
+        });
+      });
+
+      grid.querySelectorAll(".price-pill-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const recipe = getAllRecipes().find((x) => x.id === btn.dataset.priceId);
+          openRecipeModal(btn.dataset.priceId, recipe ? getDefaultVariantKey(recipe) : "ice", 100);
+        });
+      });
+    }
+
+    function renderCart() {
+      const s = t();
+      const listEl = document.getElementById("cartList");
+      const allRecipes = getAllRecipes();
+
+      if (cartItems.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin:0 0 6px;">${escapeHtml(s.cartEmptyTitle)}</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(s.cartEmptyDesc)}</p>
+          </div>
+        `;
+      } else {
+        listEl.innerHTML = cartItems.map((item) => {
+          const recipe = allRecipes.find((r) => r.id === item.recipeId);
+          const name = recipe ? getRecipeNamePrimary(recipe) : item.recipeId;
+          const unitPrice = recipe ? getRecipePrice(recipe) : 1.75;
+          const modeLabel = item.mode === "hot" ? s.hotFull : s.iceFull;
+          const sweetPct = item.sweetPct ?? item.sugarPct ?? 100;
+          const tableLabel = s.tableOptionLabel(normalizeTableNo(item.tableNo));
+          const qty = item.qty || 1;
+          const lineTotal = formatPrice(unitPrice * qty);
+
+          return `
+            <div class="order-row-card" data-cart-id="${item.id}">
+              <div class="order-row-main">
+                <h3 class="order-row-title">
+                  <span class="drink-tag table-tag">${escapeHtml(tableLabel)}</span>
+                  <span class="order-row-name">${escapeHtml(name)}</span>
+                  <span class="drink-tag sweet-tag">${escapeHtml(lineTotal)}</span>
+                  <span class="drink-tag ${item.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
+                  <span class="drink-tag">${escapeHtml(item.cupSize || "16oz")}</span>
+                  <span class="drink-tag sweet-tag">${escapeHtml(s.sweetOrderBadge(sweetPct))}</span>
+                </h3>
+              </div>
+              <div class="order-row-actions">
+                <button type="button" class="icon-btn small-action-btn" data-action="edit">${escapeHtml(s.orderEditBtn)}</button>
+                <button type="button" class="icon-btn small-action-btn" data-action="remove" style="color:#B81D37;">${escapeHtml(s.orderRemoveBtn)}</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        listEl.querySelectorAll(".order-row-card").forEach((row) => {
+          const cId = row.dataset.cartId;
+          row.querySelector('[data-action="edit"]').addEventListener("click", () => {
+            const target = cartItems.find((o) => o.id === cId);
+            if (!target) return;
+            openRecipeModal(
+              target.recipeId,
+              target.mode || "ice",
+              target.sweetPct ?? target.sugarPct ?? 100,
+              target.cupSize || "16oz",
+              normalizeTableNo(target.tableNo),
+              target.id
+            );
+          });
+          row.querySelector('[data-action="remove"]').addEventListener("click", () => {
+            cartItems = cartItems.filter((o) => o.id !== cId);
+            saveJson(STORAGE_KEYS.CART, cartItems);
+            renderCart();
+          });
+        });
+      }
+
+      document.getElementById("cartTotalCupsText").textContent = s.cartTotalCups(getTotalCartCups(), formatPrice(getTotalCartPrice()));
+    }
+
+    function renderTableBills() {
+      const s = t();
+      const gridEl = document.getElementById("tableBillsGrid");
+      const allRecipes = getAllRecipes();
+      const tableList = getTableOptions();
+
+      gridEl.innerHTML = tableList.map((tNum) => {
+        const tableOrders = orders.filter((o) => normalizeTableNo(o.tableNo) === tNum);
+        const totalAmt = tableOrders.reduce((sum, ord) => {
+          const rec = allRecipes.find((r) => r.id === ord.recipeId);
+          return sum + (rec ? getRecipePrice(rec) : 1.75) * (ord.qty || 1);
+        }, 0);
+
+        const previewHtml = tableOrders.length === 0
+          ? `<div style="font-size:0.82rem; color:var(--text-muted); padding:6px 0;">${escapeHtml(s.billEmptyText)}</div>`
+          : tableOrders.map((ord) => {
+              const rec = allRecipes.find((r) => r.id === ord.recipeId);
+              const recName = rec ? getRecipeNamePrimary(rec) : ord.recipeId;
+              const lineAmt = (rec ? getRecipePrice(rec) : 1.75) * (ord.qty || 1);
+              return `
+                <div class="bill-item-line">
+                  <span>${escapeHtml(recName)} (${escapeHtml(ord.cupSize || "16oz")})</span>
+                  <strong>${escapeHtml(formatPrice(lineAmt))}</strong>
+                </div>
+              `;
+            }).join("");
+
+        return `
+          <div class="bill-card" data-bill-table="${tNum}">
+            <div>
+              <div class="bill-card-header">
+                <span class="bill-table-name">${escapeHtml(s.tableOptionLabel(tNum))}</span>
+                <span class="bill-total-amount">${escapeHtml(formatPrice(totalAmt))}</span>
+              </div>
+              <div class="bill-items-preview">
+                ${previewHtml}
+              </div>
+            </div>
+            <div class="bill-card-footer">
+              <span style="font-size:0.76rem; color:var(--text-muted); font-weight:700;">${escapeHtml(s.billItemsCount(tableOrders.length))}</span>
+              <button type="button" class="icon-btn small-action-btn ${tableOrders.length > 0 ? "qr-pay-btn" : ""}" data-action="open-bill">${escapeHtml(s.viewBillBtn)}</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      gridEl.querySelectorAll('[data-action="open-bill"]').forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const card = btn.closest(".bill-card");
+          if (card && card.dataset.billTable) {
+            openReceiptModal(card.dataset.billTable);
+          }
+        });
+      });
+    }
+
+    function openReceiptModal(tNum) {
+      const s = t();
+      const normalized = normalizeTableNo(tNum);
+      activeReceiptTableNo = normalized;
+      const allRecipes = getAllRecipes();
+      const tableOrders = orders.filter((o) => normalizeTableNo(o.tableNo) === normalized);
+      const label = s.tableOptionLabel(normalized);
+      const shopTitle = (appSettings.shopName && appSettings.shopName.trim()) ? appSettings.shopName.trim() : s.headerTitle;
+
+      document.getElementById("receiptModalTitle").textContent = `${shopTitle} • ${label}`;
+      document.getElementById("receiptModalSub").textContent = s.billItemsCount(tableOrders.length);
+
+      const container = document.getElementById("receiptLinesContainer");
+      const clearBtn = document.getElementById("clearTableBillBtn");
+
+      if (tableOrders.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:14px 0; font-size:0.86rem;">${escapeHtml(s.receiptEmptyModal)}</div>`;
+        if (clearBtn) clearBtn.disabled = true;
+      } else {
+        if (clearBtn) clearBtn.disabled = false;
+        let totalSum = 0;
+        const linesHtml = tableOrders.map((ord) => {
+          const rec = allRecipes.find((r) => r.id === ord.recipeId);
+          const recName = rec ? getRecipeNamePrimary(rec) : ord.recipeId;
+          const lineAmt = (rec ? getRecipePrice(rec) : 1.75) * (ord.qty || 1);
+          totalSum += lineAmt;
+          const modeLabel = ord.mode === "hot" ? s.hotFull : s.iceFull;
+          return `
+            <div class="receipt-line">
+              <div>
+                <div style="font-weight:700;">${escapeHtml(recName)}</div>
+                <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(modeLabel)} • ${escapeHtml(ord.cupSize || "16oz")} • ${escapeHtml(s.sweetOrderBadge(ord.sweetPct ?? 100))}</div>
+              </div>
+              <strong>${escapeHtml(formatPrice(lineAmt))}</strong>
+            </div>
+          `;
+        }).join("");
+
+        const formattedTotal = formatPrice(totalSum);
+        const qrSectionHtml = appSettings.qrEnabled !== false
+          ? `
+            <div class="receipt-qr-section">
+              <div class="receipt-qr-title">${escapeHtml(s.receiptQrScanLabel)}</div>
+              <div class="receipt-qr-frame">${renderQrGraphicHtml(appSettings.qrImageDataUrl)}</div>
+              <div class="receipt-qr-amount-chip">${escapeHtml(formattedTotal)}</div>
+            </div>
+          `
+          : "";
+
+        const footerNoteHtml = appSettings.receiptFooter && appSettings.receiptFooter.trim()
+          ? `<div class="receipt-footer-note">${escapeHtml(appSettings.receiptFooter.trim())}</div>`
+          : "";
+
+        container.innerHTML = `
+          ${linesHtml}
+          <div class="receipt-total-row">
+            <span>${escapeHtml(s.receiptTotalLabel)}</span>
+            <span>${escapeHtml(formattedTotal)}</span>
+          </div>
+          ${qrSectionHtml}
+          ${footerNoteHtml}
+        `;
+      }
+
+      document.getElementById("receiptModal").classList.add("open");
+    }
+
+    function closeReceiptModal() {
+      activeReceiptTableNo = null;
+      document.getElementById("receiptModal").classList.remove("open");
+    }
+
+    function clearActiveTableBill() {
+      if (!activeReceiptTableNo) return;
+      const s = t();
+      const label = s.tableOptionLabel(activeReceiptTableNo);
+      const tableOrders = orders.filter((o) => normalizeTableNo(o.tableNo) === activeReceiptTableNo);
+      const paidCups = tableOrders.reduce((sum, ord) => sum + (ord.qty || 1), 0);
+
+      if (paidCups > 0) {
+        recordPaidCupsToChart(paidCups);
+      }
+
+      orders = orders.filter((o) => normalizeTableNo(o.tableNo) !== activeReceiptTableNo);
+      saveJson(STORAGE_KEYS.ORDERS, orders);
+      closeReceiptModal();
+      renderOrders();
+      showToast(s.toastTableClearedAndChart(label, paidCups));
+    }
+
+    function renderOrders() {
+      const s = t();
+      const listEl = document.getElementById("orderList");
+      const allRecipes = getAllRecipes();
+
+      if (orders.length === 0) {
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <h3 style="margin:0 0 6px;">${escapeHtml(s.orderEmptyTitle)}</h3>
+            <p style="margin:0; font-size:0.86rem; color:var(--text-secondary);">${escapeHtml(s.orderEmptyDesc)}</p>
+          </div>
+        `;
+      } else {
+        listEl.innerHTML = orders.map((ord) => {
+          const recipe = allRecipes.find((r) => r.id === ord.recipeId);
+          const name = recipe ? getRecipeNamePrimary(recipe) : ord.recipeId;
+          const unitPrice = recipe ? getRecipePrice(recipe) : 1.75;
+          const modeLabel = ord.mode === "hot" ? s.hotFull : s.iceFull;
+          const sweetPct = ord.sweetPct ?? ord.sugarPct ?? 100;
+          const tableLabel = s.tableOptionLabel(normalizeTableNo(ord.tableNo));
+          const statusCls = ord.done ? "done" : "pending";
+          const statusText = ord.done ? s.orderStatusDone : s.orderStatusPending;
+          const qty = ord.qty || 1;
+          const lineTotal = formatPrice(unitPrice * qty);
+
+          const doneBtnHtml = !ord.done
+            ? `<button type="button" class="icon-btn done-action-btn" data-action="mark-done">${escapeHtml(s.markDoneBtn)}</button>`
+            : "";
+
+          return `
+            <div class="order-row-card clean-order-card ${ord.done ? "done" : ""}" data-order-id="${ord.id}">
+              <div class="order-card-top">
+                <div class="order-card-badges">
+                  <span class="drink-tag table-tag">${escapeHtml(tableLabel)}</span>
+                  <span class="drink-tag ${ord.mode === "hot" ? "temp-hot" : "temp-ice"}">${escapeHtml(modeLabel)}</span>
+                  <span class="drink-tag">${escapeHtml(ord.cupSize || "16oz")}</span>
+                  <span class="drink-tag sweet-tag">${escapeHtml(s.sweetOrderBadge(sweetPct))}</span>
+                  <span class="order-status-badge ${statusCls}">${escapeHtml(statusText)}</span>
+                </div>
+                <span class="order-card-time">${escapeHtml(ord.createdAt || "")}</span>
+              </div>
+              <div class="order-card-title-row">
+                <h3 class="order-row-title">${escapeHtml(name)}</h3>
+                <div class="order-card-right-meta">
+                  <span class="drink-tag sweet-tag">${escapeHtml(lineTotal)}</span>
+                  ${doneBtnHtml}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        listEl.querySelectorAll('[data-action="mark-done"]').forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const card = btn.closest(".order-row-card");
+            if (card && card.dataset.orderId) {
+              openConfirmDoneModal(card.dataset.orderId);
+            }
+          });
+        });
+      }
+
+      const doneCount = orders.filter((o) => o.done).length;
+      document.getElementById("orderDoneCountText").textContent = s.orderDoneSummary(doneCount, orders.length);
+      renderTableBills();
+    }
+
+    function renderDailyChart() {
+      const s = t();
+      const todayKey = getLocalDateKey();
+      const days = [];
+      for (let i = 6; i >= 0; i--) {
+        const dt = new Date();
+        dt.setDate(dt.getDate() - i);
+        const key = getLocalDateKey(dt);
+        const entry = dailyChartLog[key] || { cups: 0 };
+        const dayParts = formatChartDayParts(dt);
+        days.push({
+          key,
+          wd: dayParts.wd,
+          dt: dayParts.dt,
+          cups: entry.cups || 0
+        });
+      }
+
+      const todayEntry = dailyChartLog[todayKey] || { cups: 0 };
+      document.getElementById("resTodayCups").textContent = `${todayEntry.cups} ${s.cupUnit}`;
+
+      const maxCups = Math.max(1, ...days.map((d) => d.cups));
+      const barsWrap = document.getElementById("dailyChartBars");
+      barsWrap.innerHTML = days.map((d) => {
+        const heightPct = d.cups > 0 ? Math.max(12, Math.round((d.cups / maxCups) * 100)) : 0;
+        return `
+          <div class="chart-col">
+            <span class="chart-val-label">${d.cups}</span>
+            <div class="chart-bar-track">
+              <div class="chart-bar-fill" style="height: ${heightPct}%;"></div>
+            </div>
+            <div class="chart-day-label">
+              <span class="chart-day-wd">${escapeHtml(d.wd)}</span>
+              <span class="chart-day-dt">${escapeHtml(d.dt)}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function syncTopFilterPills() {
+      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
+        if (state.tab === "cart") {
+          btn.classList.toggle("active", btn.dataset.filter === "cart");
+        } else if (state.tab === "all") {
+          btn.classList.toggle("active", btn.dataset.filter === state.filter);
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+    }
+
+    function switchTab(tabName) {
+      if (isMenuLocked() && (tabName === "cart" || tabName === "order" || tabName === "calc")) {
+        showToast(t().toastFeatureLocked);
+        return;
+      }
+      state.tab = tabName;
+      document.querySelectorAll(".nav-item").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tabName);
+      });
+      syncTopFilterPills();
+
+      const isCart = tabName === "cart";
+      const isOrder = tabName === "order";
+      const isCalc = tabName === "calc";
+      document.getElementById("menuView").style.display = (!isCart && !isOrder && !isCalc) ? "block" : "none";
+      document.getElementById("cartView").style.display = isCart ? "block" : "none";
+      document.getElementById("orderView").style.display = isOrder ? "block" : "none";
+      document.getElementById("calculatorView").style.display = isCalc ? "block" : "none";
+      document.getElementById("summaryStrip").style.display = (!isCart && !isOrder && !isCalc) ? "flex" : "none";
+
+      refreshActiveView();
+    }
+
+    function formatScaledAmount(baseAmt, unit, isSweet = false) {
+      if (typeof baseAmt !== "number" || isNaN(baseAmt)) return "";
+      const sweetFactor = isSweet ? (state.sweetPct / 100) : 1;
+      const mult = CUP_SIZE_MULTIPLIER[state.cupSize] * sweetFactor;
+      const val = baseAmt * mult;
+      const rounded = val >= 50 ? Math.round(val) : Math.round(val * 10) / 10;
+      const unitDisp = state.lang === "en" && unit === "ចំណិត" ? "slice" : (unit || "");
+      return `${rounded} ${unitDisp}`.trim();
+    }
+
+    function openRecipeModal(id, preferredMode, preserveSweetPct, cupSize = "16oz", tableNo = null, editingCartItemId = null) {
+      const recipe = getAllRecipes().find((r) => r.id === id);
+      if (!recipe) return;
+
+      state.activeRecipeId = id;
+      state.editingCartItemId = editingCartItemId;
+      const targetMode = supportsTemp(recipe, preferredMode) ? preferredMode : getDefaultVariantKey(recipe);
+      state.activeMode = targetMode;
+      state.cupSize = ["12oz", "16oz", "22oz"].includes(cupSize) ? cupSize : "16oz";
+      state.tableNo = normalizeTableNo(tableNo !== null ? tableNo : state.tableNo);
+      state.sweetPct = typeof preserveSweetPct === "number" ? preserveSweetPct : 100;
+
+      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => {
+        b.classList.toggle("active", b.dataset.size === state.cupSize);
+      });
+
+      syncTableSelectionUI();
+      updateSweetSliderUI();
+
+      const hotBtn = document.getElementById("modeHotBtn");
+      const iceBtn = document.getElementById("modeIceBtn");
+      const hasHot = supportsTemp(recipe, "hot");
+      const hasIce = supportsTemp(recipe, "ice");
+
+      hotBtn.disabled = !hasHot;
+      hotBtn.classList.toggle("disabled-mode", !hasHot);
+      iceBtn.disabled = !hasIce;
+      iceBtn.classList.toggle("disabled-mode", !hasIce);
+
+      document.getElementById("modalTitleMain").textContent = getRecipeNamePrimary(recipe);
+      document.getElementById("modalPriceTag").textContent = formatPrice(getRecipePrice(recipe));
+
+      renderModalVariantContent(recipe, targetMode);
+      applyLockStateUI();
+      document.getElementById("recipeModal").classList.add("open");
+    }
+
+    function renderModalVariantContent(recipe, mode) {
+      const s = t();
+      const variant = getActiveVariant(recipe, mode);
+      if (!variant) return;
+
+      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.mode === mode);
+      });
+
+      const isHot = mode === "hot";
+      const tempTag = document.getElementById("modalTempTag");
+      tempTag.textContent = isHot ? s.hotFull : s.iceFull;
+      tempTag.className = "drink-tag " + (isHot ? "temp-hot" : "temp-ice");
+
+      document.getElementById("modalDesc").textContent = state.lang === "en"
+        ? (variant.descEn || variant.descKm || recipe.descEn || recipe.descKm || "")
+        : (variant.descKm || variant.descEn || recipe.descKm || recipe.descEn || "");
+      document.getElementById("modalTip").innerHTML = `<strong>${escapeHtml(s.tipPrefix)}</strong> ${escapeHtml(getRecipeTip(variant))}`;
+
+      const stepsOl = document.getElementById("modalSteps");
+      stepsOl.innerHTML = getRecipeSteps(variant).map((st) => `<li>${escapeHtml(st)}</li>`).join("");
+
+      renderModalIngredients(variant);
+    }
+
+    function renderModalIngredients(variant) {
+      const s = t();
+      const ul = document.getElementById("modalIngredients");
+      const items = variant.ingredients || [];
+      const hasSweetener = items.some((ing) => isSweetenerIngredient(ing));
+
+      ul.innerHTML = items.map((ing, idx) => {
+        const ingName = getIngredientName(ing);
+        const sweetener = isSweetenerIngredient(ing);
+        const amtText = formatScaledAmount(ing.amount, ing.unit, sweetener);
+        const sweetTagHtml = sweetener
+          ? `<span class="ing-sweet-pill">${escapeHtml(s.sweetPillLabel(state.sweetPct))}</span>`
+          : "";
+        return `
+          <li class="ing-item ${sweetener ? "is-sweetener" : ""}" data-idx="${idx}">
+            <div class="ing-left">
+              <span>${escapeHtml(ingName)}</span>
+              ${sweetTagHtml}
+            </div>
+            <span class="ing-amount">${escapeHtml(amtText)}</span>
+          </li>
+        `;
+      }).join("");
+
+      if (!hasSweetener && state.sweetPct > 0) {
+        const extraSweetAmt = formatScaledAmount(15, "ml", true);
+        const extraLabel = state.lang === "en" ? "Sweetness Level" : "កម្រិតផ្អែម";
+        ul.insertAdjacentHTML(
+          "beforeend",
+          `
+          <li class="ing-item is-sweetener" data-idx="extra-sweet">
+            <div class="ing-left">
+              <span>${escapeHtml(extraLabel)}</span>
+              <span class="ing-sweet-pill">${escapeHtml(s.sweetPillLabel(state.sweetPct))}</span>
+            </div>
+            <span class="ing-amount">${escapeHtml(extraSweetAmt)}</span>
+          </li>
+        `
+        );
+      }
+    }
+
+    /* ================= ALL SETTINGS LOGIC ================= */
+    function updateSettingsQrPreview() {
+      const previewEl = document.getElementById("qrSettingsPreview");
+      if (previewEl) {
+        previewEl.innerHTML = renderQrGraphicHtml(draftQrImageDataUrl);
+      }
+      const qrBox = document.getElementById("qrUploadBox");
+      const toggle = document.getElementById("setQrEnabledToggle");
+      if (qrBox && toggle) {
+        qrBox.style.opacity = toggle.checked ? "1" : "0.45";
+        qrBox.style.pointerEvents = toggle.checked ? "auto" : "none";
+      }
+    }
+
+    function renderSettingsItemLists() {
+      const s = t();
+      const all = getAllRecipes();
+
+      const pricesContainer = document.getElementById("itemPricesContainer");
+      pricesContainer.innerHTML = all.map((r) => {
+        const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
+        const currentPrice = getRecipePrice(r).toFixed(2);
+        return `
+          <div class="item-toggle-row">
+            <div class="item-toggle-meta">
+              <span class="drink-tag">${escapeHtml(secLabel)}</span>
+              <span class="setting-label" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(getRecipeNamePrimary(r))}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:5px; flex-shrink:0;">
+              <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">$</span>
+              <input type="number" class="ios-input item-price-input" data-price-id="${r.id}" step="0.25" min="0" value="${currentPrice}" />
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const availContainer = document.getElementById("itemAvailabilityContainer");
+      availContainer.innerHTML = all.map((r) => {
+        const secLabel = getRecipeSection(r) === "drinks" ? s.filterDrinks() : s.filterCoffee();
+        const isEnabled = !isItemDisabled(r.id);
+        return `
+          <div class="item-toggle-row">
+            <div class="item-toggle-meta">
+              <span class="drink-tag">${escapeHtml(secLabel)}</span>
+              <span class="setting-label" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(getRecipeNamePrimary(r))}</span>
+              <span class="item-status-pill ${isEnabled ? "on" : "off"}" data-status-pill="${r.id}">${isEnabled ? s.statusOn : s.statusOff}</span>
+            </div>
+            <label class="ios-switch">
+              <input type="checkbox" class="item-avail-checkbox" data-avail-id="${r.id}" ${isEnabled ? "checked" : ""} />
+              <span class="ios-slider"></span>
+            </label>
+          </div>
+        `;
+      }).join("");
+
+      availContainer.querySelectorAll(".item-avail-checkbox").forEach((cb) => {
+        cb.addEventListener("change", () => {
+          const id = cb.dataset.availId;
+          const pill = availContainer.querySelector(`[data-status-pill="${id}"]`);
+          if (pill) {
+            pill.textContent = cb.checked ? s.statusOn : s.statusOff;
+            pill.classList.toggle("on", cb.checked);
+            pill.classList.toggle("off", !cb.checked);
+          }
+        });
+      });
+    }
+
+    function openSettingsModal() {
+      document.getElementById("setShopNameInput").value = appSettings.shopName || "Coffee & Drinks";
+      document.getElementById("setReceiptNoteInput").value = appSettings.receiptFooter || "";
+      document.getElementById("setQrEnabledToggle").checked = appSettings.qrEnabled !== false;
+      draftQrImageDataUrl = appSettings.qrImageDataUrl || "";
+      updateSettingsQrPreview();
+
+      document.getElementById("setCurrencySelect").value = appSettings.currency || "USD";
+      document.getElementById("setKhrRateInput").value = appSettings.khrRate || 4000;
+      document.getElementById("khrRateRow").style.display = appSettings.currency === "KHR" ? "flex" : "none";
+
+      document.getElementById("setTableCountInput").value = appSettings.tableCount || 5;
+      document.getElementById("setTakeawayToggle").checked = appSettings.enableTakeaway !== false;
+
+      document.getElementById("setLockModeToggle").checked = Boolean(appSettings.lockMenuAndData);
+      document.getElementById("setDarkModeToggle").checked = state.theme === "dark";
+      document.getElementById("setLangSelect").value = state.lang;
+
+      renderSettingsItemLists();
+      document.getElementById("settingsModal").classList.add("open");
+    }
+
+    function closeSettingsModal() {
+      document.getElementById("settingsModal").classList.remove("open");
+    }
+
+    function saveAllSettings() {
+      const shopName = document.getElementById("setShopNameInput").value.trim() || "Coffee & Drinks";
+      const receiptFooter = document.getElementById("setReceiptNoteInput").value.trim();
+      const qrEnabled = document.getElementById("setQrEnabledToggle").checked;
+      const currency = document.getElementById("setCurrencySelect").value === "KHR" ? "KHR" : "USD";
+      const khrRate = Math.max(1000, parseInt(document.getElementById("setKhrRateInput").value, 10) || 4000);
+
+      const tableCount = Math.min(15, Math.max(1, parseInt(document.getElementById("setTableCountInput").value, 10) || 5));
+      const enableTakeaway = document.getElementById("setTakeawayToggle").checked;
+      const lockMenuAndData = document.getElementById("setLockModeToggle").checked;
+
+      const priceOverrides = {};
+      document.querySelectorAll("#itemPricesContainer .item-price-input").forEach((inp) => {
+        const id = inp.dataset.priceId;
+        const val = parseFloat(inp.value);
+        if (id && !isNaN(val) && val >= 0) {
+          priceOverrides[id] = Number(val.toFixed(2));
+        }
+      });
+
+      const disabledItems = {};
+      document.querySelectorAll("#itemAvailabilityContainer .item-avail-checkbox").forEach((cb) => {
+        const id = cb.dataset.availId;
+        if (id && !cb.checked) {
+          disabledItems[id] = true;
+        }
+      });
+
+      const newTheme = document.getElementById("setDarkModeToggle").checked ? "dark" : "light";
+      const newLang = document.getElementById("setLangSelect").value === "en" ? "en" : "km";
+
+      appSettings = {
+        shopName,
+        receiptFooter,
+        qrEnabled,
+        qrImageDataUrl: draftQrImageDataUrl,
+        currency,
+        khrRate,
+        tableCount,
+        enableTakeaway,
+        lockMenuAndData,
+        priceOverrides,
+        disabledItems
+      };
+
+      state.theme = newTheme;
+      state.lang = newLang;
+
+      saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+      saveJson(STORAGE_KEYS.THEME, state.theme);
+      saveJson(STORAGE_KEYS.LANG, state.lang);
+
+      applyStaticTranslations();
+      refreshActiveView();
+      closeSettingsModal();
+      showToast(t().toastSettingsSaved);
+    }
+
+    function exportBackupJson() {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        settings: appSettings,
+        orders,
+        dailyChartLog
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `coffee_pos_backup_${getLocalDateKey()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(t().toastBackupExported);
+    }
+
+    function resetAllAppData() {
+      const s = t();
+      if (!confirm(s.toastResetConfirm)) return;
+      appSettings = Object.assign({}, DEFAULT_SETTINGS, {
+        priceOverrides: {},
+        disabledItems: {}
+      });
+      draftQrImageDataUrl = "";
+      cartItems = [];
+      orders = [];
+      dailyChartLog = {};
+      state.theme = "light";
+      state.lang = "km";
+      state.cupSize = "16oz";
+      state.tableNo = "1";
+      state.sweetPct = 100;
+
+      Object.values(STORAGE_KEYS).forEach((k) => {
+        try { localStorage.removeItem(k); } catch {}
+      });
+
+      applyStaticTranslations();
+      closeSettingsModal();
+      switchTab("all");
+      showToast(s.toastResetDone);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function initEvents() {
+      document.getElementById("langToggleBtn").addEventListener("click", toggleLanguage);
+      document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
+
+      document.getElementById("setLockModeToggle").addEventListener("change", (e) => {
+        appSettings.lockMenuAndData = e.target.checked;
+        saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+        applyLockStateUI();
+        showToast(appSettings.lockMenuAndData ? t().toastModeLocked : t().toastModeUnlocked);
+      });
+
+      document.getElementById("unlockFromBannerBtn").addEventListener("click", () => {
+        appSettings.lockMenuAndData = false;
+        saveJson(STORAGE_KEYS.SETTINGS, appSettings);
+        applyLockStateUI();
+        showToast(t().toastModeUnlocked);
+      });
+
+      document.getElementById("openSettingsBtn").addEventListener("click", openSettingsModal);
+      document.getElementById("closeSettingsModal").addEventListener("click", closeSettingsModal);
+      document.getElementById("settingsModal").addEventListener("click", (e) => {
+        if (e.target.id === "settingsModal") closeSettingsModal();
+      });
+      document.getElementById("setCurrencySelect").addEventListener("change", (e) => {
+        document.getElementById("khrRateRow").style.display = e.target.value === "KHR" ? "flex" : "none";
+      });
+
+      document.getElementById("setQrEnabledToggle").addEventListener("change", updateSettingsQrPreview);
+      document.getElementById("uploadQrBtn").addEventListener("click", () => {
+        document.getElementById("setQrFileInput").click();
+      });
+      document.getElementById("setQrFileInput").addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const maxDim = 420;
+            let w = img.width;
+            let h = img.height;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) {
+                h = Math.round((h * maxDim) / w);
+                w = maxDim;
+              } else {
+                w = Math.round((w * maxDim) / h);
+                h = maxDim;
+              }
+            }
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, w, h);
+            draftQrImageDataUrl = canvas.toDataURL("image/png", 0.9);
+            updateSettingsQrPreview();
+            showToast(t().toastQrUpdated);
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+        e.target.value = "";
+      });
+      document.getElementById("removeQrBtn").addEventListener("click", () => {
+        draftQrImageDataUrl = "";
+        updateSettingsQrPreview();
+        showToast(t().toastQrReset);
+      });
+
+      document.getElementById("saveSettingsBtn").addEventListener("click", saveAllSettings);
+      document.getElementById("exportDataBtn").addEventListener("click", exportBackupJson);
+      document.getElementById("resetAllDataBtn").addEventListener("click", resetAllAppData);
+
+      document.querySelectorAll("#tempFilterGroup .temp-pill").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const val = btn.dataset.filter;
+          if (val === "cart") {
+            switchTab("cart");
+          } else {
+            state.filter = val;
+            switchTab("all");
+          }
+        });
+      });
+
+      document.querySelectorAll(".nav-item").forEach((btn) => {
+        btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+      });
+
+      document.getElementById("confirmCartToOrderBtn").addEventListener("click", confirmCartToOrder);
+      document.getElementById("backToCartBtn").addEventListener("click", () => switchTab("cart"));
+
+      document.getElementById("resetChartBtn").addEventListener("click", () => {
+        dailyChartLog = {};
+        saveJson(STORAGE_KEYS.DAILY_CHART, dailyChartLog);
+        renderDailyChart();
+        showToast(t().toastChartCleared);
+      });
+
+      document.getElementById("closeRecipeModal").addEventListener("click", () => {
+        state.editingCartItemId = null;
+        document.getElementById("recipeModal").classList.remove("open");
+      });
+      document.getElementById("recipeModal").addEventListener("click", (e) => {
+        if (e.target.id === "recipeModal") {
+          state.editingCartItemId = null;
+          e.currentTarget.classList.remove("open");
+        }
+      });
+
+      document.querySelectorAll("#modalModeSwitchBar .mode-option-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.disabled || !state.activeRecipeId) return;
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (!recipe || !supportsTemp(recipe, btn.dataset.mode)) return;
+          state.activeMode = btn.dataset.mode;
+          renderModalVariantContent(recipe, state.activeMode);
+        });
+      });
+
+      document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#cupSizeGroup .seg-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.cupSize = btn.dataset.size;
+          const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+          if (recipe) {
+            renderModalIngredients(getActiveVariant(recipe, state.activeMode));
+          }
+        });
+      });
+
+      function applySweetnessChange(newPct) {
+        const clamped = Math.min(150, Math.max(0, parseInt(newPct, 10) || 0));
+        state.sweetPct = clamped;
+        updateSweetSliderUI();
+        const recipe = getAllRecipes().find((r) => r.id === state.activeRecipeId);
+        if (recipe) {
+          renderModalIngredients(getActiveVariant(recipe, state.activeMode));
+        }
+      }
+
+      document.getElementById("sweetRangeInput").addEventListener("input", (e) => {
+        applySweetnessChange(e.target.value);
+      });
+
+      document.querySelectorAll("#sweetPresetsRow .sweet-preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          applySweetnessChange(btn.dataset.sweet);
+        });
+      });
+
+      document.getElementById("modalAddOrderBtn").addEventListener("click", () => {
+        if (state.activeRecipeId) {
+          addToCart(
+            state.activeRecipeId,
+            state.activeMode,
+            state.cupSize,
+            1,
+            state.sweetPct,
+            state.tableNo,
+            state.editingCartItemId
+          );
+          state.editingCartItemId = null;
+          document.getElementById("recipeModal").classList.remove("open");
+        }
+      });
+
+      document.getElementById("cancelDoneBtn").addEventListener("click", closeConfirmDoneModal);
+      document.getElementById("acceptDoneBtn").addEventListener("click", acceptConfirmDone);
+      document.getElementById("confirmDoneModal").addEventListener("click", (e) => {
+        if (e.target.id === "confirmDoneModal") closeConfirmDoneModal();
+      });
+
+      document.getElementById("closeReceiptModal").addEventListener("click", closeReceiptModal);
+      document.getElementById("closeReceiptBtn").addEventListener("click", closeReceiptModal);
+      document.getElementById("clearTableBillBtn").addEventListener("click", clearActiveTableBill);
+      document.getElementById("receiptModal").addEventListener("click", (e) => {
+        if (e.target.id === "receiptModal") closeReceiptModal();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeConfirmDoneModal();
+          closeReceiptModal();
+          closeSettingsModal();
+          state.editingCartItemId = null;
+          document.getElementById("recipeModal").classList.remove("open");
+        }
+      });
+    }
+
+    initEvents();
+    applyStaticTranslations();
+    renderMenu();
+  </script>
+</body>
+</html>
